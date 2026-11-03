@@ -1,12 +1,19 @@
 # Setup
 
-As it actually stands on 2026-11-03: nothing is installed and the `.toe` is not in the repo yet.
+As it stands on 2026-11-03: TouchDesigner is installed. The project lives in `TD_Mapping/`,
+unzipped from the studio's export. `Studio_Up.toe` (December 2025) is the current file;
+`Backup/` is TouchDesigner's own autosave history. The source videos next to them are
+on disk but not in git.
 
-## Intended loop
+## The loop
 
-1. Install TouchDesigner (non-commercial license is free and runs on macOS).
-2. Put the `.toe` at the repo root.
-3. Run `td/dump_network.py` in the Textport. It writes the network as text into `td/`.
-4. Changes arrive as scripts in `td/`, run the same way. Commit the script and the fresh dump.
+1. Open `TD_Mapping/Studio_Up.toe` from this repo, so relative media paths resolve.
+2. In the Textport (Alt+T), run one line:
+   `exec(open('~/dev/studio_visuals/td/dump_network.py').read())`
+   It writes `td/network.json`, every operator with its non-default parameters and wiring.
+3. Changes arrive as scripts in `td/`, run with the same `exec` line. Commit the script and a
+   fresh dump together.
+4. Saving: `project.save('~/dev/studio_visuals/TD_Mapping/Studio_Up.toe')` in
+   the Textport. TouchDesigner's own Save writes `Studio_Up.2.toe` next to it instead.
 
-Steps 3 and 4 do not exist yet. They are the first thing to build once 1 and 2 are done.
+`docs/tech/network.md` is what the dump says the file does.

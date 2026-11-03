@@ -13,8 +13,7 @@ Python script in `td/`**, run inside TouchDesigner, and committed. The network i
 dump script that writes every operator, its parameters and its wiring to a text file in `td/`,
 which is what gets read and reviewed here. `docs/tech/setup.md` says how the loop runs.
 
-Status: TouchDesigner is not installed yet and the `.toe` is still being downloaded. Nothing in
-`td/` exists until both are here.
+The current file is `TD_Mapping/Studio_Up.toe`. `td/network.json` is its latest dump.
 
 ## How to work with me in this repo
 

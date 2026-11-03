@@ -6,3 +6,8 @@ __pycache__/
 Backup/
 CrashAutoSave.*
 *.dmp
+
+# The project folder as unzipped. Only the .toe files are tracked; 1.8 GB of source videos
+# stay on disk and out of git (open call in docs/tech/decisions.md).
+TD_Mapping/*
+!TD_Mapping/*.toe
