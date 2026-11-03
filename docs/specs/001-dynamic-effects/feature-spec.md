@@ -1,6 +1,6 @@
 # 001 Dynamic effects
 
-> DRAFT, 2026-11-03. Owner's brief, shaped into a plan. Open questions at the bottom.
+> Draft 2, 2026-11-03. Owner's brief, shaped into a plan, reviewed, questions answered.
 
 ## Why
 
@@ -22,11 +22,15 @@ Two Movie File In players, A and B. While one plays, the other has the next clip
 switch is instant. A Timer CHOP owns the clock and fires callbacks at the four moments of a
 clip change; the sequencer (Python in a Text DAT synced to `td/sequencer.py`, so the logic is
 a real file in the repo) only answers "which clip, which effects" at those moments. It
-replaces the Count CHOP and, if nothing else listens to it, the Touch In and Out loop.
+replaces the Count CHOP and the Touch In and Out loop (no second machine listens; owner,
+2026-11-03).
 
-Each clip plays for a bounded segment: the whole clip if it is shorter than a cap, otherwise a
-random window of the clip (cap and window are parameters, say 60 to 90 seconds). That is the
-answer to long clips.
+Each clip plays for a bounded segment: the whole clip if it is 60 s or shorter, otherwise a
+random 60 s window of it (the cap is a parameter). That is the answer to long clips.
+
+Playback speed is per clip, from the table: 0.75 by default, as the current file plays, and
+only lower (down to 0.65) for clips whose measured motion is high and whose frame rate is 25
+or above. Low frame rate clips stay at 0.75 or faster, since slowing them stutters.
 
 ### B. Two groups, two chains
 
@@ -60,14 +64,17 @@ Two families, all built from TOPs that ship with TouchDesigner:
   multiply the clip by its own inverted luma.
 - **Treatments**, picked otherwise, and sometimes stacked on a darkener. Feedback with a
   slow zoom or drift, displacement from a noise field, time echo from a cache, mirror or
-  tile, pixelate, slope or emboss, chroma offset, a per-group crop and mirror so the two
-  groups do not show the same framing.
+  tile, pixelate, slope or emboss, chroma offset.
+- **Framing**, one per group per segment, always on: a crop and offset so the two groups do
+  not show the same part of the clip, and a flip or 180 degree turn that varies per clip. The
+  flip lives in the chain, not on the mapper's per-strip orientation flags, which stay as
+  calibrated for how each strip hangs.
 
 The chooser decides per segment per group: is the segment bright (one or two darkeners,
 plus maybe one treatment) or not (one or two treatments), never the same selection for both
 groups. Brightness is precomputed offline by `td/clip_stats.py` with ffmpeg `signalstats`
-into `td/clips.json`: per clip its length and, per 10 second bucket, the mean and the high
-percentile of luma. The high percentile matters more than the mean here: a black clip with
+into `td/clips.json`: per clip its length, frame rate, a motion score, and, per 10 second
+bucket, the mean and the high percentile of luma. The high percentile matters more than the mean here: a black clip with
 one blown-out blob lights the room and has a low mean. The chooser reads the buckets under
 the chosen window. A clip missing from the table counts as bright, because new files land in
 `VJ_Visuals` without passing through the repo. The chooser also re-rolls the treatment every
@@ -76,7 +83,8 @@ N seconds inside a long segment, so a 90 second clip does not sit still.
 ### D. Teases and transitions
 
 The inner group switches to the next clip early. Timeline for one clip change, with the
-tease length T (say 10 s) and transition length t (2 to 3 s):
+tease length T drawn per change from 0 to 6 s, so it is not predictable, and transition
+length t (2 to 3 s):
 
 ```
 now                         end - T - t      end - T         end - t       end
@@ -101,10 +109,10 @@ measurement, except where it says otherwise.
   segment; both panels of a group read the same TOP.
 - AC-4: the inner group leads by T and each group transitions over t; inside every transition
   window no frame has mean below 0.001 and no frame hash repeats the previous one.
-- AC-5: a clip longer than the cap plays a window no longer than the cap, and the treatment
-  re-rolls at least once inside a 90 s segment.
-- AC-6: 30 fps on the M1 Max with the mapper on, measured in the perform window; a second
-  check on the show machine on site.
+- AC-5: a clip longer than 60 s plays a window of at most 60 s, and the treatment re-rolls at
+  least once inside a 60 s segment.
+- AC-6: 30 fps on this Mac with the mapper on, measured in the perform window. This Mac is
+  the show machine.
 - AC-7: everything is built by scripts in `td/` (SV-1); the only mapper write is the four
   `Texture` parameters (SV-2).
 
@@ -133,19 +141,15 @@ measurement, except where it says otherwise.
 - Risk: the look. Effects chosen at random can be ugly. The corpus starts small (about six
   darkeners, six treatments, three transitions) and each is checked on the preview before it
   joins the pool. Adding one later is one component and one line in the chooser.
-- Open: the free licence caps every TOP at 1280 x 1280, and the mapper renders 1920 x 1080.
-  The cost argument above assumes a licensed show machine. This is already an open call in
-  `docs/tech/decisions.md` and has to be answered before AC-6 means anything.
+- The show runs on this Mac on the free licence, which caps every TOP at 1280 x 1280. The
+  mapper's project resolution goes to 1280 x 720 so the cap is explicit rather than a silent
+  downscale (decision logged in `docs/tech/decisions.md`). The strip chains at 340 x 1080 are
+  under the cap. Cost is lower than the estimate above, not higher.
 
-## Open questions for the owner
+## Answers that shaped draft 2 (owner, 2026-11-03)
 
-1. Panel numbering: 1 to 4 is left to right as you face the wall, so outer = Rectangle5 and
-   Rectangle1? The preview window shows them in that order.
-2. Does a second machine listen to the Touch Out, or can the loop go?
-3. The show machine: this Mac, or the Windows box, and which licence?
-4. Clip windows: cap long clips at 60 to 90 s with a random start, or always play whole?
-5. Same clip on both groups for most of the cycle with a 10 s tease (as written), or two
-   independent streams that only sometimes align?
-6. The 0.75 playback speed in the current file: keep it?
-7. "Orientations become boring": is that the same framing on all four, which per-group crop
-   and mirror would answer, or something else?
+Panels are numbered left to right facing the wall. No second machine, the Touch loop goes.
+This Mac, free licence, is the show machine. Long clips: a random window, at most 60 s. Same
+clip on both groups, with a tease of random length 0 to 6 s. Speed 0.75 unless measurable
+per clip, worried about low frame rate clips, so speed comes from the table. "Orientations"
+meant both the same framing on every strip and the fixed flips, so framing is a treatment.
