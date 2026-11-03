@@ -263,8 +263,9 @@ def build():
 
     players = {}
     for name in ("A", "B"):
-        players[name] = mk(fx, moviefileinTOP, "player" + name, play=False, interp=True, prereadframes=30,
-                           cuepointunit="seconds")
+        # sequential: play and cue mean something; the default follows the 20 s timeline loop
+        players[name] = mk(fx, moviefileinTOP, "player" + name, playmode="sequential", play=False, interp=True,
+                           prereadframes=30, cuepointunit="seconds", hwdecode=False)
 
     for g in STRIPS:
         cur = mk(fx, switchTOP, "cur_" + g, players["A"], players["B"], index=0)
