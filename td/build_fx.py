@@ -134,7 +134,7 @@ def fx_selfmask(b, src):
 
 def fx_feedback(b, src):
     out = mk(b, nullTOP, "fb_out")
-    fb = mk(b, feedbackTOP, "fb", top="fb_out")
+    fb = mk(b, feedbackTOP, "fb", src, top="fb_out")  # input is the first frame, top the loop
     t = mk(b, transformTOP, "xform", fb, sx="=parent().par.Zoom", sy="=parent().par.Zoom", rotate="=parent().par.Rotate")
     lv = mk(b, levelTOP, "decay", t, brightness1="=parent().par.Decay")
     cr = mk(b, crossTOP, "cross", src, lv, cross="=parent().par.Mix * parent().par.Enable")
@@ -213,7 +213,7 @@ def build_xfade(fx, g):
               uniname0="uProgress", value0x="=parent().par.Progress", uniname1="uType", value1x="=parent().par.Type")
     # smear: the outgoing picture feeds back and dissolves under the incoming one
     smear_out = mk(x, nullTOP, "smear_out")
-    fb = mk(x, feedbackTOP, "smear_fb", top="smear_out")
+    fb = mk(x, feedbackTOP, "smear_fb", cur, top="smear_out")
     z = mk(x, transformTOP, "smear_zoom", fb, sx=1.015, sy=1.015)
     d = mk(x, levelTOP, "smear_decay", z, brightness1=0.94)
     base = mk(x, crossTOP, "smear_base", cur, d, cross="=parent().par.Progress")
@@ -296,7 +296,8 @@ def build():
         mk(fx, timerCHOP, name, lengthunits="seconds", length=10, callbacks="timers_callbacks")
     mk(fx, timerCHOP, "t_reroll", lengthunits="seconds", length=20, cycle=True, cyclelimit=False, callbacks="timers_callbacks")
     for g in STRIPS:
-        setp(fx.op("xfade_" + g), Progress=f"=op('../tx_{g}')['timer_fraction']")
+        # a relative path on a COMP's own parameter resolves from its parent, so absolute
+        setp(fx.op("xfade_" + g), Progress=f"=op('/project1/fx/tx_{g}')['timer_fraction']")
 
     ex = mk(fx, executeDAT, "run", start=True)
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
