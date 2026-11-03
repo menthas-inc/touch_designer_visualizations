@@ -11,3 +11,5 @@ CrashAutoSave.*
 # stay on disk and out of git (open call in docs/tech/decisions.md).
 TD_Mapping/*
 !TD_Mapping/*.toe
+# TouchDesigner's incremented saves (Studio_Up_new.1.toe). Save by name from the Textport.
+TD_Mapping/*.[0-9]*.toe

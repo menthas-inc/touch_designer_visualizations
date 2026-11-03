@@ -1,8 +1,8 @@
 # The network, as read from td/network.json
 
 > What the file does, operator by operator, so the next change does not start from a dump.
-> Re-read the dump before trusting a value here. Last read: 2026-11-03, 5453 operators, of
-> which 5379 are inside Kantan Mapper and 74 are ours.
+> Re-read the dump before trusting a value here. Last read: 2026-11-03 from `Studio_Up_new.toe`,
+> 5453 operators, of which 5379 are inside Kantan Mapper and 74 are ours.
 
 ## The picture
 
@@ -100,8 +100,7 @@ hanging strips, where the paper is foreshortened. **Which band is which physical
 way is up on each, is not in the file. Ask.** Rectangle3 and 6 are leftovers.
 
 The "was constant1" column is the state the file arrived in: all four strips on the orange
-Constant TOP, the alignment colour. `td/map_video.py` set them to `switch1`. That is a session
-change until the file is saved.
+Constant TOP, the alignment colour. `td/map_video.py` set them to `switch1`, saved in `Studio_Up_new.toe`.
 
 ### Driving Kantan from a script
 

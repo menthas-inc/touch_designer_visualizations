@@ -12,7 +12,12 @@ import os
 
 SKIP_TOP = {"ui", "sys", "local"}
 MAX_DAT_CHARS = 200000  # the Kantan extensions are 600 lines; 20000 cut them short
-OUT = os.path.normpath(os.path.join(project.folder, "..", "td", "network.json"))
+OUT = "~/dev/studio_visuals/td/network.json"
+
+# Scripts exec'd in the Textport share its globals, so a stray `project = ...` in one of them
+# hides TouchDesigner's own `project` for every later one. Undo that before using it.
+if not hasattr(project, "folder"):
+    del project
 
 
 def par_record(p):
