@@ -225,36 +225,55 @@ def _apply(group, sel):
         b = chain.op(name)
         for k, v in vals.items():
             getattr(b.par, k).val = v
-    _debug(group, sel)
 
 
-def debug_lines(group, sel, player, key, plan, stats):
-    """What the overlay shows. Pure, so it is testable."""
-    name = os.path.basename(key or "none")
-    lines = [f"{group} <- player {player}  {name[:28]}",
-             f"start {plan['start']:.0f}s  play {plan['length']:.0f}s  tease {plan['tease']:.1f}  xfade {plan['xfade']:.1f}  speed {plan['speed']}",
-             f"mean {stats['mean']:.2f}  high {stats['high']:.2f}  {'BRIGHT' if is_bright(stats) else 'dark'}"]
-    for n in ORDER:
-        v = sel.get(n, {})
-        if v.get("Enable"):
-            pars = "  ".join(f"{k} {x}" for k, x in v.items() if k != "Enable")
-            lines.append(f"{n}: {pars}")
-    return lines
+# ---------------------------------------------------------------- hold mode: step through by hand
+NEUTRAL_FRAMING = {"Enable": 1, "Zoom": 1.0, "Tx": 0.0, "Ty": 0.0, "Flipx": 0, "Flipy": 0}
 
 
-def _debug(group, sel):
+def held_selection(name, params):
+    """Only `name` on, with `params`, over a neutral framing. Pure."""
+    sel = {n: {"Enable": 0} for n in CORPUS}
+    sel["framing"] = dict(NEUTRAL_FRAMING)
+    sel[name] = {"Enable": 1, **params}
+    if name == "framing":
+        sel["framing"] = {"Enable": 1, **params}
+    return sel
+
+
+def _hold_apply(st, name=None, fresh=False):
+    fx = _fx()
+    held = st.setdefault("held", {})
+    name = name or held.get("name") or ORDER[1]
+    if fresh or held.get("name") != name:
+        held["name"] = name
+        held["params"] = params_for(name, _rng(st))
+    sel = held_selection(name, held["params"])
+    for g in GROUPS:
+        st["sel"][g] = sel
+        _apply(g, sel)
+    fx.par.Effect = name
+    print("try:", name, "  ".join(f"{k} {v}" for k, v in held["params"].items()))
+
+
+def on_try(par_name):
+    """A control on the Try page changed."""
     st = _state()
     fx = _fx()
-    # which player this group is looking at: the one it is transitioning to, or the current
-    player = OTHER[st["player"]] if fx.op("xfade_" + group).par.Active else st["player"]
-    if player not in st["plan"]:
-        player = st["player"]
-    key = st["clip"].get(player)
-    plan = st["plan"].get(player)
-    if not plan:
+    if par_name == "Hold":
+        if fx.par.Hold:
+            _hold_apply(st, str(fx.par.Effect))
         return
-    stats = window_stats(_table().get(key), plan["start"], plan["window"])
-    fx.op("debug_" + group).text = "\n".join(debug_lines(group, sel, player, key, plan, stats))
+    if not fx.par.Hold:
+        return
+    if par_name == "Effect":
+        _hold_apply(st, str(fx.par.Effect))
+    elif par_name in ("Nexteffect", "Preveffect"):
+        i = ORDER.index(st.get("held", {}).get("name", ORDER[1]))
+        step = 1 if par_name == "Nexteffect" else -1
+        _hold_apply(st, ORDER[(i + step) % len(ORDER)])
+    elif par_name == "Reroll":
+        _hold_apply(st, fresh=True)
 
 
 def _cue(player, key, plan):
@@ -295,11 +314,13 @@ def _start_xfade(st, group):
     """The group starts its transition to the other player: new look, random transition."""
     fx = _fx()
     nxt = OTHER[st["player"]]
-    sel = _selection_for(st, nxt, group)
-    st["sel"][group] = sel
-    _apply(group, sel)
+    if not fx.par.Hold:
+        sel = _selection_for(st, nxt, group)
+        st["sel"][group] = sel
+        _apply(group, sel)
     x = fx.op("xfade_" + group)
-    x.par.Type = _rng(st).randrange(XFADE_TYPES)
+    forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one
+    x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)
     x.op("smear_fb").par.resetpulse.pulse()
     fx.op("nxt_" + group).par.index = 0 if nxt == "A" else 1
     fx.op("player" + nxt).par.cue = False  # it was cued at the segment start; now it plays
@@ -329,6 +350,8 @@ def start():
     for g in GROUPS:
         st["sel"][g] = _selection_for(st, first, g)
         _apply(g, st["sel"][g])
+    if fx.par.Hold:
+        _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)
 
 
@@ -369,6 +392,8 @@ def on_done(timer_name):
 
 def on_reroll():
     st = _state()
+    if _fx().par.Hold:
+        return
     for g in GROUPS:
         if st["sel"].get(g):
             st["sel"][g] = reroll(st["sel"][g], _rng(st))

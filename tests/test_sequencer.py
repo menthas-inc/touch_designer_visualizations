@@ -52,13 +52,15 @@ class ChooseTest(unittest.TestCase):
         self.assertEqual(out["framing"], sel["framing"])
 
 
-class DebugTest(unittest.TestCase):
-    def test_lists_only_enabled_effects(self):
-        sel = sq.choose(BRIGHT, random.Random(9))
-        plan = sq.plan_segment(clip(30.0), random.Random(9))
-        lines = sq.debug_lines("outer", sel, "A", "VJ_Visuals/x.mp4", plan, BRIGHT)
-        self.assertIn("BRIGHT", lines[2])
-        self.assertEqual(len(lines), 3 + len(sq.enabled(sel)))
+class HoldTest(unittest.TestCase):
+    def test_held_selection_is_one_effect_over_neutral_framing(self):
+        sel = sq.held_selection("crush", {"Gamma": 2.0, "Black": 0.1})
+        self.assertEqual(sq.enabled(sel), {"framing", "crush"})
+        self.assertEqual(sel["framing"]["Zoom"], 1.0)
+        self.assertEqual(sel["crush"]["Gamma"], 2.0)
+        sel = sq.held_selection("framing", {"Zoom": 1.3, "Tx": 0, "Ty": 0, "Flipx": 1, "Flipy": 0})
+        self.assertEqual(sq.enabled(sel), {"framing"})
+        self.assertEqual(sel["framing"]["Flipx"], 1)
 
 
 class PlanTest(unittest.TestCase):

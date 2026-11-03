@@ -235,7 +235,19 @@ def build():
     fx = proj.create(baseCOMP, "fx")
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
-           Cap=60.0, Rerollevery=20.0, Seed=0, Debug=True)
+           Cap=60.0, Rerollevery=20.0, Seed=0)
+    # the Try page: hold the random choosing and step through effects by hand
+    tp = fx.appendCustomPage("Try")
+    tp.appendToggle("Hold", label="Hold (no random choosing)")
+    eff = tp.appendMenu("Effect", label="Effect")[0]
+    eff.menuNames = ORDER
+    eff.menuLabels = ORDER
+    tp.appendPulse("Preveffect", label="Prev effect")
+    tp.appendPulse("Nexteffect", label="Next effect")
+    tp.appendPulse("Reroll", label="Reroll values")
+    xt = tp.appendMenu("Xfadetype", label="Transition")[0]
+    xt.menuNames = ["random", "melt", "displace", "smear"]
+    xt.menuLabels = xt.menuNames
 
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)
 
@@ -268,15 +280,7 @@ def build():
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
         wire(chain, x)
-        # debug overlay, bottom left: the sequencer writes debug_<g>, the Text TOP shows it
-        dbg = mk(fx, textDAT, "debug_" + g)
-        dbg.text = g
-        txt = mk(fx, textTOP, "dbgtext_" + g, text=f"=op('debug_{g}').text", outputresolution="custom",
-                 resolutionw=W, resolutionh=H, fontsizex=15, alignx="left", aligny="bottom", bgalpha=0.0,
-                 fontcolorr=1.0, fontcolorg=0.8, fontcolorb=0.2)
-        over = mk(fx, compositeTOP, "dbgover_" + g, chain, txt, operand="over")
-        shown = mk(fx, switchTOP, "dbgsw_" + g, chain, over, index="=int(parent().par.Debug)")
-        mk(fx, nullTOP, "out_" + g, shown)
+        mk(fx, nullTOP, "out_" + g, chain)
 
     # timers: one per event, in seconds, all sharing one callbacks DAT
     cb = mk(fx, textDAT, "timers_callbacks")
@@ -296,6 +300,18 @@ def build():
 
     ex = mk(fx, executeDAT, "run", start=True)
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
+
+    # the Try page's controls reach the sequencer through a Parameter Execute DAT
+    px = mk(fx, parameterexecuteDAT, "try_pars", op="..", pars="Hold Effect Preveffect Nexteffect Reroll Xfadetype",
+            valuechange=True, onpulse=True)
+    px.text = (
+        "def onValueChange(par, prev):\n"
+        "    op('sequencer').module.on_try(par.name)\n"
+        "    return\n\n"
+        "def onPulse(par):\n"
+        "    op('sequencer').module.on_try(par.name)\n"
+        "    return\n"
+    )
 
     # the mapper: four textures, one dangling reference cleared
     shapes = "/project1/kantanMapper1/project/allShapes/"
