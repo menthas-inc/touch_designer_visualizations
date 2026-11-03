@@ -90,11 +90,12 @@ def fx_framing(b, src):
 
 
 def fx_keepchannel(b, src):
-    # Mode 0 keeps red, 1 green, 2 blue; the other two channels go to zero.
+    # Channel Mix: red1..red4 are output red's weights from input r, g, b, a, and so on.
+    # Mode 0 keeps red, 1 green, 2 blue; the other two outputs go to zero.
     pars = {}
-    for i, c in enumerate("rgb"):
-        for j, d in enumerate("rgb"):
-            pars[f"{ {'r':'red','g':'green','b':'blue'}[c] }{d}"] = f"=1 if (int(parent().par.Mode) == {i} and {i} == {j}) else 0"
+    for i, c in enumerate(("red", "green", "blue")):
+        for j in range(1, 4):
+            pars[f"{c}{j}"] = f"=1 if (int(parent().par.Mode) == {i} and {j} == {i + 1}) else 0"
     return mk(b, channelmixTOP, "mix", src, **pars)
 
 
@@ -154,7 +155,8 @@ def fx_echo(b, src):
 
 
 def fx_mirror(b, src):
-    return mk(b, mirrorTOP, "mirror", src, axis="=int(parent().par.Mode)")
+    # Mode 0 mirrors across x, 1 across y, 2 both
+    return mk(b, mirrorTOP, "mirror", src, flipx="=int(parent().par.Mode) in (0, 2)", flipy="=int(parent().par.Mode) in (1, 2)")
 
 
 def fx_pixelate(b, src):
@@ -171,8 +173,10 @@ def fx_slope(b, src):
 def fx_chroma(b, src):
     left = mk(b, transformTOP, "left", src, tx="=-parent().par.Shift", extend="mirror")
     right = mk(b, transformTOP, "right", src, tx="=parent().par.Shift", extend="mirror")
-    only = lambda name, s, ch: mk(b, channelmixTOP, name, s, **{f"{c}{d}": (1 if (c == ch and d == ch[0]) else 0)
-                                  for c in ("red", "green", "blue") for d in "rgb"})
+    def only(name, s, keep):  # output channel `keep` from its own input channel, the other two zero
+        pars = {f"{c}{j}": (1 if (c == keep and j == i + 1) else 0)
+                for i, c in enumerate(("red", "green", "blue")) for j in range(1, 4)}
+        return mk(b, channelmixTOP, name, s, **pars)
     r = only("onlyr", left, "red")
     g = only("onlyg", src, "green")
     bl = only("onlyb", right, "blue")
