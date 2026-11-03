@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.log
+
+# TouchDesigner writes these next to the .toe on every save and crash.
+Backup/
+CrashAutoSave.*
+*.dmp
