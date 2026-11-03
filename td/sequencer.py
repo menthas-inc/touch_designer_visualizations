@@ -225,6 +225,36 @@ def _apply(group, sel):
         b = chain.op(name)
         for k, v in vals.items():
             getattr(b.par, k).val = v
+    _debug(group, sel)
+
+
+def debug_lines(group, sel, player, key, plan, stats):
+    """What the overlay shows. Pure, so it is testable."""
+    name = os.path.basename(key or "none")
+    lines = [f"{group} <- player {player}  {name[:28]}",
+             f"start {plan['start']:.0f}s  play {plan['length']:.0f}s  tease {plan['tease']:.1f}  xfade {plan['xfade']:.1f}  speed {plan['speed']}",
+             f"mean {stats['mean']:.2f}  high {stats['high']:.2f}  {'BRIGHT' if is_bright(stats) else 'dark'}"]
+    for n in ORDER:
+        v = sel.get(n, {})
+        if v.get("Enable"):
+            pars = "  ".join(f"{k} {x}" for k, x in v.items() if k != "Enable")
+            lines.append(f"{n}: {pars}")
+    return lines
+
+
+def _debug(group, sel):
+    st = _state()
+    fx = _fx()
+    # which player this group is looking at: the one it is transitioning to, or the current
+    player = OTHER[st["player"]] if fx.op("xfade_" + group).par.Active else st["player"]
+    if player not in st["plan"]:
+        player = st["player"]
+    key = st["clip"].get(player)
+    plan = st["plan"].get(player)
+    if not plan:
+        return
+    stats = window_stats(_table().get(key), plan["start"], plan["window"])
+    fx.op("debug_" + group).text = "\n".join(debug_lines(group, sel, player, key, plan, stats))
 
 
 def _cue(player, key, plan):

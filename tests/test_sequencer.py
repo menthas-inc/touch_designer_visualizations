@@ -52,6 +52,15 @@ class ChooseTest(unittest.TestCase):
         self.assertEqual(out["framing"], sel["framing"])
 
 
+class DebugTest(unittest.TestCase):
+    def test_lists_only_enabled_effects(self):
+        sel = sq.choose(BRIGHT, random.Random(9))
+        plan = sq.plan_segment(clip(30.0), random.Random(9))
+        lines = sq.debug_lines("outer", sel, "A", "VJ_Visuals/x.mp4", plan, BRIGHT)
+        self.assertIn("BRIGHT", lines[2])
+        self.assertEqual(len(lines), 3 + len(sq.enabled(sel)))
+
+
 class PlanTest(unittest.TestCase):
     def test_long_clip_gets_a_window_of_at_most_cap(self):
         rng = random.Random(4)

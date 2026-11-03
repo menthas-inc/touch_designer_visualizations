@@ -230,7 +230,7 @@ def build():
     fx = proj.create(baseCOMP, "fx")
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
-           Cap=60.0, Rerollevery=20.0, Seed=0)
+           Cap=60.0, Rerollevery=20.0, Seed=0, Debug=True)
 
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)
 
@@ -263,7 +263,15 @@ def build():
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
         wire(chain, x)
-        mk(fx, nullTOP, "out_" + g, chain)
+        # debug overlay, bottom left: the sequencer writes debug_<g>, the Text TOP shows it
+        dbg = mk(fx, textDAT, "debug_" + g)
+        dbg.text = g
+        txt = mk(fx, textTOP, "dbgtext_" + g, text=f"=op('debug_{g}').text", outputresolution="custom",
+                 resolutionw=W, resolutionh=H, fontsizex=15, alignx="left", aligny="bottom", bgalpha=0.0,
+                 fontcolorr=1.0, fontcolorg=0.8, fontcolorb=0.2)
+        over = mk(fx, compositeTOP, "dbgover_" + g, chain, txt, operand="over")
+        shown = mk(fx, switchTOP, "dbgsw_" + g, chain, over, index="=int(parent().par.Debug)")
+        mk(fx, nullTOP, "out_" + g, shown)
 
     # timers: one per event, in seconds, all sharing one callbacks DAT
     cb = mk(fx, textDAT, "timers_callbacks")
