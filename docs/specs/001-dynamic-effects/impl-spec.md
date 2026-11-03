@@ -44,45 +44,59 @@ Loaded into a Text DAT `/project1/fx/sequencer` synced to the file, so it is edi
 repo and importable in tests. Two layers:
 
 **Pure, tested.** No TouchDesigner names at module level.
-- `plan_segment(clip, rng, cap=60)`: window start and length; tease (coin flip, then 1 to 6 s);
-  transition length 2 to 3 s; speed from fps and motion; clamps so that `length >= tease +
-  2 * transition + 4`.
+- `plan_segment(clip, rng, cap=60, lead=0)`: window start and length; tease (coin flip, then
+  1 to 6 s); transition length 2 to 3 s; speed from fps and motion. `lead` is how long the clip
+  has already played when it becomes both groups' picture (the previous change's tease plus
+  transition), so the play before the next change is `length - tease - xfade`, clamped to at
+  least `FLOOR` (6 s, the time the next clip has to cue) by shrinking the tease, then the
+  transition. A tease under a second becomes none.
 - `window_stats(clip, start, length)`: the buckets under the window, as mean and high.
 - `is_bright(stats)`: `high >= 0.55 or mean >= 0.30` (parameters on the fx container).
-- `choose(stats, rng, avoid=None)`: a selection dict `{effect: {enable, params}}` following
+- `choose(stats, rng, avoid=[...])`: a selection dict `{effect: {enable, params}}` following
   the spec: bright gives one or two darkeners plus maybe one treatment, dark gives one or two
-  treatments, framing always, never equal to `avoid`.
+  treatments, framing always, its enabled set different from every selection in `avoid` (the
+  group's previous one and the other group's current one).
 - `reroll(selection, rng)`: new params for the enabled non-stateful treatments only.
 - `Playlist`: the shuffled list with short clips twice, no clip twice in a row.
 
-**Glue, thin.** `Fx` class holding the TD ops, with `start()`, `on_segment_enter(seg)`,
-`on_done()`, `on_reroll()`, `on_xfade_done(group)`. It only sets parameters and pulses.
+**Glue, thin.** Module functions `start()`, `on_done(timer_name)`, `on_reroll()`, stateless:
+the mutable state (which player, clips, plans, selections, playlist queue, lead) is a plain
+dict in the fx container's storage, so a re-sync of the file mid-show loses nothing. They only
+set parameters and pulse.
 
 ### 3. `td/build_fx.py`, builds `/project1/fx`
 
 Run once; running again deletes and rebuilds `fx`. Inside:
 
-- `playerA`, `playerB`: Movie File In, `interp` on, `prereadframes` 30, `play` off until
-  cued. Resolution as decoded; the licence cap applies.
+- `playerA`, `playerB`: Movie File In, `interp` on, `prereadframes` 30. The idle one is cued
+  (file, cue point, `cue` on, `play` on) at the start of every segment, at least `FLOOR`
+  seconds before it is shown. Resolution as decoded; the licence cap applies.
 - Per group `g` in `outer`, `inner`:
   - `cur_g`, `nxt_g`: Switch TOPs over A and B, indices held by the sequencer.
-  - `xfade_g`: a Base with inputs `cur`, `nxt`, custom pars `Progress` and `Type` (melt,
-    displace, smear). Melt and displace are one GLSL TOP (`td/glsl/xfade.glsl`) with
-    uniforms `uProgress`, `uType`; smear is a Feedback TOP loop. A Switch on `Type`.
-  - `fit_g`: Fit TOP, 340 x 1080, fit outside. The cut the strips show.
+  - `fitcur_g`, `fitnxt_g`: Fit TOPs, 340 x 1080, fit outside, before the transition so the
+    shader sees two inputs of one size and runs at strip size.
+  - `xfade_g`: a Base with inputs `cur`, `nxt`, custom pars `Progress`, `Type` and `Active`.
+    Types 0 and 1 are one GLSL TOP (`td/glsl/xfade.glsl`, uniforms `uProgress`, `uType`),
+    type 2 is a Feedback TOP loop (`smear_fb`, target `smear_out`, `resetpulse` at each
+    start). A Switch on `Type`, then a Switch on `Active` that passes `cur` straight through
+    outside a transition, so the shader and the second cut only cook for 2 to 3 s per change.
   - the chain: Bases in this fixed order, each `in1`, a wet path, a Switch (index =
     `parent().par.Enable`), `out1`:
     `framing, keepchannel, highlights, crush, edges, tint, selfmask, feedback, displace,
-    echo, mirror, pixelate, slope, chroma`
-  - the limiter: `meas_g` Fit 40 x 40 from the chain, Analyze average, TOP to CHOP, Math
-    (luma), Expression `min(1, ceiling / max(x, 0.001))`, Lag 0.3 s, exported to a Level
-    TOP's brightness. `ceiling` is a par on `fx`, default 0.18.
+    echo, mirror, pixelate, slope, chroma`.
+    `feedback` and `echo` are the exception: no Switch, their own Cross at `Mix * Enable`,
+    so the loop keeps cooking and nothing pops when they come in.
+  - the limiter: a mono copy of the chain, Fit 40 x 40, Analyze average, TOP to CHOP, an
+    Expression CHOP `min(1, ceiling / max(x, 0.001))`, a Lag CHOP fast down (0.05 s) and slow
+    up (0.5 s), into a Level TOP's brightness. Feedforward, one-sided. `Ceiling` is a par on
+    `fx`, default 0.18.
   - `out_g`: Null TOP. The mapper's `Texture` for the group's two strips points here.
-- `segTimer`: Timer CHOP, segments from a table `segments` the sequencer rewrites per clip
-  (`play, inner_xfade, tease, outer_xfade`), callbacks in `segTimer_callbacks`.
-- `xfadeTimer_outer`, `xfadeTimer_inner`: Timer CHOPs of length t, `timer_fraction` drives
-  `xfade_g.par.Progress`, `onDone` flips the group's current player.
-- `rerollTimer`: cycling Timer, length `reroll_every` (par, default 20 s), `onCycle` rerolls.
+- Timers, all in seconds, one callbacks DAT: `t_inner` (length `L - T - t`) starts the inner
+  transition, `t_outer` (`L - t`) the outer, `tx_inner` and `tx_outer` (length `t`) drive
+  `Progress` with `timer_fraction` and on done flip the group's current player and re-initialise
+  so `Progress` reads 0 again; the outer one's done begins the next segment. `t_reroll` cycles
+  every `Rerollevery` seconds. No segments table: four plain timers are simpler to reason about
+  and cannot be re-initialised by a table edit mid-run.
 - Custom pars on `fx`: `Ceiling`, `Brightmean`, `Brighthigh`, `Cap`, `Rerollevery`, `Seed`.
 
 ### 4. What goes
@@ -91,10 +105,11 @@ Run once; running again deletes and rebuilds `fx`. Inside:
 `playlist_index`, `remaining`, `info`, `select2`, `math2`, `speed`, `chopto1`, `touchout1`,
 `touchin1`, `datto1`, `reset`, `reset_index`, `movie`, `switch2`, `moviefilein2`, `fit2`,
 `button1`, `mood_logo`, `moviefilein1`, and the old `fit`, `fit1`, `diff*`, `analyze*`,
-`topto*`, `math1`, `math3`, `invert*`, `switch`, `switch1`, `white`, `constant1`,
-`movie_null`. Deleted by `td/build_fx.py` after the new chain is wired, in one step, so the
-old file stays runnable until then. Rectangle6 keeps its `/project1/switch` texture reference
-and is hidden; it is left alone.
+`topto*`, `math1`, `math3`, `invert*`, `switch`, `switch1`, `white`, `movie_null`, and the
+callback DATs next to them. Deleted by `td/build_fx.py` at the end of the build, after the
+new chain is wired and started, so the file is never dark. `constant1` stays: it is the orange
+alignment colour to point a strip at when the paper is re-hung. Rectangle6's `Texture`, which
+pointed at the deleted `switch`, is cleared; it is hidden anyway.
 
 ### 5. Transitions
 
@@ -103,15 +118,16 @@ and is hidden; it is left alone.
   mix(cur, nxt, m)`.
 - displace: `out = mix(cur sampled at uv + (luma(nxt) - 0.5) * p * a, nxt sampled at uv +
   (luma(cur) - 0.5) * (1 - p) * a, smoothstep(0.2, 0.8, p))`, `a = 0.08`.
-Smear, TOPs: `fb = Feedback(out); z = Transform(fb, scale 1.015); d = Level(z, brightness
-0.94); base = Cross(cur, d, p); out = Cross(base, nxt, smoothstep(p))`; `fb.reset` pulsed at
-transition start.
+Smear, TOPs: `fb = Feedback(target smear_out); z = Transform(fb, scale 1.015); d = Level(z,
+brightness 0.94); base = Cross(cur, d, p); smear_out = Cross(base, nxt, smoothstep(p))`;
+`resetpulse` at transition start.
 
 ## Reuse and skips
 
 - Fit 340 x 1080 and the 40 x 40 Analyze: the file's own pattern, rebuilt in `fx` (rung 2).
 - Timer CHOP with segments and callbacks: platform (rung 3), instead of a hand-rolled clock.
-- ffmpeg signalstats: installed tool (rung 4), instead of measuring in TouchDesigner.
+- ffmpeg signalstats: installed tool (rung 4), instead of measuring in TouchDesigner. Luma at
+  one frame a second, motion at ten, both on a 160 px copy.
 - GLSL for two transitions: new code, 25 lines, because the melt needs a per-pixel compare
   and the displace needs two dependent samples; TOP-only versions need six ops each.
 - Skipped: audio, a UI, per-strip anything, Rectangle6 and 3, a second machine, effect

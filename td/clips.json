@@ -1,0 +1,1344 @@
+{
+ "VJ_Visuals/10000000_145417908227519_5268337627298839849_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.2,
+    "mean": 0.1045
+   },
+   {
+    "high": 0.3059,
+    "mean": 0.1211
+   },
+   {
+    "high": 0.2314,
+    "mean": 0.1175
+   }
+  ],
+  "fps": 30.0,
+  "length": 27.12,
+  "motion": 0.008
+ },
+ "VJ_Visuals/306038063_106583942133175_8665617795441835112_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.3529,
+    "mean": 0.1332
+   },
+   {
+    "high": 0.3451,
+    "mean": 0.1326
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.17,
+  "motion": 0.0614
+ },
+ "VJ_Visuals/306502356_202778025437617_5893241441307311236_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.251,
+    "mean": 0.1392
+   },
+   {
+    "high": 0.1765,
+    "mean": 0.1141
+   },
+   {
+    "high": 0.1216,
+    "mean": 0.0864
+   }
+  ],
+  "fps": 30.0,
+  "length": 24.01,
+  "motion": 0.0079
+ },
+ "VJ_Visuals/312489846_667697894760507_5115618673255355587_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.6235,
+    "mean": 0.209
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.0,
+  "motion": 0.0339
+ },
+ "VJ_Visuals/313298745_673571260744561_2831706806569604092_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.9373,
+    "mean": 0.6941
+   },
+   {
+    "high": 0.9373,
+    "mean": 0.6764
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.0,
+  "motion": 0.1914
+ },
+ "VJ_Visuals/313983496_173746441982443_4261409529814050521_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.8314,
+    "mean": 0.2845
+   },
+   {
+    "high": 0.5569,
+    "mean": 0.2627
+   }
+  ],
+  "fps": 30.0,
+  "length": 20.03,
+  "motion": 0.067
+ },
+ "VJ_Visuals/316102952_113896274737655_7207353930469692269_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.2157,
+    "mean": 0.0981
+   },
+   {
+    "high": 0.2157,
+    "mean": 0.0983
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.2,
+  "motion": 0.0317
+ },
+ "VJ_Visuals/317704282_185215354090252_7672983059872382860_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.5647,
+    "mean": 0.2511
+   }
+  ],
+  "fps": 30.0,
+  "length": 9.93,
+  "motion": 0.0289
+ },
+ "VJ_Visuals/D244EB333374B20AC3A2CB737321B981_video_dashinit.mp4": {
+  "buckets": [
+   {
+    "high": 0.4235,
+    "mean": 0.1888
+   },
+   {
+    "high": 0.4235,
+    "mean": 0.1889
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.33,
+  "motion": 0.0088
+ },
+ "VJ_Visuals/Long/10000000_1180135995934144_2765163999944411557_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.4667,
+    "mean": 0.288
+   },
+   {
+    "high": 0.4824,
+    "mean": 0.3041
+   },
+   {
+    "high": 0.498,
+    "mean": 0.3168
+   },
+   {
+    "high": 0.4941,
+    "mean": 0.3033
+   },
+   {
+    "high": 0.4588,
+    "mean": 0.2878
+   },
+   {
+    "high": 0.4706,
+    "mean": 0.2763
+   }
+  ],
+  "fps": 30.0,
+  "length": 56.38,
+  "motion": 0.0231
+ },
+ "VJ_Visuals/Long/305549838_817489642587472_5683754876608151818_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.9255,
+    "mean": 0.7532
+   },
+   {
+    "high": 0.9373,
+    "mean": 0.7671
+   },
+   {
+    "high": 0.9373,
+    "mean": 0.7876
+   }
+  ],
+  "fps": 30.0,
+  "length": 30.0,
+  "motion": 0.0289
+ },
+ "VJ_Visuals/Long/Dirk_Koy_Attraction_2021.mp4": {
+  "buckets": [
+   {
+    "high": 0.5176,
+    "mean": 0.2052
+   },
+   {
+    "high": 0.5216,
+    "mean": 0.2067
+   },
+   {
+    "high": 0.5216,
+    "mean": 0.2083
+   },
+   {
+    "high": 0.5373,
+    "mean": 0.2114
+   },
+   {
+    "high": 0.5529,
+    "mean": 0.2176
+   },
+   {
+    "high": 0.5686,
+    "mean": 0.2207
+   },
+   {
+    "high": 0.5647,
+    "mean": 0.2202
+   }
+  ],
+  "fps": 25.0,
+  "length": 67.44,
+  "motion": 0.0096
+ },
+ "VJ_Visuals/Long/SaveInsta.App - 2996992319816061900_315217118.mp4": {
+  "buckets": [
+   {
+    "high": 0.4588,
+    "mean": 0.1565
+   },
+   {
+    "high": 0.4667,
+    "mean": 0.1761
+   },
+   {
+    "high": 0.451,
+    "mean": 0.1669
+   },
+   {
+    "high": 0.4824,
+    "mean": 0.1728
+   },
+   {
+    "high": 0.4824,
+    "mean": 0.1578
+   },
+   {
+    "high": 0.3451,
+    "mean": 0.1309
+   }
+  ],
+  "fps": 30.0,
+  "length": 51.41,
+  "motion": 0.0071
+ },
+ "VJ_Visuals/Long/SaveInsta.App - 3018769436202409544_16667055437.mp4": {
+  "buckets": [
+   {
+    "high": 0.451,
+    "mean": 0.1556
+   },
+   {
+    "high": 0.4275,
+    "mean": 0.1305
+   },
+   {
+    "high": 0.2784,
+    "mean": 0.1138
+   },
+   {
+    "high": 0.5176,
+    "mean": 0.1647
+   },
+   {
+    "high": 0.3804,
+    "mean": 0.1655
+   }
+  ],
+  "fps": 30.0,
+  "length": 45.03,
+  "motion": 0.0145
+ },
+ "VJ_Visuals/Long/SaveInsta.App - 3056294395614643329.mp4": {
+  "buckets": [
+   {
+    "high": 0.549,
+    "mean": 0.1926
+   },
+   {
+    "high": 0.5686,
+    "mean": 0.1901
+   },
+   {
+    "high": 0.5451,
+    "mean": 0.1991
+   },
+   {
+    "high": 0.549,
+    "mean": 0.191
+   },
+   {
+    "high": 0.5333,
+    "mean": 0.1861
+   },
+   {
+    "high": 0.5412,
+    "mean": 0.1854
+   }
+  ],
+  "fps": 30.0,
+  "length": 58.63,
+  "motion": 0.0301
+ },
+ "VJ_Visuals/Long/SaveInsta.App - 3057146435679861197_213577409.mp4": {
+  "buckets": [
+   {
+    "high": 0.549,
+    "mean": 0.3425
+   },
+   {
+    "high": 0.5412,
+    "mean": 0.3388
+   },
+   {
+    "high": 0.5412,
+    "mean": 0.3377
+   },
+   {
+    "high": 0.5451,
+    "mean": 0.2598
+   }
+  ],
+  "fps": 30.0,
+  "length": 35.8,
+  "motion": 0.0015
+ },
+ "VJ_Visuals/Long/SaveInsta.App - 3067709262970848455_49358541169.mp4": {
+  "buckets": [
+   {
+    "high": 0.7412,
+    "mean": 0.4327
+   },
+   {
+    "high": 0.7412,
+    "mean": 0.4345
+   },
+   {
+    "high": 0.7373,
+    "mean": 0.432
+   },
+   {
+    "high": 0.7373,
+    "mean": 0.4059
+   }
+  ],
+  "fps": 30.0,
+  "length": 39.75,
+  "motion": 0.0086
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQMI-oq0f60eLOgUhO3_z0p9uN1hY0asACOfkRxjiKuRzvxEaKgIX2OX6OPCJsLUbTh92oXiMMcAZITQagZR7Kdd489Eew91km_EaSk.mp4": {
+  "buckets": [
+   {
+    "high": 0.7922,
+    "mean": 0.4078
+   },
+   {
+    "high": 0.8353,
+    "mean": 0.4166
+   },
+   {
+    "high": 0.8118,
+    "mean": 0.4096
+   },
+   {
+    "high": 0.8196,
+    "mean": 0.4115
+   }
+  ],
+  "fps": 30.0,
+  "length": 33.48,
+  "motion": 0.072
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQMlhs_1HOv0iOHhKqQC4roj3X_TrRj_2QdGPM5RhaPqzthz0UY9REJVDPSuQZ6KKg9jWA9MtbY5jqm-8AkBckyp.mp4": {
+  "buckets": [
+   {
+    "high": 0.8745,
+    "mean": 0.3764
+   },
+   {
+    "high": 0.7529,
+    "mean": 0.3131
+   },
+   {
+    "high": 0.8706,
+    "mean": 0.3243
+   },
+   {
+    "high": 0.8588,
+    "mean": 0.4342
+   },
+   {
+    "high": 0.8667,
+    "mean": 0.3909
+   },
+   {
+    "high": 0.0627,
+    "mean": 0.0707
+   }
+  ],
+  "fps": 30.0,
+  "length": 51.45,
+  "motion": 0.1856
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQN-sqglZ1pnnN1_81VQo3uQF0LqSahYulPU-UF_eQYH-0cE4GD1cfdY1eAafbreK4hdwiowaa2ZREn8C8mhSs3_2avTviXwyZas5B0.mp4": {
+  "buckets": [
+   {
+    "high": 0.749,
+    "mean": 0.558
+   },
+   {
+    "high": 0.749,
+    "mean": 0.6189
+   },
+   {
+    "high": 0.749,
+    "mean": 0.5555
+   },
+   {
+    "high": 0.749,
+    "mean": 0.6333
+   }
+  ],
+  "fps": 30.0,
+  "length": 32.92,
+  "motion": 0.0484
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQNfi9BbecdN4GTDsT5c1GaAdsKBpTUbzEBNO73CzLchMKSh1TLMTEr0soBrfvIStBySIPoLWhV5PCWNM8lFwT_wtcQTgSLTq77TPVw.mp4": {
+  "buckets": [
+   {
+    "high": 0.5961,
+    "mean": 0.4344
+   },
+   {
+    "high": 0.6039,
+    "mean": 0.4532
+   },
+   {
+    "high": 0.6196,
+    "mean": 0.4674
+   },
+   {
+    "high": 0.6275,
+    "mean": 0.4751
+   }
+  ],
+  "fps": 30.0,
+  "length": 40.07,
+  "motion": 0.0061
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQNwL9VpPF0AeGSDY8xa_7A0dGc9NEq08ZQqXml0VAcjXrWWSFiyw-t1TOIvvo9_lAQWhfsGXis74Kpbaoqp6R19.mp4": {
+  "buckets": [
+   {
+    "high": 0.7961,
+    "mean": 0.4789
+   },
+   {
+    "high": 0.8157,
+    "mean": 0.5172
+   },
+   {
+    "high": 0.8157,
+    "mean": 0.5338
+   }
+  ],
+  "fps": 30.0,
+  "length": 30.09,
+  "motion": 0.0229
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQO3zMlB9tcps8UHxHnxR1x-CG_6NBXL4id0wYNKbJmZzoihHJMqw8fGYNx6nMr_Ta5LPFLVa8XkrTBFmHbph7Pfky49kAoNxNer7zI.mp4": {
+  "buckets": [
+   {
+    "high": 0.5529,
+    "mean": 0.1619
+   },
+   {
+    "high": 0.5373,
+    "mean": 0.1821
+   },
+   {
+    "high": 0.5216,
+    "mean": 0.1681
+   },
+   {
+    "high": 0.549,
+    "mean": 0.1885
+   }
+  ],
+  "fps": 30.0,
+  "length": 33.3,
+  "motion": 0.0168
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQOIANgUXMetTh1PD3cRjMYKF112BSL4YdqhJbLw2D7S-9HjfUtvXsi5oYWctjKj6hpTR0rXEZSCzT0oLNy9RKF37r97iMCkW9a5RTI.mp4": {
+  "buckets": [
+   {
+    "high": 0.0627,
+    "mean": 0.0772
+   },
+   {
+    "high": 0.0824,
+    "mean": 0.0751
+   },
+   {
+    "high": 0.0824,
+    "mean": 0.0765
+   },
+   {
+    "high": 0.0824,
+    "mean": 0.0763
+   },
+   {
+    "high": 0.1059,
+    "mean": 0.073
+   },
+   {
+    "high": 0.0627,
+    "mean": 0.0631
+   }
+  ],
+  "fps": 30.0,
+  "length": 54.19,
+  "motion": 0.007
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQOm2T6P7O7WVQFLDLzKmgtQKPlnHj6Hb5YPQRyvd1fgBoqeVGs8A5Qr4t0bMHxmcTpF-IblkAK2uD8UZHeq3yzaIoKjsN32eXPOAKg.mp4": {
+  "buckets": [
+   {
+    "high": 0.6588,
+    "mean": 0.2685
+   },
+   {
+    "high": 0.6588,
+    "mean": 0.2696
+   },
+   {
+    "high": 0.6588,
+    "mean": 0.2702
+   }
+  ],
+  "fps": 30.0,
+  "length": 30.0,
+  "motion": 0.1936
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQP3NqGD6z_OLAqDdM3dhR0Q0lfx423bdOueQA74IO9k5rNV0q3GTH_BENh8ugl9BKbyzOHlzGjNFugSqqXsY3Sh.mp4": {
+  "buckets": [
+   {
+    "high": 0.4902,
+    "mean": 0.2271
+   },
+   {
+    "high": 0.4745,
+    "mean": 0.2236
+   },
+   {
+    "high": 0.4824,
+    "mean": 0.2253
+   },
+   {
+    "high": 0.4863,
+    "mean": 0.2313
+   },
+   {
+    "high": 0.4706,
+    "mean": 0.2246
+   }
+  ],
+  "fps": 30.0,
+  "length": 42.33,
+  "motion": 0.0087
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQP9sK4PrJ_Hhy-eubbTMN95vpWnBeVE9ZsBXdmzCNIx4h507I0E9gZPy5NCLEFtZx6MQeYpXbWL-rRmaSre3T2f.mp4": {
+  "buckets": [
+   {
+    "high": 0.2941,
+    "mean": 0.1776
+   },
+   {
+    "high": 0.298,
+    "mean": 0.1772
+   },
+   {
+    "high": 0.298,
+    "mean": 0.1775
+   },
+   {
+    "high": 0.298,
+    "mean": 0.1773
+   },
+   {
+    "high": 0.298,
+    "mean": 0.177
+   },
+   {
+    "high": 0.298,
+    "mean": 0.1769
+   }
+  ],
+  "fps": 30.0,
+  "length": 58.93,
+  "motion": 0.0303
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQPEsL8LGar_m2KUFxabW5D36OUQxgbvzontU_zjoJbBU68g_d7nZLCkasPEX1suyNxHdSkD8M2DWRzcPsQbB74a3ObPXkQsfvp4juU.mp4": {
+  "buckets": [
+   {
+    "high": 0.7137,
+    "mean": 0.5529
+   },
+   {
+    "high": 0.7255,
+    "mean": 0.5006
+   },
+   {
+    "high": 0.7608,
+    "mean": 0.5627
+   },
+   {
+    "high": 0.6784,
+    "mean": 0.3874
+   }
+  ],
+  "fps": 30.0,
+  "length": 33.25,
+  "motion": 0.016
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_AQPWd1Yk_SkhovDtNfDF90cUf8Tx4I1f55xzkz_9tFRlgR57Ys65AZH2CUdJzJBlY0bw5ViV4IGL6JqJxSO-Bib72lTIe-saI6XZr8g.mp4": {
+  "buckets": [
+   {
+    "high": 0.6471,
+    "mean": 0.4728
+   },
+   {
+    "high": 0.651,
+    "mean": 0.4988
+   },
+   {
+    "high": 0.6941,
+    "mean": 0.5368
+   },
+   {
+    "high": 0.6588,
+    "mean": 0.4898
+   },
+   {
+    "high": 0.6667,
+    "mean": 0.4974
+   },
+   {
+    "high": 0.6667,
+    "mean": 0.5181
+   },
+   {
+    "high": 0.6353,
+    "mean": 0.4753
+   }
+  ],
+  "fps": 30.0,
+  "length": 62.32,
+  "motion": 0.0594
+ },
+ "VJ_Visuals/Long/Snapinsta.app_video_B0485C86D110ED9CD967BBA0D4782BBD_video_dashinit.mp4": {
+  "buckets": [
+   {
+    "high": 0.6784,
+    "mean": 0.3834
+   },
+   {
+    "high": 0.6824,
+    "mean": 0.384
+   },
+   {
+    "high": 0.6863,
+    "mean": 0.3828
+   }
+  ],
+  "fps": 30.0,
+  "length": 30.3,
+  "motion": 0.0529
+ },
+ "VJ_Visuals/Long_Acid_1.mp4": {
+  "buckets": [
+   {
+    "high": 0.5647,
+    "mean": 0.2828
+   },
+   {
+    "high": 0.5765,
+    "mean": 0.2797
+   },
+   {
+    "high": 0.4863,
+    "mean": 0.2553
+   }
+  ],
+  "fps": 50.0,
+  "length": 22.1,
+  "motion": 0.0227
+ },
+ "VJ_Visuals/Long_Acid_8.mp4": {
+  "buckets": [
+   {
+    "high": 0.5137,
+    "mean": 0.3356
+   },
+   {
+    "high": 0.5216,
+    "mean": 0.3287
+   }
+  ],
+  "fps": 25.0,
+  "length": 19.84,
+  "motion": 0.0143
+ },
+ "VJ_Visuals/SaveInsta.App - 2640090069449223774.mp4": {
+  "buckets": [
+   {
+    "high": 0.4275,
+    "mean": 0.2799
+   },
+   {
+    "high": 0.3216,
+    "mean": 0.2386
+   }
+  ],
+  "fps": 30.0,
+  "length": 16.23,
+  "motion": 0.0198
+ },
+ "VJ_Visuals/SaveInsta.App - 2835266939262557492.mp4": {
+  "buckets": [
+   {
+    "high": 0.8039,
+    "mean": 0.405
+   },
+   {
+    "high": 0.8745,
+    "mean": 0.6512
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.18,
+  "motion": 0.0458
+ },
+ "VJ_Visuals/SaveInsta.App - 2893074934267164343.mp4": {
+  "buckets": [
+   {
+    "high": 0.5765,
+    "mean": 0.2361
+   },
+   {
+    "high": 0.651,
+    "mean": 0.2643
+   },
+   {
+    "high": 0.6118,
+    "mean": 0.2524
+   }
+  ],
+  "fps": 30.0,
+  "length": 25.07,
+  "motion": 0.0428
+ },
+ "VJ_Visuals/SaveInsta.App - 2917829695300976990_16599293150.mp4": {
+  "buckets": [
+   {
+    "high": 0.7333,
+    "mean": 0.3991
+   },
+   {
+    "high": 0.7294,
+    "mean": 0.3703
+   }
+  ],
+  "fps": 30.0,
+  "length": 14.14,
+  "motion": 0.0339
+ },
+ "VJ_Visuals/SaveInsta.App - 2940329686670806618.mp4": {
+  "buckets": [
+   {
+    "high": 0.702,
+    "mean": 0.3938
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.0,
+  "motion": 0.0384
+ },
+ "VJ_Visuals/SaveInsta.App - 2980090315385966606.mp4": {
+  "buckets": [
+   {
+    "high": 0.8706,
+    "mean": 0.324
+   },
+   {
+    "high": 0.8706,
+    "mean": 0.3257
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.18,
+  "motion": 0.0495
+ },
+ "VJ_Visuals/SaveInsta.App - 3007770791632496033.mp4": {
+  "buckets": [
+   {
+    "high": 0.3686,
+    "mean": 0.1754
+   },
+   {
+    "high": 0.3294,
+    "mean": 0.154
+   },
+   {
+    "high": 0.3176,
+    "mean": 0.1466
+   }
+  ],
+  "fps": 30.0,
+  "length": 24.03,
+  "motion": 0.0222
+ },
+ "VJ_Visuals/SaveInsta.App - 3029495158961496284.mp4": {
+  "buckets": [
+   {
+    "high": 0.2471,
+    "mean": 0.1008
+   },
+   {
+    "high": 0.2275,
+    "mean": 0.1004
+   }
+  ],
+  "fps": 30.0,
+  "length": 14.03,
+  "motion": 0.0307
+ },
+ "VJ_Visuals/SaveInsta.App - 3038581965250037808.mp4": {
+  "buckets": [
+   {
+    "high": 0.5804,
+    "mean": 0.1908
+   }
+  ],
+  "fps": 30.0,
+  "length": 6.0,
+  "motion": 0.0136
+ },
+ "VJ_Visuals/SaveInsta.App - 3040298707466584597.mp4": {
+  "buckets": [
+   {
+    "high": 0.4314,
+    "mean": 0.1894
+   },
+   {
+    "high": 0.4941,
+    "mean": 0.2384
+   }
+  ],
+  "fps": 30.0,
+  "length": 19.8,
+  "motion": 0.0615
+ },
+ "VJ_Visuals/SaveInsta.App - 3047783887123195594.mp4": {
+  "buckets": [
+   {
+    "high": 0.651,
+    "mean": 0.4318
+   },
+   {
+    "high": 0.6471,
+    "mean": 0.4314
+   },
+   {
+    "high": 0.6275,
+    "mean": 0.4344
+   }
+  ],
+  "fps": 30.0,
+  "length": 21.47,
+  "motion": 0.0106
+ },
+ "VJ_Visuals/SaveInsta.App - 3051016776544874546_3190115635.mp4": {
+  "buckets": [
+   {
+    "high": 0.3686,
+    "mean": 0.1311
+   },
+   {
+    "high": 0.3686,
+    "mean": 0.133
+   }
+  ],
+  "fps": 30.0,
+  "length": 19.13,
+  "motion": 0.0407
+ },
+ "VJ_Visuals/SaveInsta.App - 3055537439908105935.mp4": {
+  "buckets": [
+   {
+    "high": 0.3843,
+    "mean": 0.1745
+   },
+   {
+    "high": 0.3843,
+    "mean": 0.1897
+   }
+  ],
+  "fps": 30.0,
+  "length": 16.03,
+  "motion": 0.0228
+ },
+ "VJ_Visuals/SaveInsta.App - 3057534904468579405_3190115635.mp4": {
+  "buckets": [
+   {
+    "high": 0.0627,
+    "mean": 0.0777
+   },
+   {
+    "high": 0.0627,
+    "mean": 0.0755
+   }
+  ],
+  "fps": 30.0,
+  "length": 20.17,
+  "motion": 0.0112
+ },
+ "VJ_Visuals/SaveInsta.App - 3062626332335838059.mp4": {
+  "buckets": [
+   {
+    "high": 0.7333,
+    "mean": 0.6425
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.0,
+  "motion": 0.0292
+ },
+ "VJ_Visuals/SaveInsta.App - 3067090790691683224.mp4": {
+  "buckets": [
+   {
+    "high": 0.8392,
+    "mean": 0.644
+   },
+   {
+    "high": 0.702,
+    "mean": 0.4999
+   }
+  ],
+  "fps": 30.0,
+  "length": 16.58,
+  "motion": 0.0104
+ },
+ "VJ_Visuals/SaveInsta.App - 3072013773167004522.mp4": {
+  "buckets": [
+   {
+    "high": 0.9137,
+    "mean": 0.4816
+   },
+   {
+    "high": 0.9098,
+    "mean": 0.7541
+   }
+  ],
+  "fps": 30.0,
+  "length": 12.49,
+  "motion": 0.0745
+ },
+ "VJ_Visuals/SaveInsta.App - 3078728869078184036_7521955972.mp4": {
+  "buckets": [
+   {
+    "high": 0.4039,
+    "mean": 0.2463
+   },
+   {
+    "high": 0.4078,
+    "mean": 0.2514
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.0,
+  "motion": 0.0469
+ },
+ "VJ_Visuals/SaveInsta.App - 3079401626815972405.mp4": {
+  "buckets": [
+   {
+    "high": 0.698,
+    "mean": 0.4319
+   },
+   {
+    "high": 0.6902,
+    "mean": 0.4328
+   }
+  ],
+  "fps": 30.0,
+  "length": 20.0,
+  "motion": 0.0553
+ },
+ "VJ_Visuals/Snapinsta.app_video_319544730_218275690544208_7443069927733773376_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.502,
+    "mean": 0.1513
+   },
+   {
+    "high": 0.5255,
+    "mean": 0.1493
+   },
+   {
+    "high": 0.5255,
+    "mean": 0.2063
+   }
+  ],
+  "fps": 30.0,
+  "length": 22.48,
+  "motion": 0.009
+ },
+ "VJ_Visuals/Snapinsta.app_video_322476226_392580893062235_1141589371512753142_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.451,
+    "mean": 0.1591
+   },
+   {
+    "high": 0.4745,
+    "mean": 0.1695
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.0,
+  "motion": 0.0452
+ },
+ "VJ_Visuals/Snapinsta.app_video_325381714_1557010518106579_5175204886935737024_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.5686,
+    "mean": 0.2094
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.0,
+  "motion": 0.0328
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQM1pMlvnlL_ySEoDU87WrWL_AoMhb7jMsW7odP1gsQUlpnp-O_ta_H8Z_IOcH6xfaxwng-Ye4fxKk4RgWJJazM8.mp4": {
+  "buckets": [
+   {
+    "high": 0.8157,
+    "mean": 0.4604
+   },
+   {
+    "high": 0.7333,
+    "mean": 0.3666
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.04,
+  "motion": 0.0179
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMNUaFlTf0s6nnKVGSzjc5HcjEgqrqyJfo2eILCqOgSV2Qahshnqa4CXy856YXR4nWjsmDDlgIyPoxSPjZqSp17.mp4": {
+  "buckets": [
+   {
+    "high": 0.7294,
+    "mean": 0.4456
+   },
+   {
+    "high": 0.7216,
+    "mean": 0.4463
+   },
+   {
+    "high": 0.7294,
+    "mean": 0.4519
+   }
+  ],
+  "fps": 30.0,
+  "length": 23.2,
+  "motion": 0.0199
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMRzlcEfw59tYctxw-AJSGBVUjFi_YCxgW8bXOwRFfzW5b-9DliRXK7T4zNkDVijKSo_cfK2gV8RNvgTDZdGUme.mp4": {
+  "buckets": [
+   {
+    "high": 0.8314,
+    "mean": 0.3845
+   },
+   {
+    "high": 0.9216,
+    "mean": 0.5003
+   }
+  ],
+  "fps": 25.0,
+  "length": 18.53,
+  "motion": 0.1241
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMTg0a1Vf0Vf87EFju1x8F6n0gsB1tYCibGCHP991_fDIYGoOtLnF4wVLv6FT68B1szRO8eVufH8Eb4YT2J8NiYri5r3CKx_4xqDsc.mp4": {
+  "buckets": [
+   {
+    "high": 0.7804,
+    "mean": 0.4318
+   },
+   {
+    "high": 0.7451,
+    "mean": 0.4736
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.14,
+  "motion": 0.0892
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMWm-4cN3i9NFqKPubZj9CVdFGnM5MXEcR8QPoJf5GK2xG7JJAlXvfK9UAS11ilskDPKqhFE02je3FvFvFOaJTg.mp4": {
+  "buckets": [
+   {
+    "high": 0.5529,
+    "mean": 0.2257
+   },
+   {
+    "high": 0.5451,
+    "mean": 0.2607
+   }
+  ],
+  "fps": 30.0,
+  "length": 13.33,
+  "motion": 0.0223
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMaZpubAhIZ3D2cPdY5jpWMo9cMbtLuGFxpDn2rNqo86ipZhAMwMYjWeTv118NZt-msCr21kvt6nPNQexeBC8m8.mp4": {
+  "buckets": [
+   {
+    "high": 0.7843,
+    "mean": 0.3892
+   }
+  ],
+  "fps": 30.0,
+  "length": 4.0,
+  "motion": 0.1009
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMemRxQ673u2J19TXrhIaM-80bOHQ_OAAFevhl8qPc4tXrrcR4a_hJirOw-fhAm30XCO7EF7sc5KVvyd_LBjzoU.mp4": {
+  "buckets": [
+   {
+    "high": 0.6431,
+    "mean": 0.2461
+   },
+   {
+    "high": 0.6039,
+    "mean": 0.2438
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.11,
+  "motion": 0.1176
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMgLLgOaAu7Wqpq-UCVjYNRqFLZilWzKoJW0c5TIG-5psE6sFNPA4N4WZiKJCKo93g8W6PsZRFIgC3IA9Qa7jzKNXvAwm6_20ETlvE.mp4": {
+  "buckets": [
+   {
+    "high": 0.4667,
+    "mean": 0.3009
+   },
+   {
+    "high": 0.4667,
+    "mean": 0.3009
+   }
+  ],
+  "fps": 30.0,
+  "length": 14.79,
+  "motion": 0.0064
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNZKQQCB_zmHPBczOMzAhp3hXLiUiWcHoxHRAHpX2PZHL2a09G4E02uZQ0PK06-9PvnJHCz-8XiuZtm5VsCxtPU57JfJPulGMykvbE.mp4": {
+  "buckets": [
+   {
+    "high": 0.8667,
+    "mean": 0.6355
+   },
+   {
+    "high": 0.8745,
+    "mean": 0.657
+   },
+   {
+    "high": 0.8471,
+    "mean": 0.6331
+   }
+  ],
+  "fps": 30.0,
+  "length": 22.4,
+  "motion": 0.0402
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNcj_NsPFRem9Xxm4JpGgwE8w9i_brrn0kLUElddF1lIwB4k6rdER6mT1rriVudKg7rs9s2DEStmfiGG6srU6KQ.mp4": {
+  "buckets": [
+   {
+    "high": 0.5569,
+    "mean": 0.2304
+   },
+   {
+    "high": 0.5412,
+    "mean": 0.2378
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.97,
+  "motion": 0.0069
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNi-2YgbSW6rp-ar_mR75mPR6rKfZUdOOui9W74Ki54e-B-9z_DkyK7uhNiKITOiogiS2aMDSlFknL7cF3ffcBHDljC2rnL_X7R6sg.mp4": {
+  "buckets": [
+   {
+    "high": 0.4392,
+    "mean": 0.1975
+   },
+   {
+    "high": 0.4471,
+    "mean": 0.1861
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.86,
+  "motion": 0.0201
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNr34I5LUPp_NSrqovog0dNxROn8bhjEVAyv4IZDnUQsMUFa8bcxtQV4bCScZgfODzkDp42k1cEeUHiQgAUyV7Ez_J_c5Qz-cYsLak.mp4": {
+  "buckets": [
+   {
+    "high": 0.6353,
+    "mean": 0.41
+   },
+   {
+    "high": 0.6196,
+    "mean": 0.4066
+   },
+   {
+    "high": 0.6039,
+    "mean": 0.4179
+   }
+  ],
+  "fps": 30.0,
+  "length": 26.65,
+  "motion": 0.0348
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNtWE9wjLr5pZN5tp-8HeT53CEMICV113R_oKCImTwyocZUaC2-CIT3LRSY574L1qoazvkdQO6yKu9jbjVditWvscZzjnjjRzg4ftI.mp4": {
+  "buckets": [
+   {
+    "high": 0.9216,
+    "mean": 0.4618
+   },
+   {
+    "high": 0.9216,
+    "mean": 0.4619
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.0,
+  "motion": 0.1121
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNyGtPt1ra8cmQjQLXv7fPrtVaLHKqWyYuGeK3xTChBIz9KHLo7Atat25YvaxpzrHl1aV1o2aRatOzigX-ArhTNXljmhbje_G2SAnY.mp4": {
+  "buckets": [
+   {
+    "high": 0.8667,
+    "mean": 0.4639
+   },
+   {
+    "high": 0.8392,
+    "mean": 0.5364
+   }
+  ],
+  "fps": 29.971,
+  "length": 13.79,
+  "motion": 0.116
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNzlkuh_nCaKqKKl2MY-gLYpqtFmW9a1nO3XGzNuFlnpkRlRuswNBadN26lAyuG-D2gWMy-DnBcP7rfQqqP34Ysf1vK6BakitBmfho.mp4": {
+  "buckets": [
+   {
+    "high": 0.7765,
+    "mean": 0.6701
+   },
+   {
+    "high": 0.7765,
+    "mean": 0.659
+   }
+  ],
+  "fps": 30.0,
+  "length": 12.12,
+  "motion": 0.0337
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQO4HOxykxNnxe8ZS6ewtAJI_qJazUzaKWhSjamTL9Bw3b3mVH5cncXD1QR1BpI4Zly3uzjy39zun2U6KCHYu3RG-NXq0AW3Okx7zeA.mp4": {
+  "buckets": [
+   {
+    "high": 0.7961,
+    "mean": 0.2013
+   }
+  ],
+  "fps": 30.0,
+  "length": 6.15,
+  "motion": 0.1244
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQOElwhSt7r-WC3Lb7OUL4evcHEpoq1aRcFJ-evmrxCaekpHzT_sKT6tsu6ZLQcB6FMhgDCQh7_gIRQq0Mp8jbIF0ugkaUTwcu7OajM.mp4": {
+  "buckets": [
+   {
+    "high": 0.698,
+    "mean": 0.4403
+   },
+   {
+    "high": 0.6706,
+    "mean": 0.3941
+   }
+  ],
+  "fps": 30.0,
+  "length": 19.94,
+  "motion": 0.0287
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQOYGaBeDZXQtzQ05zSreWDVLkqKChmBkpTmwkSFGL1SnKCK8H21a2X_vv52oPDVJmtCathK2s6VEOgktUHqyPmvVJLKhU77EB0Zsds.mp4": {
+  "buckets": [
+   {
+    "high": 0.7255,
+    "mean": 0.6403
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.12,
+  "motion": 0.0106
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQP8FAVWtEHMo4VFtVea0m9cCU0vnLHqF4G3B1eaL8E9z0TduVAgqFJ2mVKNJapf_Zpr38ovi2mNK1SZZFDeXoP9.mp4": {
+  "buckets": [
+   {
+    "high": 0.5882,
+    "mean": 0.483
+   },
+   {
+    "high": 0.5882,
+    "mean": 0.4844
+   }
+  ],
+  "fps": 30.0,
+  "length": 12.0,
+  "motion": 0.0362
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQPbYShvwFO6td6f-u4w8VO0FwLQklJr6V4NFwWtoYLXH5EtEOe_faDNW0Z3jUL9bjjWX0mUphvP6wTmMKEd8eTl.mp4": {
+  "buckets": [
+   {
+    "high": 0.7294,
+    "mean": 0.4764
+   }
+  ],
+  "fps": 30.0,
+  "length": 6.5,
+  "motion": 0.0442
+ }
+}

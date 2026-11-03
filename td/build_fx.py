@@ -1,0 +1,311 @@
+"""Build /project1/fx: two players, two group chains, the transitions, the limiter, the timers.
+
+Run inside TouchDesigner, from the Textport:
+    exec(open('~/dev/studio_visuals/td/build_fx.py').read())
+
+Running it again deletes and rebuilds fx. It ends by pointing the four strips at the two group
+outputs, clearing Rectangle6's dangling texture, deleting the old playlist chain, and starting
+the sequencer. Spec: docs/specs/001-dynamic-effects/impl-spec.md.
+
+A parameter name this script gets wrong is reported, not fatal: the build goes on and the
+Textport lists every miss at the end, so one typo costs one rerun, not a blind debugging session.
+"""
+import os
+
+REPO = "~/dev/studio_visuals"
+SEQ = os.path.join(REPO, "td", "sequencer.py")
+GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
+W, H = 340, 1080  # the strip cut
+STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1
+
+ns = {}
+exec(open(SEQ).read(), ns)  # the corpus, without touching TouchDesigner names
+CORPUS, ORDER = ns["CORPUS"], ns["ORDER"]
+
+misses = []
+
+
+def setp(o, **pars):
+    """Set parameters by name; a wrong name is logged, not fatal."""
+    for k, v in pars.items():
+        p = getattr(o.par, k, None)
+        if p is None:
+            misses.append(f"{o.path}: no par {k}")
+            continue
+        try:
+            if isinstance(v, str) and v.startswith("="):
+                p.expr = v[1:]
+            else:
+                p.val = v
+        except Exception as e:  # a bad menu token, a bad expression
+            misses.append(f"{o.path}.{k} = {v!r}: {e}")
+
+
+def wire(dst, *srcs):
+    for i, s in enumerate(srcs):
+        dst.inputConnectors[i].connect(s)
+    return dst
+
+
+def mk(parent, optype, name, *inputs, **pars):
+    o = parent.create(optype, name)
+    if inputs:
+        wire(o, *inputs)
+    if pars:
+        setp(o, **pars)
+    return o
+
+
+def custom(comp, page, **pars):
+    """Custom pars: name -> default (float, int or 0/1 toggle)."""
+    pg = comp.appendCustomPage(page)
+    out = {}
+    for name, default in pars.items():
+        if isinstance(default, bool):
+            p = pg.appendToggle(name, label=name)[0]
+        elif isinstance(default, int):
+            p = pg.appendInt(name, label=name)[0]
+        else:
+            p = pg.appendFloat(name, label=name)[0]
+        p.default = default
+        p.val = default
+        out[name] = p
+    return out
+
+
+def default_for(spec):
+    if isinstance(spec, list):
+        return spec[0]
+    lo, hi = spec
+    return round((lo + hi) / 2, 4)
+
+
+# ---------------------------------------------------------------- effects
+# Each returns the last TOP of the wet path, given the effect base and its in1.
+def fx_framing(b, src):
+    t = mk(b, transformTOP, "xform", src, extend="mirror",
+           sx="=parent().par.Zoom", sy="=parent().par.Zoom", tx="=parent().par.Tx", ty="=parent().par.Ty")
+    return mk(b, flipTOP, "flip", t, flipx="=parent().par.Flipx", flipy="=parent().par.Flipy")
+
+
+def fx_keepchannel(b, src):
+    # Mode 0 keeps red, 1 green, 2 blue; the other two channels go to zero.
+    pars = {}
+    for i, c in enumerate("rgb"):
+        for j, d in enumerate("rgb"):
+            pars[f"{ {'r':'red','g':'green','b':'blue'}[c] }{d}"] = f"=1 if (int(parent().par.Mode) == {i} and {i} == {j}) else 0"
+    return mk(b, channelmixTOP, "mix", src, **pars)
+
+
+def fx_highlights(b, src):
+    m = mk(b, monochromeTOP, "mono", src)
+    th = mk(b, thresholdTOP, "thresh", m, threshold="=parent().par.Cut")
+    bl = mk(b, blurTOP, "soft", th, size="=parent().par.Soft")
+    inv = mk(b, invertTOP, "inv", bl)
+    return mk(b, compositeTOP, "mul", src, inv, operand="multiply")
+
+
+def fx_crush(b, src):
+    return mk(b, levelTOP, "level", src, gamma1="=parent().par.Gamma", blacklevel="=parent().par.Black")
+
+
+def fx_edges(b, src):
+    e = mk(b, edgeTOP, "edge", src, strength="=parent().par.Strength")
+    return mk(b, crossTOP, "cross", src, e, cross="=parent().par.Mix")
+
+
+def fx_tint(b, src):
+    m = mk(b, monochromeTOP, "mono", src)
+    c = mk(b, constantTOP, "colour",
+           colorr="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[0]",
+           colorg="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[1]",
+           colorb="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[2]")
+    return mk(b, compositeTOP, "mul", m, c, operand="multiply")
+
+
+def fx_selfmask(b, src):
+    m = mk(b, monochromeTOP, "mono", src)
+    inv = mk(b, invertTOP, "inv", m)
+    mul = mk(b, compositeTOP, "mul", src, inv, operand="multiply")
+    return mk(b, crossTOP, "cross", src, mul, cross="=parent().par.Amount")
+
+
+def fx_feedback(b, src):
+    out = mk(b, nullTOP, "fb_out")
+    fb = mk(b, feedbackTOP, "fb", top="fb_out")
+    t = mk(b, transformTOP, "xform", fb, sx="=parent().par.Zoom", sy="=parent().par.Zoom", rotate="=parent().par.Rotate")
+    lv = mk(b, levelTOP, "decay", t, brightness1="=parent().par.Decay")
+    cr = mk(b, crossTOP, "cross", src, lv, cross="=parent().par.Mix * parent().par.Enable")
+    wire(out, cr)
+    return out
+
+
+def fx_displace(b, src):
+    n = mk(b, noiseTOP, "noise", mono=True, period="=parent().par.Scale", tz="=absTime.seconds * parent().par.Speed",
+           resolutionw=128, resolutionh=128)
+    return mk(b, displaceTOP, "disp", src, n, displaceweightx="=parent().par.Amount", displaceweighty="=parent().par.Amount")
+
+
+def fx_echo(b, src):
+    c = mk(b, cacheTOP, "cache", src, cachesize=30)
+    s = mk(b, cacheselectTOP, "sel", top="cache", index="=-int(parent().par.Frames)")
+    return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix * parent().par.Enable")
+
+
+def fx_mirror(b, src):
+    return mk(b, mirrorTOP, "mirror", src, axis="=int(parent().par.Mode)")
+
+
+def fx_pixelate(b, src):
+    r = mk(b, resolutionTOP, "small", src, outputresolution="custom",
+           resolutionw="=int(parent().par.Cells)", resolutionh=f"=int(parent().par.Cells * {H} / {W})")
+    return mk(b, fitTOP, "big", r, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H, filtertype="nearest")
+
+
+def fx_slope(b, src):
+    s = mk(b, slopeTOP, "slope", src)
+    return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix")
+
+
+def fx_chroma(b, src):
+    left = mk(b, transformTOP, "left", src, tx="=-parent().par.Shift", extend="mirror")
+    right = mk(b, transformTOP, "right", src, tx="=parent().par.Shift", extend="mirror")
+    only = lambda name, s, ch: mk(b, channelmixTOP, name, s, **{f"{c}{d}": (1 if (c == ch and d == ch[0]) else 0)
+                                  for c in ("red", "green", "blue") for d in "rgb"})
+    r = only("onlyr", left, "red")
+    g = only("onlyg", src, "green")
+    bl = only("onlyb", right, "blue")
+    return mk(b, compositeTOP, "add", r, g, bl, operand="add")
+
+
+BUILDERS = {n: globals()["fx_" + n] for n in CORPUS}
+WET_IS_OUTPUT = {"feedback", "echo"}  # stateful: their own cross at 0 instead of a switch
+
+
+def build_effect(chain, name):
+    b = chain.create(baseCOMP, name)
+    pars = {k: default_for(spec) for k, spec in CORPUS[name]["params"].items()}
+    custom(b, "Fx", Enable=False, **pars)
+    src = mk(b, inTOP, "in1")
+    wet = BUILDERS[name](b, src)
+    if name in WET_IS_OUTPUT:
+        last = wet
+    else:
+        last = mk(b, switchTOP, "sw", src, wet, index="=int(parent().par.Enable)")
+    mk(b, outTOP, "out1", last)
+    return b
+
+
+# ---------------------------------------------------------------- transitions
+def build_xfade(fx, g):
+    x = fx.create(baseCOMP, "xfade_" + g)
+    custom(x, "Xfade", Progress=0.0, Type=0, Active=False)
+    cur = mk(x, inTOP, "cur")
+    nxt = mk(x, inTOP, "nxt")
+    shader = mk(x, textDAT, "glsl_src")
+    shader.text = open(GLSL).read()
+    glsl = mk(x, glslTOP, "glsl", cur, nxt, pixeldat="glsl_src",
+              uniname0="uProgress", value0x="=parent().par.Progress", uniname1="uType", value1x="=parent().par.Type")
+    # smear: the outgoing picture feeds back and dissolves under the incoming one
+    smear_out = mk(x, nullTOP, "smear_out")
+    fb = mk(x, feedbackTOP, "smear_fb", top="smear_out")
+    z = mk(x, transformTOP, "smear_zoom", fb, sx=1.015, sy=1.015)
+    d = mk(x, levelTOP, "smear_decay", z, brightness1=0.94)
+    base = mk(x, crossTOP, "smear_base", cur, d, cross="=parent().par.Progress")
+    smear = mk(x, crossTOP, "smear_mix", base, nxt, cross="=min(1, max(0, parent().par.Progress * parent().par.Progress * (3 - 2 * parent().par.Progress)))")
+    wire(smear_out, smear)
+    # Type 0 and 1 are the shader, 2 the smear; outside a transition the raw current picture
+    sel = mk(x, switchTOP, "type", glsl, glsl, smear_out, index="=int(parent().par.Type)")
+    live = mk(x, switchTOP, "live", cur, sel, index="=int(parent().par.Active)")
+    mk(x, outTOP, "out1", live)
+    return x
+
+
+# ---------------------------------------------------------------- the build
+def build():
+    proj = op("/project1")
+    old = proj.op("fx")
+    if old:
+        old.destroy()
+    fx = proj.create(baseCOMP, "fx")
+    fx.nodeX, fx.nodeY = 0, -600
+    custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
+           Cap=60.0, Rerollevery=20.0, Seed=0)
+
+    seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)
+
+    players = {}
+    for name in ("A", "B"):
+        players[name] = mk(fx, moviefileinTOP, "player" + name, play=False, interp=True, prereadframes=30,
+                           cuepointunit="seconds", extendright="hold")
+
+    for g in STRIPS:
+        cur = mk(fx, switchTOP, "cur_" + g, players["A"], players["B"], index=0)
+        nxt = mk(fx, switchTOP, "nxt_" + g, players["A"], players["B"], index=1)
+        fcur = mk(fx, fitTOP, "fitcur_" + g, cur, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+        fnxt = mk(fx, fitTOP, "fitnxt_" + g, nxt, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+        x = build_xfade(fx, g)
+        wire(x, fcur, fnxt)
+        chain = fx.create(baseCOMP, "chain_" + g)
+        src = mk(chain, inTOP, "in1")
+        prev = src
+        for name in ORDER:
+            b = build_effect(chain, name)
+            wire(b, prev)
+            prev = b
+        # the limiter: feedforward from a small mono copy, one-sided, fast down and slow up
+        mono = mk(chain, monochromeTOP, "lim_mono", prev)
+        small = mk(chain, fitTOP, "lim_small", mono, fit="fitoutside", outputresolution="custom", resolutionw=40, resolutionh=40)
+        an = mk(chain, analyzeTOP, "lim_avg", small)
+        tc = mk(chain, toptoCHOP, "lim_val", top="lim_avg", crop="pixel", uvunits="pixel")
+        ex = mk(chain, expressionCHOP, "lim_gain", tc, expr0="min(1.0, op('/project1/fx').par.Ceiling / max(me.inputVal, 0.001))")
+        lag = mk(chain, lagCHOP, "lim_lag", ex, lag1=0.5, lag2=0.05)
+        lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
+        mk(chain, outTOP, "out1", lv)
+        wire(chain, x)
+        mk(fx, nullTOP, "out_" + g, chain)
+
+    # timers: one per event, in seconds, all sharing one callbacks DAT
+    cb = mk(fx, textDAT, "timers_callbacks")
+    cb.text = (
+        "def onDone(timerOp, segment, interrupt):\n"
+        "    op('sequencer').module.on_done(timerOp.name)\n"
+        "    return\n\n"
+        "def onCycle(timerOp, segment, cycle):\n"
+        "    op('sequencer').module.on_reroll()\n"
+        "    return\n"
+    )
+    for name in ("t_inner", "t_outer", "tx_inner", "tx_outer"):
+        mk(fx, timerCHOP, name, lengthunits="seconds", length=10, callbacks="timers_callbacks")
+    mk(fx, timerCHOP, "t_reroll", lengthunits="seconds", length=20, cycle=True, cyclelimit=False, callbacks="timers_callbacks")
+    for g in STRIPS:
+        setp(fx.op("xfade_" + g), Progress=f"=op('../tx_{g}')['timer_fraction']")
+
+    ex = mk(fx, executeDAT, "run", start=True)
+    ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
+
+    # the mapper: four textures, one dangling reference cleared
+    shapes = "/project1/kantanMapper1/project/allShapes/"
+    for g, items in STRIPS.items():
+        for it in items:
+            op(shapes + it + "/parameters").par.Texture = "/project1/fx/out_" + g
+    op(shapes + "item6/parameters").par.Texture = ""
+
+    # the old chain, gone in one step now that the new one is wired
+    for name in ("folderRaw", "folderRaw1", "folder", "folder1", "folder1_callbacks", "folder2_callbacks", "shuffled",
+                 "shuffled1", "script1", "script1_callbacks", "select1", "playlist", "reorder1", "playlist_index",
+                 "remaining", "info", "select2", "math2", "speed", "chopto1", "touchout1", "touchin1", "datto1", "reset",
+                 "reset_index", "movie", "switch2", "moviefilein2", "fit2", "button1", "mood_logo", "moviefilein1",
+                 "fit", "fit1", "diff", "diff1", "analyze1", "analyze2", "topto1", "topto2", "math1", "math3", "invert",
+                 "invert1", "switch", "switch1", "white", "movie_null"):
+        o = proj.op(name)
+        if o:
+            o.destroy()
+
+    seq.module.start()
+    print("fx built;", len(misses), "parameter misses")
+    for m in misses:
+        print("  ", m)
+
+
+build()

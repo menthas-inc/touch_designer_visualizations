@@ -87,9 +87,13 @@ there is a tease at all; if yes its length T is drawn from 1 to 6 s, so it is no
 Transition length t is 2 to 3 s. Timeline for one change:
 
 ```
-now                         end - T - t      end - T         end - t       end
-│ outer A, inner A           │ inner A→B      │ outer A, inner B│ outer A→B  │ both B
+now                      end - T - t       end - T          end - t        end
+│ outer A, inner A        │ inner A to B     │ outer A, inner B │ outer A to B │ both B
 ```
+
+By the end, B has played T + t. The next segment counts from B's cue point, so its plain play
+is shorter by that lead, and the plain play before any change is never under 6 s, which is the
+time the idle player has to cue the clip after it.
 
 Transitions are not crossfades. Three to start, chosen at random per switch: a luma melt (the
 brighter picture eats the darker one through a soft threshold that sweeps), a displacement
@@ -128,7 +132,9 @@ measurement, except where it says otherwise.
 
 - Everything above is native TouchDesigner: Movie File In with cue, Switch and Cross TOPs,
   Feedback, Displace, Cache, Mirror, Threshold, Lookup, Level, Analyze, Timer CHOP, Text DAT
-  synced to a file. No external plugins, no shaders to start with.
+  synced to a file. No external plugins. One 25 line GLSL shader for two of the three
+  transitions, because a per-pixel compare and two dependent samples are six TOPs each the
+  other way (impl-spec, Reuse and skips).
 - Cost: two 1080p decodes plus two 340 x 1080 chains with a handful of effects each is well
   inside an M1 Max. A Windows show machine with a discrete GPU is also fine. The governor adds
   one Analyze per group, which is cheap at that size.
