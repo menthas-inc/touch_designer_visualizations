@@ -82,9 +82,9 @@ N seconds inside a long segment, so a 90 second clip does not sit still.
 
 ### D. Teases and transitions
 
-The inner group switches to the next clip early. Timeline for one clip change, with the
-tease length T drawn per change from 0 to 6 s, so it is not predictable, and transition
-length t (2 to 3 s):
+The inner group switches to the next clip early. Per change, a coin flip decides whether
+there is a tease at all; if yes its length T is drawn from 1 to 6 s, so it is not predictable.
+Transition length t is 2 to 3 s. Timeline for one change:
 
 ```
 now                         end - T - t      end - T         end - t       end
@@ -150,6 +150,6 @@ measurement, except where it says otherwise.
 
 Panels are numbered left to right facing the wall. No second machine, the Touch loop goes.
 This Mac, free licence, is the show machine. Long clips: a random window, at most 60 s. Same
-clip on both groups, with a tease of random length 0 to 6 s. Speed 0.75 unless measurable
+clip on both groups, with a tease half the time, 1 to 6 s long when there is one. Speed 0.75 unless measurable
 per clip, worried about low frame rate clips, so speed comes from the table. "Orientations"
 meant both the same framing on every strip and the fixed flips, so framing is a treatment.
