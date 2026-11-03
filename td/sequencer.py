@@ -38,6 +38,7 @@ DEFAULTS = {"cap": 60.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
+PREROLL = 1.0  # the cued player is released this long before it is shown, so it is rolling by then
 
 
 def _draw(rng, spec):
@@ -323,11 +324,15 @@ def _start_xfade(st, group):
     x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)
     x.op("smear_fb").par.resetpulse.pulse()
     fx.op("nxt_" + group).par.index = 0 if nxt == "A" else 1
-    nplayer = fx.op("player" + nxt)  # cued at the segment start; now it plays
-    nplayer.par.cue = False
-    nplayer.par.play = True
+    _release(nxt)  # normally already rolling from the pre-roll; harmless twice
     x.par.Active = 1
     fx.op("tx_" + group).par.start.pulse()
+
+
+def _release(player):
+    p = _fx().op("player" + player)
+    p.par.cue = False
+    p.par.play = True
 
 
 def _timer(name, seconds):
@@ -345,8 +350,7 @@ def start():
     first = _pick_next(st)
     st["player"] = first
     st["lead"] = 0.0
-    fx.op("player" + first).par.cue = False
-    fx.op("player" + first).par.play = True
+    _release(first)
     for g in GROUPS:
         fx.op("cur_" + g).par.index = 0 if first == "A" else 1
         st["sel"][g] = None
@@ -366,6 +370,7 @@ def _begin_segment(st):
     L, T, t = plan["length"], plan["tease"], plan["xfade"]
     for g in GROUPS:
         fx.op("tx_" + g).par.length = t
+    _timer("t_preroll", L - T - t - PREROLL)
     _timer("t_inner", L - T - t)
     _timer("t_outer", L - t)
     r = fx.op("t_reroll")
@@ -376,7 +381,9 @@ def _begin_segment(st):
 def on_done(timer_name):
     st = _state()
     fx = _fx()
-    if timer_name == "t_inner":
+    if timer_name == "t_preroll":
+        _release(OTHER[st["player"]])
+    elif timer_name == "t_inner":
         _start_xfade(st, "inner")
     elif timer_name == "t_outer":
         _start_xfade(st, "outer")
@@ -388,7 +395,7 @@ def on_done(timer_name):
         fx.op(timer_name).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur
         if g == "outer":
             plan = st["plan"][st["player"]]
-            st["lead"] = plan["tease"] + plan["xfade"]
+            st["lead"] = plan["tease"] + plan["xfade"] + PREROLL
             st["player"] = nxt
             _begin_segment(st)
 
