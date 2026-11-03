@@ -92,12 +92,25 @@ with these parts that matter:
 | 5 | Rectangle5 | 328 x 1078 at (-694, -1) | bottom corners raised 0.88 | switch1 (was constant1) | 2 | yes | locked |
 | 6 | Rectangle6 | 58 x 56 at (0, -465) | none | switch (40 x 40) | 0 | no | locked, hidden |
 
-What this means: the four strips start as tall rectangles and have their bottom corners dragged
-up, so on the canvas each is a short band in the top 15 percent of the projector's frame, about
-y = 370 to 540. The strip's long axis is the band's short on-screen axis, which is why the
-340 x 1080 portrait cut is the right texture. That geometry fits a projector at a steep angle to
-hanging strips, where the paper is foreshortened. **Which band is which physical strip, and which
-way is up on each, is not in the file. Ask.** Rectangle3 and 6 are leftovers.
+What this means, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540):
+
+| strip | base column | after the corner drags |
+|---|---|---|
+| Rectangle5 | x -858..-530, full height | x -727..-426, y 405..539 |
+| Rectangle4 | x -342..-32, top half only | x -416..-52, y 402..540 |
+| Rectangle2 | an 86 x 70 box at (302, 344) | x 17..431, y 402..573 |
+| Rectangle1 | x 607..899, full height | x 526..899, y 365..539 |
+
+The base columns already describe four strips side by side across 85 percent of the frame,
+which is the room as the owner describes it: the projector covers the rectangle the strips hang
+in. The corner drags are the anomaly: every bottom edge pulled to y = 400, every top edge on the
+frame edge, and Rectangle2's top-right corner 33 px outside the frame, which no calibration
+produces. The 340 x 1080 cut then gets squashed six times vertically into each band. The saves
+in `Backup/` are a different installation (2022 to 2023, a logo and two big shapes), so this
+layout exists in one save only and there is no earlier calibration to compare against.
+`td/reset_corners.py` removes the drags and leaves the columns; the dragged values stay in git.
+`td/set_columns.py` then makes all four full height. The orientation and flip flags per strip are
+intentional (owner, 2026-11-03): they match how each strip hangs. Rectangle3 and 6 are leftovers.
 
 The "was constant1" column is the state the file arrived in: all four strips on the orange
 Constant TOP, the alignment colour. `td/map_video.py` set them to `switch1`, saved in `Studio_Up_new.toe`.

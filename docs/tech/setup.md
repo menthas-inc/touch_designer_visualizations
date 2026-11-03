@@ -19,3 +19,11 @@ on disk but not in git.
    gitignored.
 
 `docs/tech/network.md` is what the dump says the file does.
+
+## Reading a save without TouchDesigner
+
+`/Applications/TouchDesigner.app/Contents/MacOS/toeexpand <file.toe>` writes `<file>.toe.dir`
+next to it: one `.parm` text file per operator, `.table` for tables, `.n` for wiring. It works
+on any save, including `Backup/`, with TouchDesigner closed. Run it on a copy outside the repo.
+The json dump stays the main read because it carries evaluated values; this is for history.
+
