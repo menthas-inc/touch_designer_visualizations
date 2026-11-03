@@ -8,7 +8,8 @@ st = fx.fetch("state", {})
 print("current player", st.get("player"), "lead", st.get("lead"))
 for g, sel in (st.get("sel") or {}).items():
     print(g, "effects on:", {n: {k: v for k, v in d.items() if k != "Enable"} for n, d in sel.items() if d.get("Enable") and n != "framing"})
-print("xfade active:", {g: int(fx.op("xfade_" + g).par.Active) for g in ("outer", "inner")})
+print("xfade active:", {g: int(fx.op("xfade_" + g).par.Active) for g in ("outer", "inner")},
+      "| cur shows:", {g: "AB"[int(fx.op("cur_" + g).par.index)] for g in ("outer", "inner")}, "| targets:", st.get("target"))
 for n in "AB":
     p = fx.op("player" + n)
     info = fx.op("diag_info") or fx.create(infoCHOP, "diag_info")

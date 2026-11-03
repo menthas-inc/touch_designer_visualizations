@@ -319,6 +319,7 @@ def _start_xfade(st, group):
         sel = _selection_for(st, nxt, group)
         st["sel"][group] = sel
         _apply(group, sel)
+    st.setdefault("target", {})[group] = nxt  # read back at the end, when roles may have swapped already
     x = fx.op("xfade_" + group)
     forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one
     x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)
@@ -389,11 +390,13 @@ def on_done(timer_name):
         _start_xfade(st, "outer")
     elif timer_name in ("tx_inner", "tx_outer"):
         g = timer_name[3:]
-        nxt = OTHER[st["player"]]
+        # with no tease both transitions end in the same frame, and the outer one may have
+        # swapped st["player"] already, so the target comes from the start of the transition
+        nxt = st.get("target", {}).get(g) or OTHER[st["player"]]
         fx.op("cur_" + g).par.index = 0 if nxt == "A" else 1
         fx.op("xfade_" + g).par.Active = 0
         fx.op(timer_name).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur
-        if g == "outer":
+        if g == "outer" and st["player"] != nxt:
             plan = st["plan"][st["player"]]
             st["lead"] = plan["tease"] + plan["xfade"] + PREROLL
             st["player"] = nxt
