@@ -99,12 +99,17 @@ def fx_keepchannel(b, src):
     return mk(b, channelmixTOP, "mix", src, **pars)
 
 
+def lfo(b, name, freq):
+    return mk(b, lfoCHOP, name, frequency=freq)
+
+
 def fx_highlights(b, src):
     m = mk(b, monochromeTOP, "mono", src)
     th = mk(b, thresholdTOP, "thresh", m, threshold="=parent().par.Cut")
     bl = mk(b, blurTOP, "soft", th, size="=parent().par.Soft")
     inv = mk(b, levelTOP, "inv", bl, invert=1.0)
-    return mk(b, compositeTOP, "mul", src, inv, operand="multiply")
+    mul = mk(b, compositeTOP, "mul", src, inv, operand="multiply")
+    return mk(b, crossTOP, "cross", src, mul, cross="=parent().par.Amount")  # dim the highlights, do not cut them
 
 
 def fx_crush(b, src):
@@ -118,24 +123,31 @@ def fx_edges(b, src):
 
 def fx_tint(b, src):
     m = mk(b, monochromeTOP, "mono", src)
+    deep = mk(b, levelTOP, "deep", m, gamma1=1.4, blacklevel=0.05)  # blacks stay black under the colour
     c = mk(b, constantTOP, "colour",
            colorr="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[0]",
            colorg="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[1]",
            colorb="=op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[2]")
-    return mk(b, compositeTOP, "mul", m, c, operand="multiply")
+    return mk(b, compositeTOP, "mul", deep, c, operand="multiply")
 
 
 def fx_selfmask(b, src):
     m = mk(b, monochromeTOP, "mono", src)
     inv = mk(b, levelTOP, "inv", m, invert=1.0)
     mul = mk(b, compositeTOP, "mul", src, inv, operand="multiply")
-    return mk(b, crossTOP, "cross", src, mul, cross="=parent().par.Amount")
+    con = mk(b, levelTOP, "contrast", mul, contrast="=parent().par.Contrast")
+    sat = mk(b, hsvadjustTOP, "sat", con, saturationmult="=parent().par.Sat")
+    return mk(b, crossTOP, "cross", src, sat, cross="=parent().par.Amount")
 
 
 def fx_feedback(b, src):
     out = mk(b, nullTOP, "fb_out")
+    lfo(b, "lfo_zoom", 0.05)
+    lfo(b, "lfo_rot", 0.03)
     fb = mk(b, feedbackTOP, "fb", src, top="fb_out")  # input is the first frame, top the loop
-    t = mk(b, transformTOP, "xform", fb, sx="=parent().par.Zoom", sy="=parent().par.Zoom", rotate="=parent().par.Rotate")
+    t = mk(b, transformTOP, "xform", fb,
+           sx="=1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]", sy="=1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]",
+           rotate="=parent().par.Rotate * op('lfo_rot')[0]")
     lv = mk(b, levelTOP, "decay", t, brightness1="=parent().par.Decay")
     cr = mk(b, crossTOP, "cross", src, lv, cross="=parent().par.Mix * parent().par.Enable")
     wire(out, cr)
@@ -143,36 +155,34 @@ def fx_feedback(b, src):
 
 
 def fx_displace(b, src):
+    lfo(b, "lfo", 0.07)
     n = mk(b, noiseTOP, "noise", mono=True, period="=parent().par.Scale", tz="=absTime.seconds * parent().par.Speed",
            resolutionw=128, resolutionh=128)
-    return mk(b, displaceTOP, "disp", src, n, displaceweightx="=parent().par.Amount", displaceweighty="=parent().par.Amount")
+    amt = "=parent().par.Amount * (0.7 + 0.3 * op('lfo')[0])"
+    return mk(b, displaceTOP, "disp", src, n, displaceweightx=amt, displaceweighty=amt)
 
 
 def fx_echo(b, src):
-    c = mk(b, cacheTOP, "cache", src, cachesize=30)
-    s = mk(b, cacheselectTOP, "sel", cachetop="cache", index="=-int(parent().par.Frames)")
+    lfo(b, "lfo", 0.05)
+    c = mk(b, cacheTOP, "cache", src, cachesize=61)
+    s = mk(b, cacheselectTOP, "sel", cachetop="cache", index="=-int(parent().par.Frames * (0.67 + 0.33 * op('lfo')[0]))")
     return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix * parent().par.Enable")
 
 
 def fx_mirror(b, src):
-    # Mode 0 mirrors across x, 1 across y, 2 both
-    return mk(b, mirrorTOP, "mirror", src, flipx="=int(parent().par.Mode) in (0, 2)", flipy="=int(parent().par.Mode) in (1, 2)")
-
-
-def fx_pixelate(b, src):
-    r = mk(b, resolutionTOP, "small", src, outputresolution="custom",
-           resolutionw="=int(parent().par.Cells)", resolutionh=f"=int(parent().par.Cells * {H} / {W})")
-    return mk(b, fitTOP, "big", r, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H, filtertype="nearest")
-
-
-def fx_slope(b, src):
-    s = mk(b, slopeTOP, "slope", src)
-    return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix")
+    # Mode 0 mirrors across x, 1 across y, 2 both; the seam drifts on two slow LFOs
+    lfo(b, "lfo_x", 0.04)
+    lfo(b, "lfo_y", 0.025)
+    return mk(b, mirrorTOP, "mirror", src, flipx="=int(parent().par.Mode) in (0, 2)", flipy="=int(parent().par.Mode) in (1, 2)",
+              pivotunit="fraction", pivotx="=0.5 + 0.2 * op('lfo_x')[0]", pivoty="=0.5 + 0.2 * op('lfo_y')[0]")
 
 
 def fx_chroma(b, src):
-    left = mk(b, transformTOP, "left", src, tx="=-parent().par.Shift", extend="mirror")
-    right = mk(b, transformTOP, "right", src, tx="=parent().par.Shift", extend="mirror")
+    lfo(b, "lfo", 0.08)
+    sh = "parent().par.Shift * (0.5 + 0.5 * op('lfo')[0])"
+    left = mk(b, transformTOP, "left", src, tx=f"=-{sh}", extend="mirror")
+    right = mk(b, transformTOP, "right", src, tx=f"={sh}", extend="mirror")
+
     def only(name, s, keep):  # output channel `keep` from its own input channel, the other two zero
         pars = {f"{c}{j}": (1 if (c == keep and j == i + 1) else 0)
                 for i, c in enumerate(("red", "green", "blue")) for j in range(1, 4)}

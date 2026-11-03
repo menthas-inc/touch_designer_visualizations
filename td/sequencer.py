@@ -17,19 +17,18 @@ import random
 CORPUS = {
     "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1]}},
     "keepchannel": {"family": "dark", "params": {"Mode": [0, 1, 2]}},
-    "highlights": {"family": "dark", "params": {"Cut": (0.55, 0.8), "Soft": (2.0, 10.0)}},
+    "highlights": {"family": "dark", "params": {"Cut": (0.6, 0.85), "Soft": (4.0, 12.0), "Amount": (0.5, 0.85)}},
     "crush":      {"family": "dark", "params": {"Gamma": (1.5, 2.6), "Black": (0.0, 0.2)}},
     "edges":      {"family": "dark", "params": {"Strength": (0.8, 2.0), "Mix": (0.6, 1.0)}},
-    "tint":       {"family": "dark", "params": {"Hue": (0.0, 1.0), "Sat": (0.6, 1.0)}},
-    "selfmask":   {"family": "dark", "params": {"Amount": (0.6, 1.0)}},
-    "feedback":   {"family": "treat", "stateful": True, "params": {"Zoom": (0.99, 1.03), "Rotate": (-1.0, 1.0), "Decay": (0.85, 0.97), "Mix": (0.3, 0.6)}},
-    "displace":   {"family": "treat", "params": {"Amount": (0.01, 0.06), "Speed": (0.05, 0.4), "Scale": (0.5, 3.0)}},
-    "echo":       {"family": "treat", "stateful": True, "params": {"Frames": [4, 8, 12, 18, 24], "Mix": (0.3, 0.6)}},
+    "tint":       {"family": "dark", "params": {"Hue": (0.0, 1.0), "Sat": (0.8, 1.0)}},
+    "selfmask":   {"family": "dark", "params": {"Amount": (0.6, 1.0), "Contrast": (1.3, 2.0), "Sat": (1.2, 1.8)}},
+    "feedback":   {"family": "treat", "stateful": True, "params": {"Zoom": (0.95, 1.06), "Rotate": (-3.0, 3.0), "Decay": (0.9, 0.98), "Mix": (0.5, 0.8)}},
+    "displace":   {"family": "treat", "params": {"Amount": (0.02, 0.08), "Speed": (0.05, 0.4), "Scale": (0.5, 3.0)}},
+    "echo":       {"family": "treat", "stateful": True, "params": {"Frames": [12, 20, 30, 45, 60], "Mix": (0.4, 0.7)}},
     "mirror":     {"family": "treat", "params": {"Mode": [0, 1, 2]}},
-    "pixelate":   {"family": "treat", "params": {"Cells": (24.0, 120.0)}},
-    "slope":      {"family": "treat", "params": {"Mix": (0.4, 0.9)}},
-    "chroma":     {"family": "treat", "params": {"Shift": (0.005, 0.03)}},
+    "chroma":     {"family": "treat", "params": {"Shift": (0.01, 0.06)}},
 }
+# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey).
 ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
