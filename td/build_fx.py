@@ -43,7 +43,8 @@ def setp(o, **pars):
 
 def wire(dst, *srcs):
     for i, s in enumerate(srcs):
-        dst.inputConnectors[i].connect(s)
+        # a COMP source has several outputs, so connect() wants its connector, not the OP
+        dst.inputConnectors[i].connect(s.outputConnectors[0])
     return dst
 
 
