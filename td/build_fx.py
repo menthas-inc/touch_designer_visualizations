@@ -150,7 +150,7 @@ def fx_displace(b, src):
 
 def fx_echo(b, src):
     c = mk(b, cacheTOP, "cache", src, cachesize=30)
-    s = mk(b, cacheselectTOP, "sel", c, index="=-int(parent().par.Frames)")
+    s = mk(b, cacheselectTOP, "sel", cachetop="cache", index="=-int(parent().par.Frames)")
     return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix * parent().par.Enable")
 
 
