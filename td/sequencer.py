@@ -281,8 +281,9 @@ def _cue(player, key, plan):
     p.par.file = os.path.join(project.folder, key)
     p.par.cuepoint = plan["start"]
     p.par.speed = plan["speed"]
+    p.par.play = False
     p.par.cue = True
-    p.par.play = True
+    p.par.cuepulse.pulse()
 
 
 def _pick_next(st):
@@ -323,7 +324,9 @@ def _start_xfade(st, group):
     x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)
     x.op("smear_fb").par.resetpulse.pulse()
     fx.op("nxt_" + group).par.index = 0 if nxt == "A" else 1
-    fx.op("player" + nxt).par.cue = False  # it was cued at the segment start; now it plays
+    nplayer = fx.op("player" + nxt)  # cued at the segment start; now it plays
+    nplayer.par.cue = False
+    nplayer.par.play = True
     x.par.Active = 1
     fx.op("tx_" + group).par.start.pulse()
 
@@ -344,6 +347,7 @@ def start():
     st["player"] = first
     st["lead"] = 0.0
     fx.op("player" + first).par.cue = False
+    fx.op("player" + first).par.play = True
     for g in GROUPS:
         fx.op("cur_" + g).par.index = 0 if first == "A" else 1
         st["sel"][g] = None
