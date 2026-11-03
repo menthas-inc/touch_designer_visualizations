@@ -1,63 +1,75 @@
 # The network, as read from td/network.json
 
 > What the file does, operator by operator, so the next change does not start from a dump.
-> Re-read the dump before trusting a value here. Last read: 2026-11-03 from `Studio_Up_new.toe`,
-> 5453 operators, of which 5379 are inside Kantan Mapper and 74 are ours.
+> Re-read the dump before trusting a value here. Last rewrite: 2026-11-03, after spec 001
+> replaced the playlist chain with `/project1/fx`.
 
 ## The picture
 
 ```
-VJ_Visuals (53 clips) ──folderRaw──folder──shuffled──┐
-VJ_Visuals/Long (21)  ──folderRaw1─folder1─shuffled1─┤
-                                                     ▼
-                    script1 (merge, shuffle, short clips twice) ──select1 (drop None)──playlist
-                                                                                           │
-playlist_index (count CHOP) ──chopto1──touchout1 ~~network~~ touchin1──datto1──► movie.file = playlist[index]
-        ▲ advances when `remaining` (clip length minus frame) drops below 2 frames
-        └ reset (button) jumps to reset_index (field)
-
-movie ──┐
-        switch2 ◄── button1 "Switch" picks the reel instead
-fit2 ◄── moviefilein2 "Mesme x SL Reel_v3.mp4" (file missing)
-        │
-     movie_null
-      ├── fit  (40 x 40)     ──analyze1──topto1──math1──invert ──► switch  = fit  or diff  (negative)
-      └── fit1 (340 x 1080)  ──analyze2──topto2──math3──invert1 ──► switch1 = fit1 or diff1 (negative)
-                                                                           │
-                                   kantanMapper1: Rectangle1, 2, 4, 5 .Texture = /project1/switch1
+td/clips.json (offline, ffmpeg)            td/sequencer.py (synced into fx/sequencer)
+        │                                          │ picks clip, window, tease, effects
+        └──────────────► playerA / playerB ◄───────┘ cues the idle one, flips the switches
+                              │       │
+             outer: cur_outer, nxt_outer ──fitcur/fitnxt (340 x 1080)──► xfade_outer ──► chain_outer ──► out_outer
+             inner: cur_inner, nxt_inner ──fitcur/fitnxt (340 x 1080)──► xfade_inner ──► chain_inner ──► out_inner
+                                                                                                           │
+                                   kantanMapper1: Rectangle5 + Rectangle1 .Texture = out_outer             │
+                                                  Rectangle4 + Rectangle2 .Texture = out_inner ◄───────────┘
                                                   ──► out1 ──► project/window1 (display 1, the projector)
 ```
 
-## The playlist
+Everything that changes lives in `/project1/fx`, built by `td/build_fx.py` from the spec in
+`docs/specs/001-dynamic-effects/`. The old playlist, the brightness invert, the Touch loop,
+the Switch button and the reel are gone. `constant1`, the orange alignment colour, stays.
 
-- Two Folder DATs list every movie file under `VJ_Visuals` and `VJ_Visuals/Long`. Both lists
-  are shuffled with a Sort DAT, seed 0, so the order is the same every launch.
-- `script1_callbacks` concatenates them, shuffles again with Python's `random.shuffle` (not
-  seeded, so this part differs per launch), and appends every short clip a second time. Result:
-  127 rows. Long clips appear once, short clips twice.
-- `movie` (Movie File In) plays row N at speed 0.75. N is `playlist_index`, a Count CHOP that
-  increments when `remaining` (`info.length - info.index`) drops below 2 and loops at
-  `playlist.numRows - 1`. The Reset button sets it to the number typed in `reset_index`.
-- The index takes a detour through the network: `chopto1` to `touchout1` to `touchin1` to
-  `datto1`, which is what `movie.file` actually reads. Touch In and Out are on default ports, so
-  on one machine it is a loopback. It looks built for a second machine to follow the same index.
-  If `touchin1` ever shows nothing, the playlist is stuck on one clip.
-- `speed` (0.75 to 1.0 from clip length) is computed and not used by anything.
+## fx, piece by piece
 
-## The two cuts of the clip
+- **Players.** `playerA`, `playerB`, Movie File In. One plays, the other holds the next clip
+  cued at its window start. `interp` on, 30 frames preread. Speed per clip from the table.
+- **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
+  and Rectangle2 (panels 2 and 3). Per group: `cur_g` and `nxt_g` Switch TOPs over the two
+  players, `fitcur_g` and `fitnxt_g` (340 x 1080, fit outside), `xfade_g`, `chain_g`,
+  `dbgtext_g` over `dbgover_g` behind the `Debug` toggle, `out_g`.
+- **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 melt, 1
+  displace, both in `glsl` from `td/glsl/xfade.glsl`; 2 smear, a Feedback loop on
+  `smear_out`), `Active` (off: `cur` passes straight through, nothing else cooks).
+- **chain_g.** Fourteen Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
+  `out1`: `framing, keepchannel, highlights, crush, edges, tint, selfmask, feedback,
+  displace, echo, mirror, pixelate, slope, chroma`. `feedback` and `echo` have no Switch,
+  their Cross sits at `Mix * Enable` so the loop keeps cooking. Custom pars per effect are
+  the `CORPUS` in `td/sequencer.py`; the sequencer sets them. Then the limiter: `lim_mono`,
+  `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
+  `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
+- **Timers.** `t_inner` and `t_outer` fire the two transitions, `tx_inner` and `tx_outer`
+  run them and flip `cur_g` when done, `t_reroll` cycles every `Rerollevery` seconds. All
+  share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
+  `start()` on file open.
+- **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`
+  20, `Seed` 0 (random), `Debug` on.
+- **State.** A plain dict in `fx`'s storage: which player is current, clip and plan per
+  player, selection per group, the playlist queue, the lead. The module is stateless, so
+  editing `td/sequencer.py` mid-show keeps the show running.
 
-`movie_null` is the clip (or the reel, when the Switch button is down). It is fitted twice,
-both `fitoutside`, that is cropped to fill:
+## A clip change
 
-| chain | size | then | used by |
-|---|---|---|---|
-| `fit` | 40 x 40 | `diff` against `white` = negative | `switch`, Rectangle6 (hidden) |
-| `fit1` | 340 x 1080 | `diff1` against `white` = negative | `switch1`, the four strips |
+```
+now                      end - T - t       end - T          end - t        end
+│ outer A, inner A        │ inner A to B     │ outer A, inner B │ outer A to B │ both B
+```
 
-Each cut is analysed (`analyze` TOP, default is average) and the average goes through
-`math` (`floor(avg + 0.6)`) and a Logic CHOP: average brightness at or above 0.4 flips the
-Switch TOP to the negative. Bright clips are shown inverted, so the strips stay mostly dark.
-Change the 0.6 preoffset in `math1` and `math3` to move the threshold.
+At the start of a segment the idle player is cued with the next clip. `t_inner` fires at
+`L - T - t`: the inner group gets a new selection, a random transition type, and runs
+`tx_inner` for `t` seconds, during which the cued player plays. `t_outer` fires at `L - t`
+and does the same for the outer group; when `tx_outer` is done the next segment begins with
+the roles swapped and `lead = T + t` taken off the new clip's play. T is 0 half the time,
+else 1 to 6 s; t is 2 to 3 s; the plain play before a change is never under 6 s.
+
+## The table
+
+`td/clips.json`, from `python3 td/clip_stats.py` after any change to `VJ_Visuals`: per clip
+the length, frame rate, a motion score, and per 10 s bucket the mean and high luma. A clip
+not in the table counts as bright.
 
 ## The mapper
 
@@ -81,39 +93,26 @@ with these parts that matter:
 - `project/tree`: one row per shape, `id type owner layer lock visible`. This is where hidden
   and locked live, not on the shape.
 
-### The six shapes, as saved
+### The six shapes, now
 
 | item | name | base w x h at centre | corners | texture | orient | flip | tree |
 |---|---|---|---|---|---|---|---|
-| 1 | Rectangle1 | 292 x 1070 at (753, 3) | bottom corners raised 0.84 | switch1 (was constant1) | 2 | no | locked |
-| 2 | Rectangle2 | 86 x 70 at (302, 344) | dragged up to 3.8 widths out | switch1 (was constant1) | 0 | no | locked |
+| 1 | Rectangle1 | 292 x 1080 at (753, 0) | none | fx/out_outer | 2 | no | locked |
+| 2 | Rectangle2 | 300 x 1080 at (302, 0) | none | fx/out_inner | 0 | no | locked |
 | 3 | Rectangle3 | 130 x 62 at (-443, -635) | none | none (test grid) | 0 | no | unlocked, off canvas |
-| 4 | Rectangle4 | 310 x 544 at (-187, 270) | bottom corners raised 0.74 | switch1 (was constant1) | 0 | yes | locked |
-| 5 | Rectangle5 | 328 x 1078 at (-694, -1) | bottom corners raised 0.88 | switch1 (was constant1) | 2 | yes | locked |
-| 6 | Rectangle6 | 58 x 56 at (0, -465) | none | switch (40 x 40) | 0 | no | locked, hidden |
+| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | none | fx/out_inner | 0 | yes | locked |
+| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | none | fx/out_outer | 2 | yes | locked |
+| 6 | Rectangle6 | 58 x 56 at (0, -465) | none | none, cleared | 0 | no | locked, hidden |
 
-What this means, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540):
-
-| strip | base column | after the corner drags |
-|---|---|---|
-| Rectangle5 | x -858..-530, full height | x -727..-426, y 405..539 |
-| Rectangle4 | x -342..-32, top half only | x -416..-52, y 402..540 |
-| Rectangle2 | an 86 x 70 box at (302, 344) | x 17..431, y 402..573 |
-| Rectangle1 | x 607..899, full height | x 526..899, y 365..539 |
-
-The base columns already describe four strips side by side across 85 percent of the frame,
-which is the room as the owner describes it: the projector covers the rectangle the strips hang
-in. The corner drags are the anomaly: every bottom edge pulled to y = 400, every top edge on the
-frame edge, and Rectangle2's top-right corner 33 px outside the frame, which no calibration
-produces. The 340 x 1080 cut then gets squashed six times vertically into each band. The saves
-in `Backup/` are a different installation (2022 to 2023, a logo and two big shapes), so this
-layout exists in one save only and there is no earlier calibration to compare against.
-`td/reset_corners.py` removes the drags and leaves the columns; the dragged values stay in git.
-`td/set_columns.py` then makes all four full height. The orientation and flip flags per strip are
-intentional (owner, 2026-11-03): they match how each strip hangs. Rectangle3 and 6 are leftovers.
-
-The "was constant1" column is the state the file arrived in: all four strips on the orange
-Constant TOP, the alignment colour. `td/map_video.py` set them to `switch1`, saved in `Studio_Up_new.toe`.
+How they got here, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540): the
+file arrived with every strip's bottom corners dragged up to y = 400 and the tops on the frame
+edge, so each was a short band in the top 15 percent of the frame with the video squashed six
+times. The base columns underneath already described four strips side by side across 85 percent
+of the frame, which is the room. `td/reset_corners.py` removed the drags (the values stay in
+git), `td/set_columns.py` made all four 1080 tall, and `map_video.py` first put video on them
+before spec 001 took over the textures. The orientation and flip flags per strip are
+intentional (owner, 2026-11-03): they match how each strip hangs. Rectangle3 and 6 are
+leftovers. The saves in `Backup/` are a different installation (2022 to 2023).
 
 ### Driving Kantan from a script
 
@@ -138,8 +137,8 @@ row-and-column tool cooking with no shape selected. They are noise, not ours.
 
 ## Output
 
-- `project1` is the perform window's target and had `top = ./out1`, which does not exist.
-  `open_output.py` points it at the mapper's output.
+- `project1` is the perform window's target; `open_output.py` pointed it at the mapper's
+  output (it arrived pointing at a `./out1` that did not exist).
 - Kantan's own output window, the Toggle Output button, is `project/window1`: borderless on
   display 1, which is the projector when one is attached.
 - `/project1/window` (1920 x 1080) and `window1` (1080 x 1920) are two spare Window COMPs with no
@@ -147,7 +146,6 @@ row-and-column tool cooking with no shape selected. They are noise, not ours.
 
 ## Not in the zip
 
-- `Mesme x SL Reel_v3.mp4`, the reel behind the Switch button.
-- `mood_M_.png`, loaded by `mood_logo`, which nothing reads.
+- `Mesme x SL Reel_v3.mp4` and `mood_M_.png`, referenced by the old chain, now deleted.
 - `kantan.json`, the mapper's project file. Its embedded copy is Kantan's demo, not ours.
 - The file last ran on a Windows machine (`C:/Users/.../...`). Folder paths re-resolve on load.

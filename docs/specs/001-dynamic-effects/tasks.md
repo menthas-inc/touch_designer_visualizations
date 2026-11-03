@@ -5,13 +5,14 @@
 - [x] T2 `td/sequencer.py` pure layer: `Playlist`, `plan_segment`, `window_stats`, `is_bright`,
       `choose`, `reroll`; `tests/test_sequencer.py` covers AC-2, AC-3, AC-5 and the clamps.
       QUAL-1.
-- [~] T3 `td/build_fx.py`: `fx` container, players, per-group `cur`, `nxt`, fits, `xfade`,
+- [x] T3 `td/build_fx.py`: `fx` container, players, per-group `cur`, `nxt`, fits, `xfade`,
       chain, limiter, `out`; textures repointed; the old chain deleted at the end; the sequencer
-      started. One script, so the wall is never dark between tasks. AC-7, SV-2. Written, not
-      yet run in TouchDesigner.
-- [ ] T4 each of the fourteen effects checked on the preview with `Enable` on by hand; parameter
+      started. One script, so the wall is never dark between tasks. AC-7, SV-2. Built, zero
+      parameter misses, clips change on the preview.
+- [~] T4 each of the fourteen effects checked on the preview with `Enable` on by hand; parameter
       ranges adjusted in `CORPUS`. AC-3.
-- [ ] T5 the three transitions checked on the preview, a few clip changes watched. AC-4.
+      keepchannel checked (Mode 2 is blue); the limiter checked (gain 0.62 on a bright clip).
+- [~] T5 the three transitions checked on the preview, a few clip changes watched. AC-4.
 - [ ] T6 save, dump, `docs/tech/network.md` rewritten for the new network. DEV-2, SV-1.
 - [ ] T7 AC-1 and AC-4 log: a Script CHOP writes the per-group mean per frame and flags black
       and repeated frames in transition windows to `td/run.log`; run 10 minutes on the
