@@ -149,7 +149,7 @@ def fx_displace(b, src):
 
 def fx_echo(b, src):
     c = mk(b, cacheTOP, "cache", src, cachesize=30)
-    s = mk(b, cacheselectTOP, "sel", top="cache", index="=-int(parent().par.Frames)")
+    s = mk(b, cacheselectTOP, "sel", c, index="=-int(parent().par.Frames)")
     return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix * parent().par.Enable")
 
 
@@ -238,7 +238,7 @@ def build():
     players = {}
     for name in ("A", "B"):
         players[name] = mk(fx, moviefileinTOP, "player" + name, play=False, interp=True, prereadframes=30,
-                           cuepointunit="seconds", extendright="hold")
+                           cuepointunit="seconds")
 
     for g in STRIPS:
         cur = mk(fx, switchTOP, "cur_" + g, players["A"], players["B"], index=0)
@@ -259,7 +259,7 @@ def build():
         small = mk(chain, fitTOP, "lim_small", mono, fit="fitoutside", outputresolution="custom", resolutionw=40, resolutionh=40)
         an = mk(chain, analyzeTOP, "lim_avg", small)
         tc = mk(chain, toptoCHOP, "lim_val", top="lim_avg", crop="pixel", uvunits="pixel")
-        ex = mk(chain, expressionCHOP, "lim_gain", tc, expr0="min(1.0, op('/project1/fx').par.Ceiling / max(me.inputVal, 0.001))")
+        ex = mk(chain, expressionCHOP, "lim_gain", tc, expr0="=min(1.0, op('/project1/fx').par.Ceiling / max(me.inputVal, 0.001))")
         lag = mk(chain, lagCHOP, "lim_lag", ex, lag1=0.5, lag2=0.05)
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
