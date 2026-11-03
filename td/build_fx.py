@@ -102,7 +102,7 @@ def fx_highlights(b, src):
     m = mk(b, monochromeTOP, "mono", src)
     th = mk(b, thresholdTOP, "thresh", m, threshold="=parent().par.Cut")
     bl = mk(b, blurTOP, "soft", th, size="=parent().par.Soft")
-    inv = mk(b, invertTOP, "inv", bl)
+    inv = mk(b, levelTOP, "inv", bl, invert=1.0)
     return mk(b, compositeTOP, "mul", src, inv, operand="multiply")
 
 
@@ -126,7 +126,7 @@ def fx_tint(b, src):
 
 def fx_selfmask(b, src):
     m = mk(b, monochromeTOP, "mono", src)
-    inv = mk(b, invertTOP, "inv", m)
+    inv = mk(b, levelTOP, "inv", m, invert=1.0)
     mul = mk(b, compositeTOP, "mul", src, inv, operand="multiply")
     return mk(b, crossTOP, "cross", src, mul, cross="=parent().par.Amount")
 
