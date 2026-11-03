@@ -16,7 +16,6 @@ import random
 # behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.
 CORPUS = {
     "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1]}},
-    "keepchannel": {"family": "dark", "params": {"Mode": [0, 1, 2]}},
     "highlights": {"family": "dark", "params": {"Cut": (0.6, 0.85), "Soft": (4.0, 12.0), "Amount": (0.5, 0.85)}},
     "crush":      {"family": "dark", "params": {"Gamma": (1.5, 2.6), "Black": (0.0, 0.2)}},
     "edges":      {"family": "dark", "params": {"Strength": (0.8, 2.0), "Mix": (0.6, 1.0)}},
@@ -28,7 +27,8 @@ CORPUS = {
     "mirror":     {"family": "treat", "params": {"Mode": [0, 1, 2]}},
     "chroma":     {"family": "treat", "params": {"Shift": (0.01, 0.06)}},
 }
-# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey).
+# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),
+# keepchannel.
 ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
