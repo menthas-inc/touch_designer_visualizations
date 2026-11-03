@@ -4,13 +4,12 @@
 
 ## Decided
 
-### 2026-11-03: the show runs on this Mac on the free licence, at 1280 x 720
-The owner's Mac (M1 Max) is the show machine and the licence is non-commercial, which caps
-every TOP at 1280 x 1280. Rather than let TouchDesigner silently downscale the mapper's
-1920 x 1080 render, the mapper's project resolution is set to 1280 x 720 so what the projector
-gets is what the file says. The strip chains at 340 x 1080 are under the cap.
-Rules out: 1080p output to the projector without a paid licence. If the look needs it, buy the
-licence and raise the resolution back; nothing else changes.
+### 2026-11-03: the show runs on this Mac; the free licence's cap is accepted for now
+The owner's Mac (M1 Max) is the show machine. The licence is non-commercial, which caps every
+TOP at 1280 x 1280, so the mapper's 1920 x 1080 render reaches the projector downscaled. The
+file keeps 1920 x 1080: the owner will buy a licence later and nothing then has to change. The
+strip chains at 340 x 1080 are under the cap either way.
+Rules out: nothing. Until the licence, judge sharpness on the wall knowing it is capped.
 
 ### 2026-11-03: the Touch In and Out index loop goes
 No second machine listens to it (owner). The sequencer in spec 001 replaces the Count CHOP

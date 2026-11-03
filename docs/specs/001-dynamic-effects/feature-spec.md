@@ -142,9 +142,9 @@ measurement, except where it says otherwise.
   darkeners, six treatments, three transitions) and each is checked on the preview before it
   joins the pool. Adding one later is one component and one line in the chooser.
 - The show runs on this Mac on the free licence, which caps every TOP at 1280 x 1280. The
-  mapper's project resolution goes to 1280 x 720 so the cap is explicit rather than a silent
-  downscale (decision logged in `docs/tech/decisions.md`). The strip chains at 340 x 1080 are
-  under the cap. Cost is lower than the estimate above, not higher.
+  mapper keeps its 1920 x 1080 and arrives at the projector downscaled until the owner buys a
+  licence (decision logged in `docs/tech/decisions.md`). The strip chains at 340 x 1080 are
+  under the cap.
 
 ## Answers that shaped draft 2 (owner, 2026-11-03)
 
