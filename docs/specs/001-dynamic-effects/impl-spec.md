@@ -116,6 +116,15 @@ new chain is wired and started, so the file is never dark. `constant1` stays: it
 alignment colour to point a strip at when the paper is re-hung. Rectangle6's `Texture`, which
 pointed at the deleted `switch`, is cleared; it is hidden anyway.
 
+### 4b. The spice
+
+`playerC`, `fitC`, `chainC` (one chain, no slots: it blends in and out through `spice_g`, a
+Cross over each group's transition output before the limiter, at `spice_level(group)`), and
+`spice_drift`, a Transform at `spice_drift(axis)`. `_schedule_spice` cues a random clip and
+arms `t_spicewait`; `_start_spice` picks the groups and the pulse count, applies a selection
+chosen against both groups' looks, releases C and arms `t_spice`; `_end_spice` stops C and
+schedules again. `spice_env(f, pulses)` is pure and tested.
+
 ### 5. Transitions
 
 `td/glsl/xfade.glsl`, one shader synced from the file, `uType` 0 to 3, samples outside the

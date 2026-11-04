@@ -7,6 +7,7 @@ storage, not in this module, so a re-sync of the file mid-show loses nothing.
 """
 import colorsys
 import json
+import math
 import os
 import random
 
@@ -58,6 +59,17 @@ def progress(fraction):
     return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
 MIRROR_CHANCE = 0.8  # per clip change, that a pair's first strip mirrors the second; else the same way round
+# the spice: a third clip that drops in over one pair or both, pulses, and leaves
+SPICE_GAP = (40.0, 120.0)  # seconds between spices
+SPICE_LEN = (5.0, 10.0)  # seconds a spice lasts
+SPICE_PULSES = (2, 4)
+SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
+
+
+def spice_env(fraction, pulses):
+    """0 to 0.9 and back over a spice, in `pulses` swells. Pure."""
+    f = min(max(fraction, 0.0), 1.0)
+    return math.sin(math.pi * f) ** 0.7 * (0.5 + 0.4 * math.cos(2 * math.pi * (pulses - 1) * f))
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
@@ -244,7 +256,10 @@ def _table():
 
 def _apply(group, slot, sel):
     """Two chain slots per group, so a transition melds the old look into the new."""
-    chain = _fx().op(f"chain{slot}_{group}")
+    _apply_chain(_fx().op(f"chain{slot}_{group}"), sel)
+
+
+def _apply_chain(chain, sel):
     for name, vals in sel.items():
         b = chain.op(name)
         for k, v in vals.items():
@@ -330,15 +345,61 @@ def _pick_next(st):
 
 
 def _selection_for(st, player, group):
+    """A look for `player`'s clip, unlike the group's own and the other group's."""
     rng = _rng(st)
     clip = _table().get(st["clip"].get(player))
     plan = st["plan"][player]
     stats = window_stats(clip, plan["start"], plan["window"])
     fx = _fx()
-    other = GROUPS[1 - GROUPS.index(group)]
     level = DARKNESS[str(fx.par.Darkness)]
-    return choose(stats, rng, avoid=[st["sel"].get(group), st["sel"].get(other)], bias=level[3], cut=level[4],
+    avoid = [st["sel"].get(g) for g in GROUPS if g != group] + [st["sel"].get(group)]
+    return choose(stats, rng, avoid=avoid, bias=level[3], cut=level[4],
                   bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))
+
+
+# ---------------------------------------------------------------- the spice
+def _schedule_spice(st):
+    """Cue a random clip into player C and start the wait for the next spice."""
+    rng = _rng(st)
+    table = _table()
+    if not table:
+        return
+    key = rng.choice(sorted(table))
+    plan = plan_segment(table[key], rng, cap=SPICE_LEN[1])
+    st["clip"]["C"], st["plan"]["C"] = key, plan
+    _cue("C", key, plan)
+    _timer("t_spicewait", rng.uniform(*SPICE_GAP))
+
+
+def _start_spice(st):
+    fx = _fx()
+    rng = _rng(st)
+    where = rng.choice(SPICE_WHERE)
+    st["spice"] = {"groups": GROUPS if where == "both" else [where], "pulses": rng.randint(*SPICE_PULSES)}
+    st["sel"]["spice"] = _selection_for(st, "C", "spice")
+    _apply_chain(fx.op("chainC"), st["sel"]["spice"])
+    _release("C")
+    _timer("t_spice", rng.uniform(*SPICE_LEN))
+
+
+def _end_spice(st):
+    _fx().op("playerC").par.play = False
+    _schedule_spice(st)
+
+
+def spice_level(group):
+    """The spice's cross amount for a group, read every frame by spice_g."""
+    st = _state()
+    sp = st.get("spice")
+    if not sp or group not in sp["groups"]:
+        return 0.0
+    return spice_env(_fx().op("t_spice")["timer_fraction"], sp["pulses"])
+
+
+def spice_drift(axis):
+    """A small wander of the spice picture over its life, read every frame by spice_drift."""
+    f = _fx().op("t_spice")["timer_fraction"]
+    return 0.06 * math.sin(2 * math.pi * f) if axis == "x" else 0.04 * math.sin(4 * math.pi * f + 1.0)
 
 
 def _start_xfade(st, group, player, seconds):
@@ -400,7 +461,7 @@ def start():
     """Called once from the Execute DAT's onStart and at the end of the build."""
     fx = _fx()
     fx.unstore("state")
-    for name in ("t_preroll", "t_turn", "t_inner", "t_outer", "tx_inner", "tx_outer", "t_reroll"):
+    for name in ("t_preroll", "t_turn", "t_inner", "t_outer", "tx_inner", "tx_outer", "t_reroll", "t_spice", "t_spicewait"):
         fx.op(name).par.initialize.pulse()  # a timer saved mid run would fire into fresh state
     for g in GROUPS:
         fx.op("xfade_" + g).par.Active = 0
@@ -423,6 +484,7 @@ def start():
     if fx.par.Hold:
         _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)
+    _schedule_spice(st)
 
 
 def _begin_segment(st):
@@ -449,6 +511,13 @@ def on_done(timer_name):
     fx = _fx()
     if timer_name == "t_preroll":
         _release(OTHER[st["player"]])
+    elif timer_name == "t_spicewait":
+        if not fx.par.Hold:
+            _start_spice(st)
+        else:
+            _schedule_spice(st)
+    elif timer_name == "t_spice":
+        _end_spice(st)
     elif timer_name == "t_turn":
         fx.op("player" + st["player"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top
     elif timer_name in ("t_inner", "t_outer"):

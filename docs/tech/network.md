@@ -48,6 +48,11 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   effect only one time in five. `limiter_g` after the transition: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
+- **Spice.** A third player, `playerC`, through `fitC` and `chainC` (the same twelve
+  effects, a look chosen like the groups') and `spice_drift` (a small wander), crossed over
+  one pair or both by `spice_g` between the transition and the limiter. `t_spicewait` (40 to
+  120 s) then `t_spice` (5 to 10 s): the cross follows `spice_env`, 0 to 0.9 and back with 2
+  to 4 dips, so it comes in, pulses and leaves. Player C only plays during a spice.
 - **Timers.** `t_turn` cues a short clip back to its start when it reaches its end, `t_preroll`
   releases the cued player 1 s before it is shown, `t_inner` and
   `t_outer` fire the two transitions, `tx_inner` and `tx_outer` run them and flip `cur_g` when

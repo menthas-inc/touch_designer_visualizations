@@ -88,7 +88,11 @@ Transition length t is 7.5 to 22.5 s, the first half of the meld in the first th
 time and the second half over the rest, and the old look melds into the new one with the picture,
 not before it. Now and then, not often, a group also melds to a new look mid clip, over 6 to
 12 s, flips and tilts included. The two strips of a pair mirror each other four clips in five;
-otherwise they hang the same way round, the change blended in, never cut. Timeline for one change:
+otherwise they hang the same way round, the change blended in, never cut.
+
+Every minute or two a third clip, any from the table, drops in over one pair or both for 5 to
+10 s: it comes in, pulses two to four times, wanders a little and leaves, never fully taking
+over. It gets its own look, chosen like the groups' and unlike theirs. Timeline for one change:
 
 ```
 now                      end - T - t       end - T          end - t        end

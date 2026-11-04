@@ -83,6 +83,17 @@ class ProgressTest(unittest.TestCase):
         self.assertEqual(sq.progress(1.3), 1.0)
 
 
+class SpiceTest(unittest.TestCase):
+    def test_env_starts_and_ends_at_zero_pulses_and_never_takes_over(self):
+        for pulses in (2, 3, 4):
+            ys = [sq.spice_env(i / 1000, pulses) for i in range(1001)]
+            self.assertEqual(ys[0], 0.0)
+            self.assertAlmostEqual(ys[-1], 0.0)
+            self.assertLessEqual(max(ys), 0.9)
+            peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 1000))
+            self.assertEqual(peaks, pulses, (pulses, peaks))
+
+
 class HoldTest(unittest.TestCase):
     def test_held_selection_is_one_effect_over_neutral_framing(self):
         sel = sq.held_selection("crush", {"Gamma": 2.0, "Black": 0.1})

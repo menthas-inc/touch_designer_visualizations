@@ -266,10 +266,23 @@ def build():
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)
 
     players = {}
-    for name in ("A", "B"):
+    for name in ("A", "B", "C"):  # C is the spice, a third clip that drops in now and then
         # sequential: play and cue mean something; the default follows the 20 s timeline loop
         players[name] = mk(fx, moviefileinTOP, "player" + name, playmode="sequential", play=False, interp=True,
                            prereadframes=60, cuepointunit="seconds", hwdecode=False)
+
+    # the spice: its own chain over player C, a small wander, crossed over each group before the limiter
+    fitC = mk(fx, fitTOP, "fitC", players["C"], fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+    chainC = fx.create(baseCOMP, "chainC")
+    prev = mk(chainC, inTOP, "in1")
+    for name in ORDER:
+        b = build_effect(chainC, name)
+        wire(b, prev)
+        prev = b
+    mk(chainC, outTOP, "out1", prev)
+    wire(chainC, fitC)
+    drift = mk(fx, transformTOP, "spice_drift", chainC, extend="mirror",
+               tx="=op('/project1/fx/sequencer').module.spice_drift('x')", ty="=op('/project1/fx/sequencer').module.spice_drift('y')")
 
     for g in STRIPS:
         # two chain slots per group, each fed by either player through src: a transition melds
@@ -304,7 +317,8 @@ def build():
         lag = mk(chain, lagCHOP, "lim_lag", ex, lag1=0.5, lag2=0.05)
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
-        wire(chain, x)
+        spice = mk(fx, crossTOP, "spice_" + g, x, drift, cross=f"=op('/project1/fx/sequencer').module.spice_level('{g}')")
+        wire(chain, spice)
         out = mk(fx, nullTOP, "out_" + g, chain)
         # the pair's mirror, once a Kantan flag on the first strip: now a flip blended in over a
         # lag, so the sequencer can leave a pair the same way round now and then without a cut
@@ -323,7 +337,7 @@ def build():
         "    op('sequencer').module.on_reroll()\n"
         "    return\n"
     )
-    for name in ("t_turn", "t_preroll", "t_inner", "t_outer", "tx_inner", "tx_outer"):
+    for name in ("t_turn", "t_preroll", "t_inner", "t_outer", "tx_inner", "tx_outer", "t_spice", "t_spicewait"):
         mk(fx, timerCHOP, name, lengthunits="seconds", length=10, callbacks="timers_callbacks")
     mk(fx, timerCHOP, "t_reroll", lengthunits="seconds", length=20, cycle=True, cyclelimit=False, callbacks="timers_callbacks")
     for g in STRIPS:
