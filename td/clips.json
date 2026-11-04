@@ -760,21 +760,6 @@
   "length": 10.0,
   "motion": 0.0384
  },
- "VJ_Visuals/SaveInsta.App - 2980090315385966606.mp4": {
-  "buckets": [
-   {
-    "high": 0.8706,
-    "mean": 0.324
-   },
-   {
-    "high": 0.8706,
-    "mean": 0.3257
-   }
-  ],
-  "fps": 30.0,
-  "length": 18.18,
-  "motion": 0.0495
- },
  "VJ_Visuals/SaveInsta.App - 3007770791632496033.mp4": {
   "buckets": [
    {
