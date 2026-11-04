@@ -17,7 +17,7 @@ import random
 CORPUS = {
     "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1]}},
     "highlights": {"family": "dark", "params": {"Cut": (0.85, 0.6), "Soft": (12.0, 4.0), "Amount": (0.5, 1.0)}},
-    "crush":      {"family": "dark", "params": {"Gamma": (1.5, 2.6), "Black": (0.0, 0.2)}},
+    "crush":      {"family": "dark", "params": {"Gamma": (0.7, 0.4), "Black": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens
     "edges":      {"family": "dark", "params": {"Strength": (0.8, 2.0), "Mix": (0.6, 1.0)}},
     "tint":       {"family": "dark", "params": {"Hue": (0.0, 1.0), "Sat": (0.8, 1.0)}},
     "selfmask":   {"family": "dark", "params": {"Amount": (0.6, 1.0), "Contrast": (1.3, 2.0), "Sat": (1.2, 1.8)}},
