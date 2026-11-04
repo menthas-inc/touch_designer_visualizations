@@ -27,26 +27,26 @@ class ChooseTest(unittest.TestCase):
             self.assertFalse(d & set(sq.DARK), d)
             self.assertTrue(len(d & set(sq.TREAT)) <= 2)
 
-    def test_dark_is_sometimes_plain_but_never_on_both_groups(self):
+    def test_dark_is_mostly_plain_even_when_the_other_group_is(self):
         rng = random.Random(2)
-        plain = sum(sq.enabled(sq.choose(DARK, rng)) == {"framing"} for _ in range(1000))
-        self.assertTrue(100 < plain < 220, plain)
         other = {n: {"Enable": int(n == "framing")} for n in sq.CORPUS}
-        for _ in range(200):
-            self.assertNotEqual(sq.enabled(sq.choose(DARK, rng, avoid=[other])), {"framing"})
+        plain = sum(sq.enabled(sq.choose(DARK, rng, avoid=[other])) == {"framing"} for _ in range(1000))
+        self.assertTrue(740 < plain < 860, plain)
 
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))
 
-    def test_never_equals_avoid(self):
+    def test_never_equals_avoid_unless_plain(self):
         rng = random.Random(2)
+        plain = {"framing"}
         for stats in (BRIGHT, DARK):
             for _ in range(200):
                 a = sq.choose(stats, rng)
                 c = sq.choose(stats, rng, avoid=[a])
                 b = sq.choose(stats, rng, avoid=[a, c])
-                self.assertNotEqual(sq.enabled(a), sq.enabled(b))
-                self.assertNotEqual(sq.enabled(c), sq.enabled(b))
+                if sq.enabled(b) != plain:
+                    self.assertNotEqual(sq.enabled(a), sq.enabled(b))
+                    self.assertNotEqual(sq.enabled(c), sq.enabled(b))
 
     def test_reroll_moves_only_stateless_treatments(self):
         rng = random.Random(3)

@@ -40,8 +40,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
   a held effect still moves. `feedback` and `echo` have no Switch,
   their Cross sits at `Mix * Enable` so the loop keeps cooking. Custom pars per effect are
-  the `CORPUS` in `td/sequencer.py`; the sequencer sets them. On a dark clip one group is
-  sometimes left plain. `limiter_g` after the transition: `lim_mono`,
+  the `CORPUS` in `td/sequencer.py`; the sequencer sets them. On a dark clip a group gets an
+  effect only one time in five. `limiter_g` after the transition: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
 - **Timers.** `t_preroll` releases the cued player 1 s before it is shown, `t_inner` and

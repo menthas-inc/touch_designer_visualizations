@@ -33,7 +33,7 @@ ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a sel
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
 XFADE_TYPES = 3  # melt, displace, smear
-PLAIN = 0.16  # per group on a dark clip, so about 30% of dark clips show one group untreated
+PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
 DEFAULTS = {"cap": 60.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
 BUCKET = 10.0
@@ -163,7 +163,7 @@ def choose(stats, rng, avoid=(), **thresholds):
             if rng.random() < 0.5:
                 picks += rng.sample(TREAT, 1)
         elif rng.random() < PLAIN:
-            picks = []  # the clip as it is; avoid keeps the other group from going plain too
+            return sel  # plain is always allowed, so avoid does not force an effect on
         else:
             picks = rng.sample(TREAT, rng.choice([1, 2]))
         for n in picks:
