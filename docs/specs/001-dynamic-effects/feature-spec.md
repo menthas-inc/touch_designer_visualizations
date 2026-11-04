@@ -26,8 +26,7 @@ replaces the Count CHOP and the Touch In and Out loop (no second machine listens
 2026-11-03).
 
 Each clip plays for a bounded segment of at most 120 s on the wall (the cap is a parameter):
-a long clip gets a random window of it, a clip under 45 s plays forward and then backward so
-it lasts longer. That is the answer to long clips and to short ones.
+a long clip gets a random window of it, a clip under 45 s plays twice so it lasts longer. That is the answer to long clips and to short ones.
 
 Playback speed is per clip, from the table: 0.6 by default, and lower (down to 0.4) for clips
 whose measured motion is high and whose frame rate is 25 or above. Low frame rate clips stay

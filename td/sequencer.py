@@ -46,7 +46,7 @@ BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
 PREROLL = 1.0
-SHORT = 45.0  # clips under this play forward, then backward, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
+SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
 def _draw(rng, spec, bias=0.0):
@@ -125,7 +125,7 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
     # window, length, tease, xfade and turn are real seconds; start is a clip time
     total = clip["length"] if clip else cap
     if total < SHORT:
-        start, turn = 0.0, round(total / speed, 2)  # the end of the forward pass
+        start, turn = 0.0, round(total / speed, 2)  # the end of the first pass
         window = min(2 * turn, cap)
     else:
         content = min(total, cap * speed)
@@ -421,8 +421,7 @@ def on_done(timer_name):
     if timer_name == "t_preroll":
         _release(OTHER[st["player"]])
     elif timer_name == "t_turn":
-        p = fx.op("player" + st["player"])
-        p.par.speed = -float(p.par.speed)  # a short clip reaches its end: play it back out
+        fx.op("player" + st["player"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top
     elif timer_name == "t_inner":
         _start_xfade(st, "inner")
     elif timer_name == "t_outer":

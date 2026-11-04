@@ -119,7 +119,7 @@ class PlanTest(unittest.TestCase):
         for _ in range(100):
             p = sq.plan_segment(clip(9.0), rng)
             self.assertEqual(p["start"], 0.0)
-            self.assertEqual(p["turn"], 15.0)  # 9 s at 0.6, then back
+            self.assertEqual(p["turn"], 15.0)  # 9 s at 0.6, then again
             self.assertEqual(p["length"], 30.0)
             self.assertTrue(p["tease"] == 0 or p["tease"] >= 1.0)
             self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
