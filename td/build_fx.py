@@ -283,6 +283,7 @@ def build():
     wire(chainC, fitC)
     drift = mk(fx, transformTOP, "spice_drift", chainC, extend="mirror",
                tx="=op('/project1/fx/sequencer').module.spice_drift('x')", ty="=op('/project1/fx/sequencer').module.spice_drift('y')")
+    mk(fx, textDAT, "spice_glsl", file=GLSL, syncfile=True)  # the transition shader again: a spice pulses in through it
 
     for g in STRIPS:
         # two chain slots per group, each fed by either player through src: a transition melds
@@ -317,8 +318,11 @@ def build():
         lag = mk(chain, lagCHOP, "lim_lag", ex, lag1=0.5, lag2=0.05)
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
-        spice = mk(fx, crossTOP, "spice_" + g, x, drift, cross=f"=op('/project1/fx/sequencer').module.spice_level('{g}')")
-        wire(chain, spice)
+        spice = mk(fx, glslTOP, "spice_" + g, x, drift, pixeldat="spice_glsl",
+                   uniname0="uProgress", value0x=f"=op('/project1/fx/sequencer').module.spice_level('{g}')",
+                   uniname1="uType", value1x="=op('/project1/fx/sequencer').module.spice_type()")
+        spicesw = mk(fx, switchTOP, "spicesw_" + g, x, spice, index="=op('/project1/fx/sequencer').module.spice_on()")
+        wire(chain, spicesw)
         out = mk(fx, nullTOP, "out_" + g, chain)
         # the pair's mirror, once a Kantan flag on the first strip: now a flip blended in over a
         # lag, so the sequencer can leave a pair the same way round now and then without a cut

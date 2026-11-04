@@ -118,8 +118,9 @@ pointed at the deleted `switch`, is cleared; it is hidden anyway.
 
 ### 4b. The spice
 
-`playerC`, `fitC`, `chainC` (one chain, no slots: it blends in and out through `spice_g`, a
-Cross over each group's transition output before the limiter, at `spice_level(group)`), and
+`playerC`, `fitC`, `chainC` (one chain, no slots: it comes and goes through `spice_g`, the
+transition shader over each group's transition output before the limiter, progress
+`spice_level(group)`, type `spice_type()`, behind `spicesw_g` on `spice_on()`), and
 `spice_drift`, a Transform at `spice_drift(axis)`. `_schedule_spice` cues a random clip and
 arms `t_spicewait`; `_start_spice` picks the groups and the pulse count, applies a selection
 chosen against both groups' looks, releases C and arms `t_spice`; `_end_spice` stops C and

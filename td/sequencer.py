@@ -375,7 +375,8 @@ def _start_spice(st):
     fx = _fx()
     rng = _rng(st)
     where = rng.choice(SPICE_WHERE)
-    st["spice"] = {"groups": GROUPS if where == "both" else [where], "pulses": rng.randint(*SPICE_PULSES)}
+    st["spice"] = {"groups": GROUPS if where == "both" else [where], "pulses": rng.randint(*SPICE_PULSES),
+                   "type": rng.randrange(XFADE_TYPES - 1)}  # a shader transition, not the smear
     st["sel"]["spice"] = _selection_for(st, "C", "spice")
     _apply_chain(fx.op("chainC"), st["sel"]["spice"])
     _release("C")
@@ -388,12 +389,22 @@ def _end_spice(st):
 
 
 def spice_level(group):
-    """The spice's cross amount for a group, read every frame by spice_g."""
+    """The spice's progress for a group, read every frame by spice_g's shader."""
     st = _state()
     sp = st.get("spice")
     if not sp or group not in sp["groups"]:
         return 0.0
     return spice_env(_fx().op("t_spice")["timer_fraction"], sp["pulses"])
+
+
+def spice_type():
+    sp = _state().get("spice")
+    return sp["type"] if sp else 0
+
+
+def spice_on():
+    """1 while a spice shows on any group, so spicesw_g pulls the shader and chainC only then."""
+    return int(any(spice_level(g) > 0.0 for g in GROUPS))
 
 
 def spice_drift(axis):
