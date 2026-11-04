@@ -291,19 +291,18 @@ def build():
         # two chain slots per group, each fed by either player through src: a transition melds
         # the shown slot into the other, for a new clip or a new look on the same clip. Only
         # the slot the Switches pull cooks, so outside a transition one chain per group runs
-        # the strip's window on the frame: the clip fit to 1920 x 1080, then a 340 wide crop whose
-        # position is the group's pan (picked per clip change, lagged) plus a slow drift, so the two
-        # groups show different parts of the same clip and wander at different rates
+        # the strip's window on the clip: the clip shifted sideways by the group's pan (picked per
+        # clip change, lagged, a fraction of the clip's width) plus a slow drift, then fit to cover
+        # the strip, so the two groups show different parts of the same clip and wander at
+        # different rates. Past the clip's edge the shift mirrors, so a portrait clip never shows black
         pan = mk(fx, constantCHOP, "pan_" + g, value0=0.0)
         mk(fx, lagCHOP, "panlag_" + g, pan, lag1=4.0, lag2=4.0)
         mk(fx, lfoCHOP, "lfo_pan_" + g, frequency=PAN_LFO[g])
-        left = f"=0.5 - {W / 1920 / 2} + op('/project1/fx/panlag_{g}')[0] + {PAN_DRIFT} * op('/project1/fx/lfo_pan_{g}')[0]"
+        shift = f"=op('/project1/fx/panlag_{g}')[0] + {PAN_DRIFT} * op('/project1/fx/lfo_pan_{g}')[0]"
         fits = []
         for p in "AB":
-            fit = mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=1920, resolutionh=H)
-            crop = mk(fx, cropTOP, f"crop{p}_{g}", fit, cropleft=left, cropright=left + f" + {W / 1920}")
-            # back to strip size: the licence caps the 1920 fit, so the crop comes out smaller than the strip
-            fits.append(mk(fx, fitTOP, f"win{p}_{g}", crop, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H))
+            panned = mk(fx, transformTOP, f"pan{p}_{g}", players[p], extend="mirror", tx=shift)
+            fits.append(mk(fx, fitTOP, f"fit{p}_{g}", panned, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H))
         chains = {}
         for slot in (1, 2):
             src = mk(fx, switchTOP, f"src{slot}_{g}", *fits, index=0)

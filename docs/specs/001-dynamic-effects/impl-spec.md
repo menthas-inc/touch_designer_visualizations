@@ -75,9 +75,10 @@ Run once; running again deletes and rebuilds `fx`. Inside:
   seconds before it is shown. Resolution as decoded; the licence cap applies.
 - Per group `g` in `outer`, `inner`:
   - `cur_g`, `nxt_g`: Switch TOPs over A and B, indices held by the sequencer.
-  - `fitA_g`, `fitB_g`: Fit TOPs, 1920 x 1080, fit outside, one per player, then `cropA_g`,
-    `cropB_g`: a 340 wide window at the group's pan (`pick_pan`, pure: within 0.3 of centre,
-    0.2 from the other group's, lagged 4 s) plus a slow LFO drift per group, then two chain
+  - `panA_g`, `panB_g`: Transform TOPs shifting the clip sideways by the group's pan
+    (`pick_pan`, pure: within 0.3 of the clip's width from centre, 0.2 from the other group's,
+    lagged 4 s) plus a slow LFO drift per group, edges mirrored; `fitA_g`, `fitB_g`: Fit TOPs,
+    340 x 1080, fit outside, one per player, then two chain
     slots `chain1_g` and `chain2_g`, each behind a `srcN_g` Switch over the two fits, then
     `cur_g` and `nxt_g` Switches over the slots into the transition. A new look always goes on
     the idle slot, so the shader melds the old look into the new one, at a clip change and at
