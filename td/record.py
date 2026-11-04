@@ -1,4 +1,4 @@
-"""Record the mapper output, what the projector sees, to a Photo JPEG .mov for ten minutes.
+"""Record the mapper output, what the projector sees, to a Motion JPEG .mov for MINUTES minutes.
 
     exec(open('~/dev/studio_visuals/td/record.py').read())
 
@@ -14,7 +14,7 @@ every frame while the recording runs.
 import datetime
 import os
 
-MINUTES = 10
+MINUTES = 5
 _proj = op("/project1")
 _rec = _proj.op("rec") or _proj.create(moviefileoutTOP, "rec")
 _tmr = _proj.op("rec_timer") or _proj.create(timerCHOP, "rec_timer")
