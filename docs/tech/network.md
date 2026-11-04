@@ -31,7 +31,7 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   and Rectangle2 (panels 2 and 3). Per group and player, two window schemes crossed by `winP_g` on
   `zoomlag_g` (4 s): close, `panP_g` then `fitP_g` (the clip shifted sideways, then 340 x
   1080 fit outside, as the file always cut it), and wide, `frameP_g`, `wpanP_g`, `wfitP_g`
-  (the clip first fit outside to 1920 x 1080, so a portrait clip is about three times
+  (the clip first fit outside to 1100 x 1080, so a portrait clip is about 1.8 times
   closer; a landscape clip looks the same both ways). At each clip change the inner group
   draws a scheme and the outer takes the other. The shift is `panlag_g`, the group's pan as
   a fraction of the width, picked per clip change at least a fifth from the other group's

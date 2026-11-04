@@ -18,6 +18,7 @@ GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
 W, H = 340, 1080  # the strip cut
 PAN_LFO = {"outer": 0.011, "inner": 0.017}  # Hz, the two groups' windows drift at different rates
 PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
+WIDE_FRAME = 1100  # the wide scheme covers this width at 1080 tall: 1920 was three times closer on a portrait clip, this about 1.8
 STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
 
 ns = {}
@@ -292,9 +293,9 @@ def build():
         # the shown slot into the other, for a new clip or a new look on the same clip. Only
         # the slot the Switches pull cooks, so outside a transition one chain per group runs
         # the strip's window on the clip, two schemes crossed on zoomlag_g: close (the clip covers
-        # the strip, as the file always did) and wide (the clip first covers a 1920 x 1080 frame,
-        # which blows a portrait clip up about three times; a landscape clip looks the same both
-        # ways). The sequencer gives the two groups different schemes at each clip change. Either
+        # the strip, as the file always did) and wide (the clip first covers a WIDE_FRAME x 1080
+        # frame, which brings a portrait clip about 1.8 times closer; a landscape clip looks the
+        # same both ways). The sequencer gives the two groups different schemes at each clip change. Either
         # way the clip is shifted sideways by the group's pan (picked per clip change, lagged) plus
         # a slow drift, so the two groups show different parts of the same clip and wander at
         # different rates; past the clip's edge the shift mirrors, so there is never black
@@ -308,7 +309,7 @@ def build():
         for p in "AB":
             close = mk(fx, transformTOP, f"pan{p}_{g}", players[p], extend="mirror", tx=shift)
             close = mk(fx, fitTOP, f"fit{p}_{g}", close, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
-            wide = mk(fx, fitTOP, f"frame{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=1920, resolutionh=H)
+            wide = mk(fx, fitTOP, f"frame{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=WIDE_FRAME, resolutionh=H)
             wide = mk(fx, transformTOP, f"wpan{p}_{g}", wide, extend="mirror", tx=shift)
             wide = mk(fx, fitTOP, f"wfit{p}_{g}", wide, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
             fits.append(mk(fx, crossTOP, f"win{p}_{g}", close, wide, cross=f"=op('/project1/fx/zoomlag_{g}')[0]"))

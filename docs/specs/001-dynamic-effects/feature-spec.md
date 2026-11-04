@@ -92,7 +92,7 @@ otherwise it hangs upright like the inner one, the change blended in, never cut.
 
 The two pairs show different parts of the same clip: each picks its slice at every clip
 change, well apart from the other's, and drifts across the frame on its own slow rhythm. One
-pair cuts the clip close, as the file always did, the other wide, about three times closer on
+pair cuts the clip close, as the file always did, the other wide, about 1.8 times closer on
 a portrait clip; which is which is drawn at every clip change.
 
 Every minute or so a third clip, any from the table, drops in over one pair or both for 10 to
