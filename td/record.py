@@ -23,7 +23,7 @@ _rec.inputConnectors[0].connect(_proj.op("kantanMapper1/out1").outputConnectors[
 _out = os.path.join(project.folder, "Recordings")
 os.makedirs(_out, exist_ok=True)
 _rec.par.file = os.path.join(_out, "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mov")
-_rec.par.videocodec = next(n for n in _rec.par.videocodec.menuNames if "jpeg" in n.lower())
+_rec.par.videocodec = "mjpa"  # Motion JPEG A, the free edition writes it
 _rec.par.qualityscale = 0.85
 _ck = _proj.op("rec_cook") or _proj.create(executeDAT, "rec_cook")
 _ck.par.framestart = True
