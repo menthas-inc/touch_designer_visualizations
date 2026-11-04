@@ -83,6 +83,16 @@ class ProgressTest(unittest.TestCase):
         self.assertEqual(sq.progress(1.3), 1.0)
 
 
+class PlaylistDropTest(unittest.TestCase):
+    def test_a_clip_dropped_from_the_table_is_never_played_again(self):
+        state = {}
+        pl = sq.Playlist(["a.mp4", "b.mp4", "c.mp4"], random.Random(1), state)
+        pl.next()
+        pl = sq.Playlist(["a.mp4", "c.mp4"], random.Random(1), state)
+        for _ in range(10):
+            self.assertNotEqual(pl.next(), "b.mp4")
+
+
 class PanTest(unittest.TestCase):
     def test_within_reach_and_apart_from_the_other(self):
         rng = random.Random(7)

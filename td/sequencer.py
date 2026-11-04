@@ -131,6 +131,8 @@ class Playlist:
         self.state["queue"] = q
 
     def next(self):
+        # a clip dropped from the table since the queue was drawn is skipped, its file may be gone
+        self.state["queue"] = [p for p in self.state["queue"] if p in self.paths]
         if not self.state["queue"]:
             self._refill()
         self.state["last"] = self.state["queue"].pop(0)
