@@ -60,7 +60,7 @@ def progress(fraction):
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
 MIRROR_CHANCE = 0.8  # per clip change, that a pair's first strip mirrors the second; else the same way round
 # the spice: a third clip that drops in over one pair or both, pulses, and leaves
-SPICE_GAP = (40.0, 120.0)  # seconds between spices
+SPICE_GAP = (28.0, 84.0)  # seconds between spices
 SPICE_LEN = (5.0, 10.0)  # seconds a spice lasts
 SPICE_PULSES = (2, 4)
 SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
