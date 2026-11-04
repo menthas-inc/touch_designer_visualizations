@@ -1113,21 +1113,6 @@
   "length": 26.65,
   "motion": 0.0348
  },
- "VJ_Visuals/Snapinsta.app_video_AQNtWE9wjLr5pZN5tp-8HeT53CEMICV113R_oKCImTwyocZUaC2-CIT3LRSY574L1qoazvkdQO6yKu9jbjVditWvscZzjnjjRzg4ftI.mp4": {
-  "buckets": [
-   {
-    "high": 0.9216,
-    "mean": 0.4618
-   },
-   {
-    "high": 0.9216,
-    "mean": 0.4619
-   }
-  ],
-  "fps": 30.0,
-  "length": 15.0,
-  "motion": 0.1121
- },
  "VJ_Visuals/Snapinsta.app_video_AQNyGtPt1ra8cmQjQLXv7fPrtVaLHKqWyYuGeK3xTChBIz9KHLo7Atat25YvaxpzrHl1aV1o2aRatOzigX-ArhTNXljmhbje_G2SAnY.mp4": {
   "buckets": [
    {
