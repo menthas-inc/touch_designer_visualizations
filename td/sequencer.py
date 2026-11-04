@@ -368,7 +368,7 @@ def start():
         st["sel"][g] = None
     for g in GROUPS:
         st["sel"][g] = _selection_for(st, first, g)
-        _apply(g, st["sel"][g])
+        _apply(g, first, st["sel"][g])
     if fx.par.Hold:
         _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)
