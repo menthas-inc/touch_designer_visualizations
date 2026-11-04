@@ -265,7 +265,7 @@ def build():
     for name in ("A", "B"):
         # sequential: play and cue mean something; the default follows the 20 s timeline loop
         players[name] = mk(fx, moviefileinTOP, "player" + name, playmode="sequential", play=False, interp=True,
-                           prereadframes=30, cuepointunit="seconds", hwdecode=False)
+                           prereadframes=60, cuepointunit="seconds", hwdecode=False)
 
     for g in STRIPS:
         # a chain per player, so the transition melds the old look into the new one; only the
