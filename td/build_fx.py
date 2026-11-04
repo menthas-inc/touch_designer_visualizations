@@ -218,8 +218,7 @@ def build_xfade(fx, g):
     custom(x, "Xfade", Progress=0.0, Type=0, Active=False)
     cur = mk(x, inTOP, "cur")
     nxt = mk(x, inTOP, "nxt")
-    shader = mk(x, textDAT, "glsl_src")
-    shader.text = open(GLSL).read()
+    mk(x, textDAT, "glsl_src", file=GLSL, syncfile=True)  # synced like the sequencer, so shader edits land live
     glsl = mk(x, glslTOP, "glsl", cur, nxt, pixeldat="glsl_src",
               uniname0="uProgress", value0x="=parent().par.Progress", uniname1="uType", value1x="=parent().par.Type")
     # smear: the outgoing picture feeds back and dissolves under the incoming one
@@ -230,8 +229,8 @@ def build_xfade(fx, g):
     base = mk(x, crossTOP, "smear_base", cur, d, cross="=parent().par.Progress")
     smear = mk(x, crossTOP, "smear_mix", base, nxt, cross="=min(1, max(0, parent().par.Progress * parent().par.Progress * (3 - 2 * parent().par.Progress)))")
     wire(smear_out, smear)
-    # Type 0 and 1 are the shader, 2 the smear; outside a transition the raw current picture
-    sel = mk(x, switchTOP, "type", glsl, glsl, smear_out, index="=int(parent().par.Type)")
+    # Types 0 to 3 are the shader, 4 the smear; outside a transition the raw current picture
+    sel = mk(x, switchTOP, "type", glsl, glsl, glsl, glsl, smear_out, index="=int(parent().par.Type)")
     live = mk(x, switchTOP, "live", cur, sel, index="=int(parent().par.Active)")
     mk(x, outTOP, "out1", live)
     return x
@@ -261,7 +260,7 @@ def build():
     tp.appendPulse("Nexteffect", label="Next effect")
     tp.appendPulse("Reroll", label="Reroll values")
     xt = tp.appendMenu("Xfadetype", label="Transition")[0]
-    xt.menuNames = ["random", "melt", "displace", "smear"]
+    xt.menuNames = ["random", "burn", "distort", "patches", "colour", "smear"]
     xt.menuLabels = xt.menuNames
 
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)

@@ -33,9 +33,10 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
   `limiter_g`, `out_g`. A transition melds the shown slot into the other, which carries the
   next clip at a clip change or the same clip with a new look for a mid-clip swap.
-- **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 melt, 1
-  displace, both in `glsl` from `td/glsl/xfade.glsl`; 2 smear, a Feedback loop on
-  `smear_out`), `Active` (off: `cur` passes straight through, nothing else cooks).
+- **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 burn, 1
+  distort, 2 patches, 3 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the
+  file; 4 smear, a Feedback loop on `smear_out`), `Active` (off: `cur` passes straight
+  through, nothing else cooks).
 - **chainN_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
   `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
   mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
