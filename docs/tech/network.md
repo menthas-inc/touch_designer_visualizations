@@ -30,23 +30,27 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
 - **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
   and Rectangle2 (panels 2 and 3). Per group: `cur_g` and `nxt_g` Switch TOPs over the two
   players, `fitcur_g` and `fitnxt_g` (340 x 1080, fit outside), `xfade_g`, `chain_g`,
-  `dbgtext_g` over `dbgover_g` behind the `Debug` toggle, `out_g`.
+  `out_g`.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 melt, 1
   displace, both in `glsl` from `td/glsl/xfade.glsl`; 2 smear, a Feedback loop on
   `smear_out`), `Active` (off: `cur` passes straight through, nothing else cooks).
-- **chain_g.** Fourteen Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
-  `out1`: `framing, keepchannel, highlights, crush, edges, tint, selfmask, feedback,
-  displace, echo, mirror, pixelate, slope, chroma`. `feedback` and `echo` have no Switch,
+- **chain_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
+  `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
+  mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
+  a held effect still moves. `feedback` and `echo` have no Switch,
   their Cross sits at `Mix * Enable` so the loop keeps cooking. Custom pars per effect are
   the `CORPUS` in `td/sequencer.py`; the sequencer sets them. Then the limiter: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
-- **Timers.** `t_inner` and `t_outer` fire the two transitions, `tx_inner` and `tx_outer`
-  run them and flip `cur_g` when done, `t_reroll` cycles every `Rerollevery` seconds. All
+- **Timers.** `t_preroll` releases the cued player 1 s before it is shown, `t_inner` and
+  `t_outer` fire the two transitions, `tx_inner` and `tx_outer` run them and flip `cur_g` when
+  done, `t_reroll` cycles every `Rerollevery` seconds. All
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
   `start()` on file open.
 - **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`
-  20, `Seed` 0 (random), `Debug` on.
+  20, `Seed` 0 (random). The `Try` page holds the random choosing (`Hold`) and steps through
+  effects and transitions by hand (`Effect`, `Preveffect`, `Nexteffect`, `Reroll`,
+  `Xfadetype`), through `try_pars`, a Parameter Execute DAT.
 - **State.** A plain dict in `fx`'s storage: which player is current, clip and plan per
   player, selection per group, the playlist queue, the lead. The module is stateless, so
   editing `td/sequencer.py` mid-show keeps the show running.

@@ -9,9 +9,9 @@
       chain, limiter, `out`; textures repointed; the old chain deleted at the end; the sequencer
       started. One script, so the wall is never dark between tasks. AC-7, SV-2. Built, zero
       parameter misses, clips change on the preview.
-- [~] T4 each of the fourteen effects checked on the preview with `Enable` on by hand; parameter
-      ranges adjusted in `CORPUS`. AC-3.
-      keepchannel checked (Mode 2 is blue); the limiter checked (gain 0.62 on a bright clip).
+- [x] T4 each effect checked on the wall through the `Try` page; ranges adjusted in `CORPUS`,
+      LFOs added, keepchannel, pixelate and slope cut. The limiter checked (gain 0.62 on a
+      bright clip). AC-3.
 - [~] T5 the three transitions checked on the preview, a few clip changes watched. AC-4.
 - [ ] T6 save, dump, `docs/tech/network.md` rewritten for the new network. DEV-2, SV-1.
 - [ ] T7 AC-1 and AC-4 log: a Script CHOP writes the per-group mean per frame and flags black

@@ -82,8 +82,8 @@ Run once; running again deletes and rebuilds `fx`. Inside:
     outside a transition, so the shader and the second cut only cook for 2 to 3 s per change.
   - the chain: Bases in this fixed order, each `in1`, a wet path, a Switch (index =
     `parent().par.Enable`), `out1`:
-    `framing, keepchannel, highlights, crush, edges, tint, selfmask, feedback, displace,
-    echo, mirror, pixelate, slope, chroma`.
+    `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo, mirror,
+    chroma` (keepchannel, pixelate and slope were cut on the wall: grey or dull).
     `feedback` and `echo` are the exception: no Switch, their own Cross at `Mix * Enable`,
     so the loop keeps cooking and nothing pops when they come in.
   - the limiter: a mono copy of the chain, Fit 40 x 40, Analyze average, TOP to CHOP, an
