@@ -58,7 +58,7 @@ def progress(fraction):
     f = min(max(fraction, 0.0), 1.0)
     return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
-MIRROR_CHANCE = 0.8  # per clip change, that a pair's first strip mirrors the second; else the same way round
+UPSIDE_CHANCE = 0.8  # per clip change, that the outer pair hangs upside down as it was hung; else upright like the inner
 PAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit
 PAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows
 
@@ -460,8 +460,9 @@ def _roll_pan(st, group):
 
 
 def _roll_mirror(st, group):
-    """The pair's first strip mirrors the second most of the time; the lag blends the change."""
-    _fx().op("pair_tgt_" + group).par.value0 = 1.0 if _rng(st).random() < MIRROR_CHANCE else 0.0
+    """The outer pair hangs upside down most of the time; the lag blends the change."""
+    if group == "outer":
+        _fx().op("flip_tgt_outer").par.value0 = 1.0 if _rng(st).random() < UPSIDE_CHANCE else 0.0
 
 
 def _finish_xfade(st, group):

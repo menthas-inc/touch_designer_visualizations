@@ -87,8 +87,8 @@ there is a tease at all; if yes its length T is drawn from 1 to 6 s, so it is no
 Transition length t is 7.5 to 22.5 s, the first half of the meld in the first third of that
 time and the second half over the rest, and the old look melds into the new one with the picture,
 not before it. Now and then, not often, a group also melds to a new look mid clip, over 6 to
-12 s, flips and tilts included. The two strips of a pair mirror each other four clips in five;
-otherwise they hang the same way round, the change blended in, never cut.
+12 s, flips and tilts included. The outer pair hangs upside down, as it was hung, four clips in five;
+otherwise it hangs upright like the inner one, the change blended in, never cut.
 
 The two pairs show different parts of the same clip: each picks its slice at every clip
 change, well apart from the other's, and drifts across the frame on its own slow rhythm.
