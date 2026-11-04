@@ -91,7 +91,9 @@ not before it. Now and then, not often, a group also melds to a new look mid cli
 otherwise it hangs upright like the inner one, the change blended in, never cut.
 
 The two pairs show different parts of the same clip: each picks its slice at every clip
-change, well apart from the other's, and drifts across the frame on its own slow rhythm.
+change, well apart from the other's, and drifts across the frame on its own slow rhythm. One
+pair cuts the clip close, as the file always did, the other wide, about three times closer on
+a portrait clip; which is which is drawn at every clip change.
 
 Every minute or so a third clip, any from the table, drops in over one pair or both for 10 to
 20 s: it comes in, pulses four to seven times, wanders a little and leaves, never fully taking

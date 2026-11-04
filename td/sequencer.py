@@ -453,10 +453,12 @@ def _start_xfade(st, group, player, seconds):
 
 
 def _roll_pan(st, group):
-    """A new part of the frame for the group at a clip change; panlag_g eases the move."""
+    """A new part of the frame for the group at a clip change, and the window scheme: the inner
+    group draws close or wide, the outer takes the other. The lags ease both moves."""
     fx = _fx()
     other = GROUPS[1 - GROUPS.index(group)]
     fx.op("pan_" + group).par.value0 = pick_pan(_rng(st), float(fx.op("pan_" + other).par.value0))
+    fx.op("zoom_" + group).par.value0 = float(_rng(st).randrange(2)) if group == "inner" else 1.0 - float(fx.op("zoom_inner").par.value0)
 
 
 def _roll_mirror(st, group):

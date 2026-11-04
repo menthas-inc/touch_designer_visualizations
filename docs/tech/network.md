@@ -28,11 +28,15 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
 - **Players.** `playerA`, `playerB`, Movie File In. One plays, the other holds the next clip
   cued at its window start. `interp` on, 30 frames preread. Speed per clip from the table.
 - **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
-  and Rectangle2 (panels 2 and 3). Per group: `panA_g` and `panB_g` (the clip shifted sideways by
-  `panlag_g`, the group's pan as a fraction of the clip's width, picked per clip change at
-  least a fifth from the other group's and eased over 4 s, plus a tenth of drift on
-  `lfo_pan_g`, 0.011 Hz outer and 0.017 inner, mirrored past the edge), `fitA_g` and
-  `fitB_g` (340 x 1080, fit outside), two chain slots `chain1_g` and `chain2_g` each fed by either player through
+  and Rectangle2 (panels 2 and 3). Per group and player, two window schemes crossed by `winP_g` on
+  `zoomlag_g` (4 s): close, `panP_g` then `fitP_g` (the clip shifted sideways, then 340 x
+  1080 fit outside, as the file always cut it), and wide, `frameP_g`, `wpanP_g`, `wfitP_g`
+  (the clip first fit outside to 1920 x 1080, so a portrait clip is about three times
+  closer; a landscape clip looks the same both ways). At each clip change the inner group
+  draws a scheme and the outer takes the other. The shift is `panlag_g`, the group's pan as
+  a fraction of the width, picked per clip change at least a fifth from the other group's
+  and eased over 4 s, plus a tenth of drift on `lfo_pan_g`, 0.011 Hz outer and 0.017 inner,
+  mirrored past the edge. Then two chain slots `chain1_g` and `chain2_g` each fed by either player through
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
   `limiter_g`, `out_g`, then `orient_g` (`out_g` crossed with its vertical flip on
   `flip_lag_g`, 3 s, toward `flip_tgt_g`: 0 for inner, and for outer 1 four times in five at a
