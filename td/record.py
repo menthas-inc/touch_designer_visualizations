@@ -3,8 +3,10 @@
     exec(open('~/dev/studio_visuals/td/record.py').read())
 
 Writes TD_Mapping/Recordings/studio_<date>.mp4 and stops on its own. To stop early:
-    op('/project1/rec').par.record = 0
-Running it again while a recording is on restarts the ten minutes into a new file.
+    op('/project1/rec').par.record = 0; op('/project1/rec_cook').par.active = 0
+Running it again while a recording is on restarts the ten minutes into a new file. A Movie
+File Out only writes the frames it cooks and nothing pulls this one, so rec_cook cooks it
+every frame while the recording runs.
 """
 import datetime
 import os
@@ -18,13 +20,17 @@ _rec.inputConnectors[0].connect(_proj.op("kantanMapper1/out1").outputConnectors[
 _out = os.path.join(project.folder, "Recordings")
 os.makedirs(_out, exist_ok=True)
 _rec.par.file = os.path.join(_out, "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mp4")
-_rec.par.type = "mp4"
 _rec.par.videocodec = "h264"
+_ck = _proj.op("rec_cook") or _proj.create(executeDAT, "rec_cook")
+_ck.par.framestart = True
+_ck.text = "def onFrameStart(frame):\n    op('/project1/rec').cook()\n    return\n"
 _tmr.par.lengthunits = "seconds"
 _tmr.par.length = MINUTES * 60
 _tmr.par.callbacks = "rec_timer_cb"
 _cb = _proj.op("rec_timer_cb") or _proj.create(textDAT, "rec_timer_cb")
-_cb.text = "def onDone(timerOp, segment, interrupt):\n    op('/project1/rec').par.record = 0\n    print('recording done')\n    return\n"
+_cb.text = ("def onDone(timerOp, segment, interrupt):\n    op('/project1/rec').par.record = 0\n"
+            "    op('/project1/rec_cook').par.active = 0\n    print('recording done')\n    return\n")
 _rec.par.record = 1
+_ck.par.active = 1
 _tmr.par.start.pulse()
 print("recording", MINUTES, "min to", _rec.par.file.eval())
