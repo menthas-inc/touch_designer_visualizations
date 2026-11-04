@@ -33,6 +33,14 @@ class ChooseTest(unittest.TestCase):
         plain = sum(sq.enabled(sq.choose(DARK, rng, avoid=[other])) == {"framing"} for _ in range(1000))
         self.assertTrue(740 < plain < 860, plain)
 
+    def test_darkness_levels_order_and_default_matches(self):
+        levels = list(sq.DARKNESS.values())
+        self.assertEqual(levels[1], (0.18, sq.DEFAULTS["bright_mean"], sq.DEFAULTS["bright_high"]))
+        for a, b in zip(levels, levels[1:]):
+            self.assertTrue(all(x > y for x, y in zip(a, b)), (a, b))
+        self.assertFalse(sq.is_bright(BRIGHT, *list(sq.DARKNESS["none"])[1:]))
+        self.assertTrue(sq.is_bright(DARK, *list(sq.DARKNESS["darkest"])[1:]))
+
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))
 

@@ -36,6 +36,9 @@ XFADE_TYPES = 3  # melt, displace, smear
 PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
 DEFAULTS = {"cap": 120.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
+# the Darkness macro: Ceiling for the limiter, then the bright thresholds that bring darkeners
+# in. none never darkens, darkest treats every clip as bright
+DARKNESS = {"none": (1.0, 2.0, 2.0), "default": (0.18, 0.33, 0.65), "darker": (0.12, 0.2, 0.45), "darkest": (0.07, 0.0, 0.0)}
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
@@ -279,6 +282,9 @@ def on_try(par_name):
     """A control on the Try page changed."""
     st = _state()
     fx = _fx()
+    if par_name == "Darkness":
+        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)]
+        return
     if par_name == "Hold":
         if fx.par.Hold:
             _hold_apply(st, str(fx.par.Effect))

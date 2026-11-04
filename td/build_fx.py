@@ -246,6 +246,10 @@ def build():
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
            Cap=120.0, Rerollevery=20.0, Seed=0)
+    dk = next(pg for pg in fx.customPages if pg.name == "Fx").appendMenu("Darkness", label="Darkness (sets Ceiling and the bright thresholds)")[0]
+    dk.menuNames = list(ns["DARKNESS"])
+    dk.menuLabels = dk.menuNames
+    dk.default = dk.val = "default"
     # the Try page: hold the random choosing and step through effects by hand
     tp = fx.appendCustomPage("Try")
     tp.appendToggle("Hold", label="Hold (no random choosing)")
@@ -321,7 +325,7 @@ def build():
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
 
     # the Try page's controls reach the sequencer through a Parameter Execute DAT
-    px = mk(fx, parameterexecuteDAT, "try_pars", op="..", pars="Hold Effect Preveffect Nexteffect Reroll Xfadetype",
+    px = mk(fx, parameterexecuteDAT, "try_pars", op="..", pars="Darkness Hold Effect Preveffect Nexteffect Reroll Xfadetype",
             valuechange=True, onpulse=True)
     px.text = (
         "def onValueChange(par, prev):\n"
