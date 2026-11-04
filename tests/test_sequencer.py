@@ -83,6 +83,17 @@ class ProgressTest(unittest.TestCase):
         self.assertEqual(sq.progress(1.3), 1.0)
 
 
+class PanTest(unittest.TestCase):
+    def test_within_reach_and_apart_from_the_other(self):
+        rng = random.Random(7)
+        for _ in range(300):
+            other = rng.uniform(-sq.PAN_REACH, sq.PAN_REACH)
+            pan = sq.pick_pan(rng, other)
+            self.assertLessEqual(abs(pan), sq.PAN_REACH)
+            self.assertGreaterEqual(abs(pan - other), sq.PAN_APART - 1e-9)
+        self.assertLessEqual(abs(sq.pick_pan(rng, None)), sq.PAN_REACH)
+
+
 class SpiceTest(unittest.TestCase):
     def test_env_starts_and_ends_at_zero_pulses_and_never_takes_over(self):
         for pulses in (2, 3, 4):

@@ -16,6 +16,8 @@ REPO = "~/dev/studio_visuals"
 SEQ = os.path.join(REPO, "td", "sequencer.py")
 GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
 W, H = 340, 1080  # the strip cut
+PAN_LFO = {"outer": 0.011, "inner": 0.017}  # Hz, the two groups' windows drift at different rates
+PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
 STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
 
 ns = {}
@@ -289,8 +291,19 @@ def build():
         # two chain slots per group, each fed by either player through src: a transition melds
         # the shown slot into the other, for a new clip or a new look on the same clip. Only
         # the slot the Switches pull cooks, so outside a transition one chain per group runs
-        fits = [mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
-                for p in "AB"]
+        # the strip's window on the frame: the clip fit to 1920 x 1080, then a 340 wide crop whose
+        # position is the group's pan (picked per clip change, lagged) plus a slow drift, so the two
+        # groups show different parts of the same clip and wander at different rates
+        pan = mk(fx, constantCHOP, "pan_" + g, value0=0.0)
+        mk(fx, lagCHOP, "panlag_" + g, pan, lag1=4.0, lag2=4.0)
+        mk(fx, lfoCHOP, "lfo_pan_" + g, frequency=PAN_LFO[g])
+        left = f"=0.5 - {W / 1920 / 2} + op('/project1/fx/panlag_{g}')[0] + {PAN_DRIFT} * op('/project1/fx/lfo_pan_{g}')[0]"
+        fits = []
+        for p in "AB":
+            fit = mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=1920, resolutionh=H)
+            crop = mk(fx, cropTOP, f"crop{p}_{g}", fit, cropleft=left, cropright=left + f" + {W / 1920}")
+            # back to strip size: the licence caps the 1920 fit, so the crop comes out smaller than the strip
+            fits.append(mk(fx, fitTOP, f"win{p}_{g}", crop, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H))
         chains = {}
         for slot in (1, 2):
             src = mk(fx, switchTOP, f"src{slot}_{g}", *fits, index=0)

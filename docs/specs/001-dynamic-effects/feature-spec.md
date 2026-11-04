@@ -90,6 +90,9 @@ not before it. Now and then, not often, a group also melds to a new look mid cli
 12 s, flips and tilts included. The two strips of a pair mirror each other four clips in five;
 otherwise they hang the same way round, the change blended in, never cut.
 
+The two pairs show different parts of the same clip: each picks its slice at every clip
+change, well apart from the other's, and drifts across the frame on its own slow rhythm.
+
 Every minute or so a third clip, any from the table, drops in over one pair or both for 10 to
 20 s: it comes in, pulses four to seven times, wanders a little and leaves, never fully taking
 over. It gets its own look, chosen like the groups' and unlike theirs. Timeline for one change:

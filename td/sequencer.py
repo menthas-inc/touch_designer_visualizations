@@ -59,6 +59,17 @@ def progress(fraction):
     return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
 MIRROR_CHANCE = 0.8  # per clip change, that a pair's first strip mirrors the second; else the same way round
+PAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit
+PAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows
+
+
+def pick_pan(rng, other):
+    """Where a group's window sits on the frame, away from the other group's. Pure."""
+    for _ in range(50):
+        pan = round(rng.uniform(-PAN_REACH, PAN_REACH), 3)
+        if other is None or abs(pan - other) >= PAN_APART:
+            return pan
+    return -PAN_REACH if other > 0 else PAN_REACH
 # the spice: a third clip that drops in over one pair or both, pulses, and leaves
 SPICE_GAP = (28.0, 84.0)  # seconds between spices
 SPICE_LEN = (10.0, 20.0)  # seconds a spice lasts
@@ -422,6 +433,7 @@ def _start_xfade(st, group, player, seconds):
         _finish_xfade(st, group)  # a swap still running when the clip change comes
     if player != st["player"] and not fx.par.Hold:
         _roll_mirror(st, group)
+        _roll_pan(st, group)
     slot = 3 - st["chain"][group]
     fx.op(f"src{slot}_{group}").par.index = 0 if player == "A" else 1
     if not fx.par.Hold:
@@ -438,6 +450,13 @@ def _start_xfade(st, group, player, seconds):
     t = fx.op("tx_" + group)
     t.par.length = seconds
     t.par.start.pulse()
+
+
+def _roll_pan(st, group):
+    """A new part of the frame for the group at a clip change; panlag_g eases the move."""
+    fx = _fx()
+    other = GROUPS[1 - GROUPS.index(group)]
+    fx.op("pan_" + group).par.value0 = pick_pan(_rng(st), float(fx.op("pan_" + other).par.value0))
 
 
 def _roll_mirror(st, group):
@@ -492,6 +511,7 @@ def start():
         st["sel"][g] = _selection_for(st, first, g)
         _apply(g, 1, st["sel"][g])
         _roll_mirror(st, g)
+        _roll_pan(st, g)
     if fx.par.Hold:
         _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)
