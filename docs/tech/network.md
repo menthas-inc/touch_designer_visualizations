@@ -51,9 +51,11 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
   `start()` on file open.
 - **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`
-  20, `Seed` 0 (random). `Darkness` is a macro over the first three: `none` (Ceiling 1, never
-  bright), `default`, `darker` (0.12, 0.2, 0.45), `darkest` (0.07, every clip bright). The two upper levels also
-  push the darkeners' draws toward the dark end of their ranges. The `Try` page holds the random choosing (`Hold`) and steps through
+  20, `Seed` 0 (random). `Darkness` is a macro: `none` (Ceiling 1, never bright), `default`,
+  `darker` and `darkest`. The two upper levels keep the default ceiling and thresholds, push
+  the darkeners' draws toward the dark end of their ranges, and force a full highlights cut on
+  every clip, bright patches above 0.55 to 0.75 (`darker`) or 0.3 to 0.5 (`darkest`) going
+  black. The `Try` page holds the random choosing (`Hold`) and steps through
   effects and transitions by hand (`Effect`, `Preveffect`, `Nexteffect`, `Reroll`,
   `Xfadetype`), through `try_pars`, a Parameter Execute DAT.
 - **State.** A plain dict in `fx`'s storage: which player is current, clip and plan per

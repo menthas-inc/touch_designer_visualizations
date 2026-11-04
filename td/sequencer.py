@@ -37,10 +37,11 @@ PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
 DEFAULTS = {"cap": 120.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
 # the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,
-# and how far the darkeners' draws are pushed to the dark end of their ranges. none never
-# darkens, darkest treats every clip as bright
-DARKNESS = {"none": (1.0, 2.0, 2.0, 0.0), "default": (0.18, 0.33, 0.65, 0.0), "darker": (0.12, 0.2, 0.45, 0.5),
-            "darkest": (0.07, 0.0, 0.0, 0.85)}
+# how far the darkeners' draws are pushed to the dark end of their ranges, and the Cut range
+# of a highlights cut forced on every clip (None: not forced). The upper levels remove bright
+# patches rather than dim the whole picture, so the ceiling stays
+DARKNESS = {"none": (1.0, 2.0, 2.0, 0.0, None), "default": (0.18, 0.33, 0.65, 0.0, None),
+            "darker": (0.18, 0.33, 0.65, 0.5, (0.75, 0.55)), "darkest": (0.18, 0.33, 0.65, 0.85, (0.5, 0.3))}
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
@@ -162,7 +163,7 @@ def enabled(selection):
     return frozenset(n for n, v in selection.items() if v.get("Enable"))
 
 
-def choose(stats, rng, avoid=(), bias=0.0, **thresholds):
+def choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):
     """A selection: {effect: {"Enable": 0|1, params...}} for every effect in the corpus.
 
     avoid is a list of selections whose enabled set this one must differ from: the group's
@@ -177,12 +178,14 @@ def choose(stats, rng, avoid=(), bias=0.0, **thresholds):
             if rng.random() < 0.5:
                 picks += rng.sample(TREAT, 1)
         elif rng.random() < PLAIN:
-            return sel  # plain is always allowed, so avoid does not force an effect on
+            picks = []  # plain is always allowed, so avoid does not force an effect on
         else:
             picks = rng.sample(TREAT, rng.choice([1, 2]))
         for n in picks:
             sel[n] = {"Enable": 1, **params_for(n, rng, bias if n in DARK else 0.0)}
-        if enabled(sel) not in taken:
+        if cut:  # bright patches above Cut go black, on every clip
+            sel["highlights"] = {"Enable": 1, **params_for("highlights", rng, bias), "Cut": _draw(rng, cut, bias), "Amount": 1.0}
+        if not picks or enabled(sel) not in taken:
             return sel
     spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference
     sel[spare] = {"Enable": 1, **params_for(spare, rng)}
@@ -335,7 +338,8 @@ def _selection_for(st, player, group):
     stats = window_stats(clip, plan["start"], plan["window"])
     fx = _fx()
     other = GROUPS[1 - GROUPS.index(group)]
-    return choose(stats, rng, avoid=[st["sel"].get(group), st["sel"].get(other)], bias=DARKNESS[str(fx.par.Darkness)][3],
+    level = DARKNESS[str(fx.par.Darkness)]
+    return choose(stats, rng, avoid=[st["sel"].get(group), st["sel"].get(other)], bias=level[3], cut=level[4],
                   bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))
 
 

@@ -33,11 +33,17 @@ class ChooseTest(unittest.TestCase):
         plain = sum(sq.enabled(sq.choose(DARK, rng, avoid=[other])) == {"framing"} for _ in range(1000))
         self.assertTrue(740 < plain < 860, plain)
 
-    def test_darkness_levels_order_and_default_matches(self):
-        levels = [v[:3] for v in sq.DARKNESS.values()]
-        self.assertEqual(levels[1], (0.18, sq.DEFAULTS["bright_mean"], sq.DEFAULTS["bright_high"]))
-        for a, b in zip(levels, levels[1:]):
-            self.assertTrue(all(x > y for x, y in zip(a, b)), (a, b))
+    def test_darkness_default_matches_and_upper_levels_cut_lower(self):
+        levels = list(sq.DARKNESS.values())
+        self.assertEqual(levels[1][:3], (0.18, sq.DEFAULTS["bright_mean"], sq.DEFAULTS["bright_high"]))
+        self.assertIsNone(levels[0][4]); self.assertIsNone(levels[1][4])
+        self.assertGreater(min(levels[2][4]), max(levels[3][4]))
+        rng = random.Random(9)
+        for _ in range(50):
+            sel = sq.choose(DARK, rng, bias=levels[3][3], cut=levels[3][4])
+            h = sel["highlights"]
+            self.assertEqual((h["Enable"], h["Amount"]), (1, 1.0))
+            self.assertTrue(0.3 <= h["Cut"] <= 0.5, h)
 
     def test_bias_pushes_darkeners_to_the_dark_end_and_leaves_hue(self):
         rng = random.Random(3)
@@ -50,7 +56,6 @@ class ChooseTest(unittest.TestCase):
         hues = {sq.params_for("tint", rng, 1.0)["Hue"] for _ in range(20)}
         self.assertGreater(len(hues), 1)
         self.assertFalse(sq.is_bright(BRIGHT, *list(sq.DARKNESS["none"])[1:3]))
-        self.assertTrue(sq.is_bright(DARK, *list(sq.DARKNESS["darkest"])[1:3]))
 
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))
