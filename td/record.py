@@ -1,8 +1,11 @@
-"""Record the mapper output, what the projector sees, to an mp4 for ten minutes.
+"""Record the mapper output, what the projector sees, to a Photo JPEG .mov for ten minutes.
 
     exec(open('~/dev/studio_visuals/td/record.py').read())
 
-Writes TD_Mapping/Recordings/studio_<date>.mp4 and stops on its own. To stop early:
+Writes TD_Mapping/Recordings/studio_<date>.mov and stops on its own. H.264 needs a commercial
+licence, so the file is big; shrink it after with
+    ffmpeg -i studio_<date>.mov -c:v libx264 -crf 20 -pix_fmt yuv420p studio_<date>.mp4
+To stop early:
     op('/project1/rec').par.record = 0; op('/project1/rec_cook').par.active = 0
 Running it again while a recording is on restarts the ten minutes into a new file. A Movie
 File Out only writes the frames it cooks and nothing pulls this one, so rec_cook cooks it
@@ -19,8 +22,9 @@ _rec.par.record = 0
 _rec.inputConnectors[0].connect(_proj.op("kantanMapper1/out1").outputConnectors[0])
 _out = os.path.join(project.folder, "Recordings")
 os.makedirs(_out, exist_ok=True)
-_rec.par.file = os.path.join(_out, "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mp4")
-_rec.par.videocodec = "h264"
+_rec.par.file = os.path.join(_out, "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mov")
+_rec.par.videocodec = next(n for n in _rec.par.videocodec.menuNames if "jpeg" in n.lower())
+_rec.par.qualityscale = 0.85
 _ck = _proj.op("rec_cook") or _proj.create(executeDAT, "rec_cook")
 _ck.par.framestart = True
 _ck.text = "def onFrameStart(frame):\n    op('/project1/rec').cook()\n    return\n"
