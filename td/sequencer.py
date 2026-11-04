@@ -360,9 +360,10 @@ def _start_xfade(st, group, player, seconds):
 def _finish_xfade(st, group):
     """The transition is over: the group shows the slot it melded into."""
     fx = _fx()
-    slot, _ = st["target"][group]
-    st["chain"][group] = slot
-    fx.op("cur_" + group).par.index = slot - 1
+    if group in st["target"]:
+        slot, _ = st["target"][group]
+        st["chain"][group] = slot
+        fx.op("cur_" + group).par.index = slot - 1
     fx.op("xfade_" + group).par.Active = 0
     fx.op("tx_" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur
 
@@ -383,6 +384,10 @@ def start():
     """Called once from the Execute DAT's onStart and at the end of the build."""
     fx = _fx()
     fx.unstore("state")
+    for name in ("t_preroll", "t_turn", "t_inner", "t_outer", "tx_inner", "tx_outer", "t_reroll"):
+        fx.op(name).par.initialize.pulse()  # a timer saved mid run would fire into fresh state
+    for g in GROUPS:
+        fx.op("xfade_" + g).par.Active = 0
     st = _state()
     st["player"] = "B"  # so that _pick_next cues the first clip into A
     first = _pick_next(st)
@@ -434,7 +439,7 @@ def on_done(timer_name):
         g = timer_name[3:]
         # with no tease both transitions end in the same frame, and the outer one may have
         # swapped st["player"] already, so the target comes from the start of the transition
-        _, nxt = st["target"][g]
+        _, nxt = st["target"].get(g, (None, st["player"]))
         _finish_xfade(st, g)
         if g == "outer" and st["player"] != nxt:
             plan = st["plan"][st["player"]]
