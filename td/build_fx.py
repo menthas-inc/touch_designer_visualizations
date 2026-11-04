@@ -16,7 +16,7 @@ REPO = "~/dev/studio_visuals"
 SEQ = os.path.join(REPO, "td", "sequencer.py")
 GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
 W, H = 340, 1080  # the strip cut
-STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1
+STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
 
 ns = {}
 exec(open(SEQ).read(), ns)  # the corpus, without touching TouchDesigner names
@@ -305,7 +305,13 @@ def build():
         lv = mk(chain, levelTOP, "lim_level", prev, brightness1="=op('lim_lag')[0]")
         mk(chain, outTOP, "out1", lv)
         wire(chain, x)
-        mk(fx, nullTOP, "out_" + g, chain)
+        out = mk(fx, nullTOP, "out_" + g, chain)
+        # the pair's mirror, once a Kantan flag on the first strip: now a flip blended in over a
+        # lag, so the sequencer can leave a pair the same way round now and then without a cut
+        tgt = mk(fx, constantCHOP, "pair_tgt_" + g, value0=1.0)
+        lag = mk(fx, lagCHOP, "pair_lag_" + g, tgt, lag1=3.0, lag2=3.0)
+        flipped = mk(fx, flipTOP, "pair_flip_" + g, out, flipx=True)
+        mk(fx, crossTOP, "pair_" + g, out, flipped, cross=f"=op('/project1/fx/pair_lag_{g}')[0]")
 
     # timers: one per event, in seconds, all sharing one callbacks DAT
     cb = mk(fx, textDAT, "timers_callbacks")
@@ -341,9 +347,10 @@ def build():
 
     # the mapper: four textures, one dangling reference cleared
     shapes = "/project1/kantanMapper1/project/allShapes/"
-    for g, items in STRIPS.items():
-        for it in items:
-            op(shapes + it + "/parameters").par.Texture = "/project1/fx/out_" + g
+    for g, (mirrored, plain) in STRIPS.items():
+        op(shapes + mirrored + "/parameters").par.Texture = "/project1/fx/pair_" + g
+        op(shapes + mirrored + "/parameters").par.Fliptexture = False  # the flip lives in pair_g now
+        op(shapes + plain + "/parameters").par.Texture = "/project1/fx/out_" + g
     op(shapes + "item6/parameters").par.Texture = ""
 
     # the old chain, gone in one step now that the new one is wired

@@ -57,6 +57,7 @@ def progress(fraction):
     f = min(max(fraction, 0.0), 1.0)
     return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
+MIRROR_CHANCE = 0.8  # per clip change, that a pair's first strip mirrors the second; else the same way round
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
@@ -347,6 +348,8 @@ def _start_xfade(st, group, player, seconds):
     x = fx.op("xfade_" + group)
     if x.par.Active:
         _finish_xfade(st, group)  # a swap still running when the clip change comes
+    if player != st["player"] and not fx.par.Hold:
+        _roll_mirror(st, group)
     slot = 3 - st["chain"][group]
     fx.op(f"src{slot}_{group}").par.index = 0 if player == "A" else 1
     if not fx.par.Hold:
@@ -363,6 +366,11 @@ def _start_xfade(st, group, player, seconds):
     t = fx.op("tx_" + group)
     t.par.length = seconds
     t.par.start.pulse()
+
+
+def _roll_mirror(st, group):
+    """The pair's first strip mirrors the second most of the time; the lag blends the change."""
+    _fx().op("pair_tgt_" + group).par.value0 = 1.0 if _rng(st).random() < MIRROR_CHANCE else 0.0
 
 
 def _finish_xfade(st, group):
@@ -411,6 +419,7 @@ def start():
     for g in GROUPS:
         st["sel"][g] = _selection_for(st, first, g)
         _apply(g, 1, st["sel"][g])
+        _roll_mirror(st, g)
     if fx.par.Hold:
         _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)

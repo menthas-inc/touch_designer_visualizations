@@ -31,8 +31,10 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   and Rectangle2 (panels 2 and 3). Per group: `fitA_g` and `fitB_g` (340 x 1080, fit
   outside), two chain slots `chain1_g` and `chain2_g` each fed by either player through
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
-  `limiter_g`, `out_g`. A transition melds the shown slot into the other, which carries the
-  next clip at a clip change or the same clip with a new look for a mid-clip swap.
+  `limiter_g`, `out_g`, and `pair_g` for the pair's mirrored strip: `out_g` crossed with its
+  x flip on `pair_lag_g` (3 s) toward `pair_tgt_g`, which the sequencer sets to 1 four times
+  in five at a clip change. A transition melds the shown slot into the other, which carries
+  the next clip at a clip change or the same clip with a new look for a mid-clip swap.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 burn, 1
   distort, 2 patches, 3 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the
   file; 4 smear, a Feedback loop on `smear_out`), `Active` (off: `cur` passes straight
@@ -115,8 +117,8 @@ with these parts that matter:
 | 1 | Rectangle1 | 292 x 1080 at (753, 0) | none | fx/out_outer | 2 | no | locked |
 | 2 | Rectangle2 | 300 x 1080 at (302, 0) | none | fx/out_inner | 0 | no | locked |
 | 3 | Rectangle3 | 130 x 62 at (-443, -635) | none | none (test grid) | 0 | no | unlocked, off canvas |
-| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | none | fx/out_inner | 0 | yes | locked |
-| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | none | fx/out_outer | 2 | yes | locked |
+| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | none | fx/pair_inner | 0 | in pair_inner | locked |
+| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | none | fx/pair_outer | 2 | in pair_outer | locked |
 | 6 | Rectangle6 | 58 x 56 at (0, -465) | none | none, cleared | 0 | no | locked, hidden |
 
 How they got here, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540): the
@@ -126,7 +128,9 @@ times. The base columns underneath already described four strips side by side ac
 of the frame, which is the room. `td/reset_corners.py` removed the drags (the values stay in
 git), `td/set_columns.py` made all four 1080 tall, and `map_video.py` first put video on them
 before spec 001 took over the textures. The orientation and flip flags per strip are
-intentional (owner, 2026-11-03): they match how each strip hangs. Rectangle3 and 6 are
+intentional (owner, 2026-11-03): they match how each strip hangs. The flip on 4 and 5 moved
+into `fx/pair_g` on 2026-11-04 (owner): a Flip TOP crossed in over a 3 s lag, on four times
+in five per clip change, so a pair is sometimes the same way round, with no cut. Rectangle3 and 6 are
 leftovers. The saves in `Backup/` are a different installation (2022 to 2023).
 
 ### Driving Kantan from a script
