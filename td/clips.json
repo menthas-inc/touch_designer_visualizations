@@ -93,21 +93,6 @@
   "length": 20.03,
   "motion": 0.067
  },
- "VJ_Visuals/316102952_113896274737655_7207353930469692269_n.mp4": {
-  "buckets": [
-   {
-    "high": 0.2157,
-    "mean": 0.0981
-   },
-   {
-    "high": 0.2157,
-    "mean": 0.0983
-   }
-  ],
-  "fps": 30.0,
-  "length": 18.2,
-  "motion": 0.0317
- },
  "VJ_Visuals/317704282_185215354090252_7672983059872382860_n.mp4": {
   "buckets": [
    {
@@ -928,17 +913,6 @@
   "fps": 30.0,
   "length": 20.17,
   "motion": 0.0112
- },
- "VJ_Visuals/SaveInsta.App - 3062626332335838059.mp4": {
-  "buckets": [
-   {
-    "high": 0.7333,
-    "mean": 0.6425
-   }
-  ],
-  "fps": 30.0,
-  "length": 10.0,
-  "motion": 0.0292
  },
  "VJ_Visuals/SaveInsta.App - 3067090790691683224.mp4": {
   "buckets": [
