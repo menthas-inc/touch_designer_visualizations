@@ -29,13 +29,14 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   cued at its window start. `interp` on, 30 frames preread. Speed per clip from the table.
 - **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
   and Rectangle2 (panels 2 and 3). Per group: `fitA_g` and `fitB_g` (340 x 1080, fit
-  outside), `chainA_g` and `chainB_g`, one per player, `cur_g` and `nxt_g` Switch TOPs over
-  the two chains, `xfade_g`, `limiter_g`, `out_g`. The new look is set on the incoming
-  player's chain, so the transition melds the old look into the new one.
+  outside), two chain slots `chain1_g` and `chain2_g` each fed by either player through
+  `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
+  `limiter_g`, `out_g`. A transition melds the shown slot into the other, which carries the
+  next clip at a clip change or the same clip with a new look for a mid-clip swap.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 melt, 1
   displace, both in `glsl` from `td/glsl/xfade.glsl`; 2 smear, a Feedback loop on
   `smear_out`), `Active` (off: `cur` passes straight through, nothing else cooks).
-- **chainP_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
+- **chainN_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
   `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
   mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
   a held effect still moves. `feedback` and `echo` have no Switch,
@@ -47,7 +48,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
 - **Timers.** `t_turn` cues a short clip back to its start when it reaches its end, `t_preroll`
   releases the cued player 1 s before it is shown, `t_inner` and
   `t_outer` fire the two transitions, `tx_inner` and `tx_outer` run them and flip `cur_g` when
-  done, `t_reroll` cycles every `Rerollevery` seconds. All
+  done, `t_reroll` ticks every `Rerollevery` seconds: one group in turn, three times in ten,
+  swaps to a new look on the same clip over 4 to 8 s, unless its clip change is near. All
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
   `start()` on file open.
 - **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`

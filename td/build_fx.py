@@ -84,8 +84,9 @@ def default_for(spec):
 # ---------------------------------------------------------------- effects
 # Each returns the last TOP of the wet path, given the effect base and its in1.
 def fx_framing(b, src):
-    t = mk(b, transformTOP, "xform", src, extend="mirror",
-           sx="=parent().par.Zoom", sy="=parent().par.Zoom", tx="=parent().par.Tx", ty="=parent().par.Ty")
+    t = mk(b, transformTOP, "xform", src, extend="mirror",  # mirrored edges, so a tilt shows no black corner
+           sx="=parent().par.Zoom", sy="=parent().par.Zoom", tx="=parent().par.Tx", ty="=parent().par.Ty",
+           rotate="=parent().par.Rotate")
     return mk(b, flipTOP, "flip", t, flipx="=parent().par.Flipx", flipy="=parent().par.Flipy")
 
 
@@ -272,22 +273,25 @@ def build():
                            prereadframes=60, cuepointunit="seconds", hwdecode=False)
 
     for g in STRIPS:
-        # a chain per player, so the transition melds the old look into the new one; only the
-        # chain the Switches pull cooks, so outside a transition one chain per group runs
+        # two chain slots per group, each fed by either player through src: a transition melds
+        # the shown slot into the other, for a new clip or a new look on the same clip. Only
+        # the slot the Switches pull cooks, so outside a transition one chain per group runs
+        fits = [mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+                for p in "AB"]
         chains = {}
-        for p in "AB":
-            fit = mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
-            chain = fx.create(baseCOMP, f"chain{p}_{g}")
+        for slot in (1, 2):
+            src = mk(fx, switchTOP, f"src{slot}_{g}", *fits, index=0)
+            chain = fx.create(baseCOMP, f"chain{slot}_{g}")
             prev = mk(chain, inTOP, "in1")
             for name in ORDER:
                 b = build_effect(chain, name)
                 wire(b, prev)
                 prev = b
             mk(chain, outTOP, "out1", prev)
-            wire(chain, fit)
-            chains[p] = chain
-        cur = mk(fx, switchTOP, "cur_" + g, chains["A"], chains["B"], index=0)
-        nxt = mk(fx, switchTOP, "nxt_" + g, chains["A"], chains["B"], index=1)
+            wire(chain, src)
+            chains[slot] = chain
+        cur = mk(fx, switchTOP, "cur_" + g, chains[1], chains[2], index=0)
+        nxt = mk(fx, switchTOP, "nxt_" + g, chains[1], chains[2], index=1)
         x = build_xfade(fx, g)
         wire(x, cur, nxt)
         # the limiter: feedforward from a small mono copy, one-sided, fast down and slow up

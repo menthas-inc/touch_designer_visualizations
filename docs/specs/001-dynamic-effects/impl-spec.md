@@ -74,10 +74,11 @@ Run once; running again deletes and rebuilds `fx`. Inside:
   seconds before it is shown. Resolution as decoded; the licence cap applies.
 - Per group `g` in `outer`, `inner`:
   - `cur_g`, `nxt_g`: Switch TOPs over A and B, indices held by the sequencer.
-  - `fitA_g`, `fitB_g`: Fit TOPs, 340 x 1080, fit outside, one per player, then `chainA_g`
-    and `chainB_g`, one per player, then `cur_g` and `nxt_g` Switches over the two chains into
-    the transition. The new look goes on the incoming player's chain, so the shader melds the
-    old look into the new one; outside a transition only the current chain cooks.
+  - `fitA_g`, `fitB_g`: Fit TOPs, 340 x 1080, fit outside, one per player, then two chain
+    slots `chain1_g` and `chain2_g`, each behind a `srcN_g` Switch over the two fits, then
+    `cur_g` and `nxt_g` Switches over the slots into the transition. A new look always goes on
+    the idle slot, so the shader melds the old look into the new one, at a clip change and at
+    a mid-clip swap alike; outside a transition only the shown slot cooks.
   - `xfade_g`: a Base with inputs `cur`, `nxt`, custom pars `Progress`, `Type` and `Active`.
     Types 0 and 1 are one GLSL TOP (`td/glsl/xfade.glsl`, uniforms `uProgress`, `uType`),
     type 2 is a Feedback TOP loop (`smear_fb`, target `smear_out`, `resetpulse` at each

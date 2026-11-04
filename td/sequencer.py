@@ -15,7 +15,8 @@ import random
 # family: frame (always on), dark (darkeners), treat (treatments). stateful effects keep cooking
 # behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.
 CORPUS = {
-    "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1]}},
+    "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1],
+                                                 "Rotate": [0, 0, 0, 0, 180, 180, -12, -7, 7, 12, 173, 187]}},
     "highlights": {"family": "dark", "params": {"Cut": (0.85, 0.6), "Soft": (12.0, 4.0), "Amount": (0.5, 1.0)}},
     "crush":      {"family": "dark", "params": {"Gamma": (0.7, 0.4), "Black": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens
     "edges":      {"family": "dark", "params": {"Strength": (0.8, 2.0), "Mix": (0.6, 1.0)}},
@@ -46,6 +47,8 @@ BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
 PREROLL = 1.0
+SWAP = (4.0, 8.0)  # seconds a mid-clip look swap takes
+SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
@@ -192,15 +195,6 @@ def choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):
     return sel
 
 
-def reroll(selection, rng):
-    """New parameters for the enabled, non-stateful treatments. Nothing else moves."""
-    out = {n: dict(v) for n, v in selection.items()}
-    for n in TREAT:
-        if out[n].get("Enable") and not CORPUS[n].get("stateful"):
-            out[n] = {"Enable": 1, **params_for(n, rng)}
-    return out
-
-
 def load_table(path):
     try:
         with open(path) as fh:
@@ -239,9 +233,9 @@ def _table():
     return load_table(os.path.join(project.folder, "..", "td", "clips.json"))
 
 
-def _apply(group, player, sel):
-    """One chain per player and group, so a transition melds the old look into the new."""
-    chain = _fx().op(f"chain{player}_{group}")
+def _apply(group, slot, sel):
+    """Two chain slots per group, so a transition melds the old look into the new."""
+    chain = _fx().op(f"chain{slot}_{group}")
     for name, vals in sel.items():
         b = chain.op(name)
         for k, v in vals.items():
@@ -249,13 +243,8 @@ def _apply(group, player, sel):
     chain.op("feedback/fb").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame
 
 
-def _shown(st, group):
-    """The player whose chain carries st["sel"][group]."""
-    return st.get("target", {}).get(group) or st["player"]
-
-
 # ---------------------------------------------------------------- hold mode: step through by hand
-NEUTRAL_FRAMING = {"Enable": 1, "Zoom": 1.0, "Tx": 0.0, "Ty": 0.0, "Flipx": 0, "Flipy": 0}
+NEUTRAL_FRAMING = {"Enable": 1, "Zoom": 1.0, "Tx": 0.0, "Ty": 0.0, "Flipx": 0, "Flipy": 0, "Rotate": 0}
 
 
 def held_selection(name, params):
@@ -278,8 +267,8 @@ def _hold_apply(st, name=None, fresh=False):
     sel = held_selection(name, held["params"])
     for g in GROUPS:
         st["sel"][g] = sel
-        for p in "AB":
-            _apply(g, p, sel)
+        for slot in (1, 2):
+            _apply(g, slot, sel)
     fx.par.Effect = name
     print("try:", name, "  ".join(f"{k} {v}" for k, v in held["params"].items()))
 
@@ -343,23 +332,39 @@ def _selection_for(st, player, group):
                   bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))
 
 
-def _start_xfade(st, group):
-    """The group starts its transition to the other player: new look, random transition."""
+def _start_xfade(st, group, player, seconds):
+    """The group melds from its shown chain slot into the other, carrying `player` with a new
+    look: the next clip at a clip change, the same clip for a mid-clip swap."""
     fx = _fx()
-    nxt = OTHER[st["player"]]
-    if not fx.par.Hold:
-        sel = _selection_for(st, nxt, group)
-        st["sel"][group] = sel
-        _apply(group, nxt, sel)
-    st.setdefault("target", {})[group] = nxt  # read back at the end, when roles may have swapped already
     x = fx.op("xfade_" + group)
+    if x.par.Active:
+        _finish_xfade(st, group)  # a swap still running when the clip change comes
+    slot = 3 - st["chain"][group]
+    fx.op(f"src{slot}_{group}").par.index = 0 if player == "A" else 1
+    if not fx.par.Hold:
+        sel = _selection_for(st, player, group)
+        st["sel"][group] = sel
+        _apply(group, slot, sel)
+    st["target"][group] = (slot, player)  # read back at the end, when roles may have swapped already
     forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one
     x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)
     x.op("smear_fb").par.resetpulse.pulse()
-    fx.op("nxt_" + group).par.index = 0 if nxt == "A" else 1
-    _release(nxt)  # normally already rolling from the pre-roll; harmless twice
+    fx.op("nxt_" + group).par.index = slot - 1
+    _release(player)  # normally already rolling from the pre-roll; harmless twice
     x.par.Active = 1
-    fx.op("tx_" + group).par.start.pulse()
+    t = fx.op("tx_" + group)
+    t.par.length = seconds
+    t.par.start.pulse()
+
+
+def _finish_xfade(st, group):
+    """The transition is over: the group shows the slot it melded into."""
+    fx = _fx()
+    slot, _ = st["target"][group]
+    st["chain"][group] = slot
+    fx.op("cur_" + group).par.index = slot - 1
+    fx.op("xfade_" + group).par.Active = 0
+    fx.op("tx_" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur
 
 
 def _release(player):
@@ -384,12 +389,15 @@ def start():
     st["player"] = first
     st["lead"] = 0.0
     _release(first)
+    st["chain"], st["target"] = {}, {}
     for g in GROUPS:
-        fx.op("cur_" + g).par.index = 0 if first == "A" else 1
+        st["chain"][g] = 1
+        fx.op("cur_" + g).par.index = 0
+        fx.op("src1_" + g).par.index = 0 if first == "A" else 1
         st["sel"][g] = None
     for g in GROUPS:
         st["sel"][g] = _selection_for(st, first, g)
-        _apply(g, first, st["sel"][g])
+        _apply(g, 1, st["sel"][g])
     if fx.par.Hold:
         _hold_apply(st, str(fx.par.Effect))
     _begin_segment(st)
@@ -401,8 +409,6 @@ def _begin_segment(st):
     plan = st["plan"][st["player"]]
     _pick_next(st)
     L, T, t = plan["length"], plan["tease"], plan["xfade"]
-    for g in GROUPS:
-        fx.op("tx_" + g).par.length = t
     if plan["turn"] is None:
         fx.op("t_turn").par.initialize.pulse()  # cancel a turn armed by the segment before
     else:
@@ -422,18 +428,14 @@ def on_done(timer_name):
         _release(OTHER[st["player"]])
     elif timer_name == "t_turn":
         fx.op("player" + st["player"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top
-    elif timer_name == "t_inner":
-        _start_xfade(st, "inner")
-    elif timer_name == "t_outer":
-        _start_xfade(st, "outer")
+    elif timer_name in ("t_inner", "t_outer"):
+        _start_xfade(st, timer_name[2:], OTHER[st["player"]], st["plan"][st["player"]]["xfade"])
     elif timer_name in ("tx_inner", "tx_outer"):
         g = timer_name[3:]
         # with no tease both transitions end in the same frame, and the outer one may have
         # swapped st["player"] already, so the target comes from the start of the transition
-        nxt = st.get("target", {}).get(g) or OTHER[st["player"]]
-        fx.op("cur_" + g).par.index = 0 if nxt == "A" else 1
-        fx.op("xfade_" + g).par.Active = 0
-        fx.op(timer_name).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur
+        _, nxt = st["target"][g]
+        _finish_xfade(st, g)
         if g == "outer" and st["player"] != nxt:
             plan = st["plan"][st["player"]]
             st["lead"] = plan["tease"] + plan["xfade"] + PREROLL
@@ -442,10 +444,19 @@ def on_done(timer_name):
 
 
 def on_reroll():
+    """Every Rerollevery seconds one group, in turn, may swap to a new look mid clip, melded
+    over SWAP seconds, unless its clip change is about to do that anyway."""
     st = _state()
-    if _fx().par.Hold:
+    fx = _fx()
+    if fx.par.Hold:
         return
-    for g in GROUPS:
-        if st["sel"].get(g):
-            st["sel"][g] = reroll(st["sel"][g], _rng(st))
-            _apply(g, _shown(st, g), st["sel"][g])
+    st["reroll_n"] = st.get("reroll_n", 0) + 1
+    g = GROUPS[st["reroll_n"] % 2]
+    rng = _rng(st)
+    secs = round(rng.uniform(*SWAP), 2)
+    if rng.random() >= SWAP_CHANCE or fx.op("xfade_" + g).par.Active:
+        return
+    t = fx.op("t_" + g)
+    if float(t.par.length) * (1 - t["timer_fraction"]) < secs + 2:
+        return
+    _start_xfade(st, g, st["player"], secs)

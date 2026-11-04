@@ -72,17 +72,6 @@ class ChooseTest(unittest.TestCase):
                     self.assertNotEqual(sq.enabled(a), sq.enabled(b))
                     self.assertNotEqual(sq.enabled(c), sq.enabled(b))
 
-    def test_reroll_moves_only_stateless_treatments(self):
-        rng = random.Random(3)
-        sel = sq.choose(DARK, rng)
-        sel["feedback"] = {"Enable": 1, "Zoom": 1.0, "Rotate": 0.0, "Decay": 0.9, "Mix": 0.5}
-        sel["mirror"] = {"Enable": 1, "Mode": 7}
-        out = sq.reroll(sel, rng)
-        self.assertEqual(out["feedback"], sel["feedback"])
-        self.assertEqual(sq.enabled(out), sq.enabled(sel))
-        self.assertNotEqual(out["mirror"]["Mode"], 7)
-        self.assertEqual(out["framing"], sel["framing"])
-
 
 class HoldTest(unittest.TestCase):
     def test_held_selection_is_one_effect_over_neutral_framing(self):
@@ -93,6 +82,12 @@ class HoldTest(unittest.TestCase):
         sel = sq.held_selection("framing", {"Zoom": 1.3, "Tx": 0, "Ty": 0, "Flipx": 1, "Flipy": 0})
         self.assertEqual(sq.enabled(sel), {"framing"})
         self.assertEqual(sel["framing"]["Flipx"], 1)
+
+    def test_framing_rotates_only_to_flips_and_tilts(self):
+        rng = random.Random(5)
+        for _ in range(100):
+            r = sq.params_for("framing", rng)["Rotate"]
+            self.assertTrue(r in (0, 180) or abs(r) <= 12 or 168 <= r <= 192, r)
 
 
 class PlanTest(unittest.TestCase):
