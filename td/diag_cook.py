@@ -3,7 +3,7 @@ exec(open('~/dev/studio_visuals/td/diag_cook.py').read())
 Lists the operators under /project1 with the longest last cook, CPU and GPU, in ms.
 """
 _rows = []
-_kids = op("/project1").findChildren(depth=12)
+_kids = op("/project1").findChildren(maxDepth=12)
 for _o in _kids:
     _rows.append((_o.cookTime + _o.gpuCookTime, _o.cookTime, _o.gpuCookTime, _o.cookAbsFrame, _o.path))
 _rows.sort(reverse=True)
