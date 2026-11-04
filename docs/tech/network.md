@@ -50,7 +50,7 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   releases the cued player 1 s before it is shown, `t_inner` and
   `t_outer` fire the two transitions, `tx_inner` and `tx_outer` run them and flip `cur_g` when
   done, `t_reroll` ticks every `Rerollevery` seconds: one group in turn, three times in ten,
-  swaps to a new look on the same clip over 4 to 8 s, unless its clip change is near. All
+  swaps to a new look on the same clip over 6 to 12 s, unless its clip change is near. All
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
   `start()` on file open.
 - **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`
@@ -77,7 +77,8 @@ At the start of a segment the idle player is cued with the next clip. `t_inner` 
 `tx_inner` for `t` seconds, during which the cued player plays. `t_outer` fires at `L - t`
 and does the same for the outer group; when `tx_outer` is done the next segment begins with
 the roles swapped and `lead = T + t` taken off the new clip's play. T is 0 half the time,
-else 1 to 6 s; t is 5 to 15 s; the plain play before a change is never under 6 s.
+else 1 to 6 s; t is 7.5 to 22.5 s, half the meld in its first third; the plain play before a
+change is never under 6 s.
 
 ## The table
 

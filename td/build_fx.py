@@ -322,7 +322,7 @@ def build():
     mk(fx, timerCHOP, "t_reroll", lengthunits="seconds", length=20, cycle=True, cyclelimit=False, callbacks="timers_callbacks")
     for g in STRIPS:
         # a relative path on a COMP's own parameter resolves from its parent, so absolute
-        setp(fx.op("xfade_" + g), Progress=f"=op('/project1/fx/tx_{g}')['timer_fraction']")
+        setp(fx.op("xfade_" + g), Progress=f"=op('/project1/fx/sequencer').module.progress(op('/project1/fx/tx_{g}')['timer_fraction'])")
 
     ex = mk(fx, executeDAT, "run", start=True)
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"

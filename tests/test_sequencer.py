@@ -73,6 +73,16 @@ class ChooseTest(unittest.TestCase):
                     self.assertNotEqual(sq.enabled(c), sq.enabled(b))
 
 
+class ProgressTest(unittest.TestCase):
+    def test_half_way_at_the_knee_then_half_speed(self):
+        self.assertEqual(sq.progress(0.0), 0.0)
+        self.assertAlmostEqual(sq.progress(sq.KNEE), 0.5)
+        self.assertAlmostEqual(sq.progress(sq.KNEE / 2), 0.25)
+        self.assertAlmostEqual(sq.progress((1 + sq.KNEE) / 2), 0.75)
+        self.assertEqual(sq.progress(1.0), 1.0)
+        self.assertEqual(sq.progress(1.3), 1.0)
+
+
 class HoldTest(unittest.TestCase):
     def test_held_selection_is_one_effect_over_neutral_framing(self):
         sel = sq.held_selection("crush", {"Gamma": 2.0, "Black": 0.1})
@@ -100,7 +110,7 @@ class PlanTest(unittest.TestCase):
             self.assertIsNone(p["turn"])
             self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
             self.assertTrue(p["tease"] == 0 or 1 <= p["tease"] <= 6)
-            self.assertTrue(5 <= p["xfade"] <= 15)
+            self.assertTrue(7.5 <= p["xfade"] <= 22.5)
 
     def test_lead_shortens_the_play_not_the_window(self):
         rng = random.Random(8)

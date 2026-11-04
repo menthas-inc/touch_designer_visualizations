@@ -47,7 +47,15 @@ BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
 PREROLL = 1.0
-SWAP = (4.0, 8.0)  # seconds a mid-clip look swap takes
+XFADE = (7.5, 22.5)  # seconds a clip change transition takes
+SWAP = (6.0, 12.0)  # seconds a mid-clip look swap takes
+KNEE = 1.0 / 3.0  # the first half of a meld happens in this share of its time, the rest is slower
+
+
+def progress(fraction):
+    """Transition progress 0 to 1 from the timer's fraction: quick to half way, then half speed."""
+    f = min(max(fraction, 0.0), 1.0)
+    return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
@@ -136,7 +144,7 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
         window, turn = content / speed, None
     length = round(max(window - lead, 0.0), 2)
     tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0
-    xfade = round(rng.uniform(5.0, 15.0), 2)
+    xfade = round(rng.uniform(*XFADE), 2)
     if length - tease - xfade < FLOOR:
         tease = max(0.0, round(length - xfade - FLOOR, 2))
         if tease < 1.0:
