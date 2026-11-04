@@ -1,11 +1,10 @@
-// Four transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size
+// Three transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size
 // (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.
 //   0 burn:     the next clip appears in the bright parts of the current one first and eats
 //               outward through a crisp, slightly ragged edge
 //   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the
 //               strip, so the two smear into one before the next settles
-//   2 patches:  a noise field sweeps a threshold, the next clip arrives as growing blotches
-//   3 colour:   the next clip's red lands first, then green, then blue, each sliding in from
+//   2 colour:   the next clip's red lands first, then green, then blue, each sliding in from
 //               its own small offset, so the picture passes through a split, saturated phase
 uniform float uProgress;
 uniform float uType;
@@ -40,10 +39,6 @@ void main() {
         vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);
         vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);
         o = mix(c2, n2, smoothstep(0.3, 0.7, p));
-    } else if (uType < 2.5) {
-        float f = noise(uv * vec2(4.0, 12.0) + vec2(0.0, p * 0.5));
-        float t = p * 1.3 - 0.15;
-        o = mix(c, n, smoothstep(f - 0.08, f + 0.08, t));
     } else {
         float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);
         float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;

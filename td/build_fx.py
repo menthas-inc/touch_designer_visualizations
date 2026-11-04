@@ -232,8 +232,8 @@ def build_xfade(fx, g):
     base = mk(x, crossTOP, "smear_base", cur, d, cross="=parent().par.Progress")
     smear = mk(x, crossTOP, "smear_mix", base, nxt, cross="=min(1, max(0, parent().par.Progress * parent().par.Progress * (3 - 2 * parent().par.Progress)))")
     wire(smear_out, smear)
-    # Types 0 to 3 are the shader, 4 the smear; outside a transition the raw current picture
-    sel = mk(x, switchTOP, "type", glsl, glsl, glsl, glsl, smear_out, index="=int(parent().par.Type)")
+    # Types 0 to 2 are the shader, 3 the smear; outside a transition the raw current picture
+    sel = mk(x, switchTOP, "type", glsl, glsl, glsl, smear_out, index="=int(parent().par.Type)")
     live = mk(x, switchTOP, "live", cur, sel, index="=int(parent().par.Active)")
     mk(x, outTOP, "out1", live)
     return x
@@ -263,7 +263,7 @@ def build():
     tp.appendPulse("Nexteffect", label="Next effect")
     tp.appendPulse("Reroll", label="Reroll values")
     xt = tp.appendMenu("Xfadetype", label="Transition")[0]
-    xt.menuNames = ["random", "burn", "distort", "patches", "colour", "smear"]
+    xt.menuNames = ["random", "burn", "distort", "colour", "smear"]
     xt.menuLabels = xt.menuNames
 
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)

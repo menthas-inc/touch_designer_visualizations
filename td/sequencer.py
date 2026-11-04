@@ -34,7 +34,7 @@ CORPUS = {
 ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
-XFADE_TYPES = 5  # burn, distort, patches, colour, smear
+XFADE_TYPES = 4  # burn, distort, colour, smear
 PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
 DEFAULTS = {"cap": 120.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets

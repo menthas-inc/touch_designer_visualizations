@@ -131,16 +131,15 @@ schedules again. `spice_env(f, pulses)` is pure and tested.
 
 ### 5. Transitions
 
-`td/glsl/xfade.glsl`, one shader synced from the file, `uType` 0 to 3, samples outside the
+`td/glsl/xfade.glsl`, one shader synced from the file, `uType` 0 to 2, samples outside the
 strip mirrored:
 - burn: the next clip appears where the current one is bright first, a crisp edge
   `smoothstep(t - 0.03, t + 0.03, luma(cur) + 0.12 noise)` with `t = 1.15 - 1.45 p`.
 - distort: each picture warped by the other's luma, `a = 0.4 sin(pi p)` of the strip, mixed
   over `smoothstep(0.3, 0.7, p)`.
-- patches: a two-octave value noise field against a threshold `1.3 p - 0.15`, soft rim 0.08.
 - colour: the next clip's r, g, b land on staggered smoothsteps (0 to 0.6, 0.2 to 0.8, 0.4 to
   1), each sampled with an offset that shrinks to zero as it lands.
-Smear (type 4), TOPs: `fb = Feedback(target smear_out); z = Transform(fb, scale 1.015); d = Level(z,
+Smear (type 3), TOPs: `fb = Feedback(target smear_out); z = Transform(fb, scale 1.015); d = Level(z,
 brightness 0.94); base = Cross(cur, d, p); smear_out = Cross(base, nxt, smoothstep(p))`;
 `resetpulse` at transition start.
 
@@ -150,7 +149,7 @@ brightness 0.94); base = Cross(cur, d, p); smear_out = Cross(base, nxt, smoothst
 - Timer CHOP with segments and callbacks: platform (rung 3), instead of a hand-rolled clock.
 - ffmpeg signalstats: installed tool (rung 4), instead of measuring in TouchDesigner. Luma at
   one frame a second, motion at ten, both on a 160 px copy.
-- GLSL for four transitions: new code, about 50 lines, because each needs a per-pixel compare
+- GLSL for three transitions: new code, about 45 lines, because each needs a per-pixel compare
   and the displace needs two dependent samples; TOP-only versions need six ops each.
 - Skipped: audio, a UI, per-strip anything, Rectangle6 and 3, a second machine, effect
   presets saved between runs, LFS for the videos.

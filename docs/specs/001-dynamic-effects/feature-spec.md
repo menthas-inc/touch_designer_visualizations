@@ -108,10 +108,10 @@ By the end, B has played T + t. The next segment counts from B's cue point, so i
 is shorter by that lead, and the plain play before any change is never under 6 s, which is the
 time the idle player has to cue the clip after it.
 
-Transitions are not crossfades. Five, chosen at random per switch: a burn (the next clip
+Transitions are not crossfades. Four, chosen at random per switch: a burn (the next clip
 appears in the bright parts of the current one and eats outward through a crisp edge), a
 distortion (each picture warps the other by its brightness, the two smear into one before the
-next settles), patches (the next clip arrives as growing noise blotches), a colour arrival
+next settles), a colour arrival
 (red lands first, then green, then blue, each sliding in from its own offset), and a feedback
 smear (the outgoing picture feeds back and dissolves under the incoming one). Each has one
 parameter, the progress 0 to 1, driven by a Timer CHOP.

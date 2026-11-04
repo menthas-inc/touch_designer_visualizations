@@ -44,8 +44,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   second strip and `pair_g` (its x mirror) for the first. A transition melds the shown slot into the other, which carries
   the next clip at a clip change or the same clip with a new look for a mid-clip swap.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 burn, 1
-  distort, 2 patches, 3 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the
-  file; 4 smear, a Feedback loop on `smear_out`), `Active` (off: `cur` passes straight
+  distort, 2 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the file; 3 smear,
+  a Feedback loop on `smear_out`), `Active` (off: `cur` passes straight
   through, nothing else cooks).
 - **chainN_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
   `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
