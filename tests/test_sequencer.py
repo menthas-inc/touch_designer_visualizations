@@ -34,12 +34,23 @@ class ChooseTest(unittest.TestCase):
         self.assertTrue(740 < plain < 860, plain)
 
     def test_darkness_levels_order_and_default_matches(self):
-        levels = list(sq.DARKNESS.values())
+        levels = [v[:3] for v in sq.DARKNESS.values()]
         self.assertEqual(levels[1], (0.18, sq.DEFAULTS["bright_mean"], sq.DEFAULTS["bright_high"]))
         for a, b in zip(levels, levels[1:]):
             self.assertTrue(all(x > y for x, y in zip(a, b)), (a, b))
-        self.assertFalse(sq.is_bright(BRIGHT, *list(sq.DARKNESS["none"])[1:]))
-        self.assertTrue(sq.is_bright(DARK, *list(sq.DARKNESS["darkest"])[1:]))
+
+    def test_bias_pushes_darkeners_to_the_dark_end_and_leaves_hue(self):
+        rng = random.Random(3)
+        for _ in range(100):
+            sel = sq.choose(BRIGHT, rng, bias=1.0)
+            for n in sq.enabled(sel) & set(sq.DARK):
+                for k, v in sel[n].items():
+                    if k not in ("Enable", "Hue"):
+                        self.assertEqual(v, sq.CORPUS[n]["params"][k][1], (n, k))
+        hues = {sq.params_for("tint", rng, 1.0)["Hue"] for _ in range(20)}
+        self.assertGreater(len(hues), 1)
+        self.assertFalse(sq.is_bright(BRIGHT, *list(sq.DARKNESS["none"])[1:3]))
+        self.assertTrue(sq.is_bright(DARK, *list(sq.DARKNESS["darkest"])[1:3]))
 
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))

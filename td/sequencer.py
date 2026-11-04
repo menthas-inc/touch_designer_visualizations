@@ -16,7 +16,7 @@ import random
 # behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.
 CORPUS = {
     "framing":    {"family": "frame", "params": {"Zoom": (1.0, 1.35), "Tx": (-0.15, 0.15), "Ty": (-0.15, 0.15), "Flipx": [0, 1], "Flipy": [0, 1]}},
-    "highlights": {"family": "dark", "params": {"Cut": (0.6, 0.85), "Soft": (4.0, 12.0), "Amount": (0.5, 0.85)}},
+    "highlights": {"family": "dark", "params": {"Cut": (0.85, 0.6), "Soft": (12.0, 4.0), "Amount": (0.5, 1.0)}},
     "crush":      {"family": "dark", "params": {"Gamma": (1.5, 2.6), "Black": (0.0, 0.2)}},
     "edges":      {"family": "dark", "params": {"Strength": (0.8, 2.0), "Mix": (0.6, 1.0)}},
     "tint":       {"family": "dark", "params": {"Hue": (0.0, 1.0), "Sat": (0.8, 1.0)}},
@@ -36,9 +36,11 @@ XFADE_TYPES = 3  # melt, displace, smear
 PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
 DEFAULTS = {"cap": 120.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
-# the Darkness macro: Ceiling for the limiter, then the bright thresholds that bring darkeners
-# in. none never darkens, darkest treats every clip as bright
-DARKNESS = {"none": (1.0, 2.0, 2.0), "default": (0.18, 0.33, 0.65), "darker": (0.12, 0.2, 0.45), "darkest": (0.07, 0.0, 0.0)}
+# the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,
+# and how far the darkeners' draws are pushed to the dark end of their ranges. none never
+# darkens, darkest treats every clip as bright
+DARKNESS = {"none": (1.0, 2.0, 2.0, 0.0), "default": (0.18, 0.33, 0.65, 0.0), "darker": (0.12, 0.2, 0.45, 0.5),
+            "darkest": (0.07, 0.0, 0.0, 0.85)}
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
@@ -46,15 +48,16 @@ PREROLL = 1.0
 SHORT = 45.0  # clips under this play forward, then backward, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
-def _draw(rng, spec):
+def _draw(rng, spec, bias=0.0):
+    """A value from the range; dark ranges run light to dark, bias narrows the draw to the dark end."""
     if isinstance(spec, list):
         return rng.choice(spec)
     lo, hi = spec
-    return round(rng.uniform(lo, hi), 4)
+    return round(rng.uniform(lo + bias * (hi - lo), hi), 4)
 
 
-def params_for(name, rng):
-    return {k: _draw(rng, spec) for k, spec in CORPUS[name]["params"].items()}
+def params_for(name, rng, bias=0.0):
+    return {k: _draw(rng, spec, 0.0 if k == "Hue" else bias) for k, spec in CORPUS[name]["params"].items()}
 
 
 def hsv_rgb(h, s, v=0.9):
@@ -159,7 +162,7 @@ def enabled(selection):
     return frozenset(n for n, v in selection.items() if v.get("Enable"))
 
 
-def choose(stats, rng, avoid=(), **thresholds):
+def choose(stats, rng, avoid=(), bias=0.0, **thresholds):
     """A selection: {effect: {"Enable": 0|1, params...}} for every effect in the corpus.
 
     avoid is a list of selections whose enabled set this one must differ from: the group's
@@ -178,7 +181,7 @@ def choose(stats, rng, avoid=(), **thresholds):
         else:
             picks = rng.sample(TREAT, rng.choice([1, 2]))
         for n in picks:
-            sel[n] = {"Enable": 1, **params_for(n, rng)}
+            sel[n] = {"Enable": 1, **params_for(n, rng, bias if n in DARK else 0.0)}
         if enabled(sel) not in taken:
             return sel
     spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference
@@ -283,7 +286,7 @@ def on_try(par_name):
     st = _state()
     fx = _fx()
     if par_name == "Darkness":
-        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)]
+        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]
         return
     if par_name == "Hold":
         if fx.par.Hold:
@@ -332,7 +335,7 @@ def _selection_for(st, player, group):
     stats = window_stats(clip, plan["start"], plan["window"])
     fx = _fx()
     other = GROUPS[1 - GROUPS.index(group)]
-    return choose(stats, rng, avoid=[st["sel"].get(group), st["sel"].get(other)],
+    return choose(stats, rng, avoid=[st["sel"].get(group), st["sel"].get(other)], bias=DARKNESS[str(fx.par.Darkness)][3],
                   bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))
 
 
