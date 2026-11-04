@@ -421,6 +421,7 @@ def _begin_segment(st):
     fx = _fx()
     plan = st["plan"][st["player"]]
     _pick_next(st)
+    print("clip:", st["clip"][st["player"]], "| speed", plan["speed"], "| next:", st["clip"][OTHER[st["player"]]])
     L, T, t = plan["length"], plan["tease"], plan["xfade"]
     if plan["turn"] is None:
         fx.op("t_turn").par.initialize.pulse()  # cancel a turn armed by the segment before
