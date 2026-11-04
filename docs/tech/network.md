@@ -38,7 +38,9 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   and eased over 4 s, plus a tenth of drift on `lfo_pan_g`, 0.011 Hz outer and 0.017 inner,
   mirrored past the edge. Then two chain slots `chain1_g` and `chain2_g` each fed by either player through
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
-  `limiter_g`, `out_g`, then `orient_g` (`out_g` crossed with its vertical flip on
+  `limiter_g`, `room_g` (`td/glsl/room.glsl` on the fx pars `Roomdark` and `Roomcontrast`,
+  set on site: whites pulled down by 1 + Roomdark, near-black left alone, then a contrast
+  gamma so the midtones follow; 0 and 1 pass through), `out_g`, then `orient_g` (`out_g` crossed with its vertical flip on
   `flip_lag_g`, 3 s, toward `flip_tgt_g`: 0 for inner, and for outer 1 four times in five at a
   clip change, so that pair hangs upside down as it was hung, else upright) for the pair's
   second strip and `pair_g` (its x mirror) for the first. A transition melds the shown slot into the other, which carries
@@ -71,7 +73,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls
   `start()` on file open.
 - **Pars on fx.** `Ceiling` 0.18, `Brightmean` 0.33, `Brighthigh` 0.65, `Cap` 60, `Rerollevery`
-  20, `Seed` 0 (random). `Darkness` is a macro: `none` (Ceiling 1, never bright), `default`,
+  20, `Seed` 0 (random), `Roomdark` 0 and `Roomcontrast` 1 (the room's light, see `room_g`).
+  `Darkness` is a macro: `none` (Ceiling 1, never bright), `default`,
   `darker` and `darkest`. The two upper levels keep the default ceiling and thresholds, push
   the darkeners' draws toward the dark end of their ranges, and force a full highlights cut on
   every clip, bright patches above 0.55 to 0.75 (`darker`) or 0.3 to 0.5 (`darkest`) going

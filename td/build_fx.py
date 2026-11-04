@@ -15,6 +15,7 @@ import os
 REPO = "~/dev/studio_visuals"
 SEQ = os.path.join(REPO, "td", "sequencer.py")
 GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
+ROOM_GLSL = os.path.join(REPO, "td", "glsl", "room.glsl")
 W, H = 340, 1080  # the strip cut
 PAN_LFO = {"outer": 0.011, "inner": 0.017}  # Hz, the two groups' windows drift at different rates
 PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
@@ -248,7 +249,7 @@ def build():
     fx = proj.create(baseCOMP, "fx")
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
-           Cap=120.0, Rerollevery=20.0, Seed=0)
+           Cap=120.0, Rerollevery=20.0, Seed=0, Roomdark=0.0, Roomcontrast=1.0)  # the last two: set on site, see room.glsl
     dk = next(pg for pg in fx.customPages if pg.name == "Fx").appendMenu("Darkness", label="Darkness (sets Ceiling and the bright thresholds)")[0]
     dk.menuNames = list(ns["DARKNESS"])
     dk.menuLabels = dk.menuNames
@@ -287,6 +288,7 @@ def build():
     drift = mk(fx, transformTOP, "spice_drift", chainC, extend="mirror",
                tx="=op('/project1/fx/sequencer').module.spice_drift('x')", ty="=op('/project1/fx/sequencer').module.spice_drift('y')")
     mk(fx, textDAT, "spice_glsl", file=GLSL, syncfile=True)  # the transition shader again: a spice pulses in through it
+    mk(fx, textDAT, "room_glsl", file=ROOM_GLSL, syncfile=True)
 
     for g in STRIPS:
         # two chain slots per group, each fed by either player through src: a transition melds
@@ -345,7 +347,9 @@ def build():
                    uniname1="uType", value1x="=op('/project1/fx/sequencer').module.spice_type()")
         spicesw = mk(fx, switchTOP, "spicesw_" + g, x, spice, index="=op('/project1/fx/sequencer').module.spice_on()")
         wire(chain, spicesw)
-        out = mk(fx, nullTOP, "out_" + g, chain)
+        room = mk(fx, glslTOP, "room_" + g, chain, pixeldat="room_glsl",
+                  uniname0="uDark", value0x="=op('/project1/fx').par.Roomdark", uniname1="uContrast", value1x="=op('/project1/fx').par.Roomcontrast")
+        out = mk(fx, nullTOP, "out_" + g, room)
         # how the pair hangs. orient_g: the outer pair hangs upside down (once Kantan's 180 on
         # both its strips), now a vertical flip blended in over a lag so the sequencer can hang it
         # upright now and then without a cut. pair_g: the pair's first strip always mirrors the
