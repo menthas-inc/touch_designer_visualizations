@@ -44,7 +44,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   effect only one time in five. `limiter_g` after the transition: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
-- **Timers.** `t_preroll` releases the cued player 1 s before it is shown, `t_inner` and
+- **Timers.** `t_turn` flips a short clip's speed negative when it reaches its end, `t_preroll`
+  releases the cued player 1 s before it is shown, `t_inner` and
   `t_outer` fire the two transitions, `tx_inner` and `tx_outer` run them and flip `cur_g` when
   done, `t_reroll` cycles every `Rerollevery` seconds. All
   share `timers_callbacks`, which calls into `sequencer`. `run`, an Execute DAT, calls

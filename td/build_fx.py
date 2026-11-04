@@ -310,7 +310,7 @@ def build():
         "    op('sequencer').module.on_reroll()\n"
         "    return\n"
     )
-    for name in ("t_preroll", "t_inner", "t_outer", "tx_inner", "tx_outer"):
+    for name in ("t_turn", "t_preroll", "t_inner", "t_outer", "tx_inner", "tx_outer"):
         mk(fx, timerCHOP, name, lengthunits="seconds", length=10, callbacks="timers_callbacks")
     mk(fx, timerCHOP, "t_reroll", lengthunits="seconds", length=20, cycle=True, cyclelimit=False, callbacks="timers_callbacks")
     for g in STRIPS:

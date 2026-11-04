@@ -25,8 +25,9 @@ a real file in the repo) only answers "which clip, which effects" at those momen
 replaces the Count CHOP and the Touch In and Out loop (no second machine listens; owner,
 2026-11-03).
 
-Each clip plays for a bounded segment: the whole clip if it is 60 s or shorter, otherwise a
-random 60 s window of it (the cap is a parameter). That is the answer to long clips.
+Each clip plays for a bounded segment of at most 60 s on the wall (the cap is a parameter):
+a long clip gets a random window of it, a clip under 45 s plays forward and then backward so
+it lasts longer. That is the answer to long clips and to short ones.
 
 Playback speed is per clip, from the table: 0.6 by default, and lower (down to 0.4) for clips
 whose measured motion is high and whose frame rate is 25 or above. Low frame rate clips stay

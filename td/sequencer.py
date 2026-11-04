@@ -39,7 +39,8 @@ DEFAULTS = {"cap": 60.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue
-PREROLL = 1.0  # the cued player is released this long before it is shown, so it is rolling by then
+PREROLL = 1.0
+SHORT = 45.0  # clips under this play forward, then backward, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
 def _draw(rng, spec):
@@ -104,18 +105,6 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
     length - tease - xfade. Clamped so that plain play >= FLOOR, by shrinking the tease, then
     the transition.
     """
-    total = clip["length"] if clip else cap
-    window = min(total, cap)
-    start = 0.0 if total <= cap else round(rng.uniform(0.0, total - cap), 2)
-    length = round(max(window - lead, 0.0), 2)
-    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0
-    xfade = round(rng.uniform(5.0, 15.0), 2)
-    if length - tease - xfade < FLOOR:
-        tease = max(0.0, round(length - xfade - FLOOR, 2))
-        if tease < 1.0:
-            tease = 0.0  # a tease under a second is a glitch, not a tease
-    if length - xfade < FLOOR:
-        xfade = max(0.3, round(length - FLOOR, 2))
     fps = clip["fps"] if clip else 30.0
     motion = clip["motion"] if clip else 0.0
     if fps < 25:
@@ -126,7 +115,26 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
         speed = 0.5
     else:
         speed = 0.6
-    return {"start": start, "window": round(window, 2), "length": length, "tease": tease, "xfade": xfade, "speed": speed}
+    # window, length, tease, xfade and turn are real seconds; start is a clip time
+    total = clip["length"] if clip else cap
+    if total < SHORT:
+        start, turn = 0.0, round(total / speed, 2)  # the end of the forward pass
+        window = min(2 * turn, cap)
+    else:
+        content = min(total, cap * speed)
+        start = round(rng.uniform(0.0, total - content), 2)
+        window, turn = content / speed, None
+    length = round(max(window - lead, 0.0), 2)
+    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0
+    xfade = round(rng.uniform(5.0, 15.0), 2)
+    if length - tease - xfade < FLOOR:
+        tease = max(0.0, round(length - xfade - FLOOR, 2))
+        if tease < 1.0:
+            tease = 0.0  # a tease under a second is a glitch, not a tease
+    if length - xfade < FLOOR:
+        xfade = max(0.3, round(length - FLOOR, 2))
+    return {"start": start, "window": round(window, 2), "length": length, "tease": tease, "xfade": xfade,
+            "speed": speed, "turn": turn}
 
 
 def window_stats(clip, start, length):
@@ -382,6 +390,10 @@ def _begin_segment(st):
     L, T, t = plan["length"], plan["tease"], plan["xfade"]
     for g in GROUPS:
         fx.op("tx_" + g).par.length = t
+    if plan["turn"] is None:
+        fx.op("t_turn").par.initialize.pulse()  # cancel a turn armed by the segment before
+    else:
+        _timer("t_turn", plan["turn"] - st["lead"])
     _timer("t_preroll", L - T - t - PREROLL)
     _timer("t_inner", L - T - t)
     _timer("t_outer", L - t)
@@ -395,6 +407,9 @@ def on_done(timer_name):
     fx = _fx()
     if timer_name == "t_preroll":
         _release(OTHER[st["player"]])
+    elif timer_name == "t_turn":
+        p = fx.op("player" + st["player"])
+        p.par.speed = -float(p.par.speed)  # a short clip reaches its end: play it back out
     elif timer_name == "t_inner":
         _start_xfade(st, "inner")
     elif timer_name == "t_outer":
