@@ -22,7 +22,7 @@ CORPUS = {
     "tint":       {"family": "dark", "params": {"Hue": (0.0, 1.0), "Sat": (0.8, 1.0)}},
     "selfmask":   {"family": "dark", "params": {"Amount": (0.6, 1.0), "Contrast": (1.3, 2.0), "Sat": (1.2, 1.8)}},
     "feedback":   {"family": "treat", "stateful": True, "params": {"Zoom": (0.95, 1.06), "Rotate": (-3.0, 3.0), "Decay": (0.9, 0.98), "Mix": (0.5, 0.8)}},
-    "displace":   {"family": "treat", "params": {"Amount": (0.02, 0.08), "Speed": (0.05, 0.4), "Scale": (0.5, 3.0)}},
+    "displace":   {"family": "treat", "params": {"Amount": (0.03, 0.1), "Speed": (0.01, 0.06), "Scale": (5.0, 14.0)}},
     "echo":       {"family": "treat", "stateful": True, "params": {"Frames": [12, 20, 30, 45, 60], "Mix": (0.4, 0.7)}},
     "mirror":     {"family": "treat", "params": {"Mode": [0, 1, 2]}},
     "chroma":     {"family": "treat", "params": {"Shift": (0.01, 0.06)}},
@@ -33,6 +33,7 @@ ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a sel
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
 XFADE_TYPES = 3  # melt, displace, smear
+PLAIN = 0.16  # per group on a dark clip, so about 30% of dark clips show one group untreated
 
 DEFAULTS = {"cap": 60.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
 BUCKET = 10.0
@@ -108,7 +109,7 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
     start = 0.0 if total <= cap else round(rng.uniform(0.0, total - cap), 2)
     length = round(max(window - lead, 0.0), 2)
     tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0
-    xfade = round(rng.uniform(2.0, 3.0), 2)
+    xfade = round(rng.uniform(5.0, 15.0), 2)
     if length - tease - xfade < FLOOR:
         tease = max(0.0, round(length - xfade - FLOOR, 2))
         if tease < 1.0:
@@ -118,13 +119,13 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
     fps = clip["fps"] if clip else 30.0
     motion = clip["motion"] if clip else 0.0
     if fps < 25:
-        speed = 0.75  # slowing a low frame rate clip stutters
+        speed = 0.6  # slowing a low frame rate clip stutters
     elif motion >= 0.12:
-        speed = 0.65
+        speed = 0.4
     elif motion >= 0.08:
-        speed = 0.70
+        speed = 0.5
     else:
-        speed = 0.75
+        speed = 0.6
     return {"start": start, "window": round(window, 2), "length": length, "tease": tease, "xfade": xfade, "speed": speed}
 
 
@@ -161,6 +162,8 @@ def choose(stats, rng, avoid=(), **thresholds):
             picks = rng.sample(DARK, rng.choice([1, 2]))
             if rng.random() < 0.5:
                 picks += rng.sample(TREAT, 1)
+        elif rng.random() < PLAIN:
+            picks = []  # the clip as it is; avoid keeps the other group from going plain too
         else:
             picks = rng.sample(TREAT, rng.choice([1, 2]))
         for n in picks:
@@ -219,12 +222,19 @@ def _table():
     return load_table(os.path.join(project.folder, "..", "td", "clips.json"))
 
 
-def _apply(group, sel):
-    chain = _fx().op("chain_" + group)
+def _apply(group, player, sel):
+    """One chain per player and group, so a transition melds the old look into the new."""
+    chain = _fx().op(f"chain{player}_{group}")
     for name, vals in sel.items():
         b = chain.op(name)
         for k, v in vals.items():
             getattr(b.par, k).val = v
+    chain.op("feedback/fb").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame
+
+
+def _shown(st, group):
+    """The player whose chain carries st["sel"][group]."""
+    return st.get("target", {}).get(group) or st["player"]
 
 
 # ---------------------------------------------------------------- hold mode: step through by hand
@@ -251,7 +261,8 @@ def _hold_apply(st, name=None, fresh=False):
     sel = held_selection(name, held["params"])
     for g in GROUPS:
         st["sel"][g] = sel
-        _apply(g, sel)
+        for p in "AB":
+            _apply(g, p, sel)
     fx.par.Effect = name
     print("try:", name, "  ".join(f"{k} {v}" for k, v in held["params"].items()))
 
@@ -318,7 +329,7 @@ def _start_xfade(st, group):
     if not fx.par.Hold:
         sel = _selection_for(st, nxt, group)
         st["sel"][group] = sel
-        _apply(group, sel)
+        _apply(group, nxt, sel)
     st.setdefault("target", {})[group] = nxt  # read back at the end, when roles may have swapped already
     x = fx.op("xfade_" + group)
     forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one
@@ -410,4 +421,4 @@ def on_reroll():
     for g in GROUPS:
         if st["sel"].get(g):
             st["sel"][g] = reroll(st["sel"][g], _rng(st))
-            _apply(g, st["sel"][g])
+            _apply(g, _shown(st, g), st["sel"][g])

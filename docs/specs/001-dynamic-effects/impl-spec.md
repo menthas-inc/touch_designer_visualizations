@@ -45,7 +45,7 @@ repo and importable in tests. Two layers:
 
 **Pure, tested.** No TouchDesigner names at module level.
 - `plan_segment(clip, rng, cap=60, lead=0)`: window start and length; tease (coin flip, then
-  1 to 6 s); transition length 2 to 3 s; speed from fps and motion. `lead` is how long the clip
+  1 to 6 s); transition length 5 to 15 s; speed from fps and motion. `lead` is how long the clip
   has already played when it becomes both groups' picture (the previous change's tease plus
   transition), so the play before the next change is `length - tease - xfade`, clamped to at
   least `FLOOR` (6 s, the time the next clip has to cue) by shrinking the tease, then the
@@ -73,14 +73,16 @@ Run once; running again deletes and rebuilds `fx`. Inside:
   seconds before it is shown. Resolution as decoded; the licence cap applies.
 - Per group `g` in `outer`, `inner`:
   - `cur_g`, `nxt_g`: Switch TOPs over A and B, indices held by the sequencer.
-  - `fitcur_g`, `fitnxt_g`: Fit TOPs, 340 x 1080, fit outside, before the transition so the
-    shader sees two inputs of one size and runs at strip size.
+  - `fitA_g`, `fitB_g`: Fit TOPs, 340 x 1080, fit outside, one per player, then `chainA_g`
+    and `chainB_g`, one per player, then `cur_g` and `nxt_g` Switches over the two chains into
+    the transition. The new look goes on the incoming player's chain, so the shader melds the
+    old look into the new one; outside a transition only the current chain cooks.
   - `xfade_g`: a Base with inputs `cur`, `nxt`, custom pars `Progress`, `Type` and `Active`.
     Types 0 and 1 are one GLSL TOP (`td/glsl/xfade.glsl`, uniforms `uProgress`, `uType`),
     type 2 is a Feedback TOP loop (`smear_fb`, target `smear_out`, `resetpulse` at each
     start). A Switch on `Type`, then a Switch on `Active` that passes `cur` straight through
-    outside a transition, so the shader and the second cut only cook for 2 to 3 s per change.
-  - the chain: Bases in this fixed order, each `in1`, a wet path, a Switch (index =
+    outside a transition, so the shader and the second chain only cook during a change.
+  - a chain: Bases in this fixed order, each `in1`, a wet path, a Switch (index =
     `parent().par.Enable`), `out1`:
     `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo, mirror,
     chroma` (keepchannel, pixelate and slope were cut on the wall: grey or dull).

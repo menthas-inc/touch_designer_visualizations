@@ -11,8 +11,8 @@ td/clips.json (offline, ffmpeg)            td/sequencer.py (synced into fx/seque
         │                                          │ picks clip, window, tease, effects
         └──────────────► playerA / playerB ◄───────┘ cues the idle one, flips the switches
                               │       │
-             outer: cur_outer, nxt_outer ──fitcur/fitnxt (340 x 1080)──► xfade_outer ──► chain_outer ──► out_outer
-             inner: cur_inner, nxt_inner ──fitcur/fitnxt (340 x 1080)──► xfade_inner ──► chain_inner ──► out_inner
+             outer: fitA/fitB (340 x 1080) ──► chainA/chainB ──► cur, nxt ──► xfade_outer ──► limiter ──► out_outer
+             inner: fitA/fitB (340 x 1080) ──► chainA/chainB ──► cur, nxt ──► xfade_inner ──► limiter ──► out_inner
                                                                                                            │
                                    kantanMapper1: Rectangle5 + Rectangle1 .Texture = out_outer             │
                                                   Rectangle4 + Rectangle2 .Texture = out_inner ◄───────────┘
@@ -28,18 +28,20 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
 - **Players.** `playerA`, `playerB`, Movie File In. One plays, the other holds the next clip
   cued at its window start. `interp` on, 30 frames preread. Speed per clip from the table.
 - **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
-  and Rectangle2 (panels 2 and 3). Per group: `cur_g` and `nxt_g` Switch TOPs over the two
-  players, `fitcur_g` and `fitnxt_g` (340 x 1080, fit outside), `xfade_g`, `chain_g`,
-  `out_g`.
+  and Rectangle2 (panels 2 and 3). Per group: `fitA_g` and `fitB_g` (340 x 1080, fit
+  outside), `chainA_g` and `chainB_g`, one per player, `cur_g` and `nxt_g` Switch TOPs over
+  the two chains, `xfade_g`, `limiter_g`, `out_g`. The new look is set on the incoming
+  player's chain, so the transition melds the old look into the new one.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 melt, 1
   displace, both in `glsl` from `td/glsl/xfade.glsl`; 2 smear, a Feedback loop on
   `smear_out`), `Active` (off: `cur` passes straight through, nothing else cooks).
-- **chain_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
+- **chainP_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
   `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
   mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
   a held effect still moves. `feedback` and `echo` have no Switch,
   their Cross sits at `Mix * Enable` so the loop keeps cooking. Custom pars per effect are
-  the `CORPUS` in `td/sequencer.py`; the sequencer sets them. Then the limiter: `lim_mono`,
+  the `CORPUS` in `td/sequencer.py`; the sequencer sets them. On a dark clip one group is
+  sometimes left plain. `limiter_g` after the transition: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
 - **Timers.** `t_preroll` releases the cued player 1 s before it is shown, `t_inner` and
@@ -67,7 +69,7 @@ At the start of a segment the idle player is cued with the next clip. `t_inner` 
 `tx_inner` for `t` seconds, during which the cued player plays. `t_outer` fires at `L - t`
 and does the same for the outer group; when `tx_outer` is done the next segment begins with
 the roles swapped and `lead = T + t` taken off the new clip's play. T is 0 half the time,
-else 1 to 6 s; t is 2 to 3 s; the plain play before a change is never under 6 s.
+else 1 to 6 s; t is 5 to 15 s; the plain play before a change is never under 6 s.
 
 ## The table
 

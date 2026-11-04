@@ -28,9 +28,9 @@ replaces the Count CHOP and the Touch In and Out loop (no second machine listens
 Each clip plays for a bounded segment: the whole clip if it is 60 s or shorter, otherwise a
 random 60 s window of it (the cap is a parameter). That is the answer to long clips.
 
-Playback speed is per clip, from the table: 0.75 by default, as the current file plays, and
-only lower (down to 0.65) for clips whose measured motion is high and whose frame rate is 25
-or above. Low frame rate clips stay at 0.75 or faster, since slowing them stutters.
+Playback speed is per clip, from the table: 0.6 by default, and lower (down to 0.4) for clips
+whose measured motion is high and whose frame rate is 25 or above. Low frame rate clips stay
+at 0.6, since slowing them stutters.
 
 ### B. Two groups, two chains
 
@@ -84,7 +84,8 @@ N seconds inside a long segment, so a 90 second clip does not sit still.
 
 The inner group switches to the next clip early. Per change, a coin flip decides whether
 there is a tease at all; if yes its length T is drawn from 1 to 6 s, so it is not predictable.
-Transition length t is 2 to 3 s. Timeline for one change:
+Transition length t is 5 to 15 s, and the old look melds into the new one with the picture,
+not before it. Timeline for one change:
 
 ```
 now                      end - T - t       end - T          end - t        end

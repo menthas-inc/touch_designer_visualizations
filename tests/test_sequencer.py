@@ -25,7 +25,15 @@ class ChooseTest(unittest.TestCase):
             self.assertTrue("framing" in b)
             d = sq.enabled(sq.choose(DARK, rng))
             self.assertFalse(d & set(sq.DARK), d)
-            self.assertTrue(1 <= len(d & set(sq.TREAT)) <= 2)
+            self.assertTrue(len(d & set(sq.TREAT)) <= 2)
+
+    def test_dark_is_sometimes_plain_but_never_on_both_groups(self):
+        rng = random.Random(2)
+        plain = sum(sq.enabled(sq.choose(DARK, rng)) == {"framing"} for _ in range(1000))
+        self.assertTrue(100 < plain < 220, plain)
+        other = {n: {"Enable": int(n == "framing")} for n in sq.CORPUS}
+        for _ in range(200):
+            self.assertNotEqual(sq.enabled(sq.choose(DARK, rng, avoid=[other])), {"framing"})
 
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))
@@ -72,7 +80,7 @@ class PlanTest(unittest.TestCase):
             self.assertLessEqual(p["start"] + p["length"], 180.0 + 0.01)
             self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
             self.assertTrue(p["tease"] == 0 or 1 <= p["tease"] <= 6)
-            self.assertTrue(2 <= p["xfade"] <= 3)
+            self.assertTrue(5 <= p["xfade"] <= 15)
 
     def test_lead_shortens_the_play_not_the_window(self):
         rng = random.Random(8)
@@ -94,9 +102,9 @@ class PlanTest(unittest.TestCase):
 
     def test_speed_from_fps_and_motion(self):
         rng = random.Random(6)
-        self.assertEqual(sq.plan_segment(clip(30, fps=24, motion=0.5), rng)["speed"], 0.75)
-        self.assertEqual(sq.plan_segment(clip(30, fps=30, motion=0.2), rng)["speed"], 0.65)
-        self.assertEqual(sq.plan_segment(clip(30, fps=30, motion=0.01), rng)["speed"], 0.75)
+        self.assertEqual(sq.plan_segment(clip(30, fps=24, motion=0.5), rng)["speed"], 0.6)
+        self.assertEqual(sq.plan_segment(clip(30, fps=30, motion=0.2), rng)["speed"], 0.4)
+        self.assertEqual(sq.plan_segment(clip(30, fps=30, motion=0.01), rng)["speed"], 0.6)
 
     def test_window_stats_reads_the_buckets_under_the_window(self):
         c = clip(40, buckets=[{"mean": 0.1, "high": 0.2}, {"mean": 0.1, "high": 0.2},

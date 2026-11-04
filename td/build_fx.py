@@ -155,7 +155,7 @@ def fx_feedback(b, src):
 
 
 def fx_displace(b, src):
-    lfo(b, "lfo", 0.07)
+    lfo(b, "lfo", 0.03)
     n = mk(b, noiseTOP, "noise", mono=True, period="=parent().par.Scale", tz="=absTime.seconds * parent().par.Speed",
            resolutionw=128, resolutionh=128)
     amt = "=parent().par.Amount * (0.7 + 0.3 * op('lfo')[0])"
@@ -268,20 +268,27 @@ def build():
                            prereadframes=30, cuepointunit="seconds", hwdecode=False)
 
     for g in STRIPS:
-        cur = mk(fx, switchTOP, "cur_" + g, players["A"], players["B"], index=0)
-        nxt = mk(fx, switchTOP, "nxt_" + g, players["A"], players["B"], index=1)
-        fcur = mk(fx, fitTOP, "fitcur_" + g, cur, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
-        fnxt = mk(fx, fitTOP, "fitnxt_" + g, nxt, fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+        # a chain per player, so the transition melds the old look into the new one; only the
+        # chain the Switches pull cooks, so outside a transition one chain per group runs
+        chains = {}
+        for p in "AB":
+            fit = mk(fx, fitTOP, f"fit{p}_{g}", players[p], fit="fitoutside", outputresolution="custom", resolutionw=W, resolutionh=H)
+            chain = fx.create(baseCOMP, f"chain{p}_{g}")
+            prev = mk(chain, inTOP, "in1")
+            for name in ORDER:
+                b = build_effect(chain, name)
+                wire(b, prev)
+                prev = b
+            mk(chain, outTOP, "out1", prev)
+            wire(chain, fit)
+            chains[p] = chain
+        cur = mk(fx, switchTOP, "cur_" + g, chains["A"], chains["B"], index=0)
+        nxt = mk(fx, switchTOP, "nxt_" + g, chains["A"], chains["B"], index=1)
         x = build_xfade(fx, g)
-        wire(x, fcur, fnxt)
-        chain = fx.create(baseCOMP, "chain_" + g)
-        src = mk(chain, inTOP, "in1")
-        prev = src
-        for name in ORDER:
-            b = build_effect(chain, name)
-            wire(b, prev)
-            prev = b
+        wire(x, cur, nxt)
         # the limiter: feedforward from a small mono copy, one-sided, fast down and slow up
+        chain = fx.create(baseCOMP, "limiter_" + g)
+        prev = mk(chain, inTOP, "in1")
         mono = mk(chain, monochromeTOP, "lim_mono", prev)
         small = mk(chain, fitTOP, "lim_small", mono, fit="fitoutside", outputresolution="custom", resolutionw=40, resolutionh=40)
         an = mk(chain, analyzeTOP, "lim_avg", small)
