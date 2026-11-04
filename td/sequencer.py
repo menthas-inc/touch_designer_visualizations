@@ -35,7 +35,7 @@ TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
 XFADE_TYPES = 3  # melt, displace, smear
 PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 
-DEFAULTS = {"cap": 60.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
+DEFAULTS = {"cap": 120.0, "bright_mean": 0.33, "bright_high": 0.65}  # thresholds: about the 60th percentile of the measured buckets
 BUCKET = 10.0
 LONG_DIR = "VJ_Visuals/Long/"
 FLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue

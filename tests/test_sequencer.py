@@ -76,7 +76,7 @@ class PlanTest(unittest.TestCase):
         rng = random.Random(4)
         for _ in range(100):
             p = sq.plan_segment(clip(180.0), rng)
-            self.assertLessEqual(p["length"], 60.0)
+            self.assertLessEqual(p["length"], 120.0)
             self.assertLessEqual(p["start"] + p["length"] * p["speed"], 180.0 + 0.01)
             self.assertIsNone(p["turn"])
             self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
@@ -86,8 +86,8 @@ class PlanTest(unittest.TestCase):
     def test_lead_shortens_the_play_not_the_window(self):
         rng = random.Random(8)
         p = sq.plan_segment(clip(30.0), rng, lead=9.0)
-        self.assertEqual(p["window"], 60.0)  # 30 s at 0.6 is 50 s forward, capped with the way back
-        self.assertEqual(p["length"], 51.0)
+        self.assertEqual(p["window"], 100.0)  # 30 s at 0.6 is 50 s forward, 50 s back
+        self.assertEqual(p["length"], 91.0)
         self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
 
     def test_short_clip_plays_whole_and_clamps(self):

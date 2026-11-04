@@ -245,7 +245,7 @@ def build():
     fx = proj.create(baseCOMP, "fx")
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
-           Cap=60.0, Rerollevery=20.0, Seed=0)
+           Cap=120.0, Rerollevery=20.0, Seed=0)
     # the Try page: hold the random choosing and step through effects by hand
     tp = fx.appendCustomPage("Try")
     tp.appendToggle("Hold", label="Hold (no random choosing)")

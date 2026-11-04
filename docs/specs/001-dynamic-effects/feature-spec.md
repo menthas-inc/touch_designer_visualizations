@@ -25,7 +25,7 @@ a real file in the repo) only answers "which clip, which effects" at those momen
 replaces the Count CHOP and the Touch In and Out loop (no second machine listens; owner,
 2026-11-03).
 
-Each clip plays for a bounded segment of at most 60 s on the wall (the cap is a parameter):
+Each clip plays for a bounded segment of at most 120 s on the wall (the cap is a parameter):
 a long clip gets a random window of it, a clip under 45 s plays forward and then backward so
 it lasts longer. That is the answer to long clips and to short ones.
 
@@ -115,8 +115,8 @@ measurement, except where it says otherwise.
   segment; both panels of a group read the same TOP.
 - AC-4: the inner group leads by T and each group transitions over t; inside every transition
   window no frame has mean below 0.001 and no frame hash repeats the previous one.
-- AC-5: a clip longer than 60 s plays a window of at most 60 s, and the treatment re-rolls at
-  least once inside a 60 s segment.
+- AC-5: a clip plays at most 120 s on the wall, and the treatment re-rolls at
+  least once inside a segment.
 - AC-6: 30 fps on this Mac with the mapper on, measured in the perform window. This Mac is
   the show machine.
 - AC-7: everything is built by scripts in `td/` (SV-1); the only mapper write is the four
@@ -157,7 +157,7 @@ measurement, except where it says otherwise.
 ## Answers that shaped draft 2 (owner, 2026-11-03)
 
 Panels are numbered left to right facing the wall. No second machine, the Touch loop goes.
-This Mac, free licence, is the show machine. Long clips: a random window, at most 60 s. Same
+This Mac, free licence, is the show machine. Long clips: a random window, at most 60 s, raised to 120 on the wall. Same
 clip on both groups, with a tease half the time, 1 to 6 s long when there is one. Speed 0.75 unless measurable
 per clip, worried about low frame rate clips, so speed comes from the table. "Orientations"
 meant both the same framing on every strip and the fixed flips, so framing is a treatment.
