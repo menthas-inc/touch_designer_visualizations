@@ -2,7 +2,7 @@
  "project": "Studio_Up_new.1.toe",
  "folder": "~/dev/studio_visuals/TD_Mapping",
  "td_version": "099",
- "op_count": 5837,
+ "op_count": 5838,
  "ops": {
   "/perform": {
    "type": "windowCOMP",
@@ -125,6 +125,11 @@
     0,
     0
    ],
+   "pars": {
+    "Shift": {
+     "val": 0.0279
+    }
+   },
    "inputs": [
     [
      0,
@@ -434,10 +439,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.499
+     "val": 0.6513
     },
     "Black": {
-     "val": 0.108
+     "val": 0.0017
     }
    },
    "inputs": [
@@ -543,13 +548,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0793
+     "val": 0.0524
     },
     "Speed": {
-     "val": 0.012
+     "val": 0.0455
     },
     "Scale": {
-     "val": 13.1957
+     "val": 6.2057
     }
    },
    "inputs": [
@@ -719,6 +724,14 @@
     0,
     0
    ],
+   "pars": {
+    "Frames": {
+     "val": 30
+    },
+    "Mix": {
+     "val": 0.6654
+    }
+   },
    "inputs": [
     [
      0,
@@ -858,10 +871,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 1.3513
+     "val": 1.1585
     },
     "Mix": {
-     "val": 0.989
+     "val": 0.6535
     }
    },
    "inputs": [
@@ -1215,16 +1228,16 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.286
+     "val": 1.1246
     },
     "Tx": {
-     "val": -0.0319
+     "val": 0.0123
     },
     "Ty": {
-     "val": 0.0914
+     "val": 0.0311
     },
-    "Flipy": {
-     "val": 1
+    "Rotate": {
+     "val": -7
     }
    },
    "inputs": [
@@ -1368,6 +1381,17 @@
     0,
     0
    ],
+   "pars": {
+    "Cut": {
+     "val": 0.723
+    },
+    "Soft": {
+     "val": 5.3016
+    },
+    "Amount": {
+     "val": 0.8121
+    }
+   },
    "inputs": [
     [
      0,
@@ -1761,13 +1785,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.9462
+     "val": 0.8614
     },
     "Contrast": {
-     "val": 1.6073
+     "val": 1.6067
     },
     "Sat": {
-     "val": 1.3175
+     "val": 1.7058
     }
    },
    "inputs": [
@@ -2149,11 +2173,8 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Shift": {
-     "val": 0.0573
+     "val": 0.0246
     }
    },
    "inputs": [
@@ -2465,10 +2486,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.52
+     "val": 0.4647
     },
     "Black": {
-     "val": 0.0612
+     "val": 0.1527
     }
    },
    "inputs": [
@@ -2572,6 +2593,17 @@
     0,
     0
    ],
+   "pars": {
+    "Amount": {
+     "val": 0.0581
+    },
+    "Speed": {
+     "val": 0.018
+    },
+    "Scale": {
+     "val": 5.4867
+    }
+   },
    "inputs": [
     [
      0,
@@ -2741,10 +2773,10 @@
    ],
    "pars": {
     "Frames": {
-     "val": 30
+     "val": 45
     },
     "Mix": {
-     "val": 0.5992
+     "val": 0.5095
     }
    },
    "inputs": [
@@ -2886,10 +2918,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 1.4911
+     "val": 1.5061
     },
     "Mix": {
-     "val": 0.9486
+     "val": 0.9596
     }
    },
    "inputs": [
@@ -3017,16 +3049,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 0.9951
+     "val": 0.9525
     },
     "Rotate": {
-     "val": 0.5328
+     "val": -1.8969
     },
     "Decay": {
-     "val": 0.9034
+     "val": 0.973
     },
     "Mix": {
-     "val": 0.5171
+     "val": 0.5538
     }
    },
    "inputs": [
@@ -3243,16 +3275,22 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.3449
+     "val": 1.0981
     },
     "Tx": {
-     "val": 0.0964
+     "val": -0.0896
     },
     "Ty": {
-     "val": 0.138
+     "val": 0.1165
+    },
+    "Flipx": {
+     "val": 1
+    },
+    "Flipy": {
+     "val": 1
     },
     "Rotate": {
-     "val": 173
+     "val": 7
     }
    },
    "inputs": [
@@ -3398,13 +3436,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.7833
+     "val": 0.6899
     },
     "Soft": {
-     "val": 6.3459
+     "val": 11.1655
     },
     "Amount": {
-     "val": 0.5552
+     "val": 0.7882
     }
    },
    "inputs": [
@@ -3620,6 +3658,14 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Mode": {
+     "val": 2
+    }
+   },
    "inputs": [
     [
      0,
@@ -3798,6 +3844,20 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Amount": {
+     "val": 0.8834
+    },
+    "Contrast": {
+     "val": 1.7668
+    },
+    "Sat": {
+     "val": 1.351
+    }
+   },
    "inputs": [
     [
      0,
@@ -3999,10 +4059,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.6792
+     "val": 0.6217
     },
     "Sat": {
-     "val": 0.9876
+     "val": 0.954
     }
    },
    "inputs": [
@@ -4176,6 +4236,11 @@
     0,
     0
    ],
+   "pars": {
+    "Shift": {
+     "val": 0.027
+    }
+   },
    "inputs": [
     [
      0,
@@ -4751,6 +4816,17 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Frames": {
+     "val": 30
+    },
+    "Mix": {
+     "val": 0.4478
+    }
+   },
    "inputs": [
     [
      0,
@@ -4889,11 +4965,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Strength": {
-     "val": 1.6538
+     "val": 1.8234
     },
     "Mix": {
-     "val": 0.6169
+     "val": 0.8012
     }
    },
    "inputs": [
@@ -5019,6 +5098,20 @@
     0,
     0
    ],
+   "pars": {
+    "Zoom": {
+     "val": 0.979
+    },
+    "Rotate": {
+     "val": 0.6478
+    },
+    "Decay": {
+     "val": 0.9355
+    },
+    "Mix": {
+     "val": 0.5142
+    }
+   },
    "inputs": [
     [
      0,
@@ -5233,19 +5326,16 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.0113
+     "val": 1.1742
     },
     "Tx": {
-     "val": -0.1041
+     "val": 0.0732
     },
     "Ty": {
-     "val": 0.0162
+     "val": 0.1443
     },
-    "Flipx": {
-     "val": 1
-    },
-    "Flipy": {
-     "val": 1
+    "Rotate": {
+     "val": 180
     }
    },
    "inputs": [
@@ -5391,13 +5481,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.6015
+     "val": 0.6524
     },
     "Soft": {
-     "val": 8.9571
+     "val": 8.4242
     },
     "Amount": {
-     "val": 0.521
+     "val": 0.6754
     }
    },
    "inputs": [
@@ -5798,13 +5888,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.7045
+     "val": 0.8872
     },
     "Contrast": {
-     "val": 1.5636
+     "val": 1.6545
     },
     "Sat": {
-     "val": 1.7706
+     "val": 1.488
     }
    },
    "inputs": [
@@ -6007,11 +6097,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Hue": {
-     "val": 0.8603
+     "val": 0.8958
     },
     "Sat": {
-     "val": 0.864
+     "val": 0.833
     }
    },
    "inputs": [
@@ -6185,6 +6278,11 @@
     0,
     0
    ],
+   "pars": {
+    "Shift": {
+     "val": 0.0528
+    }
+   },
    "inputs": [
     [
      0,
@@ -6494,10 +6592,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.4199
+     "val": 0.4693
     },
     "Black": {
-     "val": 0.0321
+     "val": 0.1522
     }
    },
    "inputs": [
@@ -6905,6 +7003,17 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Strength": {
+     "val": 1.2729
+    },
+    "Mix": {
+     "val": 0.8731
+    }
+   },
    "inputs": [
     [
      0,
@@ -7028,6 +7137,23 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Zoom": {
+     "val": 0.9597
+    },
+    "Rotate": {
+     "val": -1.8504
+    },
+    "Decay": {
+     "val": 0.9122
+    },
+    "Mix": {
+     "val": 0.6347
+    }
+   },
    "inputs": [
     [
      0,
@@ -7242,16 +7368,13 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.3138
+     "val": 1.0704
     },
     "Tx": {
-     "val": 0.0198
+     "val": 0.0488
     },
     "Ty": {
-     "val": -0.1184
-    },
-    "Rotate": {
-     "val": 180
+     "val": -0.0837
     }
    },
    "inputs": [
@@ -7397,13 +7520,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.8487
+     "val": 0.7785
     },
     "Soft": {
-     "val": 8.5084
+     "val": 6.0248
     },
     "Amount": {
-     "val": 0.7363
+     "val": 0.5297
     }
    },
    "inputs": [
@@ -7619,6 +7742,11 @@
     0,
     0
    ],
+   "pars": {
+    "Mode": {
+     "val": 2
+    }
+   },
    "inputs": [
     [
      0,
@@ -8009,10 +8137,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.138
+     "val": 0.8657
     },
     "Sat": {
-     "val": 0.8576
+     "val": 0.8469
     }
    },
    "inputs": [
@@ -8171,6 +8299,11 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
@@ -8800,11 +8933,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -8857,7 +8985,7 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_319544730_218275690544208_7443069927733773376_n.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/SaveInsta.App - 3047783887123195594.mp4"
     },
     "speed": {
      "val": 0.6
@@ -8893,10 +9021,16 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/10000000_145417908227519_5268337627298839849_n.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Long_Acid_1.mp4"
+    },
+    "play": {
+     "val": false
     },
     "speed": {
      "val": 0.6
+    },
+    "cue": {
+     "val": true
     },
     "cuepointunit": {
      "val": "seconds"
@@ -8968,6 +9102,11 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
@@ -9008,11 +9147,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -9033,11 +9167,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -9060,7 +9189,7 @@
    ],
    "pars": {
     "length": {
-     "val": 53.91
+     "val": 45.419999999999995
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9111,7 +9240,7 @@
    ],
    "pars": {
     "length": {
-     "val": 59.44
+     "val": 47.589999999999996
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9162,7 +9291,7 @@
    ],
    "pars": {
     "length": {
-     "val": 52.91
+     "val": 44.419999999999995
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9270,7 +9399,7 @@
    ],
    "pars": {
     "length": {
-     "val": 29.25
+     "val": 25.580000000000002
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9359,7 +9488,7 @@
    ],
    "pars": {
     "length": {
-     "val": 7.89
+     "val": 9.2
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9410,7 +9539,7 @@
    ],
    "pars": {
     "length": {
-     "val": 7.89
+     "val": 6.55
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9465,10 +9594,7 @@
      "val": 0.0
     },
     "Type": {
-     "val": 4
-    },
-    "Active": {
-     "val": true
+     "val": 3
     }
    },
    "inputs": [
@@ -9880,10 +10006,7 @@
      "val": 0.0
     },
     "Type": {
-     "val": 1
-    },
-    "Active": {
-     "val": true
+     "val": 3
     }
    },
    "inputs": [
@@ -31756,7 +31879,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
+   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item2/scaledUvPivot": {
    "type": "nullSOP",
@@ -42925,7 +43048,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
+   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item4/scaledUvPivot": {
    "type": "nullSOP",
@@ -184713,11 +184836,11 @@
     0
    ],
    "pars": {
-    "videocodec": {
-     "val": "h264"
-    },
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/Recordings/studio_20261103_2319.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/Recordings/studio_20261103_2336.mov"
+    },
+    "qualityscale": {
+     "val": 0.85
     },
     "fps": {
      "expr": "me.time.rate",
@@ -184731,6 +184854,30 @@
      0
     ]
    ]
+  },
+  "/project1/rec_cook": {
+   "type": "executeDAT",
+   "optype": "execute",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "active": {
+     "val": false
+    },
+    "fromop": {
+     "expr": "parent()",
+     "val": ""
+    },
+    "framestart": {
+     "val": true
+    },
+    "language": {
+     "val": "python"
+    }
+   },
+   "text": "def onFrameStart(frame):\n    op('/project1/rec').cook()\n    return\n"
   },
   "/project1/rec_timer": {
    "type": "timerCHOP",
@@ -184795,7 +184942,7 @@
      "val": "text"
     }
    },
-   "text": "def onDone(timerOp, segment, interrupt):\n    op('/project1/rec').par.record = 0\n    print('recording done')\n    return\n"
+   "text": "def onDone(timerOp, segment, interrupt):\n    op('/project1/rec').par.record = 0\n    op('/project1/rec_cook').par.active = 0\n    print('recording done')\n    return\n"
   },
   "/project1/window": {
    "type": "windowCOMP",
