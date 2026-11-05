@@ -2,7 +2,7 @@
  "project": "Studio_Up_new.1.toe",
  "folder": "~/dev/studio_visuals/TD_Mapping",
  "td_version": "099",
- "op_count": 5838,
+ "op_count": 5995,
  "ops": {
   "/perform": {
    "type": "windowCOMP",
@@ -101,7 +101,15 @@
    "pos": [
     0,
     -600
-   ]
+   ],
+   "pars": {
+    "Roomdark": {
+     "val": 2.0
+    },
+    "Roomcontrast": {
+     "val": 1.9800000190734863
+    }
+   }
   },
   "/project1/fx/chain1_inner": {
    "type": "baseCOMP",
@@ -125,11 +133,6 @@
     0,
     0
    ],
-   "pars": {
-    "Shift": {
-     "val": 0.0279
-    }
-   },
    "inputs": [
     [
      0,
@@ -439,10 +442,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.6513
+     "val": 0.5699
     },
     "Black": {
-     "val": 0.0017
+     "val": 0.0366
     }
    },
    "inputs": [
@@ -548,13 +551,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0524
+     "val": 0.0777
     },
     "Speed": {
-     "val": 0.0455
+     "val": 0.0591
     },
     "Scale": {
-     "val": 6.2057
+     "val": 7.4657
     }
    },
    "inputs": [
@@ -726,10 +729,10 @@
    ],
    "pars": {
     "Frames": {
-     "val": 30
+     "val": 45
     },
     "Mix": {
-     "val": 0.6654
+     "val": 0.6633
     }
    },
    "inputs": [
@@ -871,10 +874,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 1.1585
+     "val": 1.8096
     },
     "Mix": {
-     "val": 0.6535
+     "val": 0.771
     }
    },
    "inputs": [
@@ -1002,16 +1005,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 0.9694
+     "val": 1.0453
     },
     "Rotate": {
-     "val": -0.9711
+     "val": 2.5948
     },
     "Decay": {
-     "val": 0.9354
+     "val": 0.9415
     },
     "Mix": {
-     "val": 0.5017
+     "val": 0.7669
     }
    },
    "inputs": [
@@ -1228,16 +1231,16 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.1246
+     "val": 1.2096
     },
     "Tx": {
-     "val": 0.0123
+     "val": -0.0883
     },
     "Ty": {
-     "val": 0.0311
+     "val": 0.0222
     },
     "Rotate": {
-     "val": -7
+     "val": 180
     }
    },
    "inputs": [
@@ -1381,17 +1384,6 @@
     0,
     0
    ],
-   "pars": {
-    "Cut": {
-     "val": 0.723
-    },
-    "Soft": {
-     "val": 5.3016
-    },
-    "Amount": {
-     "val": 0.8121
-    }
-   },
    "inputs": [
     [
      0,
@@ -1605,6 +1597,11 @@
     0,
     0
    ],
+   "pars": {
+    "Mode": {
+     "val": 1
+    }
+   },
    "inputs": [
     [
      0,
@@ -1785,13 +1782,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.8614
+     "val": 0.7905
     },
     "Contrast": {
-     "val": 1.6067
+     "val": 1.7216
     },
     "Sat": {
-     "val": 1.7058
+     "val": 1.4253
     }
    },
    "inputs": [
@@ -1995,10 +1992,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.1513
+     "val": 0.5468
     },
     "Sat": {
-     "val": 0.9529
+     "val": 0.9185
     }
    },
    "inputs": [
@@ -2174,7 +2171,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0246
+     "val": 0.0441
     }
    },
    "inputs": [
@@ -2486,10 +2483,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.4647
+     "val": 0.6864
     },
     "Black": {
-     "val": 0.1527
+     "val": 0.0301
     }
    },
    "inputs": [
@@ -2595,13 +2592,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0581
+     "val": 0.0598
     },
     "Speed": {
-     "val": 0.018
+     "val": 0.0222
     },
     "Scale": {
-     "val": 5.4867
+     "val": 5.9715
     }
    },
    "inputs": [
@@ -2773,10 +2770,10 @@
    ],
    "pars": {
     "Frames": {
-     "val": 45
+     "val": 30
     },
     "Mix": {
-     "val": 0.5095
+     "val": 0.6785
     }
    },
    "inputs": [
@@ -2917,11 +2914,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Strength": {
-     "val": 1.5061
+     "val": 1.4581
     },
     "Mix": {
-     "val": 0.9596
+     "val": 0.903
     }
    },
    "inputs": [
@@ -3048,17 +3048,20 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Zoom": {
-     "val": 0.9525
+     "val": 0.9634
     },
     "Rotate": {
-     "val": -1.8969
+     "val": -0.5566
     },
     "Decay": {
-     "val": 0.973
+     "val": 0.9416
     },
     "Mix": {
-     "val": 0.5538
+     "val": 0.5507
     }
    },
    "inputs": [
@@ -3275,22 +3278,19 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.0981
+     "val": 1.0697
     },
     "Tx": {
-     "val": -0.0896
+     "val": 0.0011
     },
     "Ty": {
-     "val": 0.1165
+     "val": 0.1288
     },
     "Flipx": {
      "val": 1
     },
     "Flipy": {
      "val": 1
-    },
-    "Rotate": {
-     "val": 7
     }
    },
    "inputs": [
@@ -3436,13 +3436,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.6899
+     "val": 0.8134
     },
     "Soft": {
-     "val": 11.1655
+     "val": 8.2622
     },
     "Amount": {
-     "val": 0.7882
+     "val": 0.6863
     }
    },
    "inputs": [
@@ -3659,9 +3659,6 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Mode": {
      "val": 2
     }
@@ -3845,17 +3842,14 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Amount": {
-     "val": 0.8834
+     "val": 0.926
     },
     "Contrast": {
-     "val": 1.7668
+     "val": 1.6213
     },
     "Sat": {
-     "val": 1.351
+     "val": 1.4602
     }
    },
    "inputs": [
@@ -4059,10 +4053,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.6217
+     "val": 0.6208
     },
     "Sat": {
-     "val": 0.954
+     "val": 0.8731
     }
    },
    "inputs": [
@@ -4238,7 +4232,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.027
+     "val": 0.0555
     }
    },
    "inputs": [
@@ -4548,6 +4542,17 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Gamma": {
+     "val": 0.5368
+    },
+    "Black": {
+     "val": 0.125
+    }
+   },
    "inputs": [
     [
      0,
@@ -4817,14 +4822,8 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
-    "Frames": {
-     "val": 30
-    },
     "Mix": {
-     "val": 0.4478
+     "val": 0.4986
     }
    },
    "inputs": [
@@ -4965,14 +4964,11 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Strength": {
-     "val": 1.8234
+     "val": 1.9566
     },
     "Mix": {
-     "val": 0.8012
+     "val": 0.9603
     }
    },
    "inputs": [
@@ -5100,16 +5096,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 0.979
+     "val": 1.0124
     },
     "Rotate": {
-     "val": 0.6478
+     "val": -1.5227
     },
     "Decay": {
-     "val": 0.9355
+     "val": 0.9061
     },
     "Mix": {
-     "val": 0.5142
+     "val": 0.6348
     }
    },
    "inputs": [
@@ -5326,16 +5322,19 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.1742
+     "val": 1.2044
     },
     "Tx": {
-     "val": 0.0732
+     "val": -0.1237
     },
     "Ty": {
-     "val": 0.1443
+     "val": -0.0244
+    },
+    "Flipx": {
+     "val": 1
     },
     "Rotate": {
-     "val": 180
+     "val": 173
     }
    },
    "inputs": [
@@ -5481,13 +5480,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.6524
+     "val": 0.7831
     },
     "Soft": {
-     "val": 8.4242
+     "val": 10.0981
     },
     "Amount": {
-     "val": 0.6754
+     "val": 0.646
     }
    },
    "inputs": [
@@ -5704,8 +5703,8 @@
     0
    ],
    "pars": {
-    "Mode": {
-     "val": 1
+    "Enable": {
+     "val": true
     }
    },
    "inputs": [
@@ -5888,13 +5887,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.8872
+     "val": 0.9886
     },
     "Contrast": {
-     "val": 1.6545
+     "val": 1.6529
     },
     "Sat": {
-     "val": 1.488
+     "val": 1.7476
     }
    },
    "inputs": [
@@ -6097,14 +6096,11 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Hue": {
-     "val": 0.8958
+     "val": 0.5724
     },
     "Sat": {
-     "val": 0.833
+     "val": 0.9891
     }
    },
    "inputs": [
@@ -6280,7 +6276,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0528
+     "val": 0.0125
     }
    },
    "inputs": [
@@ -6592,10 +6588,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.4693
+     "val": 0.458
     },
     "Black": {
-     "val": 0.1522
+     "val": 0.0041
     }
    },
    "inputs": [
@@ -6699,6 +6695,20 @@
     0,
     0
    ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Amount": {
+     "val": 0.0925
+    },
+    "Speed": {
+     "val": 0.0197
+    },
+    "Scale": {
+     "val": 12.2193
+    }
+   },
    "inputs": [
     [
      0,
@@ -6866,6 +6876,14 @@
     0,
     0
    ],
+   "pars": {
+    "Frames": {
+     "val": 20
+    },
+    "Mix": {
+     "val": 0.6111
+    }
+   },
    "inputs": [
     [
      0,
@@ -7004,14 +7022,11 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Strength": {
-     "val": 1.2729
+     "val": 1.1677
     },
     "Mix": {
-     "val": 0.8731
+     "val": 0.9023
     }
    },
    "inputs": [
@@ -7138,20 +7153,17 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Zoom": {
-     "val": 0.9597
+     "val": 0.9703
     },
     "Rotate": {
-     "val": -1.8504
+     "val": 2.2049
     },
     "Decay": {
-     "val": 0.9122
+     "val": 0.9184
     },
     "Mix": {
-     "val": 0.6347
+     "val": 0.5506
     }
    },
    "inputs": [
@@ -7368,13 +7380,16 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.0704
+     "val": 1.0503
     },
     "Tx": {
-     "val": 0.0488
+     "val": 0.0924
     },
     "Ty": {
-     "val": -0.0837
+     "val": 0.1469
+    },
+    "Flipy": {
+     "val": 1
     }
    },
    "inputs": [
@@ -7520,13 +7535,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.7785
+     "val": 0.7663
     },
     "Soft": {
-     "val": 6.0248
+     "val": 4.3663
     },
     "Amount": {
-     "val": 0.5297
+     "val": 0.6729
     }
    },
    "inputs": [
@@ -7743,6 +7758,9 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Mode": {
      "val": 2
     }
@@ -7927,13 +7945,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.7654
+     "val": 0.8113
     },
     "Contrast": {
-     "val": 1.8991
+     "val": 1.4652
     },
     "Sat": {
-     "val": 1.5478
+     "val": 1.5539
     }
    },
    "inputs": [
@@ -8137,10 +8155,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.8657
+     "val": 0.5545
     },
     "Sat": {
-     "val": 0.8469
+     "val": 0.8702
     }
    },
    "inputs": [
@@ -8292,7 +8310,303 @@
     ]
    ]
   },
-  "/project1/fx/cur_inner": {
+  "/project1/fx/chainC": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/fitC",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/mirror",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/add": {
+   "type": "compositeTOP",
+   "optype": "comp",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "operand": {
+     "val": "add"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/onlyr",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/chroma/onlyg",
+     0
+    ],
+    [
+     2,
+     "/project1/fx/chainC/chroma/onlyb",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/chroma/left": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "-parent().par.Shift * (0.5 + 0.5 * op('lfo')[0])",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/lfo": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.08
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/chroma/onlyb": {
+   "type": "channelmixTOP",
+   "optype": "chanmix",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "red1": {
+     "val": 0.0
+    },
+    "red2": {
+     "val": 0.0
+    },
+    "red3": {
+     "val": 0.0
+    },
+    "red4": {
+     "val": 0.0
+    },
+    "green1": {
+     "val": 0.0
+    },
+    "green2": {
+     "val": 0.0
+    },
+    "green3": {
+     "val": 0.0
+    },
+    "green4": {
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/right",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/onlyg": {
+   "type": "channelmixTOP",
+   "optype": "chanmix",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "red1": {
+     "val": 0.0
+    },
+    "red2": {
+     "val": 0.0
+    },
+    "red3": {
+     "val": 0.0
+    },
+    "red4": {
+     "val": 0.0
+    },
+    "blue1": {
+     "val": 0.0
+    },
+    "blue2": {
+     "val": 0.0
+    },
+    "blue3": {
+     "val": 0.0
+    },
+    "blue4": {
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/onlyr": {
+   "type": "channelmixTOP",
+   "optype": "chanmix",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "green1": {
+     "val": 0.0
+    },
+    "green2": {
+     "val": 0.0
+    },
+    "green3": {
+     "val": 0.0
+    },
+    "green4": {
+     "val": 0.0
+    },
+    "blue1": {
+     "val": 0.0
+    },
+    "blue2": {
+     "val": 0.0
+    },
+    "blue3": {
+     "val": 0.0
+    },
+    "blue4": {
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/left",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/right": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "parent().par.Shift * (0.5 + 0.5 * op('lfo')[0])",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/chroma/sw": {
    "type": "switchTOP",
    "optype": "switch",
    "pos": [
@@ -8301,9 +8615,1750 @@
    ],
    "pars": {
     "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/chroma/add",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/crush": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Gamma": {
+     "val": 0.5519
+    },
+    "Black": {
+     "val": 0.0018
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/crush/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/crush/level": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "blacklevel": {
+     "expr": "parent().par.Black",
+     "val": 0.0
+    },
+    "gamma1": {
+     "expr": "parent().par.Gamma",
      "val": 1.0
     }
    },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/crush/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/crush/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/crush/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/crush/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/crush/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/crush/level",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/displace": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Amount": {
+     "val": 0.0337
+    },
+    "Speed": {
+     "val": 0.0545
+    },
+    "Scale": {
+     "val": 6.882
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/displace/disp": {
+   "type": "displaceTOP",
+   "optype": "displace",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "displaceweightx": {
+     "expr": "parent().par.Amount * (0.7 + 0.3 * op('lfo')[0])",
+     "val": 1.0
+    },
+    "displaceweighty": {
+     "expr": "parent().par.Amount * (0.7 + 0.3 * op('lfo')[0])",
+     "val": 1.0
+    },
+    "displaceweightz": {
+     "val": 1.0
+    },
+    "offsetweight": {
+     "expr": "1 - me.par.uvweight.eval()",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/displace/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/displace/noise",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/displace/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/displace/lfo": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.03
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/displace/noise": {
+   "type": "noiseTOP",
+   "optype": "noise",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "period": {
+     "expr": "parent().par.Scale",
+     "val": 1.0
+    },
+    "tx": {
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "tz": {
+     "expr": "absTime.seconds * parent().par.Speed",
+     "val": 0.0
+    },
+    "resolutionw": {
+     "val": 128
+    },
+    "resolutionh": {
+     "val": 128
+    }
+   }
+  },
+  "/project1/fx/chainC/displace/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/displace/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/displace/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/displace/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/displace/disp",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/echo": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Frames": {
+     "val": 60
+    },
+    "Mix": {
+     "val": 0.659
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/displace",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/echo/cache": {
+   "type": "cacheTOP",
+   "optype": "cache",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cachesize": {
+     "val": 61
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/echo/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/echo/cross": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "parent().par.Mix * parent().par.Enable",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/echo/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/echo/sel",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/echo/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/echo/lfo": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.05
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/echo/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/echo/cross",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/echo/sel": {
+   "type": "cacheselectTOP",
+   "optype": "cacheselect",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cachetop": {
+     "val": "cache"
+    },
+    "index": {
+     "expr": "-int(parent().par.Frames * (0.67 + 0.33 * op('lfo')[0]))",
+     "val": 0
+    }
+   }
+  },
+  "/project1/fx/chainC/edges": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Strength": {
+     "val": 1.2627
+    },
+    "Mix": {
+     "val": 0.7486
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/crush",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/edges/cross": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "parent().par.Mix",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/edges/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/edges/edge",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/edges/edge": {
+   "type": "edgeTOP",
+   "optype": "edge",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "strength": {
+     "expr": "parent().par.Strength",
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/edges/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/edges/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/edges/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/edges/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/edges/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/edges/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/edges/cross",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Zoom": {
+     "val": 0.9899
+    },
+    "Rotate": {
+     "val": -2.5449
+    },
+    "Decay": {
+     "val": 0.9683
+    },
+    "Mix": {
+     "val": 0.5626
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/cross": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "parent().par.Mix * parent().par.Enable",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/feedback/decay",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/decay": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "brightness1": {
+     "expr": "parent().par.Decay",
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/xform",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/fb": {
+   "type": "feedbackTOP",
+   "optype": "feedback",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "top": {
+     "val": "fb_out"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/fb_out": {
+   "type": "nullTOP",
+   "optype": "null",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/cross",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/feedback/lfo_rot": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.03
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/feedback/lfo_zoom": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.05
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/feedback/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/fb_out",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/feedback/xform": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "rotate": {
+     "expr": "parent().par.Rotate * op('lfo_rot')[0]",
+     "val": 0.0
+    },
+    "sx": {
+     "expr": "1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]",
+     "val": 1.0
+    },
+    "sy": {
+     "expr": "1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]",
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/feedback/fb",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/framing": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Enable": {
+     "val": true
+    },
+    "Zoom": {
+     "val": 1.2758
+    },
+    "Tx": {
+     "val": -0.1148
+    },
+    "Ty": {
+     "val": 0.0655
+    },
+    "Flipx": {
+     "val": 1
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/framing/flip": {
+   "type": "flipTOP",
+   "optype": "flip",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "flipx": {
+     "expr": "parent().par.Flipx",
+     "val": false
+    },
+    "flipy": {
+     "expr": "parent().par.Flipy",
+     "val": false
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/framing/xform",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/framing/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/framing/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/framing/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/framing/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/framing/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/framing/flip",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/framing/xform": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "parent().par.Tx",
+     "val": 0.0
+    },
+    "ty": {
+     "expr": "parent().par.Ty",
+     "val": 0.0
+    },
+    "rotate": {
+     "expr": "parent().par.Rotate",
+     "val": 0.0
+    },
+    "sx": {
+     "expr": "parent().par.Zoom",
+     "val": 1.0
+    },
+    "sy": {
+     "expr": "parent().par.Zoom",
+     "val": 1.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/framing/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Cut": {
+     "val": 0.7581
+    },
+    "Soft": {
+     "val": 11.4581
+    },
+    "Amount": {
+     "val": 0.5486
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/framing",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/cross": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "parent().par.Amount",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/highlights/mul",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/highlights/inv": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "invert": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/soft",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/mono": {
+   "type": "monochromeTOP",
+   "optype": "mono",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/mul": {
+   "type": "compositeTOP",
+   "optype": "comp",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/highlights/inv",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/soft": {
+   "type": "blurTOP",
+   "optype": "blur",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "size": {
+     "expr": "parent().par.Soft",
+     "val": 7
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/thresh",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/highlights/cross",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/highlights/thresh": {
+   "type": "thresholdTOP",
+   "optype": "thresh",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "threshold": {
+     "expr": "parent().par.Cut",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/highlights/mono",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/mirror": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/echo",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/mirror/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/mirror/lfo_x": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.04
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/mirror/lfo_y": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.025
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/mirror/mirror": {
+   "type": "mirrorTOP",
+   "optype": "mirror",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "pivotx": {
+     "expr": "0.5 + 0.2 * op('lfo_x')[0]",
+     "val": 0.5
+    },
+    "pivoty": {
+     "expr": "0.5 + 0.2 * op('lfo_y')[0]",
+     "val": 0.5
+    },
+    "flipx": {
+     "expr": "int(parent().par.Mode) in (0, 2)",
+     "val": false
+    },
+    "flipy": {
+     "expr": "int(parent().par.Mode) in (1, 2)",
+     "val": false
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/mirror/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/mirror/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/mirror/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/mirror/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/mirror/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/mirror/mirror",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/chroma",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Amount": {
+     "val": 0.7673
+    },
+    "Contrast": {
+     "val": 1.732
+    },
+    "Sat": {
+     "val": 1.3272
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/contrast": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "contrast": {
+     "expr": "parent().par.Contrast",
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/mul",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/cross": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "parent().par.Amount",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/selfmask/sat",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/selfmask/inv": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "invert": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/mono",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/mono": {
+   "type": "monochromeTOP",
+   "optype": "mono",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/mul": {
+   "type": "compositeTOP",
+   "optype": "comp",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/selfmask/inv",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/sat": {
+   "type": "hsvadjustTOP",
+   "optype": "hsvadj",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "saturationmult": {
+     "expr": "parent().par.Sat",
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/contrast",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/selfmask/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/selfmask/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/selfmask/cross",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint": {
+   "type": "baseCOMP",
+   "optype": "base",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "Hue": {
+     "val": 0.4333
+    },
+    "Sat": {
+     "val": 0.9105
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/edges",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint/colour": {
+   "type": "constantTOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "colorr": {
+     "expr": "op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[0]",
+     "val": 1.0
+    },
+    "colorg": {
+     "expr": "op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[1]",
+     "val": 1.0
+    },
+    "colorb": {
+     "expr": "op('/project1/fx/sequencer').module.hsv_rgb(parent().par.Hue, parent().par.Sat)[2]",
+     "val": 1.0
+    }
+   }
+  },
+  "/project1/fx/chainC/tint/deep": {
+   "type": "levelTOP",
+   "optype": "level",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "blacklevel": {
+     "val": 0.05
+    },
+    "gamma1": {
+     "val": 1.4
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint/mono",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint/in1": {
+   "type": "inTOP",
+   "optype": "in",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/chainC/tint/mono": {
+   "type": "monochromeTOP",
+   "optype": "mono",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint/in1",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint/mul": {
+   "type": "compositeTOP",
+   "optype": "comp",
+   "pos": [
+    0,
+    0
+   ],
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint/deep",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/tint/colour",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint/out1": {
+   "type": "outTOP",
+   "optype": "out",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "label": {
+     "expr": "me.name",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint/sw",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/chainC/tint/sw": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "int(parent().par.Enable)",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC/tint/in1",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/chainC/tint/mul",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/cur_inner": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
    "inputs": [
     [
      0,
@@ -8364,7 +10419,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/playerA",
+     "/project1/fx/panA_inner",
      0
     ]
    ]
@@ -8396,7 +10451,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/playerA",
+     "/project1/fx/panA_outer",
      0
     ]
    ]
@@ -8428,7 +10483,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/playerB",
+     "/project1/fx/panB_inner",
      0
     ]
    ]
@@ -8460,10 +10515,354 @@
    "inputs": [
     [
      0,
+     "/project1/fx/panB_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/fitC": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 340
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerC",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/flip_lag_inner": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 3.0
+    },
+    "lag2": {
+     "val": 3.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/flip_tgt_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/flip_lag_outer": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 3.0
+    },
+    "lag2": {
+     "val": 3.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/flip_tgt_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/flip_tgt_inner": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/flip_tgt_outer": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/flip_y_inner": {
+   "type": "flipTOP",
+   "optype": "flip",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "flipy": {
+     "val": true
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/out_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/flip_y_outer": {
+   "type": "flipTOP",
+   "optype": "flip",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "flipy": {
+     "val": true
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/out_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/frameA_inner": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 1100
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerA",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/frameA_outer": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 1100
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerA",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/frameB_inner": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 1100
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
      "/project1/fx/playerB",
      0
     ]
    ]
+  },
+  "/project1/fx/frameB_outer": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 1100
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerB",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/lfo_pan_inner": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.017
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/lfo_pan_outer": {
+   "type": "lfoCHOP",
+   "optype": "lfo",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "frequency": {
+     "val": 0.011
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
   },
   "/project1/fx/limiter_inner": {
    "type": "baseCOMP",
@@ -8475,7 +10874,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/xfade_inner",
+     "/project1/fx/spicesw_inner",
      0
     ]
    ]
@@ -8693,7 +11092,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/xfade_outer",
+     "/project1/fx/spicesw_outer",
      0
     ]
    ]
@@ -8908,11 +11307,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -8933,6 +11327,11 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
@@ -8942,6 +11341,58 @@
     [
      1,
      "/project1/fx/chain2_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/orient_inner": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/flip_lag_inner')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/out_inner",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/flip_y_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/orient_outer": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/flip_lag_outer')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/out_outer",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/flip_y_outer",
      0
     ]
    ]
@@ -8956,7 +11407,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/limiter_inner",
+     "/project1/fx/room_inner",
      0
     ]
    ]
@@ -8971,7 +11422,257 @@
    "inputs": [
     [
      0,
-     "/project1/fx/limiter_outer",
+     "/project1/fx/room_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/pair_inner": {
+   "type": "flipTOP",
+   "optype": "flip",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "flipx": {
+     "val": true
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/orient_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/pair_outer": {
+   "type": "flipTOP",
+   "optype": "flip",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "flipx": {
+     "val": true
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/orient_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/panA_inner": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_inner')[0] + 0.1 * op('/project1/fx/lfo_pan_inner')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerA",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/panA_outer": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_outer')[0] + 0.1 * op('/project1/fx/lfo_pan_outer')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerA",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/panB_inner": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_inner')[0] + 0.1 * op('/project1/fx/lfo_pan_inner')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerB",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/panB_outer": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_outer')[0] + 0.1 * op('/project1/fx/lfo_pan_outer')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/playerB",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/pan_inner": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "const0value": {
+     "val": 0.267
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/pan_outer": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "const0value": {
+     "val": 0.054
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/panlag_inner": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 4.0
+    },
+    "lag2": {
+     "val": 4.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/pan_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/panlag_outer": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 4.0
+    },
+    "lag2": {
+     "val": 4.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/pan_outer",
      0
     ]
    ]
@@ -8985,7 +11686,7 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/SaveInsta.App - 3047783887123195594.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/SaveInsta.App - 2893074934267164343.mp4"
     },
     "speed": {
      "val": 0.6
@@ -9021,7 +11722,43 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Long_Acid_1.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/SaveInsta.App - 3040298707466584597.mp4"
+    },
+    "speed": {
+     "val": 0.6
+    },
+    "cuepointunit": {
+     "val": "seconds"
+    },
+    "index": {
+     "expr": "me.time.frame",
+     "val": 0.0
+    },
+    "timecodeop": {
+     "expr": "tdu.Timecode()",
+     "val": ""
+    },
+    "interp": {
+     "val": true
+    },
+    "prereadframes": {
+     "val": 60
+    },
+    "hwdecode": {
+     "val": false
+    }
+   }
+  },
+  "/project1/fx/playerC": {
+   "type": "moviefileinTOP",
+   "optype": "moviefilein",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "file": {
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_322476226_392580893062235_1141589371512753142_n.mp4"
     },
     "play": {
      "val": false
@@ -9053,6 +11790,250 @@
      "val": false
     }
    }
+  },
+  "/project1/fx/room_glsl": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "file": {
+     "val": "~/dev/studio_visuals/td/glsl/room.glsl"
+    },
+    "syncfile": {
+     "val": true
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "// Room darkening, the last step of each group's chain, set on site for the room's light.\n// uDark pulls the whites down by 1 + uDark and leaves near-black alone, v / (1 + uDark v);\n// uContrast then steepens the result so the midtones follow the whites down instead of\n// settling into grey. Both at 0 and 1 is a pass-through.\nuniform float uDark;\nuniform float uContrast;\nout vec4 fragColor;\n\nvoid main() {\n    vec4 c = texture(sTD2DInputs[0], vUV.st);\n    vec3 v = max(c.rgb, 0.0);\n    float top = 1.0 + uDark;\n    v = v / (1.0 + uDark * v);        // white lands at 1 / top\n    v = pow(v * top, vec3(uContrast)) / top;  // contrast on the normalised range, then back down\n    fragColor = TDOutputSwizzle(vec4(v, c.a));\n}\n"
+  },
+  "/project1/fx/room_inner": {
+   "type": "glslTOP",
+   "optype": "glsl",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "pixeldat": {
+     "val": "room_glsl"
+    },
+    "computedat": {
+     "val": "room_inner_compute"
+    },
+    "vec0name": {
+     "val": "uDark"
+    },
+    "vec0valuex": {
+     "expr": "op('/project1/fx').par.Roomdark",
+     "val": 0.5
+    },
+    "vec0valuey": {
+     "val": 0.0
+    },
+    "vec0valuez": {
+     "val": 0.0
+    },
+    "vec0valuew": {
+     "val": 0.0
+    },
+    "vec1name": {
+     "val": "uContrast"
+    },
+    "vec1valuex": {
+     "expr": "op('/project1/fx').par.Roomcontrast",
+     "val": 1.0
+    },
+    "vec1valuey": {
+     "val": 1.0
+    },
+    "vec1valuez": {
+     "val": 1.0
+    },
+    "vec1valuew": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/limiter_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/room_inner_compute": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    320,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    }
+   },
+   "text": "// Example Compute Shader\n\n// uniform float exampleUniform;\n\nlayout (local_size_x = 8, local_size_y = 4) in;\nvoid main()\n{\n\t// This code is running 1:1 per pixel, so early-exit\n\t// if this thread overhangs the edge of the output\n\tif (any(greaterThanEqual(ivec2(gl_GlobalInvocationID.xy), ivec2(uTDOutputInfo.res.zw))))\n\t\treturn;\n\n\tvec4 color;\n\t//color = texelFetch(sTD2DInputs[0], ivec2(gl_GlobalInvocationID.xy), 0);\n\tcolor = vec4(1.0);\n\t// We need to use TDImageStoreOutput() so that 8-bit textures that are sRGB\n\t// encoded can be written to correctly from incoming linear values.\n\t// imageStore() does not do this automatically, while pixel shader outputs do.\n\tTDImageStoreOutput(0, gl_GlobalInvocationID, color);\n}\n"
+  },
+  "/project1/fx/room_inner_info": {
+   "type": "infoDAT",
+   "optype": "info",
+   "pos": [
+    160,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "op": {
+     "val": "room_inner"
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "Vertex Shader Compile Results:\n\nCompiled Successfully\n\n=============\nPixel Shader Compile Results:\n\nCompiled Successfully\n"
+  },
+  "/project1/fx/room_inner_pixel": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    },
+    "extension": {
+     "val": "frag"
+    }
+   },
+   "text": "\n// Example Pixel Shader\n\n// uniform float exampleUniform;\n\nout vec4 fragColor;\nvoid main()\n{\n\t// vec4 color = texture(sTD2DInputs[0], vUV.st);\n\tvec4 color = vec4(1.0);\n\tfragColor = TDOutputSwizzle(color);\n}\n"
+  },
+  "/project1/fx/room_outer": {
+   "type": "glslTOP",
+   "optype": "glsl",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "pixeldat": {
+     "val": "room_glsl"
+    },
+    "computedat": {
+     "val": "room_outer_compute"
+    },
+    "vec0name": {
+     "val": "uDark"
+    },
+    "vec0valuex": {
+     "expr": "op('/project1/fx').par.Roomdark",
+     "val": 0.5
+    },
+    "vec0valuey": {
+     "val": 0.0
+    },
+    "vec0valuez": {
+     "val": 0.0
+    },
+    "vec0valuew": {
+     "val": 0.0
+    },
+    "vec1name": {
+     "val": "uContrast"
+    },
+    "vec1valuex": {
+     "expr": "op('/project1/fx').par.Roomcontrast",
+     "val": 1.0
+    },
+    "vec1valuey": {
+     "val": 1.0
+    },
+    "vec1valuez": {
+     "val": 1.0
+    },
+    "vec1valuew": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/limiter_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/room_outer_compute": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    320,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    }
+   },
+   "text": "// Example Compute Shader\n\n// uniform float exampleUniform;\n\nlayout (local_size_x = 8, local_size_y = 4) in;\nvoid main()\n{\n\t// This code is running 1:1 per pixel, so early-exit\n\t// if this thread overhangs the edge of the output\n\tif (any(greaterThanEqual(ivec2(gl_GlobalInvocationID.xy), ivec2(uTDOutputInfo.res.zw))))\n\t\treturn;\n\n\tvec4 color;\n\t//color = texelFetch(sTD2DInputs[0], ivec2(gl_GlobalInvocationID.xy), 0);\n\tcolor = vec4(1.0);\n\t// We need to use TDImageStoreOutput() so that 8-bit textures that are sRGB\n\t// encoded can be written to correctly from incoming linear values.\n\t// imageStore() does not do this automatically, while pixel shader outputs do.\n\tTDImageStoreOutput(0, gl_GlobalInvocationID, color);\n}\n"
+  },
+  "/project1/fx/room_outer_info": {
+   "type": "infoDAT",
+   "optype": "info",
+   "pos": [
+    160,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "op": {
+     "val": "room_outer"
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "Vertex Shader Compile Results:\n\nCompiled Successfully\n\n=============\nPixel Shader Compile Results:\n\nCompiled Successfully\n"
+  },
+  "/project1/fx/room_outer_pixel": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    },
+    "extension": {
+     "val": "frag"
+    }
+   },
+   "text": "\n// Example Pixel Shader\n\n// uniform float exampleUniform;\n\nout vec4 fragColor;\nvoid main()\n{\n\t// vec4 color = texture(sTD2DInputs[0], vUV.st);\n\tvec4 color = vec4(1.0);\n\tfragColor = TDOutputSwizzle(color);\n}\n"
   },
   "/project1/fx/run": {
    "type": "executeDAT",
@@ -9093,7 +12074,341 @@
      "val": "text"
     }
    },
-   "text": "\"\"\"What plays next, for how long, and which effects: the decisions, then thin TouchDesigner glue.\n\nThe pure layer has no TouchDesigner names at module level, so tests import it as a module. In\nTouchDesigner the file is synced into the Text DAT /project1/fx/sequencer and the timers'\ncallbacks reach it through op('sequencer').module. Mutable state lives in the fx container's\nstorage, not in this module, so a re-sync of the file mid-show loses nothing.\n\"\"\"\nimport colorsys\nimport json\nimport os\nimport random\n\n# ---------------------------------------------------------------- the corpus\n# One place for every effect, read by build_fx.py (to create the custom pars) and by choose().\n# family: frame (always on), dark (darkeners), treat (treatments). stateful effects keep cooking\n# behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.\nCORPUS = {\n    \"framing\":    {\"family\": \"frame\", \"params\": {\"Zoom\": (1.0, 1.35), \"Tx\": (-0.15, 0.15), \"Ty\": (-0.15, 0.15), \"Flipx\": [0, 1], \"Flipy\": [0, 1],\n                                                 \"Rotate\": [0, 0, 0, 0, 180, 180, -12, -7, 7, 12, 173, 187]}},\n    \"highlights\": {\"family\": \"dark\", \"params\": {\"Cut\": (0.85, 0.6), \"Soft\": (12.0, 4.0), \"Amount\": (0.5, 1.0)}},\n    \"crush\":      {\"family\": \"dark\", \"params\": {\"Gamma\": (0.7, 0.4), \"Black\": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens\n    \"edges\":      {\"family\": \"dark\", \"params\": {\"Strength\": (0.8, 2.0), \"Mix\": (0.6, 1.0)}},\n    \"tint\":       {\"family\": \"dark\", \"params\": {\"Hue\": (0.0, 1.0), \"Sat\": (0.8, 1.0)}},\n    \"selfmask\":   {\"family\": \"dark\", \"params\": {\"Amount\": (0.6, 1.0), \"Contrast\": (1.3, 2.0), \"Sat\": (1.2, 1.8)}},\n    \"feedback\":   {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Zoom\": (0.95, 1.06), \"Rotate\": (-3.0, 3.0), \"Decay\": (0.9, 0.98), \"Mix\": (0.5, 0.8)}},\n    \"displace\":   {\"family\": \"treat\", \"params\": {\"Amount\": (0.03, 0.1), \"Speed\": (0.01, 0.06), \"Scale\": (5.0, 14.0)}},\n    \"echo\":       {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Frames\": [12, 20, 30, 45, 60], \"Mix\": (0.4, 0.7)}},\n    \"mirror\":     {\"family\": \"treat\", \"params\": {\"Mode\": [0, 1, 2]}},\n    \"chroma\":     {\"family\": \"treat\", \"params\": {\"Shift\": (0.01, 0.06)}},\n}\n# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),\n# keepchannel.\nORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible\nDARK = [n for n, e in CORPUS.items() if e[\"family\"] == \"dark\"]\nTREAT = [n for n, e in CORPUS.items() if e[\"family\"] == \"treat\"]\nXFADE_TYPES = 5  # burn, distort, patches, colour, smear\nPLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be\n\nDEFAULTS = {\"cap\": 120.0, \"bright_mean\": 0.33, \"bright_high\": 0.65}  # thresholds: about the 60th percentile of the measured buckets\n# the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,\n# how far the darkeners' draws are pushed to the dark end of their ranges, and the Cut range\n# of a highlights cut forced on every clip (None: not forced). The upper levels remove bright\n# patches rather than dim the whole picture, so the ceiling stays\nDARKNESS = {\"none\": (1.0, 2.0, 2.0, 0.0, None), \"default\": (0.18, 0.33, 0.65, 0.0, None),\n            \"darker\": (0.18, 0.33, 0.65, 0.5, (0.75, 0.55)), \"darkest\": (0.18, 0.33, 0.65, 0.85, (0.5, 0.3))}\nBUCKET = 10.0\nLONG_DIR = \"VJ_Visuals/Long/\"\nFLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue\nPREROLL = 1.0\nSWAP = (4.0, 8.0)  # seconds a mid-clip look swap takes\nSWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is\nSHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then\n\n\ndef _draw(rng, spec, bias=0.0):\n    \"\"\"A value from the range; dark ranges run light to dark, bias narrows the draw to the dark end.\"\"\"\n    if isinstance(spec, list):\n        return rng.choice(spec)\n    lo, hi = spec\n    return round(rng.uniform(lo + bias * (hi - lo), hi), 4)\n\n\ndef params_for(name, rng, bias=0.0):\n    return {k: _draw(rng, spec, 0.0 if k == \"Hue\" else bias) for k, spec in CORPUS[name][\"params\"].items()}\n\n\ndef hsv_rgb(h, s, v=0.9):\n    return colorsys.hsv_to_rgb(h % 1.0, s, v)\n\n\n# ---------------------------------------------------------------- the playlist\nclass Playlist:\n    \"\"\"Shuffled, short clips twice (anything outside Long/), never the same clip twice running.\n\n    State is the plain dict passed in ({\"queue\": [...], \"last\": ...}), mutated in place, so the\n    caller can keep it in TouchDesigner storage.\n    \"\"\"\n\n    def __init__(self, paths, rng, state=None):\n        self.rng = rng\n        self.paths = list(paths)\n        self.state = state if state is not None else {}\n        self.state.setdefault(\"queue\", [])\n        self.state.setdefault(\"last\", None)\n\n    def _refill(self):\n        # Draw from the remaining counts, never the clip just played, the fullest pile first so\n        # the doubled short clips cannot be left to collide at the end.\n        left = {p: (1 if p.startswith(LONG_DIR) else 2) for p in self.paths}\n        q, last = [], self.state[\"last\"]\n        while any(left.values()):\n            top = max(n for p, n in left.items() if p != last) if len(left) > 1 else max(left.values())\n            pick = self.rng.choice([p for p, n in left.items() if n == top and (p != last or len(left) == 1)])\n            q.append(pick)\n            left[pick] -= 1\n            if left[pick] == 0:\n                del left[pick]\n            last = pick\n        self.state[\"queue\"] = q\n\n    def next(self):\n        if not self.state[\"queue\"]:\n            self._refill()\n        self.state[\"last\"] = self.state[\"queue\"].pop(0)\n        return self.state[\"last\"]\n\n\n# ---------------------------------------------------------------- one segment\ndef plan_segment(clip, rng, cap=DEFAULTS[\"cap\"], lead=0.0):\n    \"\"\"Where in the clip, how long, the tease, the transition, the speed.\n\n    clip is the clips.json entry or None. lead is how long this clip has already played when\n    it becomes both groups' picture (the previous change's tease plus transition), so the\n    window is measured from the cue point and the plain play before the next change is\n    length - tease - xfade. Clamped so that plain play >= FLOOR, by shrinking the tease, then\n    the transition.\n    \"\"\"\n    fps = clip[\"fps\"] if clip else 30.0\n    motion = clip[\"motion\"] if clip else 0.0\n    if fps < 25:\n        speed = 0.6  # slowing a low frame rate clip stutters\n    elif motion >= 0.12:\n        speed = 0.4\n    elif motion >= 0.08:\n        speed = 0.5\n    else:\n        speed = 0.6\n    # window, length, tease, xfade and turn are real seconds; start is a clip time\n    total = clip[\"length\"] if clip else cap\n    if total < SHORT:\n        start, turn = 0.0, round(total / speed, 2)  # the end of the first pass\n        window = min(2 * turn, cap)\n    else:\n        content = min(total, cap * speed)\n        start = round(rng.uniform(0.0, total - content), 2)\n        window, turn = content / speed, None\n    length = round(max(window - lead, 0.0), 2)\n    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0\n    xfade = round(rng.uniform(5.0, 15.0), 2)\n    if length - tease - xfade < FLOOR:\n        tease = max(0.0, round(length - xfade - FLOOR, 2))\n        if tease < 1.0:\n            tease = 0.0  # a tease under a second is a glitch, not a tease\n    if length - xfade < FLOOR:\n        xfade = max(0.3, round(length - FLOOR, 2))\n    return {\"start\": start, \"window\": round(window, 2), \"length\": length, \"tease\": tease, \"xfade\": xfade,\n            \"speed\": speed, \"turn\": turn}\n\n\ndef window_stats(clip, start, length):\n    \"\"\"Mean and high luma over the buckets under the window. A missing clip is bright.\"\"\"\n    if not clip or not clip.get(\"buckets\"):\n        return {\"mean\": 1.0, \"high\": 1.0}\n    b = clip[\"buckets\"]\n    first = min(int(start // BUCKET), len(b) - 1)\n    last = min(int(max(start + length - 0.01, start) // BUCKET), len(b) - 1)\n    used = b[first:last + 1]\n    return {\"mean\": sum(x[\"mean\"] for x in used) / len(used), \"high\": max(x[\"high\"] for x in used)}\n\n\ndef is_bright(stats, bright_mean=DEFAULTS[\"bright_mean\"], bright_high=DEFAULTS[\"bright_high\"]):\n    return stats[\"high\"] >= bright_high or stats[\"mean\"] >= bright_mean\n\n\ndef enabled(selection):\n    return frozenset(n for n, v in selection.items() if v.get(\"Enable\"))\n\n\ndef choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):\n    \"\"\"A selection: {effect: {\"Enable\": 0|1, params...}} for every effect in the corpus.\n\n    avoid is a list of selections whose enabled set this one must differ from: the group's\n    previous one and the other group's current one.\n    \"\"\"\n    taken = {enabled(a) for a in avoid if a}\n    for _ in range(20):\n        sel = {n: {\"Enable\": 0} for n in CORPUS}\n        sel[\"framing\"] = {\"Enable\": 1, **params_for(\"framing\", rng)}\n        if is_bright(stats, **thresholds):\n            picks = rng.sample(DARK, rng.choice([1, 2]))\n            if rng.random() < 0.5:\n                picks += rng.sample(TREAT, 1)\n        elif rng.random() < PLAIN:\n            picks = []  # plain is always allowed, so avoid does not force an effect on\n        else:\n            picks = rng.sample(TREAT, rng.choice([1, 2]))\n        for n in picks:\n            sel[n] = {\"Enable\": 1, **params_for(n, rng, bias if n in DARK else 0.0)}\n        if cut:  # bright patches above Cut go black, on every clip\n            sel[\"highlights\"] = {\"Enable\": 1, **params_for(\"highlights\", rng, bias), \"Cut\": _draw(rng, cut, bias), \"Amount\": 1.0}\n        if not picks or enabled(sel) not in taken:\n            return sel\n    spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference\n    sel[spare] = {\"Enable\": 1, **params_for(spare, rng)}\n    return sel\n\n\ndef load_table(path):\n    try:\n        with open(path) as fh:\n            return json.load(fh)\n    except (OSError, ValueError):\n        return {}\n\n\n# ---------------------------------------------------------------- TouchDesigner glue\n# Everything below touches op() and pars. State is a plain dict in the fx container's storage.\nGROUPS = (\"outer\", \"inner\")\nOTHER = {\"A\": \"B\", \"B\": \"A\"}\n\n\ndef _fx():\n    return op(\"/project1/fx\")\n\n\ndef _state():\n    fx = _fx()\n    st = fx.fetch(\"state\", None)\n    if st is None:\n        seed = int(fx.par.Seed) or None\n        st = {\"seed\": seed, \"rng\": None, \"playlist\": {}, \"player\": \"A\", \"clip\": {}, \"plan\": {}, \"sel\": {}, \"lead\": 0.0}\n        fx.store(\"state\", st)\n    return st\n\n\ndef _rng(st):\n    if st.get(\"rng\") is None:\n        st[\"rng\"] = random.Random(st.get(\"seed\"))\n    return st[\"rng\"]\n\n\ndef _table():\n    return load_table(os.path.join(project.folder, \"..\", \"td\", \"clips.json\"))\n\n\ndef _apply(group, slot, sel):\n    \"\"\"Two chain slots per group, so a transition melds the old look into the new.\"\"\"\n    chain = _fx().op(f\"chain{slot}_{group}\")\n    for name, vals in sel.items():\n        b = chain.op(name)\n        for k, v in vals.items():\n            getattr(b.par, k).val = v\n    chain.op(\"feedback/fb\").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame\n\n\n# ---------------------------------------------------------------- hold mode: step through by hand\nNEUTRAL_FRAMING = {\"Enable\": 1, \"Zoom\": 1.0, \"Tx\": 0.0, \"Ty\": 0.0, \"Flipx\": 0, \"Flipy\": 0, \"Rotate\": 0}\n\n\ndef held_selection(name, params):\n    \"\"\"Only `name` on, with `params`, over a neutral framing. Pure.\"\"\"\n    sel = {n: {\"Enable\": 0} for n in CORPUS}\n    sel[\"framing\"] = dict(NEUTRAL_FRAMING)\n    sel[name] = {\"Enable\": 1, **params}\n    if name == \"framing\":\n        sel[\"framing\"] = {\"Enable\": 1, **params}\n    return sel\n\n\ndef _hold_apply(st, name=None, fresh=False):\n    fx = _fx()\n    held = st.setdefault(\"held\", {})\n    name = name or held.get(\"name\") or ORDER[1]\n    if fresh or held.get(\"name\") != name:\n        held[\"name\"] = name\n        held[\"params\"] = params_for(name, _rng(st))\n    sel = held_selection(name, held[\"params\"])\n    for g in GROUPS:\n        st[\"sel\"][g] = sel\n        for slot in (1, 2):\n            _apply(g, slot, sel)\n    fx.par.Effect = name\n    print(\"try:\", name, \"  \".join(f\"{k} {v}\" for k, v in held[\"params\"].items()))\n\n\ndef on_try(par_name):\n    \"\"\"A control on the Try page changed.\"\"\"\n    st = _state()\n    fx = _fx()\n    if par_name == \"Darkness\":\n        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]\n        return\n    if par_name == \"Hold\":\n        if fx.par.Hold:\n            _hold_apply(st, str(fx.par.Effect))\n        return\n    if not fx.par.Hold:\n        return\n    if par_name == \"Effect\":\n        _hold_apply(st, str(fx.par.Effect))\n    elif par_name in (\"Nexteffect\", \"Preveffect\"):\n        i = ORDER.index(st.get(\"held\", {}).get(\"name\", ORDER[1]))\n        step = 1 if par_name == \"Nexteffect\" else -1\n        _hold_apply(st, ORDER[(i + step) % len(ORDER)])\n    elif par_name == \"Reroll\":\n        _hold_apply(st, fresh=True)\n\n\ndef _cue(player, key, plan):\n    p = _fx().op(\"player\" + player)\n    p.par.file = os.path.join(project.folder, key)\n    p.par.cuepoint = plan[\"start\"]\n    p.par.speed = plan[\"speed\"]\n    p.par.play = False\n    p.par.cue = True\n    p.par.cuepulse.pulse()\n\n\ndef _pick_next(st):\n    rng = _rng(st)\n    table = _table()\n    pl = Playlist(sorted(table) if table else [], rng, st[\"playlist\"])\n    key = pl.next() if pl.paths else None\n    nxt = OTHER[st[\"player\"]]\n    plan = plan_segment(table.get(key), rng, cap=float(_fx().par.Cap), lead=st[\"lead\"])\n    st[\"clip\"][nxt] = key\n    st[\"plan\"][nxt] = plan\n    if key:\n        _cue(nxt, key, plan)\n    return nxt\n\n\ndef _selection_for(st, player, group):\n    rng = _rng(st)\n    clip = _table().get(st[\"clip\"].get(player))\n    plan = st[\"plan\"][player]\n    stats = window_stats(clip, plan[\"start\"], plan[\"window\"])\n    fx = _fx()\n    other = GROUPS[1 - GROUPS.index(group)]\n    level = DARKNESS[str(fx.par.Darkness)]\n    return choose(stats, rng, avoid=[st[\"sel\"].get(group), st[\"sel\"].get(other)], bias=level[3], cut=level[4],\n                  bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))\n\n\ndef _start_xfade(st, group, player, seconds):\n    \"\"\"The group melds from its shown chain slot into the other, carrying `player` with a new\n    look: the next clip at a clip change, the same clip for a mid-clip swap.\"\"\"\n    fx = _fx()\n    x = fx.op(\"xfade_\" + group)\n    if x.par.Active:\n        _finish_xfade(st, group)  # a swap still running when the clip change comes\n    slot = 3 - st[\"chain\"][group]\n    fx.op(f\"src{slot}_{group}\").par.index = 0 if player == \"A\" else 1\n    if not fx.par.Hold:\n        sel = _selection_for(st, player, group)\n        st[\"sel\"][group] = sel\n        _apply(group, slot, sel)\n    st[\"target\"][group] = (slot, player)  # read back at the end, when roles may have swapped already\n    forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one\n    x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)\n    x.op(\"smear_fb\").par.resetpulse.pulse()\n    fx.op(\"nxt_\" + group).par.index = slot - 1\n    _release(player)  # normally already rolling from the pre-roll; harmless twice\n    x.par.Active = 1\n    t = fx.op(\"tx_\" + group)\n    t.par.length = seconds\n    t.par.start.pulse()\n\n\ndef _finish_xfade(st, group):\n    \"\"\"The transition is over: the group shows the slot it melded into.\"\"\"\n    fx = _fx()\n    slot, _ = st[\"target\"][group]\n    st[\"chain\"][group] = slot\n    fx.op(\"cur_\" + group).par.index = slot - 1\n    fx.op(\"xfade_\" + group).par.Active = 0\n    fx.op(\"tx_\" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur\n\n\ndef _release(player):\n    p = _fx().op(\"player\" + player)\n    p.par.cue = False\n    p.par.play = True\n\n\ndef _timer(name, seconds):\n    t = _fx().op(name)\n    t.par.length = max(seconds, 0.05)\n    t.par.start.pulse()\n\n\ndef start():\n    \"\"\"Called once from the Execute DAT's onStart and at the end of the build.\"\"\"\n    fx = _fx()\n    fx.unstore(\"state\")\n    st = _state()\n    st[\"player\"] = \"B\"  # so that _pick_next cues the first clip into A\n    first = _pick_next(st)\n    st[\"player\"] = first\n    st[\"lead\"] = 0.0\n    _release(first)\n    st[\"chain\"], st[\"target\"] = {}, {}\n    for g in GROUPS:\n        st[\"chain\"][g] = 1\n        fx.op(\"cur_\" + g).par.index = 0\n        fx.op(\"src1_\" + g).par.index = 0 if first == \"A\" else 1\n        st[\"sel\"][g] = None\n    for g in GROUPS:\n        st[\"sel\"][g] = _selection_for(st, first, g)\n        _apply(g, 1, st[\"sel\"][g])\n    if fx.par.Hold:\n        _hold_apply(st, str(fx.par.Effect))\n    _begin_segment(st)\n\n\ndef _begin_segment(st):\n    \"\"\"Both groups show st['player']; cue the next clip and arm the timers.\"\"\"\n    fx = _fx()\n    plan = st[\"plan\"][st[\"player\"]]\n    _pick_next(st)\n    L, T, t = plan[\"length\"], plan[\"tease\"], plan[\"xfade\"]\n    if plan[\"turn\"] is None:\n        fx.op(\"t_turn\").par.initialize.pulse()  # cancel a turn armed by the segment before\n    else:\n        _timer(\"t_turn\", plan[\"turn\"] - st[\"lead\"])\n    _timer(\"t_preroll\", L - T - t - PREROLL)\n    _timer(\"t_inner\", L - T - t)\n    _timer(\"t_outer\", L - t)\n    r = fx.op(\"t_reroll\")\n    r.par.length = float(fx.par.Rerollevery)\n    r.par.start.pulse()\n\n\ndef on_done(timer_name):\n    st = _state()\n    fx = _fx()\n    if timer_name == \"t_preroll\":\n        _release(OTHER[st[\"player\"]])\n    elif timer_name == \"t_turn\":\n        fx.op(\"player\" + st[\"player\"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top\n    elif timer_name in (\"t_inner\", \"t_outer\"):\n        _start_xfade(st, timer_name[2:], OTHER[st[\"player\"]], st[\"plan\"][st[\"player\"]][\"xfade\"])\n    elif timer_name in (\"tx_inner\", \"tx_outer\"):\n        g = timer_name[3:]\n        # with no tease both transitions end in the same frame, and the outer one may have\n        # swapped st[\"player\"] already, so the target comes from the start of the transition\n        _, nxt = st[\"target\"][g]\n        _finish_xfade(st, g)\n        if g == \"outer\" and st[\"player\"] != nxt:\n            plan = st[\"plan\"][st[\"player\"]]\n            st[\"lead\"] = plan[\"tease\"] + plan[\"xfade\"] + PREROLL\n            st[\"player\"] = nxt\n            _begin_segment(st)\n\n\ndef on_reroll():\n    \"\"\"Every Rerollevery seconds one group, in turn, may swap to a new look mid clip, melded\n    over SWAP seconds, unless its clip change is about to do that anyway.\"\"\"\n    st = _state()\n    fx = _fx()\n    if fx.par.Hold:\n        return\n    st[\"reroll_n\"] = st.get(\"reroll_n\", 0) + 1\n    g = GROUPS[st[\"reroll_n\"] % 2]\n    rng = _rng(st)\n    secs = round(rng.uniform(*SWAP), 2)\n    if rng.random() >= SWAP_CHANCE or fx.op(\"xfade_\" + g).par.Active:\n        return\n    t = fx.op(\"t_\" + g)\n    if float(t.par.length) * (1 - t[\"timer_fraction\"]) < secs + 2:\n        return\n    _start_xfade(st, g, st[\"player\"], secs)\n"
+   "text": "\"\"\"What plays next, for how long, and which effects: the decisions, then thin TouchDesigner glue.\n\nThe pure layer has no TouchDesigner names at module level, so tests import it as a module. In\nTouchDesigner the file is synced into the Text DAT /project1/fx/sequencer and the timers'\ncallbacks reach it through op('sequencer').module. Mutable state lives in the fx container's\nstorage, not in this module, so a re-sync of the file mid-show loses nothing.\n\"\"\"\nimport colorsys\nimport json\nimport math\nimport os\nimport random\n\n# ---------------------------------------------------------------- the corpus\n# One place for every effect, read by build_fx.py (to create the custom pars) and by choose().\n# family: frame (always on), dark (darkeners), treat (treatments). stateful effects keep cooking\n# behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.\nCORPUS = {\n    \"framing\":    {\"family\": \"frame\", \"params\": {\"Zoom\": (1.0, 1.35), \"Tx\": (-0.15, 0.15), \"Ty\": (-0.15, 0.15), \"Flipx\": [0, 1], \"Flipy\": [0, 1],\n                                                 \"Rotate\": [0, 0, 0, 0, 180, 180, -12, -7, 7, 12, 173, 187]}},\n    \"highlights\": {\"family\": \"dark\", \"params\": {\"Cut\": (0.85, 0.6), \"Soft\": (12.0, 4.0), \"Amount\": (0.5, 1.0)}},\n    \"crush\":      {\"family\": \"dark\", \"params\": {\"Gamma\": (0.7, 0.4), \"Black\": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens\n    \"edges\":      {\"family\": \"dark\", \"params\": {\"Strength\": (0.8, 2.0), \"Mix\": (0.6, 1.0)}},\n    \"tint\":       {\"family\": \"dark\", \"params\": {\"Hue\": (0.0, 1.0), \"Sat\": (0.8, 1.0)}},\n    \"selfmask\":   {\"family\": \"dark\", \"params\": {\"Amount\": (0.6, 1.0), \"Contrast\": (1.3, 2.0), \"Sat\": (1.2, 1.8)}},\n    \"feedback\":   {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Zoom\": (0.95, 1.06), \"Rotate\": (-3.0, 3.0), \"Decay\": (0.9, 0.98), \"Mix\": (0.5, 0.8)}},\n    \"displace\":   {\"family\": \"treat\", \"params\": {\"Amount\": (0.03, 0.1), \"Speed\": (0.01, 0.06), \"Scale\": (5.0, 14.0)}},\n    \"echo\":       {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Frames\": [12, 20, 30, 45, 60], \"Mix\": (0.4, 0.7)}},\n    \"mirror\":     {\"family\": \"treat\", \"params\": {\"Mode\": [0, 1, 2]}},\n    \"chroma\":     {\"family\": \"treat\", \"params\": {\"Shift\": (0.01, 0.06)}},\n}\n# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),\n# keepchannel.\nORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible\nDARK = [n for n, e in CORPUS.items() if e[\"family\"] == \"dark\"]\nTREAT = [n for n, e in CORPUS.items() if e[\"family\"] == \"treat\"]\nXFADE_TYPES = 4  # burn, distort, colour, smear\nPLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be\n\nDEFAULTS = {\"cap\": 120.0, \"bright_mean\": 0.33, \"bright_high\": 0.65}  # thresholds: about the 60th percentile of the measured buckets\n# the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,\n# how far the darkeners' draws are pushed to the dark end of their ranges, and the Cut range\n# of a highlights cut forced on every clip (None: not forced). The upper levels remove bright\n# patches rather than dim the whole picture, so the ceiling stays\nDARKNESS = {\"none\": (1.0, 2.0, 2.0, 0.0, None), \"default\": (0.18, 0.33, 0.65, 0.0, None),\n            \"darker\": (0.18, 0.33, 0.65, 0.5, (0.75, 0.55)), \"darkest\": (0.18, 0.33, 0.65, 0.85, (0.5, 0.3))}\nBUCKET = 10.0\nLONG_DIR = \"VJ_Visuals/Long/\"\nFLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue\nPREROLL = 1.0\nXFADE = (7.5, 22.5)  # seconds a clip change transition takes\nSWAP = (6.0, 12.0)  # seconds a mid-clip look swap takes\nKNEE = 1.0 / 3.0  # the first half of a meld happens in this share of its time, the rest is slower\n\n\ndef progress(fraction):\n    \"\"\"Transition progress 0 to 1 from the timer's fraction: quick to half way, then half speed.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)\nSWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is\nUPSIDE_CHANCE = 0.8  # per clip change, that the outer pair hangs upside down as it was hung; else upright like the inner\nPAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit\nPAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows\n\n\ndef pick_pan(rng, other):\n    \"\"\"Where a group's window sits on the frame, away from the other group's. Pure.\"\"\"\n    for _ in range(50):\n        pan = round(rng.uniform(-PAN_REACH, PAN_REACH), 3)\n        if other is None or abs(pan - other) >= PAN_APART:\n            return pan\n    return -PAN_REACH if other > 0 else PAN_REACH\n# the spice: a third clip that drops in over one pair or both, pulses, and leaves\nSPICE_GAP = (28.0, 84.0)  # seconds between spices\nSPICE_LEN = (10.0, 20.0)  # seconds a spice lasts\nSPICE_PULSES = (4, 7)\nSPICE_WHERE = [\"outer\", \"inner\", \"outer\", \"inner\", \"both\"]\n\n\ndef spice_env(fraction, pulses):\n    \"\"\"0 to 0.9 and back over a spice, in `pulses` swells. Pure.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    return math.sin(math.pi * f) ** 0.7 * (0.5 + 0.4 * math.cos(2 * math.pi * (pulses - 1) * f))\nSHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then\n\n\ndef _draw(rng, spec, bias=0.0):\n    \"\"\"A value from the range; dark ranges run light to dark, bias narrows the draw to the dark end.\"\"\"\n    if isinstance(spec, list):\n        return rng.choice(spec)\n    lo, hi = spec\n    return round(rng.uniform(lo + bias * (hi - lo), hi), 4)\n\n\ndef params_for(name, rng, bias=0.0):\n    return {k: _draw(rng, spec, 0.0 if k == \"Hue\" else bias) for k, spec in CORPUS[name][\"params\"].items()}\n\n\ndef hsv_rgb(h, s, v=0.9):\n    return colorsys.hsv_to_rgb(h % 1.0, s, v)\n\n\n# ---------------------------------------------------------------- the playlist\nclass Playlist:\n    \"\"\"Shuffled, short clips twice (anything outside Long/), never the same clip twice running.\n\n    State is the plain dict passed in ({\"queue\": [...], \"last\": ...}), mutated in place, so the\n    caller can keep it in TouchDesigner storage.\n    \"\"\"\n\n    def __init__(self, paths, rng, state=None):\n        self.rng = rng\n        self.paths = list(paths)\n        self.state = state if state is not None else {}\n        self.state.setdefault(\"queue\", [])\n        self.state.setdefault(\"last\", None)\n\n    def _refill(self):\n        # Draw from the remaining counts, never the clip just played, the fullest pile first so\n        # the doubled short clips cannot be left to collide at the end.\n        left = {p: (1 if p.startswith(LONG_DIR) else 2) for p in self.paths}\n        q, last = [], self.state[\"last\"]\n        while any(left.values()):\n            top = max(n for p, n in left.items() if p != last) if len(left) > 1 else max(left.values())\n            pick = self.rng.choice([p for p, n in left.items() if n == top and (p != last or len(left) == 1)])\n            q.append(pick)\n            left[pick] -= 1\n            if left[pick] == 0:\n                del left[pick]\n            last = pick\n        self.state[\"queue\"] = q\n\n    def next(self):\n        # a clip dropped from the table since the queue was drawn is skipped, its file may be gone\n        self.state[\"queue\"] = [p for p in self.state[\"queue\"] if p in self.paths]\n        if not self.state[\"queue\"]:\n            self._refill()\n        self.state[\"last\"] = self.state[\"queue\"].pop(0)\n        return self.state[\"last\"]\n\n\n# ---------------------------------------------------------------- one segment\ndef plan_segment(clip, rng, cap=DEFAULTS[\"cap\"], lead=0.0):\n    \"\"\"Where in the clip, how long, the tease, the transition, the speed.\n\n    clip is the clips.json entry or None. lead is how long this clip has already played when\n    it becomes both groups' picture (the previous change's tease plus transition), so the\n    window is measured from the cue point and the plain play before the next change is\n    length - tease - xfade. Clamped so that plain play >= FLOOR, by shrinking the tease, then\n    the transition.\n    \"\"\"\n    fps = clip[\"fps\"] if clip else 30.0\n    motion = clip[\"motion\"] if clip else 0.0\n    if fps < 25:\n        speed = 0.6  # slowing a low frame rate clip stutters\n    elif motion >= 0.12:\n        speed = 0.4\n    elif motion >= 0.08:\n        speed = 0.5\n    else:\n        speed = 0.6\n    # window, length, tease, xfade and turn are real seconds; start is a clip time\n    total = clip[\"length\"] if clip else cap\n    if total < SHORT:\n        start, turn = 0.0, round(total / speed, 2)  # the end of the first pass\n        window = min(2 * turn, cap)\n    else:\n        content = min(total, cap * speed)\n        start = round(rng.uniform(0.0, total - content), 2)\n        window, turn = content / speed, None\n    length = round(max(window - lead, 0.0), 2)\n    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0\n    xfade = round(rng.uniform(*XFADE), 2)\n    if length - tease - xfade < FLOOR:\n        tease = max(0.0, round(length - xfade - FLOOR, 2))\n        if tease < 1.0:\n            tease = 0.0  # a tease under a second is a glitch, not a tease\n    if length - xfade < FLOOR:\n        xfade = max(0.3, round(length - FLOOR, 2))\n    return {\"start\": start, \"window\": round(window, 2), \"length\": length, \"tease\": tease, \"xfade\": xfade,\n            \"speed\": speed, \"turn\": turn}\n\n\ndef window_stats(clip, start, length):\n    \"\"\"Mean and high luma over the buckets under the window. A missing clip is bright.\"\"\"\n    if not clip or not clip.get(\"buckets\"):\n        return {\"mean\": 1.0, \"high\": 1.0}\n    b = clip[\"buckets\"]\n    first = min(int(start // BUCKET), len(b) - 1)\n    last = min(int(max(start + length - 0.01, start) // BUCKET), len(b) - 1)\n    used = b[first:last + 1]\n    return {\"mean\": sum(x[\"mean\"] for x in used) / len(used), \"high\": max(x[\"high\"] for x in used)}\n\n\ndef is_bright(stats, bright_mean=DEFAULTS[\"bright_mean\"], bright_high=DEFAULTS[\"bright_high\"]):\n    return stats[\"high\"] >= bright_high or stats[\"mean\"] >= bright_mean\n\n\ndef enabled(selection):\n    return frozenset(n for n, v in selection.items() if v.get(\"Enable\"))\n\n\ndef choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):\n    \"\"\"A selection: {effect: {\"Enable\": 0|1, params...}} for every effect in the corpus.\n\n    avoid is a list of selections whose enabled set this one must differ from: the group's\n    previous one and the other group's current one.\n    \"\"\"\n    taken = {enabled(a) for a in avoid if a}\n    for _ in range(20):\n        sel = {n: {\"Enable\": 0} for n in CORPUS}\n        sel[\"framing\"] = {\"Enable\": 1, **params_for(\"framing\", rng)}\n        if is_bright(stats, **thresholds):\n            picks = rng.sample(DARK, rng.choice([1, 2]))\n            if rng.random() < 0.5:\n                picks += rng.sample(TREAT, 1)\n        elif rng.random() < PLAIN:\n            picks = []  # plain is always allowed, so avoid does not force an effect on\n        else:\n            picks = rng.sample(TREAT, rng.choice([1, 2]))\n        for n in picks:\n            sel[n] = {\"Enable\": 1, **params_for(n, rng, bias if n in DARK else 0.0)}\n        if cut:  # bright patches above Cut go black, on every clip\n            sel[\"highlights\"] = {\"Enable\": 1, **params_for(\"highlights\", rng, bias), \"Cut\": _draw(rng, cut, bias), \"Amount\": 1.0}\n        if not picks or enabled(sel) not in taken:\n            return sel\n    spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference\n    sel[spare] = {\"Enable\": 1, **params_for(spare, rng)}\n    return sel\n\n\ndef load_table(path):\n    try:\n        with open(path) as fh:\n            return json.load(fh)\n    except (OSError, ValueError):\n        return {}\n\n\n# ---------------------------------------------------------------- TouchDesigner glue\n# Everything below touches op() and pars. State is a plain dict in the fx container's storage.\nGROUPS = (\"outer\", \"inner\")\nOTHER = {\"A\": \"B\", \"B\": \"A\"}\n\n\ndef _fx():\n    return op(\"/project1/fx\")\n\n\ndef _state():\n    fx = _fx()\n    st = fx.fetch(\"state\", None)\n    if st is None:\n        seed = int(fx.par.Seed) or None\n        st = {\"seed\": seed, \"rng\": None, \"playlist\": {}, \"player\": \"A\", \"clip\": {}, \"plan\": {}, \"sel\": {}, \"lead\": 0.0}\n        fx.store(\"state\", st)\n    return st\n\n\ndef _rng(st):\n    if st.get(\"rng\") is None:\n        st[\"rng\"] = random.Random(st.get(\"seed\"))\n    return st[\"rng\"]\n\n\ndef _table():\n    return load_table(os.path.join(project.folder, \"..\", \"td\", \"clips.json\"))\n\n\ndef _apply(group, slot, sel):\n    \"\"\"Two chain slots per group, so a transition melds the old look into the new.\"\"\"\n    _apply_chain(_fx().op(f\"chain{slot}_{group}\"), sel)\n\n\ndef _apply_chain(chain, sel):\n    for name, vals in sel.items():\n        b = chain.op(name)\n        for k, v in vals.items():\n            getattr(b.par, k).val = v\n    chain.op(\"feedback/fb\").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame\n\n\n# ---------------------------------------------------------------- hold mode: step through by hand\nNEUTRAL_FRAMING = {\"Enable\": 1, \"Zoom\": 1.0, \"Tx\": 0.0, \"Ty\": 0.0, \"Flipx\": 0, \"Flipy\": 0, \"Rotate\": 0}\n\n\ndef held_selection(name, params):\n    \"\"\"Only `name` on, with `params`, over a neutral framing. Pure.\"\"\"\n    sel = {n: {\"Enable\": 0} for n in CORPUS}\n    sel[\"framing\"] = dict(NEUTRAL_FRAMING)\n    sel[name] = {\"Enable\": 1, **params}\n    if name == \"framing\":\n        sel[\"framing\"] = {\"Enable\": 1, **params}\n    return sel\n\n\ndef _hold_apply(st, name=None, fresh=False):\n    fx = _fx()\n    held = st.setdefault(\"held\", {})\n    name = name or held.get(\"name\") or ORDER[1]\n    if fresh or held.get(\"name\") != name:\n        held[\"name\"] = name\n        held[\"params\"] = params_for(name, _rng(st))\n    sel = held_selection(name, held[\"params\"])\n    for g in GROUPS:\n        st[\"sel\"][g] = sel\n        for slot in (1, 2):\n            _apply(g, slot, sel)\n    fx.par.Effect = name\n    print(\"try:\", name, \"  \".join(f\"{k} {v}\" for k, v in held[\"params\"].items()))\n\n\ndef on_try(par_name):\n    \"\"\"A control on the Try page changed.\"\"\"\n    st = _state()\n    fx = _fx()\n    if par_name == \"Darkness\":\n        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]\n        return\n    if par_name == \"Hold\":\n        if fx.par.Hold:\n            _hold_apply(st, str(fx.par.Effect))\n        return\n    if not fx.par.Hold:\n        return\n    if par_name == \"Effect\":\n        _hold_apply(st, str(fx.par.Effect))\n    elif par_name in (\"Nexteffect\", \"Preveffect\"):\n        i = ORDER.index(st.get(\"held\", {}).get(\"name\", ORDER[1]))\n        step = 1 if par_name == \"Nexteffect\" else -1\n        _hold_apply(st, ORDER[(i + step) % len(ORDER)])\n    elif par_name == \"Reroll\":\n        _hold_apply(st, fresh=True)\n\n\ndef _cue(player, key, plan):\n    p = _fx().op(\"player\" + player)\n    p.par.file = os.path.join(project.folder, key)\n    p.par.cuepoint = plan[\"start\"]\n    p.par.speed = plan[\"speed\"]\n    p.par.play = False\n    p.par.cue = True\n    p.par.cuepulse.pulse()\n\n\ndef _pick_next(st):\n    rng = _rng(st)\n    table = _table()\n    pl = Playlist(sorted(table) if table else [], rng, st[\"playlist\"])\n    key = pl.next() if pl.paths else None\n    nxt = OTHER[st[\"player\"]]\n    plan = plan_segment(table.get(key), rng, cap=float(_fx().par.Cap), lead=st[\"lead\"])\n    st[\"clip\"][nxt] = key\n    st[\"plan\"][nxt] = plan\n    if key:\n        _cue(nxt, key, plan)\n    return nxt\n\n\ndef _selection_for(st, player, group):\n    \"\"\"A look for `player`'s clip, unlike the group's own and the other group's.\"\"\"\n    rng = _rng(st)\n    clip = _table().get(st[\"clip\"].get(player))\n    plan = st[\"plan\"][player]\n    stats = window_stats(clip, plan[\"start\"], plan[\"window\"])\n    fx = _fx()\n    level = DARKNESS[str(fx.par.Darkness)]\n    avoid = [st[\"sel\"].get(g) for g in GROUPS if g != group] + [st[\"sel\"].get(group)]\n    return choose(stats, rng, avoid=avoid, bias=level[3], cut=level[4],\n                  bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))\n\n\n# ---------------------------------------------------------------- the spice\ndef _schedule_spice(st):\n    \"\"\"Cue a random clip into player C and start the wait for the next spice.\"\"\"\n    rng = _rng(st)\n    table = _table()\n    if not table:\n        return\n    key = rng.choice(sorted(table))\n    plan = plan_segment(table[key], rng, cap=SPICE_LEN[1])\n    st[\"clip\"][\"C\"], st[\"plan\"][\"C\"] = key, plan\n    _cue(\"C\", key, plan)\n    _timer(\"t_spicewait\", rng.uniform(*SPICE_GAP))\n\n\ndef _start_spice(st):\n    fx = _fx()\n    rng = _rng(st)\n    where = rng.choice(SPICE_WHERE)\n    st[\"spice\"] = {\"groups\": GROUPS if where == \"both\" else [where], \"pulses\": rng.randint(*SPICE_PULSES),\n                   \"type\": rng.randrange(XFADE_TYPES - 1)}  # a shader transition, not the smear\n    st[\"sel\"][\"spice\"] = _selection_for(st, \"C\", \"spice\")\n    _apply_chain(fx.op(\"chainC\"), st[\"sel\"][\"spice\"])\n    _release(\"C\")\n    _timer(\"t_spice\", rng.uniform(*SPICE_LEN))\n\n\ndef _end_spice(st):\n    _fx().op(\"playerC\").par.play = False\n    _schedule_spice(st)\n\n\ndef spice_level(group):\n    \"\"\"The spice's progress for a group, read every frame by spice_g's shader.\"\"\"\n    st = _state()\n    sp = st.get(\"spice\")\n    if not sp or group not in sp[\"groups\"]:\n        return 0.0\n    return spice_env(_fx().op(\"t_spice\")[\"timer_fraction\"], sp[\"pulses\"])\n\n\ndef spice_type():\n    sp = _state().get(\"spice\")\n    return sp[\"type\"] if sp else 0\n\n\ndef spice_on():\n    \"\"\"1 while a spice shows on any group, so spicesw_g pulls the shader and chainC only then.\"\"\"\n    return int(any(spice_level(g) > 0.0 for g in GROUPS))\n\n\ndef spice_drift(axis):\n    \"\"\"A small wander of the spice picture over its life, read every frame by spice_drift.\"\"\"\n    f = _fx().op(\"t_spice\")[\"timer_fraction\"]\n    return 0.06 * math.sin(2 * math.pi * f) if axis == \"x\" else 0.04 * math.sin(4 * math.pi * f + 1.0)\n\n\ndef _start_xfade(st, group, player, seconds):\n    \"\"\"The group melds from its shown chain slot into the other, carrying `player` with a new\n    look: the next clip at a clip change, the same clip for a mid-clip swap.\"\"\"\n    fx = _fx()\n    x = fx.op(\"xfade_\" + group)\n    if x.par.Active:\n        _finish_xfade(st, group)  # a swap still running when the clip change comes\n    if player != st[\"player\"] and not fx.par.Hold:\n        _roll_mirror(st, group)\n        _roll_pan(st, group)\n    slot = 3 - st[\"chain\"][group]\n    fx.op(f\"src{slot}_{group}\").par.index = 0 if player == \"A\" else 1\n    if not fx.par.Hold:\n        sel = _selection_for(st, player, group)\n        st[\"sel\"][group] = sel\n        _apply(group, slot, sel)\n    st[\"target\"][group] = (slot, player)  # read back at the end, when roles may have swapped already\n    forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one\n    x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)\n    x.op(\"smear_fb\").par.resetpulse.pulse()\n    fx.op(\"nxt_\" + group).par.index = slot - 1\n    _release(player)  # normally already rolling from the pre-roll; harmless twice\n    x.par.Active = 1\n    t = fx.op(\"tx_\" + group)\n    t.par.length = seconds\n    t.par.start.pulse()\n\n\ndef _roll_pan(st, group):\n    \"\"\"A new part of the frame for the group at a clip change, and the window scheme: the inner\n    group draws close or wide, the outer takes the other. The lags ease both moves.\"\"\"\n    fx = _fx()\n    other = GROUPS[1 - GROUPS.index(group)]\n    fx.op(\"pan_\" + group).par.value0 = pick_pan(_rng(st), float(fx.op(\"pan_\" + other).par.value0))\n    fx.op(\"zoom_\" + group).par.value0 = float(_rng(st).randrange(2)) if group == \"inner\" else 1.0 - float(fx.op(\"zoom_inner\").par.value0)\n\n\ndef _roll_mirror(st, group):\n    \"\"\"The outer pair hangs upside down most of the time; the lag blends the change.\"\"\"\n    if group == \"outer\":\n        _fx().op(\"flip_tgt_outer\").par.value0 = 1.0 if _rng(st).random() < UPSIDE_CHANCE else 0.0\n\n\ndef _finish_xfade(st, group):\n    \"\"\"The transition is over: the group shows the slot it melded into.\"\"\"\n    fx = _fx()\n    if group in st[\"target\"]:\n        slot, _ = st[\"target\"][group]\n        st[\"chain\"][group] = slot\n        fx.op(\"cur_\" + group).par.index = slot - 1\n    fx.op(\"xfade_\" + group).par.Active = 0\n    fx.op(\"tx_\" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur\n\n\ndef _release(player):\n    p = _fx().op(\"player\" + player)\n    p.par.cue = False\n    p.par.play = True\n\n\ndef _timer(name, seconds):\n    t = _fx().op(name)\n    t.par.length = max(seconds, 0.05)\n    t.par.start.pulse()\n\n\ndef start():\n    \"\"\"Called once from the Execute DAT's onStart and at the end of the build.\"\"\"\n    fx = _fx()\n    fx.unstore(\"state\")\n    for name in (\"t_preroll\", \"t_turn\", \"t_inner\", \"t_outer\", \"tx_inner\", \"tx_outer\", \"t_reroll\", \"t_spice\", \"t_spicewait\"):\n        fx.op(name).par.initialize.pulse()  # a timer saved mid run would fire into fresh state\n    for g in GROUPS:\n        fx.op(\"xfade_\" + g).par.Active = 0\n    st = _state()\n    st[\"player\"] = \"B\"  # so that _pick_next cues the first clip into A\n    first = _pick_next(st)\n    st[\"player\"] = first\n    st[\"lead\"] = 0.0\n    _release(first)\n    st[\"chain\"], st[\"target\"] = {}, {}\n    for g in GROUPS:\n        st[\"chain\"][g] = 1\n        fx.op(\"cur_\" + g).par.index = 0\n        fx.op(\"src1_\" + g).par.index = 0 if first == \"A\" else 1\n        st[\"sel\"][g] = None\n    for g in GROUPS:\n        st[\"sel\"][g] = _selection_for(st, first, g)\n        _apply(g, 1, st[\"sel\"][g])\n        _roll_mirror(st, g)\n        _roll_pan(st, g)\n    if fx.par.Hold:\n        _hold_apply(st, str(fx.par.Effect))\n    _begin_segment(st)\n    _schedule_spice(st)\n\n\ndef _begin_segment(st):\n    \"\"\"Both groups show st['player']; cue the next clip and arm the timers.\"\"\"\n    fx = _fx()\n    plan = st[\"plan\"][st[\"player\"]]\n    _pick_next(st)\n    print(\"clip:\", st[\"clip\"][st[\"player\"]], \"| speed\", plan[\"speed\"], \"| next:\", st[\"clip\"][OTHER[st[\"player\"]]])\n    L, T, t = plan[\"length\"], plan[\"tease\"], plan[\"xfade\"]\n    if plan[\"turn\"] is None:\n        fx.op(\"t_turn\").par.initialize.pulse()  # cancel a turn armed by the segment before\n    else:\n        _timer(\"t_turn\", plan[\"turn\"] - st[\"lead\"])\n    _timer(\"t_preroll\", L - T - t - PREROLL)\n    _timer(\"t_inner\", L - T - t)\n    _timer(\"t_outer\", L - t)\n    r = fx.op(\"t_reroll\")\n    r.par.length = float(fx.par.Rerollevery)\n    r.par.start.pulse()\n\n\ndef on_done(timer_name):\n    st = _state()\n    fx = _fx()\n    if timer_name == \"t_preroll\":\n        _release(OTHER[st[\"player\"]])\n    elif timer_name == \"t_spicewait\":\n        if not fx.par.Hold:\n            _start_spice(st)\n        else:\n            _schedule_spice(st)\n    elif timer_name == \"t_spice\":\n        _end_spice(st)\n    elif timer_name == \"t_turn\":\n        fx.op(\"player\" + st[\"player\"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top\n    elif timer_name in (\"t_inner\", \"t_outer\"):\n        _start_xfade(st, timer_name[2:], OTHER[st[\"player\"]], st[\"plan\"][st[\"player\"]][\"xfade\"])\n    elif timer_name in (\"tx_inner\", \"tx_outer\"):\n        g = timer_name[3:]\n        # with no tease both transitions end in the same frame, and the outer one may have\n        # swapped st[\"player\"] already, so the target comes from the start of the transition\n        _, nxt = st[\"target\"].get(g, (None, st[\"player\"]))\n        _finish_xfade(st, g)\n        if g == \"outer\" and st[\"player\"] != nxt:\n            plan = st[\"plan\"][st[\"player\"]]\n            st[\"lead\"] = plan[\"tease\"] + plan[\"xfade\"] + PREROLL\n            st[\"player\"] = nxt\n            _begin_segment(st)\n\n\ndef on_reroll():\n    \"\"\"Every Rerollevery seconds one group, in turn, may swap to a new look mid clip, melded\n    over SWAP seconds, unless its clip change is about to do that anyway.\"\"\"\n    st = _state()\n    fx = _fx()\n    if fx.par.Hold:\n        return\n    st[\"reroll_n\"] = st.get(\"reroll_n\", 0) + 1\n    g = GROUPS[st[\"reroll_n\"] % 2]\n    rng = _rng(st)\n    secs = round(rng.uniform(*SWAP), 2)\n    if rng.random() >= SWAP_CHANCE or fx.op(\"xfade_\" + g).par.Active:\n        return\n    t = fx.op(\"t_\" + g)\n    if float(t.par.length) * (1 - t[\"timer_fraction\"]) < secs + 2:\n        return\n    _start_xfade(st, g, st[\"player\"], secs)\n"
+  },
+  "/project1/fx/spice_drift": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/sequencer').module.spice_drift('x')",
+     "val": 0.0
+    },
+    "ty": {
+     "expr": "op('/project1/fx/sequencer').module.spice_drift('y')",
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/chainC",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/spice_glsl": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "file": {
+     "val": "~/dev/studio_visuals/td/glsl/xfade.glsl"
+    },
+    "syncfile": {
+     "val": true
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "// Three transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size\n// (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.\n//   0 burn:     the next clip appears in the bright parts of the current one first and eats\n//               outward through a crisp, slightly ragged edge\n//   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the\n//               strip, so the two smear into one before the next settles\n//   2 colour:   the next clip's red lands first, then green, then blue, each sliding in from\n//               its own small offset, so the picture passes through a split, saturated phase\nuniform float uProgress;\nuniform float uType;\nout vec4 fragColor;\n\nfloat luma(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }\n\n// samples outside the strip mirror back in, no streaked edges\nvec2 mir(vec2 u) { vec2 m = mod(u, 2.0); return mix(m, 2.0 - m, step(1.0, m)); }\nvec4 cur(vec2 u) { return texture(sTD2DInputs[0], mir(u)); }\nvec4 nxt(vec2 u) { return texture(sTD2DInputs[1], mir(u)); }\n\nfloat hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat vnoise(vec2 p) {\n    vec2 i = floor(p), f = fract(p);\n    f = f * f * (3.0 - 2.0 * f);\n    return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);\n}\nfloat noise(vec2 p) { return 0.65 * vnoise(p) + 0.35 * vnoise(p * 2.7 + 5.0); }\n\nvoid main() {\n    vec2 uv = vUV.st;\n    float p = clamp(uProgress, 0.0, 1.0);\n    vec4 c = cur(uv), n = nxt(uv);\n    vec4 o;\n    if (uType < 0.5) {\n        float edge = luma(c) + 0.12 * noise(uv * vec2(6.0, 18.0));\n        float t = 1.15 - p * 1.45;\n        o = mix(c, n, smoothstep(t - 0.03, t + 0.03, edge));\n    } else if (uType < 1.5) {\n        float a = 0.4 * sin(3.14159 * p);\n        vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);\n        vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);\n        o = mix(c2, n2, smoothstep(0.3, 0.7, p));\n    } else {\n        float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);\n        float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;\n        float g = nxt(uv + vec2(0.0, 0.02 * (1.0 - pg))).g;\n        float b = nxt(uv - vec2(0.03 * (1.0 - pb), 0.0)).b;\n        o = vec4(mix(c.r, r, pr), mix(c.g, g, pg), mix(c.b, b, pb), 1.0);\n    }\n    fragColor = TDOutputSwizzle(o);\n}\n"
+  },
+  "/project1/fx/spice_inner": {
+   "type": "glslTOP",
+   "optype": "glsl",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "pixeldat": {
+     "val": "spice_glsl"
+    },
+    "computedat": {
+     "val": "spice_inner_compute"
+    },
+    "vec0name": {
+     "val": "uProgress"
+    },
+    "vec0valuex": {
+     "expr": "op('/project1/fx/sequencer').module.spice_level('inner')",
+     "val": 0.5
+    },
+    "vec0valuey": {
+     "val": 0.0
+    },
+    "vec0valuez": {
+     "val": 0.0
+    },
+    "vec0valuew": {
+     "val": 0.0
+    },
+    "vec1name": {
+     "val": "uType"
+    },
+    "vec1valuex": {
+     "expr": "op('/project1/fx/sequencer').module.spice_type()",
+     "val": 1.0
+    },
+    "vec1valuey": {
+     "val": 1.0
+    },
+    "vec1valuez": {
+     "val": 1.0
+    },
+    "vec1valuew": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/xfade_inner",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/spice_drift",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/spice_inner_compute": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    320,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    }
+   },
+   "text": "// Example Compute Shader\n\n// uniform float exampleUniform;\n\nlayout (local_size_x = 8, local_size_y = 4) in;\nvoid main()\n{\n\t// This code is running 1:1 per pixel, so early-exit\n\t// if this thread overhangs the edge of the output\n\tif (any(greaterThanEqual(ivec2(gl_GlobalInvocationID.xy), ivec2(uTDOutputInfo.res.zw))))\n\t\treturn;\n\n\tvec4 color;\n\t//color = texelFetch(sTD2DInputs[0], ivec2(gl_GlobalInvocationID.xy), 0);\n\tcolor = vec4(1.0);\n\t// We need to use TDImageStoreOutput() so that 8-bit textures that are sRGB\n\t// encoded can be written to correctly from incoming linear values.\n\t// imageStore() does not do this automatically, while pixel shader outputs do.\n\tTDImageStoreOutput(0, gl_GlobalInvocationID, color);\n}\n"
+  },
+  "/project1/fx/spice_inner_info": {
+   "type": "infoDAT",
+   "optype": "info",
+   "pos": [
+    160,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "op": {
+     "val": "spice_inner"
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "Vertex Shader Compile Results:\n\nCompiled Successfully\n\n=============\nPixel Shader Compile Results:\n\nCompiled Successfully\n"
+  },
+  "/project1/fx/spice_inner_pixel": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    },
+    "extension": {
+     "val": "frag"
+    }
+   },
+   "text": "\n// Example Pixel Shader\n\n// uniform float exampleUniform;\n\nout vec4 fragColor;\nvoid main()\n{\n\t// vec4 color = texture(sTD2DInputs[0], vUV.st);\n\tvec4 color = vec4(1.0);\n\tfragColor = TDOutputSwizzle(color);\n}\n"
+  },
+  "/project1/fx/spice_outer": {
+   "type": "glslTOP",
+   "optype": "glsl",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "pixeldat": {
+     "val": "spice_glsl"
+    },
+    "computedat": {
+     "val": "spice_outer_compute"
+    },
+    "vec0name": {
+     "val": "uProgress"
+    },
+    "vec0valuex": {
+     "expr": "op('/project1/fx/sequencer').module.spice_level('outer')",
+     "val": 0.5
+    },
+    "vec0valuey": {
+     "val": 0.0
+    },
+    "vec0valuez": {
+     "val": 0.0
+    },
+    "vec0valuew": {
+     "val": 0.0
+    },
+    "vec1name": {
+     "val": "uType"
+    },
+    "vec1valuex": {
+     "expr": "op('/project1/fx/sequencer').module.spice_type()",
+     "val": 1.0
+    },
+    "vec1valuey": {
+     "val": 1.0
+    },
+    "vec1valuez": {
+     "val": 1.0
+    },
+    "vec1valuew": {
+     "val": 1.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/xfade_outer",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/spice_drift",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/spice_outer_compute": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    320,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    }
+   },
+   "text": "// Example Compute Shader\n\n// uniform float exampleUniform;\n\nlayout (local_size_x = 8, local_size_y = 4) in;\nvoid main()\n{\n\t// This code is running 1:1 per pixel, so early-exit\n\t// if this thread overhangs the edge of the output\n\tif (any(greaterThanEqual(ivec2(gl_GlobalInvocationID.xy), ivec2(uTDOutputInfo.res.zw))))\n\t\treturn;\n\n\tvec4 color;\n\t//color = texelFetch(sTD2DInputs[0], ivec2(gl_GlobalInvocationID.xy), 0);\n\tcolor = vec4(1.0);\n\t// We need to use TDImageStoreOutput() so that 8-bit textures that are sRGB\n\t// encoded can be written to correctly from incoming linear values.\n\t// imageStore() does not do this automatically, while pixel shader outputs do.\n\tTDImageStoreOutput(0, gl_GlobalInvocationID, color);\n}\n"
+  },
+  "/project1/fx/spice_outer_info": {
+   "type": "infoDAT",
+   "optype": "info",
+   "pos": [
+    160,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "op": {
+     "val": "spice_outer"
+    },
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "Vertex Shader Compile Results:\n\nCompiled Successfully\n\n=============\nPixel Shader Compile Results:\n\nCompiled Successfully\n"
+  },
+  "/project1/fx/spice_outer_pixel": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "glsl"
+    },
+    "extension": {
+     "val": "frag"
+    }
+   },
+   "text": "\n// Example Pixel Shader\n\n// uniform float exampleUniform;\n\nout vec4 fragColor;\nvoid main()\n{\n\t// vec4 color = texture(sTD2DInputs[0], vUV.st);\n\tvec4 color = vec4(1.0);\n\tfragColor = TDOutputSwizzle(color);\n}\n"
+  },
+  "/project1/fx/spicesw_inner": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "op('/project1/fx/sequencer').module.spice_on()",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/xfade_inner",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/spice_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/spicesw_outer": {
+   "type": "switchTOP",
+   "optype": "switch",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "index": {
+     "expr": "op('/project1/fx/sequencer').module.spice_on()",
+     "val": 0.0
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/xfade_outer",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/spice_outer",
+     0
+    ]
+   ]
   },
   "/project1/fx/src1_inner": {
    "type": "switchTOP",
@@ -9110,12 +12425,12 @@
    "inputs": [
     [
      0,
-     "/project1/fx/fitA_inner",
+     "/project1/fx/winA_inner",
      0
     ],
     [
      1,
-     "/project1/fx/fitB_inner",
+     "/project1/fx/winB_inner",
      0
     ]
    ]
@@ -9130,12 +12445,12 @@
    "inputs": [
     [
      0,
-     "/project1/fx/fitA_outer",
+     "/project1/fx/winA_outer",
      0
     ],
     [
      1,
-     "/project1/fx/fitB_outer",
+     "/project1/fx/winB_outer",
      0
     ]
    ]
@@ -9150,12 +12465,12 @@
    "inputs": [
     [
      0,
-     "/project1/fx/fitA_inner",
+     "/project1/fx/winA_inner",
      0
     ],
     [
      1,
-     "/project1/fx/fitB_inner",
+     "/project1/fx/winB_inner",
      0
     ]
    ]
@@ -9167,15 +12482,20 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
-     "/project1/fx/fitA_outer",
+     "/project1/fx/winA_outer",
      0
     ],
     [
      1,
-     "/project1/fx/fitB_outer",
+     "/project1/fx/winB_outer",
      0
     ]
    ]
@@ -9189,7 +12509,7 @@
    ],
    "pars": {
     "length": {
-     "val": 45.419999999999995
+     "val": 47.45
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9240,7 +12560,7 @@
    ],
    "pars": {
     "length": {
-     "val": 47.589999999999996
+     "val": 49.0
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9291,7 +12611,7 @@
    ],
    "pars": {
     "length": {
-     "val": 44.419999999999995
+     "val": 46.45
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9390,6 +12710,108 @@
    },
    "text": "\"\"\"\nTimer CHOP Callbacks\n\nme - this DAT\n\ntimerOp - the connected Timer CHOP\ncycle - the cycle index\ninterrupt - True if the user initiated a premature, False if a result of a \n\tnormal timeout\nfraction - the time in 0-1 fractional form\n\nsegment - an object describing the segment:\n\tcan be automatically cast to its index: e.g.:  segment+3, segment==2, etc\n\t\n\tmembers of segment object:\n\t\tindex\t numeric order of the segment, from 0\n\t\towner\tTimer CHOP it belongs to\n\t\t\n\t\tlengthSeconds, lengthSamples, lengthFrames\n\t\tdelaySeconds, delaySamples, delayFrames\n\t\tbeginSeconds, beginSamples, beginFrames\n\t\tspeed\n\"\"\"\n#\t  cycle, cycleLimit, maxCycles\n#\t  cycleEndAlertSeconds, cycleEndAlertSamples, cycleEndAlertFrames\n#\n#\t  row - one validly named member per column:\n#\t\t\tcolumn headings used to override parameters:\n#\t\t\t\tlength, delay, speed, cyclelimit, maxcycles, \n#\t\t\t\tcycleendalert\n#\t\t\tspecial column headings:\n#\t\t\t\tbegin (time at which to start, independent of \n#\t\t\t\tdelays/lengths, overrides delay)\n#\n#\tcustom - dictionary of all columns that don't map to a built-in feature\n#\n\n# onInitialize(): if return value > 0, it will be\n# called again after the returned number of frames.\n# callCount increments with each attempt, starting at 1\n\ndef onInitialize(timerOp: timerCHOP, callCount: int) -> int:\n\t\"\"\"\n\tCalled when the Timer CHOP is initialized.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tcallCount: Increments with each attempt, starting at 1\n\t\t\n\tReturns:\n\t\tint: If > 0, will be called again after the returned number of frames\n\t\"\"\"\n\treturn 0\n\ndef onReady(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP is ready.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onStart(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onTimerPulse(timerOp: timerCHOP, segment: Segment):\n\t\"\"\"\n\tCalled when the timer pulses.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\"\"\"\n\treturn\n\ndef whileTimerActive(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\t fraction: float):\n\t\"\"\"\n\tCalled while the timer is active.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\tcycle: The cycle index\n\t\tfraction: The time in 0-1 fractional form\n\t\"\"\"\n\treturn\n\ndef onSegmentEnter(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t   interrupt: bool):\n\t\"\"\"\n\tCalled when entering a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being entered\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onSegmentExit(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t  interrupt: bool):\n\t\"\"\"\n\tCalled when exiting a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being exited\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onCycleStart(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onCycleEndAlert(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\talertSegment: Segment, alertDone: bool, \n\t\t\t\t\tinterrupt: bool):\n\t\"\"\"\n\tCalled when a cycle end alert occurs.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\talertSegment: The alert segment\n\t\talertDone: True if alert is done\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onCycle(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle completes.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onDone(timerOp: timerCHOP, segment: Segment, interrupt: bool):\n\t\"\"\"\n\tCalled when the timer is done.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onSubrangeStart(timerOp: timerCHOP):\n\treturn\n"
   },
+  "/project1/fx/t_spice": {
+   "type": "timerCHOP",
+   "optype": "timer",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "length": {
+     "val": 10.846066918706539
+    },
+    "callbacks": {
+     "val": "timers_callbacks"
+    },
+    "exttcop": {
+     "expr": "tdu.Timecode()",
+     "val": ""
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "exportmethod": {
+     "val": "datname"
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/t_spice_callbacks": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "python"
+    }
+   },
+   "text": "\"\"\"\nTimer CHOP Callbacks\n\nme - this DAT\n\ntimerOp - the connected Timer CHOP\ncycle - the cycle index\ninterrupt - True if the user initiated a premature, False if a result of a \n\tnormal timeout\nfraction - the time in 0-1 fractional form\n\nsegment - an object describing the segment:\n\tcan be automatically cast to its index: e.g.:  segment+3, segment==2, etc\n\t\n\tmembers of segment object:\n\t\tindex\t numeric order of the segment, from 0\n\t\towner\tTimer CHOP it belongs to\n\t\t\n\t\tlengthSeconds, lengthSamples, lengthFrames\n\t\tdelaySeconds, delaySamples, delayFrames\n\t\tbeginSeconds, beginSamples, beginFrames\n\t\tspeed\n\"\"\"\n#\t  cycle, cycleLimit, maxCycles\n#\t  cycleEndAlertSeconds, cycleEndAlertSamples, cycleEndAlertFrames\n#\n#\t  row - one validly named member per column:\n#\t\t\tcolumn headings used to override parameters:\n#\t\t\t\tlength, delay, speed, cyclelimit, maxcycles, \n#\t\t\t\tcycleendalert\n#\t\t\tspecial column headings:\n#\t\t\t\tbegin (time at which to start, independent of \n#\t\t\t\tdelays/lengths, overrides delay)\n#\n#\tcustom - dictionary of all columns that don't map to a built-in feature\n#\n\n# onInitialize(): if return value > 0, it will be\n# called again after the returned number of frames.\n# callCount increments with each attempt, starting at 1\n\ndef onInitialize(timerOp: timerCHOP, callCount: int) -> int:\n\t\"\"\"\n\tCalled when the Timer CHOP is initialized.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tcallCount: Increments with each attempt, starting at 1\n\t\t\n\tReturns:\n\t\tint: If > 0, will be called again after the returned number of frames\n\t\"\"\"\n\treturn 0\n\ndef onReady(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP is ready.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onStart(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onTimerPulse(timerOp: timerCHOP, segment: Segment):\n\t\"\"\"\n\tCalled when the timer pulses.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\"\"\"\n\treturn\n\ndef whileTimerActive(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\t fraction: float):\n\t\"\"\"\n\tCalled while the timer is active.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\tcycle: The cycle index\n\t\tfraction: The time in 0-1 fractional form\n\t\"\"\"\n\treturn\n\ndef onSegmentEnter(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t   interrupt: bool):\n\t\"\"\"\n\tCalled when entering a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being entered\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onSegmentExit(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t  interrupt: bool):\n\t\"\"\"\n\tCalled when exiting a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being exited\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onCycleStart(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onCycleEndAlert(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\talertSegment: Segment, alertDone: bool, \n\t\t\t\t\tinterrupt: bool):\n\t\"\"\"\n\tCalled when a cycle end alert occurs.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\talertSegment: The alert segment\n\t\talertDone: True if alert is done\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onCycle(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle completes.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onDone(timerOp: timerCHOP, segment: Segment, interrupt: bool):\n\t\"\"\"\n\tCalled when the timer is done.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onSubrangeStart(timerOp: timerCHOP):\n\treturn\n"
+  },
+  "/project1/fx/t_spicewait": {
+   "type": "timerCHOP",
+   "optype": "timer",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "length": {
+     "val": 51.288100691003606
+    },
+    "callbacks": {
+     "val": "timers_callbacks"
+    },
+    "exttcop": {
+     "expr": "tdu.Timecode()",
+     "val": ""
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "exportmethod": {
+     "val": "datname"
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/t_spicewait_callbacks": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "python"
+    }
+   },
+   "text": "\"\"\"\nTimer CHOP Callbacks\n\nme - this DAT\n\ntimerOp - the connected Timer CHOP\ncycle - the cycle index\ninterrupt - True if the user initiated a premature, False if a result of a \n\tnormal timeout\nfraction - the time in 0-1 fractional form\n\nsegment - an object describing the segment:\n\tcan be automatically cast to its index: e.g.:  segment+3, segment==2, etc\n\t\n\tmembers of segment object:\n\t\tindex\t numeric order of the segment, from 0\n\t\towner\tTimer CHOP it belongs to\n\t\t\n\t\tlengthSeconds, lengthSamples, lengthFrames\n\t\tdelaySeconds, delaySamples, delayFrames\n\t\tbeginSeconds, beginSamples, beginFrames\n\t\tspeed\n\"\"\"\n#\t  cycle, cycleLimit, maxCycles\n#\t  cycleEndAlertSeconds, cycleEndAlertSamples, cycleEndAlertFrames\n#\n#\t  row - one validly named member per column:\n#\t\t\tcolumn headings used to override parameters:\n#\t\t\t\tlength, delay, speed, cyclelimit, maxcycles, \n#\t\t\t\tcycleendalert\n#\t\t\tspecial column headings:\n#\t\t\t\tbegin (time at which to start, independent of \n#\t\t\t\tdelays/lengths, overrides delay)\n#\n#\tcustom - dictionary of all columns that don't map to a built-in feature\n#\n\n# onInitialize(): if return value > 0, it will be\n# called again after the returned number of frames.\n# callCount increments with each attempt, starting at 1\n\ndef onInitialize(timerOp: timerCHOP, callCount: int) -> int:\n\t\"\"\"\n\tCalled when the Timer CHOP is initialized.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tcallCount: Increments with each attempt, starting at 1\n\t\t\n\tReturns:\n\t\tint: If > 0, will be called again after the returned number of frames\n\t\"\"\"\n\treturn 0\n\ndef onReady(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP is ready.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onStart(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onTimerPulse(timerOp: timerCHOP, segment: Segment):\n\t\"\"\"\n\tCalled when the timer pulses.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\"\"\"\n\treturn\n\ndef whileTimerActive(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\t fraction: float):\n\t\"\"\"\n\tCalled while the timer is active.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\tcycle: The cycle index\n\t\tfraction: The time in 0-1 fractional form\n\t\"\"\"\n\treturn\n\ndef onSegmentEnter(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t   interrupt: bool):\n\t\"\"\"\n\tCalled when entering a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being entered\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onSegmentExit(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t  interrupt: bool):\n\t\"\"\"\n\tCalled when exiting a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being exited\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onCycleStart(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onCycleEndAlert(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\talertSegment: Segment, alertDone: bool, \n\t\t\t\t\tinterrupt: bool):\n\t\"\"\"\n\tCalled when a cycle end alert occurs.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\talertSegment: The alert segment\n\t\talertDone: True if alert is done\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onCycle(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle completes.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onDone(timerOp: timerCHOP, segment: Segment, interrupt: bool):\n\t\"\"\"\n\tCalled when the timer is done.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onSubrangeStart(timerOp: timerCHOP):\n\treturn\n"
+  },
   "/project1/fx/t_turn": {
    "type": "timerCHOP",
    "optype": "timer",
@@ -9399,7 +12821,7 @@
    ],
    "pars": {
     "length": {
-     "val": 25.580000000000002
+     "val": 21.220000000000002
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9488,7 +12910,7 @@
    ],
    "pars": {
     "length": {
-     "val": 9.2
+     "val": 16.99
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9539,7 +12961,7 @@
    ],
    "pars": {
     "length": {
-     "val": 6.55
+     "val": 16.99
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -9581,6 +13003,346 @@
    },
    "text": "\"\"\"\nTimer CHOP Callbacks\n\nme - this DAT\n\ntimerOp - the connected Timer CHOP\ncycle - the cycle index\ninterrupt - True if the user initiated a premature, False if a result of a \n\tnormal timeout\nfraction - the time in 0-1 fractional form\n\nsegment - an object describing the segment:\n\tcan be automatically cast to its index: e.g.:  segment+3, segment==2, etc\n\t\n\tmembers of segment object:\n\t\tindex\t numeric order of the segment, from 0\n\t\towner\tTimer CHOP it belongs to\n\t\t\n\t\tlengthSeconds, lengthSamples, lengthFrames\n\t\tdelaySeconds, delaySamples, delayFrames\n\t\tbeginSeconds, beginSamples, beginFrames\n\t\tspeed\n\"\"\"\n#\t  cycle, cycleLimit, maxCycles\n#\t  cycleEndAlertSeconds, cycleEndAlertSamples, cycleEndAlertFrames\n#\n#\t  row - one validly named member per column:\n#\t\t\tcolumn headings used to override parameters:\n#\t\t\t\tlength, delay, speed, cyclelimit, maxcycles, \n#\t\t\t\tcycleendalert\n#\t\t\tspecial column headings:\n#\t\t\t\tbegin (time at which to start, independent of \n#\t\t\t\tdelays/lengths, overrides delay)\n#\n#\tcustom - dictionary of all columns that don't map to a built-in feature\n#\n\n# onInitialize(): if return value > 0, it will be\n# called again after the returned number of frames.\n# callCount increments with each attempt, starting at 1\n\ndef onInitialize(timerOp: timerCHOP, callCount: int) -> int:\n\t\"\"\"\n\tCalled when the Timer CHOP is initialized.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tcallCount: Increments with each attempt, starting at 1\n\t\t\n\tReturns:\n\t\tint: If > 0, will be called again after the returned number of frames\n\t\"\"\"\n\treturn 0\n\ndef onReady(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP is ready.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onStart(timerOp: timerCHOP):\n\t\"\"\"\n\tCalled when the Timer CHOP starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\"\"\"\n\treturn\n\t\ndef onTimerPulse(timerOp: timerCHOP, segment: Segment):\n\t\"\"\"\n\tCalled when the timer pulses.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\"\"\"\n\treturn\n\ndef whileTimerActive(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\t fraction: float):\n\t\"\"\"\n\tCalled while the timer is active.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object describing the current segment\n\t\tcycle: The cycle index\n\t\tfraction: The time in 0-1 fractional form\n\t\"\"\"\n\treturn\n\ndef onSegmentEnter(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t   interrupt: bool):\n\t\"\"\"\n\tCalled when entering a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being entered\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onSegmentExit(timerOp: timerCHOP, segment: Segment, \n\t\t\t\t  interrupt: bool):\n\t\"\"\"\n\tCalled when exiting a segment.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object being exited\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onCycleStart(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle starts.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onCycleEndAlert(timerOp: timerCHOP, segment: Segment, cycle: int, \n\t\t\t\t\talertSegment: Segment, alertDone: bool, \n\t\t\t\t\tinterrupt: bool):\n\t\"\"\"\n\tCalled when a cycle end alert occurs.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\talertSegment: The alert segment\n\t\talertDone: True if alert is done\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\t\ndef onCycle(timerOp: timerCHOP, segment: Segment, cycle: int):\n\t\"\"\"\n\tCalled when a cycle completes.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tcycle: The cycle index\n\t\"\"\"\n\treturn\n\ndef onDone(timerOp: timerCHOP, segment: Segment, interrupt: bool):\n\t\"\"\"\n\tCalled when the timer is done.\n\t\n\tArgs:\n\t\ttimerOp: The connected Timer CHOP\n\t\tsegment: The segment object\n\t\tinterrupt: True if user initiated, False if normal timeout\n\t\"\"\"\n\treturn\n\ndef onSubrangeStart(timerOp: timerCHOP):\n\treturn\n"
   },
+  "/project1/fx/wfitA_inner": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 340
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/wpanA_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wfitA_outer": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 340
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/wpanA_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wfitB_inner": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 340
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/wpanB_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wfitB_outer": {
+   "type": "fitTOP",
+   "optype": "fit",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "fit": {
+     "val": "fitoutside"
+    },
+    "outputresolution": {
+     "val": "custom"
+    },
+    "resolutionw": {
+     "val": 340
+    },
+    "resolutionh": {
+     "val": 1080
+    },
+    "outputaspect": {
+     "val": "resolution"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/wpanB_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/winA_inner": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/zoomlag_inner')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/fitA_inner",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/wfitA_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/winA_outer": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/zoomlag_outer')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/fitA_outer",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/wfitA_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/winB_inner": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/zoomlag_inner')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/fitB_inner",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/wfitB_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/winB_outer": {
+   "type": "crossTOP",
+   "optype": "cross",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "cross": {
+     "expr": "op('/project1/fx/zoomlag_outer')[0]",
+     "val": 0.5
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/fitB_outer",
+     0
+    ],
+    [
+     1,
+     "/project1/fx/wfitB_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wpanA_inner": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_inner')[0] + 0.1 * op('/project1/fx/lfo_pan_inner')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/frameA_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wpanA_outer": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_outer')[0] + 0.1 * op('/project1/fx/lfo_pan_outer')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/frameA_outer",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wpanB_inner": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_inner')[0] + 0.1 * op('/project1/fx/lfo_pan_inner')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/frameB_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/wpanB_outer": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "tx": {
+     "expr": "op('/project1/fx/panlag_outer')[0] + 0.1 * op('/project1/fx/lfo_pan_outer')[0]",
+     "val": 0.0
+    },
+    "ty": {
+     "val": 0.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/frameB_outer",
+     0
+    ]
+   ]
+  },
   "/project1/fx/xfade_inner": {
    "type": "baseCOMP",
    "optype": "base",
@@ -9590,7 +13352,7 @@
    ],
    "pars": {
     "Progress": {
-     "expr": "op('/project1/fx/tx_inner')['timer_fraction']",
+     "expr": "op('/project1/fx/sequencer').module.progress(op('/project1/fx/tx_inner')['timer_fraction'])",
      "val": 0.0
     },
     "Type": {
@@ -9759,7 +13521,7 @@
      "val": "text"
     }
    },
-   "text": "// Four transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size\n// (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.\n//   0 burn:     the next clip appears in the bright parts of the current one first and eats\n//               outward through a crisp, slightly ragged edge\n//   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the\n//               strip, so the two smear into one before the next settles\n//   2 patches:  a noise field sweeps a threshold, the next clip arrives as growing blotches\n//   3 colour:   the next clip's red lands first, then green, then blue, each sliding in from\n//               its own small offset, so the picture passes through a split, saturated phase\nuniform float uProgress;\nuniform float uType;\nout vec4 fragColor;\n\nfloat luma(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }\n\n// samples outside the strip mirror back in, no streaked edges\nvec2 mir(vec2 u) { vec2 m = mod(u, 2.0); return mix(m, 2.0 - m, step(1.0, m)); }\nvec4 cur(vec2 u) { return texture(sTD2DInputs[0], mir(u)); }\nvec4 nxt(vec2 u) { return texture(sTD2DInputs[1], mir(u)); }\n\nfloat hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat vnoise(vec2 p) {\n    vec2 i = floor(p), f = fract(p);\n    f = f * f * (3.0 - 2.0 * f);\n    return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);\n}\nfloat noise(vec2 p) { return 0.65 * vnoise(p) + 0.35 * vnoise(p * 2.7 + 5.0); }\n\nvoid main() {\n    vec2 uv = vUV.st;\n    float p = clamp(uProgress, 0.0, 1.0);\n    vec4 c = cur(uv), n = nxt(uv);\n    vec4 o;\n    if (uType < 0.5) {\n        float edge = luma(c) + 0.12 * noise(uv * vec2(6.0, 18.0));\n        float t = 1.15 - p * 1.45;\n        o = mix(c, n, smoothstep(t - 0.03, t + 0.03, edge));\n    } else if (uType < 1.5) {\n        float a = 0.4 * sin(3.14159 * p);\n        vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);\n        vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);\n        o = mix(c2, n2, smoothstep(0.3, 0.7, p));\n    } else if (uType < 2.5) {\n        float f = noise(uv * vec2(4.0, 12.0) + vec2(0.0, p * 0.5));\n        float t = p * 1.3 - 0.15;\n        o = mix(c, n, smoothstep(f - 0.08, f + 0.08, t));\n    } else {\n        float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);\n        float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;\n        float g = nxt(uv + vec2(0.0, 0.02 * (1.0 - pg))).g;\n        float b = nxt(uv - vec2(0.03 * (1.0 - pb), 0.0)).b;\n        o = vec4(mix(c.r, r, pr), mix(c.g, g, pg), mix(c.b, b, pb), 1.0);\n    }\n    fragColor = TDOutputSwizzle(o);\n}\n"
+   "text": "// Three transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size\n// (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.\n//   0 burn:     the next clip appears in the bright parts of the current one first and eats\n//               outward through a crisp, slightly ragged edge\n//   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the\n//               strip, so the two smear into one before the next settles\n//   2 colour:   the next clip's red lands first, then green, then blue, each sliding in from\n//               its own small offset, so the picture passes through a split, saturated phase\nuniform float uProgress;\nuniform float uType;\nout vec4 fragColor;\n\nfloat luma(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }\n\n// samples outside the strip mirror back in, no streaked edges\nvec2 mir(vec2 u) { vec2 m = mod(u, 2.0); return mix(m, 2.0 - m, step(1.0, m)); }\nvec4 cur(vec2 u) { return texture(sTD2DInputs[0], mir(u)); }\nvec4 nxt(vec2 u) { return texture(sTD2DInputs[1], mir(u)); }\n\nfloat hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat vnoise(vec2 p) {\n    vec2 i = floor(p), f = fract(p);\n    f = f * f * (3.0 - 2.0 * f);\n    return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);\n}\nfloat noise(vec2 p) { return 0.65 * vnoise(p) + 0.35 * vnoise(p * 2.7 + 5.0); }\n\nvoid main() {\n    vec2 uv = vUV.st;\n    float p = clamp(uProgress, 0.0, 1.0);\n    vec4 c = cur(uv), n = nxt(uv);\n    vec4 o;\n    if (uType < 0.5) {\n        float edge = luma(c) + 0.12 * noise(uv * vec2(6.0, 18.0));\n        float t = 1.15 - p * 1.45;\n        o = mix(c, n, smoothstep(t - 0.03, t + 0.03, edge));\n    } else if (uType < 1.5) {\n        float a = 0.4 * sin(3.14159 * p);\n        vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);\n        vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);\n        o = mix(c2, n2, smoothstep(0.3, 0.7, p));\n    } else {\n        float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);\n        float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;\n        float g = nxt(uv + vec2(0.0, 0.02 * (1.0 - pg))).g;\n        float b = nxt(uv - vec2(0.03 * (1.0 - pb), 0.0)).b;\n        o = vec4(mix(c.r, r, pr), mix(c.g, g, pg), mix(c.b, b, pb), 1.0);\n    }\n    fragColor = TDOutputSwizzle(o);\n}\n"
   },
   "/project1/fx/xfade_inner/live": {
    "type": "switchTOP",
@@ -9983,11 +13745,6 @@
     ],
     [
      3,
-     "/project1/fx/xfade_inner/glsl",
-     0
-    ],
-    [
-     4,
      "/project1/fx/xfade_inner/smear_out",
      0
     ]
@@ -10002,11 +13759,14 @@
    ],
    "pars": {
     "Progress": {
-     "expr": "op('/project1/fx/tx_outer')['timer_fraction']",
+     "expr": "op('/project1/fx/sequencer').module.progress(op('/project1/fx/tx_outer')['timer_fraction'])",
      "val": 0.0
     },
     "Type": {
-     "val": 3
+     "val": 1
+    },
+    "Active": {
+     "val": true
     }
    },
    "inputs": [
@@ -10171,7 +13931,7 @@
      "val": "text"
     }
    },
-   "text": "// Four transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size\n// (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.\n//   0 burn:     the next clip appears in the bright parts of the current one first and eats\n//               outward through a crisp, slightly ragged edge\n//   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the\n//               strip, so the two smear into one before the next settles\n//   2 patches:  a noise field sweeps a threshold, the next clip arrives as growing blotches\n//   3 colour:   the next clip's red lands first, then green, then blue, each sliding in from\n//               its own small offset, so the picture passes through a split, saturated phase\nuniform float uProgress;\nuniform float uType;\nout vec4 fragColor;\n\nfloat luma(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }\n\n// samples outside the strip mirror back in, no streaked edges\nvec2 mir(vec2 u) { vec2 m = mod(u, 2.0); return mix(m, 2.0 - m, step(1.0, m)); }\nvec4 cur(vec2 u) { return texture(sTD2DInputs[0], mir(u)); }\nvec4 nxt(vec2 u) { return texture(sTD2DInputs[1], mir(u)); }\n\nfloat hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat vnoise(vec2 p) {\n    vec2 i = floor(p), f = fract(p);\n    f = f * f * (3.0 - 2.0 * f);\n    return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);\n}\nfloat noise(vec2 p) { return 0.65 * vnoise(p) + 0.35 * vnoise(p * 2.7 + 5.0); }\n\nvoid main() {\n    vec2 uv = vUV.st;\n    float p = clamp(uProgress, 0.0, 1.0);\n    vec4 c = cur(uv), n = nxt(uv);\n    vec4 o;\n    if (uType < 0.5) {\n        float edge = luma(c) + 0.12 * noise(uv * vec2(6.0, 18.0));\n        float t = 1.15 - p * 1.45;\n        o = mix(c, n, smoothstep(t - 0.03, t + 0.03, edge));\n    } else if (uType < 1.5) {\n        float a = 0.4 * sin(3.14159 * p);\n        vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);\n        vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);\n        o = mix(c2, n2, smoothstep(0.3, 0.7, p));\n    } else if (uType < 2.5) {\n        float f = noise(uv * vec2(4.0, 12.0) + vec2(0.0, p * 0.5));\n        float t = p * 1.3 - 0.15;\n        o = mix(c, n, smoothstep(f - 0.08, f + 0.08, t));\n    } else {\n        float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);\n        float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;\n        float g = nxt(uv + vec2(0.0, 0.02 * (1.0 - pg))).g;\n        float b = nxt(uv - vec2(0.03 * (1.0 - pb), 0.0)).b;\n        o = vec4(mix(c.r, r, pr), mix(c.g, g, pg), mix(c.b, b, pb), 1.0);\n    }\n    fragColor = TDOutputSwizzle(o);\n}\n"
+   "text": "// Three transitions in one shader, picked by uType. Inputs: 0 = current, 1 = next, same size\n// (both are the 340 x 1080 cut). uProgress runs 0 to 1 over the transition.\n//   0 burn:     the next clip appears in the bright parts of the current one first and eats\n//               outward through a crisp, slightly ragged edge\n//   1 distort:  each picture warps the other by its brightness, peaking mid way at 40% of the\n//               strip, so the two smear into one before the next settles\n//   2 colour:   the next clip's red lands first, then green, then blue, each sliding in from\n//               its own small offset, so the picture passes through a split, saturated phase\nuniform float uProgress;\nuniform float uType;\nout vec4 fragColor;\n\nfloat luma(vec4 c) { return dot(c.rgb, vec3(0.299, 0.587, 0.114)); }\n\n// samples outside the strip mirror back in, no streaked edges\nvec2 mir(vec2 u) { vec2 m = mod(u, 2.0); return mix(m, 2.0 - m, step(1.0, m)); }\nvec4 cur(vec2 u) { return texture(sTD2DInputs[0], mir(u)); }\nvec4 nxt(vec2 u) { return texture(sTD2DInputs[1], mir(u)); }\n\nfloat hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat vnoise(vec2 p) {\n    vec2 i = floor(p), f = fract(p);\n    f = f * f * (3.0 - 2.0 * f);\n    return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);\n}\nfloat noise(vec2 p) { return 0.65 * vnoise(p) + 0.35 * vnoise(p * 2.7 + 5.0); }\n\nvoid main() {\n    vec2 uv = vUV.st;\n    float p = clamp(uProgress, 0.0, 1.0);\n    vec4 c = cur(uv), n = nxt(uv);\n    vec4 o;\n    if (uType < 0.5) {\n        float edge = luma(c) + 0.12 * noise(uv * vec2(6.0, 18.0));\n        float t = 1.15 - p * 1.45;\n        o = mix(c, n, smoothstep(t - 0.03, t + 0.03, edge));\n    } else if (uType < 1.5) {\n        float a = 0.4 * sin(3.14159 * p);\n        vec4 c2 = cur(uv + vec2(luma(n) - 0.5, (luma(n) - 0.5) * 0.3) * a);\n        vec4 n2 = nxt(uv - vec2(luma(c) - 0.5, (luma(c) - 0.5) * 0.3) * a);\n        o = mix(c2, n2, smoothstep(0.3, 0.7, p));\n    } else {\n        float pr = smoothstep(0.0, 0.6, p), pg = smoothstep(0.2, 0.8, p), pb = smoothstep(0.4, 1.0, p);\n        float r = nxt(uv + vec2(0.03 * (1.0 - pr), 0.0)).r;\n        float g = nxt(uv + vec2(0.0, 0.02 * (1.0 - pg))).g;\n        float b = nxt(uv - vec2(0.03 * (1.0 - pb), 0.0)).b;\n        o = vec4(mix(c.r, r, pr), mix(c.g, g, pg), mix(c.b, b, pb), 1.0);\n    }\n    fragColor = TDOutputSwizzle(o);\n}\n"
   },
   "/project1/fx/xfade_outer/live": {
    "type": "switchTOP",
@@ -10395,12 +14155,106 @@
     ],
     [
      3,
-     "/project1/fx/xfade_outer/glsl",
-     0
-    ],
-    [
-     4,
      "/project1/fx/xfade_outer/smear_out",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/zoom_inner": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/zoom_outer": {
+   "type": "constantCHOP",
+   "optype": "constant",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "const0value": {
+     "val": 1.0
+    },
+    "rate": {
+     "expr": "me.time.rate",
+     "val": 60.0
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   }
+  },
+  "/project1/fx/zoomlag_inner": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 4.0
+    },
+    "lag2": {
+     "val": 4.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/zoom_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/zoomlag_outer": {
+   "type": "lagCHOP",
+   "optype": "lag",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "lag1": {
+     "val": 4.0
+    },
+    "lag2": {
+     "val": 4.0
+    },
+    "timeslice": {
+     "val": true
+    },
+    "autoexportroot": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/zoom_outer",
      0
     ]
    ]
@@ -22245,7 +26099,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_outer\"\t1\r\ninfo2\top\t\"/project1/fx/out_outer\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/orient_outer\"\t1\r\ninfo2\top\t\"/project1/fx/orient_outer\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item1/execute1": {
    "type": "executeDAT",
@@ -22642,7 +26496,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_outer\"\t1\r\ninfo2\top\t\"/project1/fx/out_outer\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/orient_outer\"\t1\r\ninfo2\top\t\"/project1/fx/orient_outer\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item1/null4": {
    "type": "nullTOP",
@@ -25769,10 +29623,7 @@
      "val": true
     },
     "Texture": {
-     "val": "/project1/fx/out_outer"
-    },
-    "Textureorientation": {
-     "val": "2"
+     "val": "/project1/fx/orient_outer"
     },
     "Softedge": {
      "val": 0.6
@@ -27834,7 +31685,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_inner\"\t1\r\ninfo2\top\t\"/project1/fx/out_inner\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/orient_inner\"\t1\r\ninfo2\top\t\"/project1/fx/orient_inner\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item2/execute1": {
    "type": "executeDAT",
@@ -28231,7 +32082,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_inner\"\t1\r\ninfo2\top\t\"/project1/fx/out_inner\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/orient_inner\"\t1\r\ninfo2\top\t\"/project1/fx/orient_inner\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item2/null4": {
    "type": "nullTOP",
@@ -31358,7 +35209,7 @@
      "val": true
     },
     "Texture": {
-     "val": "/project1/fx/out_inner"
+     "val": "/project1/fx/orient_inner"
     },
     "Softedge": {
      "val": 0.6
@@ -31879,7 +35730,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
+   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item2/scaledUvPivot": {
    "type": "nullSOP",
@@ -39000,7 +42851,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_inner\"\t1\r\ninfo2\top\t\"/project1/fx/out_inner\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/pair_inner\"\t1\r\ninfo2\top\t\"/project1/fx/pair_inner\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item4/execute1": {
    "type": "executeDAT",
@@ -39397,7 +43248,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_inner\"\t1\r\ninfo2\top\t\"/project1/fx/out_inner\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/pair_inner\"\t1\r\ninfo2\top\t\"/project1/fx/pair_inner\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item4/null4": {
    "type": "nullTOP",
@@ -42524,10 +46375,7 @@
      "val": true
     },
     "Texture": {
-     "val": "/project1/fx/out_inner"
-    },
-    "Fliptexture": {
-     "val": true
+     "val": "/project1/fx/pair_inner"
     },
     "Softedge": {
      "val": 0.6
@@ -43048,7 +46896,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
+   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item4/scaledUvPivot": {
    "type": "nullSOP",
@@ -44589,7 +48437,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_outer\"\t1\r\ninfo2\top\t\"/project1/fx/out_outer\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/pair_outer\"\t1\r\ninfo2\top\t\"/project1/fx/pair_outer\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item5/execute1": {
    "type": "executeDAT",
@@ -44986,7 +48834,7 @@
      0
     ]
    ],
-   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/out_outer\"\t1\r\ninfo2\top\t\"/project1/fx/out_outer\"\t1\r\n"
+   "text": "path\tparameter\tvalue\tenable\r\nmaterial\ttop0\t\"/project1/fx/pair_outer\"\t1\r\ninfo2\top\t\"/project1/fx/pair_outer\"\t1\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item5/null4": {
    "type": "nullTOP",
@@ -48113,13 +51961,7 @@
      "val": true
     },
     "Texture": {
-     "val": "/project1/fx/out_outer"
-    },
-    "Fliptexture": {
-     "val": true
-    },
-    "Textureorientation": {
-     "val": "2"
+     "val": "/project1/fx/pair_outer"
     },
     "Softedge": {
      "val": 0.6
@@ -66074,7 +69916,7 @@
      "val": ""
     }
    },
-   "text": "path\ttx\tty\ttz\tcr\tcg\tcb\tca\tmapu\tmapv\tmapw\tinstance\tinsertPos\tselect\tu\tv\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.6274714\t0.42976356\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0\t0\r\n"
+   "text": "path\ttx\tty\ttz\tcr\tcg\tcb\tca\tmapu\tmapv\tmapw\tinstance\tinsertPos\tselect\tu\tv\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.627471\t0.429764\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0\t0\r\n"
   },
   "/project1/kantanMapper1/project/tools/rectDetail/select9": {
    "type": "selectDAT",
@@ -73242,7 +77084,7 @@
      "val": "script1"
     }
    },
-   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n0\t-518.714\t-676.714\t0\t1\t0\t0\t0\t0\t\r\n1\t-443\t-681\t0\t1\t0\t0\t0\t1\t\r\n2\t-367.286\t-676.714\t0\t1\t0\t0\t0\t2\t\r\n3\t-363\t-635\t0\t1\t0\t0\t0\t3\t\r\n4\t-367.286\t-593.286\t0\t1\t0\t0\t0\t4\t\r\n5\t-443\t-589\t0\t1\t0\t0\t0\t5\t\r\n6\t-518.714\t-593.286\t0\t1\t0\t0\t0\t6\t\r\n7\t-523\t-635\t0\t1\t0\t0\t0\t7\t\r\n"
+   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n"
   },
   "/project1/kantanMapper1/project/tools/shapeTransform/sopto2": {
    "type": "soptoCHOP",
@@ -73337,7 +77179,7 @@
      "val": "null4"
     }
    },
-   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n0\t-508\t-666\t0\t1\t0\t0\t0\t0\t\r\n1\t-443\t-666\t0\t1\t0\t0\t0\t1\t\r\n2\t-378\t-666\t0\t1\t0\t0\t0\t2\t\r\n3\t-378\t-635\t0\t1\t0\t0\t0\t3\t\r\n4\t-378\t-604\t0\t1\t0\t0\t0\t4\t\r\n5\t-443\t-604\t0\t1\t0\t0\t0\t5\t\r\n6\t-508\t-604\t0\t1\t0\t0\t0\t6\t\r\n7\t-508\t-635\t0\t1\t0\t0\t0\t7\t\r\n"
+   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n"
   },
   "/project1/kantanMapper1/project/tools/shapeTransform/transform1": {
    "type": "transformSOP",
@@ -77534,7 +81376,7 @@
      "val": "script1"
     }
    },
-   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n0\t-11259.3\t-11179.3\t0\t1\t0\t0\t0\t0\t\r\n1\t0\t-15555\t0\t1\t0\t0\t0\t1\t\r\n2\t11259.3\t-11179.3\t0\t1\t0\t0\t0\t2\t\r\n3\t15635\t0\t0\t1\t0\t0\t0\t3\t\r\n4\t11259.3\t11179.3\t0\t1\t0\t0\t0\t4\t\r\n5\t0\t15555\t0\t1\t0\t0\t0\t5\t\r\n6\t-11259.3\t11179.3\t0\t1\t0\t0\t0\t6\t\r\n7\t-15635\t0\t0\t1\t0\t0\t0\t7\t\r\n"
+   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n"
   },
   "/project1/kantanMapper1/project/tools/textureEdit/shapeTransform/sopto2": {
    "type": "soptoCHOP",
@@ -77629,7 +81471,7 @@
      "val": "null4"
     }
    },
-   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n0\t-320\t-240\t0\t1\t0\t0\t0\t0\t\r\n1\t0\t-240\t0\t1\t0\t0\t0\t1\t\r\n2\t320\t-240\t0\t1\t0\t0\t0\t2\t\r\n3\t320\t0\t0\t1\t0\t0\t0\t3\t\r\n4\t320\t240\t0\t1\t0\t0\t0\t4\t\r\n5\t0\t240\t0\t1\t0\t0\t0\t5\t\r\n6\t-320\t240\t0\t1\t0\t0\t0\t6\t\r\n7\t-320\t0\t0\t1\t0\t0\t0\t7\t\r\n"
+   "text": "index\tP(0)\tP(1)\tP(2)\tPw\trot(0)\trot(1)\trot(2)\tid\tgroups\r\n"
   },
   "/project1/kantanMapper1/project/tools/textureEdit/shapeTransform/transform1": {
    "type": "transformSOP",
@@ -114812,7 +118654,7 @@
      0
     ]
    ],
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/layer/scale/value0/panel1": {
    "type": "panelCHOP",
@@ -114856,7 +118698,7 @@
      "val": "cp1252"
     }
    },
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/layer/scale/value0/text": {
    "type": "textTOP",
@@ -115079,7 +118921,7 @@
      0
     ]
    ],
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/layer/scale/value1/panel1": {
    "type": "panelCHOP",
@@ -115123,7 +118965,7 @@
      "val": "cp1252"
     }
    },
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/layer/scale/value1/text": {
    "type": "textTOP",
@@ -137440,7 +141282,7 @@
      0
     ]
    ],
-   "text": "0.5\r\n"
+   "text": "0.500\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value0/panel1": {
    "type": "panelCHOP",
@@ -137484,7 +141326,7 @@
      "val": "cp1252"
     }
    },
-   "text": "0.5\r\n"
+   "text": "0.500\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value0/text": {
    "type": "textTOP",
@@ -137707,7 +141549,7 @@
      0
     ]
    ],
-   "text": "0.466\r\n"
+   "text": "0.391\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value1/panel1": {
    "type": "panelCHOP",
@@ -137751,7 +141593,7 @@
      "val": "cp1252"
     }
    },
-   "text": "0.466\r\n"
+   "text": "0.391\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value1/text": {
    "type": "textTOP",
@@ -137974,7 +141816,7 @@
      0
     ]
    ],
-   "text": "0.25\r\n"
+   "text": "0.250\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value2/panel1": {
    "type": "panelCHOP",
@@ -138018,7 +141860,7 @@
      "val": "cp1252"
     }
    },
-   "text": "0.25\r\n"
+   "text": "0.250\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/color/value2/text": {
    "type": "textTOP",
@@ -138697,7 +142539,7 @@
      0
     ]
    ],
-   "text": "-443\r\n"
+   "text": "0.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/customPivot/value0/panel1": {
    "type": "panelCHOP",
@@ -138741,7 +142583,7 @@
      "val": "cp1252"
     }
    },
-   "text": "-443\r\n"
+   "text": "0.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/customPivot/value0/text": {
    "type": "textTOP",
@@ -138964,7 +142806,7 @@
      0
     ]
    ],
-   "text": "-635\r\n"
+   "text": "-465.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/customPivot/value1/panel1": {
    "type": "panelCHOP",
@@ -139008,7 +142850,7 @@
      "val": "cp1252"
     }
    },
-   "text": "-635\r\n"
+   "text": "-465.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/customPivot/value1/text": {
    "type": "textTOP",
@@ -142281,7 +146123,7 @@
      0
     ]
    ],
-   "text": "Rectangle3\r\n"
+   "text": "Rectangle6\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/name/value0/panel1": {
    "type": "panelCHOP",
@@ -142325,7 +146167,7 @@
      "val": "cp1252"
     }
    },
-   "text": "Rectangle3\r\n"
+   "text": "Rectangle6\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/name/value0/text": {
    "type": "textTOP",
@@ -149250,7 +153092,7 @@
      0
     ]
    ],
-   "text": "130.0\r\n"
+   "text": "58.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/scale/value0/panel1": {
    "type": "panelCHOP",
@@ -149294,7 +153136,7 @@
      "val": "cp1252"
     }
    },
-   "text": "130.0\r\n"
+   "text": "58.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/scale/value0/text": {
    "type": "textTOP",
@@ -149517,7 +153359,7 @@
      0
     ]
    ],
-   "text": "62.0\r\n"
+   "text": "56.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/scale/value1/panel1": {
    "type": "panelCHOP",
@@ -149561,7 +153403,7 @@
      "val": "cp1252"
     }
    },
-   "text": "62.0\r\n"
+   "text": "56.000\r\n"
   },
   "/project1/kantanMapper1/ui/main/gadgets/rect/scale/value1/text": {
    "type": "textTOP",
@@ -161692,7 +165534,7 @@
      "val": true
     }
    },
-   "text": "select\tu\tv\r\n0\t0.6274714\t0.42976356\r\n0\t0.6274714\t0.42976356\r\n0\t0.6274714\t0.42976356\r\n0\t0.6274714\t0.42976356\r\n0\t0\t0\r\n"
+   "text": "select\tu\tv\r\n0\t0.02289282\t0.9652295\r\n0\t0.627471\t0.429764\r\n0\t0.02289282\t0.9652295\r\n0\t0.02289282\t0.9652295\r\n0\t0\t0\r\n"
   },
   "/project1/kantanMapper1/ui/renderpick/chopto2": {
    "type": "choptoDAT",
@@ -162010,7 +165852,7 @@
      0
     ]
    ],
-   "text": "path\ttx\tty\ttz\tcr\tcg\tcb\tca\tmapu\tmapv\tmapw\tinstance\tinsertPos\tselect\tu\tv\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.6274714\t0.42976356\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.6274714\t0.42976356\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0\t0\r\n"
+   "text": "path\ttx\tty\ttz\tcr\tcg\tcb\tca\tmapu\tmapv\tmapw\tinstance\tinsertPos\tselect\tu\tv\r\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t-1\t0\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.627471\t0.429764\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0.02289282\t0.9652295\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t0\t0\t0\r\n"
   },
   "/project1/kantanMapper1/ui/renderpick/renderpickOnScreen": {
    "type": "renderpickDAT",
@@ -178845,7 +182687,7 @@
      0
     ]
    ],
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/textureEdit/gadgets/shape/scale/value0/panel1": {
    "type": "panelCHOP",
@@ -178889,7 +182731,7 @@
      "val": "cp1252"
     }
    },
-   "text": "1.0\r\n"
+   "text": "1.000\r\n"
   },
   "/project1/kantanMapper1/ui/textureEdit/gadgets/shape/scale/value0/text": {
    "type": "textTOP",
@@ -184837,7 +188679,7 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/Recordings/studio_20261103_2336.mov"
+     "val": "~/dev/studio_visuals/TD_Mapping/Recordings/studio_20261104_1741.mov"
     },
     "qualityscale": {
      "val": 0.85
@@ -184888,7 +188730,7 @@
    ],
    "pars": {
     "length": {
-     "val": 600.0
+     "val": 300.0
     },
     "callbacks": {
      "val": "rec_timer_cb"
@@ -184968,13 +188810,16 @@
      "val": "center"
     },
     "size": {
-     "val": "custom"
+     "val": "fill"
     },
     "winw": {
      "val": 960
     },
     "winh": {
      "val": 540
+    },
+    "borders": {
+     "val": false
     }
    }
   },
