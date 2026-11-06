@@ -393,6 +393,7 @@ def _start_spice(st):
     st["sel"]["spice"] = _selection_for(st, "C", "spice")
     _apply_chain(fx.op("chainC"), st["sel"]["spice"])
     _release("C")
+    print(f"spice on {where} -> {st['clip']['C']}")
     _timer("t_spice", rng.uniform(*SPICE_LEN))
 
 
@@ -436,6 +437,7 @@ def _start_xfade(st, group, player, seconds):
     if player != st["player"] and not fx.par.Hold:
         _roll_mirror(st, group)
         _roll_pan(st, group)
+        print(f"{group} -> {st['clip'][player]}  (over {seconds:.0f} s)")
     slot = 3 - st["chain"][group]
     fx.op(f"src{slot}_{group}").par.index = 0 if player == "A" else 1
     if not fx.par.Hold:
@@ -528,7 +530,6 @@ def _begin_segment(st):
     fx = _fx()
     plan = st["plan"][st["player"]]
     _pick_next(st)
-    print("clip:", st["clip"][st["player"]], "| speed", plan["speed"], "| next:", st["clip"][OTHER[st["player"]]])
     L, T, t = plan["length"], plan["tease"], plan["xfade"]
     if plan["turn"] is None:
         fx.op("t_turn").par.initialize.pulse()  # cancel a turn armed by the segment before
