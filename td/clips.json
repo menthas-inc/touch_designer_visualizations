@@ -18,21 +18,6 @@
   "length": 27.12,
   "motion": 0.008
  },
- "VJ_Visuals/306038063_106583942133175_8665617795441835112_n.mp4": {
-  "buckets": [
-   {
-    "high": 0.3529,
-    "mean": 0.1332
-   },
-   {
-    "high": 0.3451,
-    "mean": 0.1326
-   }
-  ],
-  "fps": 30.0,
-  "length": 18.17,
-  "motion": 0.0614
- },
  "VJ_Visuals/306502356_202778025437617_5893241441307311236_n.mp4": {
   "buckets": [
    {
@@ -51,17 +36,6 @@
   "fps": 30.0,
   "length": 24.01,
   "motion": 0.0079
- },
- "VJ_Visuals/312489846_667697894760507_5115618673255355587_n.mp4": {
-  "buckets": [
-   {
-    "high": 0.6235,
-    "mean": 0.209
-   }
-  ],
-  "fps": 30.0,
-  "length": 10.0,
-  "motion": 0.0339
  },
  "VJ_Visuals/313298745_673571260744561_2831706806569604092_n.mp4": {
   "buckets": [
@@ -93,31 +67,20 @@
   "length": 20.03,
   "motion": 0.067
  },
- "VJ_Visuals/317704282_185215354090252_7672983059872382860_n.mp4": {
+ "VJ_Visuals/316102952_113896274737655_7207353930469692269_n.mp4": {
   "buckets": [
    {
-    "high": 0.5647,
-    "mean": 0.2511
-   }
-  ],
-  "fps": 30.0,
-  "length": 9.93,
-  "motion": 0.0289
- },
- "VJ_Visuals/D244EB333374B20AC3A2CB737321B981_video_dashinit.mp4": {
-  "buckets": [
-   {
-    "high": 0.4235,
-    "mean": 0.1888
+    "high": 0.2157,
+    "mean": 0.0981
    },
    {
-    "high": 0.4235,
-    "mean": 0.1889
+    "high": 0.2157,
+    "mean": 0.0983
    }
   ],
   "fps": 30.0,
-  "length": 18.33,
-  "motion": 0.0088
+  "length": 18.2,
+  "motion": 0.0317
  },
  "VJ_Visuals/Long/10000000_1180135995934144_2765163999944411557_n.mp4": {
   "buckets": [
@@ -416,48 +379,6 @@
   "length": 32.92,
   "motion": 0.0484
  },
- "VJ_Visuals/Long/Snapinsta.app_video_AQNfi9BbecdN4GTDsT5c1GaAdsKBpTUbzEBNO73CzLchMKSh1TLMTEr0soBrfvIStBySIPoLWhV5PCWNM8lFwT_wtcQTgSLTq77TPVw.mp4": {
-  "buckets": [
-   {
-    "high": 0.5961,
-    "mean": 0.4344
-   },
-   {
-    "high": 0.6039,
-    "mean": 0.4532
-   },
-   {
-    "high": 0.6196,
-    "mean": 0.4674
-   },
-   {
-    "high": 0.6275,
-    "mean": 0.4751
-   }
-  ],
-  "fps": 30.0,
-  "length": 40.07,
-  "motion": 0.0061
- },
- "VJ_Visuals/Long/Snapinsta.app_video_AQNwL9VpPF0AeGSDY8xa_7A0dGc9NEq08ZQqXml0VAcjXrWWSFiyw-t1TOIvvo9_lAQWhfsGXis74Kpbaoqp6R19.mp4": {
-  "buckets": [
-   {
-    "high": 0.7961,
-    "mean": 0.4789
-   },
-   {
-    "high": 0.8157,
-    "mean": 0.5172
-   },
-   {
-    "high": 0.8157,
-    "mean": 0.5338
-   }
-  ],
-  "fps": 30.0,
-  "length": 30.09,
-  "motion": 0.0229
- },
  "VJ_Visuals/Long/Snapinsta.app_video_AQO3zMlB9tcps8UHxHnxR1x-CG_6NBXL4id0wYNKbJmZzoihHJMqw8fGYNx6nMr_Ta5LPFLVa8XkrTBFmHbph7Pfky49kAoNxNer7zI.mp4": {
   "buckets": [
    {
@@ -749,6 +670,21 @@
   "length": 25.07,
   "motion": 0.0428
  },
+ "VJ_Visuals/SaveInsta.App - 2917829695300976990_16599293150.mp4": {
+  "buckets": [
+   {
+    "high": 0.7333,
+    "mean": 0.3991
+   },
+   {
+    "high": 0.7294,
+    "mean": 0.3703
+   }
+  ],
+  "fps": 30.0,
+  "length": 14.14,
+  "motion": 0.0339
+ },
  "VJ_Visuals/SaveInsta.App - 2940329686670806618.mp4": {
   "buckets": [
    {
@@ -793,6 +729,17 @@
   "fps": 30.0,
   "length": 14.03,
   "motion": 0.0307
+ },
+ "VJ_Visuals/SaveInsta.App - 3038581965250037808.mp4": {
+  "buckets": [
+   {
+    "high": 0.5804,
+    "mean": 0.1908
+   }
+  ],
+  "fps": 30.0,
+  "length": 6.0,
+  "motion": 0.0136
  },
  "VJ_Visuals/SaveInsta.App - 3040298707466584597.mp4": {
   "buckets": [
@@ -858,21 +805,6 @@
   "length": 16.03,
   "motion": 0.0228
  },
- "VJ_Visuals/SaveInsta.App - 3057534904468579405_3190115635.mp4": {
-  "buckets": [
-   {
-    "high": 0.0627,
-    "mean": 0.0777
-   },
-   {
-    "high": 0.0627,
-    "mean": 0.0755
-   }
-  ],
-  "fps": 30.0,
-  "length": 20.17,
-  "motion": 0.0112
- },
  "VJ_Visuals/SaveInsta.App - 3067090790691683224.mp4": {
   "buckets": [
    {
@@ -918,6 +850,40 @@
   "length": 15.0,
   "motion": 0.0469
  },
+ "VJ_Visuals/Snapinsta.app_video_319544730_218275690544208_7443069927733773376_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.502,
+    "mean": 0.1513
+   },
+   {
+    "high": 0.5255,
+    "mean": 0.1493
+   },
+   {
+    "high": 0.5255,
+    "mean": 0.2063
+   }
+  ],
+  "fps": 30.0,
+  "length": 22.48,
+  "motion": 0.009
+ },
+ "VJ_Visuals/Snapinsta.app_video_322476226_392580893062235_1141589371512753142_n.mp4": {
+  "buckets": [
+   {
+    "high": 0.451,
+    "mean": 0.1591
+   },
+   {
+    "high": 0.4745,
+    "mean": 0.1695
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.0,
+  "motion": 0.0452
+ },
  "VJ_Visuals/Snapinsta.app_video_325381714_1557010518106579_5175204886935737024_n.mp4": {
   "buckets": [
    {
@@ -928,6 +894,21 @@
   "fps": 30.0,
   "length": 10.0,
   "motion": 0.0328
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQM1pMlvnlL_ySEoDU87WrWL_AoMhb7jMsW7odP1gsQUlpnp-O_ta_H8Z_IOcH6xfaxwng-Ye4fxKk4RgWJJazM8.mp4": {
+  "buckets": [
+   {
+    "high": 0.8157,
+    "mean": 0.4604
+   },
+   {
+    "high": 0.7333,
+    "mean": 0.3666
+   }
+  ],
+  "fps": 30.0,
+  "length": 18.04,
+  "motion": 0.0179
  },
  "VJ_Visuals/Snapinsta.app_video_AQMNUaFlTf0s6nnKVGSzjc5HcjEgqrqyJfo2eILCqOgSV2Qahshnqa4CXy856YXR4nWjsmDDlgIyPoxSPjZqSp17.mp4": {
   "buckets": [
@@ -963,6 +944,36 @@
   "length": 18.53,
   "motion": 0.1241
  },
+ "VJ_Visuals/Snapinsta.app_video_AQMTg0a1Vf0Vf87EFju1x8F6n0gsB1tYCibGCHP991_fDIYGoOtLnF4wVLv6FT68B1szRO8eVufH8Eb4YT2J8NiYri5r3CKx_4xqDsc.mp4": {
+  "buckets": [
+   {
+    "high": 0.7804,
+    "mean": 0.4318
+   },
+   {
+    "high": 0.7451,
+    "mean": 0.4736
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.14,
+  "motion": 0.0892
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQMWm-4cN3i9NFqKPubZj9CVdFGnM5MXEcR8QPoJf5GK2xG7JJAlXvfK9UAS11ilskDPKqhFE02je3FvFvFOaJTg.mp4": {
+  "buckets": [
+   {
+    "high": 0.5529,
+    "mean": 0.2257
+   },
+   {
+    "high": 0.5451,
+    "mean": 0.2607
+   }
+  ],
+  "fps": 30.0,
+  "length": 13.33,
+  "motion": 0.0223
+ },
  "VJ_Visuals/Snapinsta.app_video_AQMaZpubAhIZ3D2cPdY5jpWMo9cMbtLuGFxpDn2rNqo86ipZhAMwMYjWeTv118NZt-msCr21kvt6nPNQexeBC8m8.mp4": {
   "buckets": [
    {
@@ -973,21 +984,6 @@
   "fps": 30.0,
   "length": 4.0,
   "motion": 0.1009
- },
- "VJ_Visuals/Snapinsta.app_video_AQMemRxQ673u2J19TXrhIaM-80bOHQ_OAAFevhl8qPc4tXrrcR4a_hJirOw-fhAm30XCO7EF7sc5KVvyd_LBjzoU.mp4": {
-  "buckets": [
-   {
-    "high": 0.6431,
-    "mean": 0.2461
-   },
-   {
-    "high": 0.6039,
-    "mean": 0.2438
-   }
-  ],
-  "fps": 30.0,
-  "length": 15.11,
-  "motion": 0.1176
  },
  "VJ_Visuals/Snapinsta.app_video_AQMgLLgOaAu7Wqpq-UCVjYNRqFLZilWzKoJW0c5TIG-5psE6sFNPA4N4WZiKJCKo93g8W6PsZRFIgC3IA9Qa7jzKNXvAwm6_20ETlvE.mp4": {
   "buckets": [
@@ -1038,6 +1034,21 @@
   "length": 18.97,
   "motion": 0.0069
  },
+ "VJ_Visuals/Snapinsta.app_video_AQNi-2YgbSW6rp-ar_mR75mPR6rKfZUdOOui9W74Ki54e-B-9z_DkyK7uhNiKITOiogiS2aMDSlFknL7cF3ffcBHDljC2rnL_X7R6sg.mp4": {
+  "buckets": [
+   {
+    "high": 0.4392,
+    "mean": 0.1975
+   },
+   {
+    "high": 0.4471,
+    "mean": 0.1861
+   }
+  ],
+  "fps": 30.0,
+  "length": 10.86,
+  "motion": 0.0201
+ },
  "VJ_Visuals/Snapinsta.app_video_AQNr34I5LUPp_NSrqovog0dNxROn8bhjEVAyv4IZDnUQsMUFa8bcxtQV4bCScZgfODzkDp42k1cEeUHiQgAUyV7Ez_J_c5Qz-cYsLak.mp4": {
   "buckets": [
    {
@@ -1056,6 +1067,21 @@
   "fps": 30.0,
   "length": 26.65,
   "motion": 0.0348
+ },
+ "VJ_Visuals/Snapinsta.app_video_AQNtWE9wjLr5pZN5tp-8HeT53CEMICV113R_oKCImTwyocZUaC2-CIT3LRSY574L1qoazvkdQO6yKu9jbjVditWvscZzjnjjRzg4ftI.mp4": {
+  "buckets": [
+   {
+    "high": 0.9216,
+    "mean": 0.4618
+   },
+   {
+    "high": 0.9216,
+    "mean": 0.4619
+   }
+  ],
+  "fps": 30.0,
+  "length": 15.0,
+  "motion": 0.1121
  },
  "VJ_Visuals/Snapinsta.app_video_AQNyGtPt1ra8cmQjQLXv7fPrtVaLHKqWyYuGeK3xTChBIz9KHLo7Atat25YvaxpzrHl1aV1o2aRatOzigX-ArhTNXljmhbje_G2SAnY.mp4": {
   "buckets": [
@@ -1138,16 +1164,5 @@
   "fps": 30.0,
   "length": 12.0,
   "motion": 0.0362
- },
- "VJ_Visuals/Snapinsta.app_video_AQPbYShvwFO6td6f-u4w8VO0FwLQklJr6V4NFwWtoYLXH5EtEOe_faDNW0Z3jUL9bjjWX0mUphvP6wTmMKEd8eTl.mp4": {
-  "buckets": [
-   {
-    "high": 0.7294,
-    "mean": 0.4764
-   }
-  ],
-  "fps": 30.0,
-  "length": 6.5,
-  "motion": 0.0442
  }
 }
