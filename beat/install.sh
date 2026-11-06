@@ -13,4 +13,6 @@ uv pip install --python $P --no-build-isolation madmom
 sed -i '' 's/^from collections import MutableSequence/from collections.abc import MutableSequence/' beat/.venv/lib/python3.10/site-packages/madmom/processors.py
 uv pip install --python $P torch torchaudio librosa matplotlib pyaudio sounddevice python-osc
 uv pip install --python $P --no-deps BeatNet
+# madmom imports pkg_resources, gone from setuptools 81; something above pulls setuptools up, so pin it last
+uv pip install --python $P "setuptools<70"
 $P -c "import BeatNet, madmom, torch, sounddevice, pythonosc; print('beat tracker ready, torch', torch.__version__)"
