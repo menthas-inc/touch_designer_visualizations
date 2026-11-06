@@ -104,6 +104,23 @@ class PanTest(unittest.TestCase):
         self.assertLessEqual(abs(sq.pick_pan(rng, None)), sq.PAN_REACH)
 
 
+class BeatTest(unittest.TestCase):
+    def test_phase_runs_with_the_beat_and_the_offset_pulls_it_back(self):
+        self.assertAlmostEqual(sq.beat_phase_of(10.0, 10.0, 120.0, 0.0), 0.0)
+        self.assertAlmostEqual(sq.beat_phase_of(10.25, 10.0, 120.0, 0.0), 0.5)
+        self.assertAlmostEqual(sq.beat_phase_of(10.0, 10.0, 120.0, 0.1), 0.2)  # the tracker was 100 ms late
+        self.assertAlmostEqual(sq.beat_phase_of(10.5, 10.0, 120.0, 0.0), 0.0)
+
+    def test_lfo_rate_is_musical_when_synced_and_free_otherwise(self):
+        self.assertAlmostEqual(sq.lfo_rate_of(0.05, 32, 120.0), 2.0 / 32)
+        self.assertEqual(sq.lfo_rate_of(0.05, 32, 0.0), 0.05)
+
+    def test_spice_on_the_beat_swells_every_two_beats(self):
+        ys = [sq.spice_env(0.5, 5, beats=b / 100) for b in range(0, 801)]
+        peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 800))
+        self.assertEqual(peaks, 3)  # at beats 2, 4 and 6; 0 and 8 are the ends
+
+
 class SpiceTest(unittest.TestCase):
     def test_env_starts_and_ends_at_zero_pulses_and_never_takes_over(self):
         for pulses in (2, 3, 4):

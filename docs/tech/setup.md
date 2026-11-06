@@ -20,6 +20,19 @@ on disk but not in git.
 
 `docs/tech/network.md` is what the dump says the file does.
 
+## The beat tracker
+
+Spec 002. A separate process hears the room and sends beats to TouchDesigner over OSC. Once:
+`bash beat/install.sh` (Python 3.10 under `beat/.venv`, a few minutes). Then, in a terminal,
+for as long as the show runs:
+
+    beat/.venv/bin/python beat/beat_osc.py
+
+`--list` shows the inputs, `--device N` picks one; the default is the Mac's default input. It
+prints a bpm per beat. On the fx node, `Beatsync` turns the following on and off, `Beatoffset`
+pulls the chain back by the tracker's lag, tuned by eye against the bounce, and `Bpm` shows
+what is heard.
+
 ## Reading a save without TouchDesigner
 
 `/Applications/TouchDesigner.app/Contents/MacOS/toeexpand <file.toe>` writes `<file>.toe.dir`

@@ -77,16 +77,36 @@ SPICE_PULSES = (4, 7)
 SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
 
 
+BEAT_HOLD = 3.0  # seconds without a beat before the chain goes back to its free rates
+BEAT_BOUNCE_DECAY = 0.12  # seconds, the bounce's settle
+REROLL_BEATS = 32  # the reroll tick when synced, in beats
+
+
+def beat_phase_of(now, t, bpm, offset):
+    """0 to 1 through the current beat, given the last beat's time and the tracker's lag. Pure.
+    A positive offset says the tracker was late by that much, so the beat was earlier."""
+    return ((now - t + offset) * bpm / 60.0) % 1.0
+
+
+def lfo_rate_of(free, beats, bpm):
+    """One cycle per `beats` beats when bpm is known, else the free rate. Pure."""
+    return bpm / 60.0 / beats if bpm else free
+
+
 SPICE_PEAK = 0.6  # the spice never shows more than this of itself
 SPICE_ACCEL = 1.0  # the swells come e^this times faster at the end than at the start; negative spreads them out
 
 
-def spice_env(fraction, pulses):
+def spice_env(fraction, pulses, beats=None):
     """0 to SPICE_PEAK and back over a spice, in `pulses` swells whose spacing changes
-    exponentially over its life. Pure."""
+    exponentially over its life; or, given `beats` elapsed since it began, one swell every
+    two beats. Pure."""
     f = min(max(fraction, 0.0), 1.0)
-    phase = (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
-    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * (pulses - 1) * phase))
+    if beats is None:
+        phase = (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
+    else:
+        phase = beats / 2.0
+    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * phase))
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 
@@ -395,7 +415,7 @@ def _start_spice(st):
     rng = _rng(st)
     where = rng.choice(SPICE_WHERE)
     st["spice"] = {"groups": GROUPS if where == "both" else [where], "pulses": rng.randint(*SPICE_PULSES),
-                   "type": rng.randrange(XFADE_TYPES - 1)}  # a shader transition, not the smear
+                   "type": rng.randrange(XFADE_TYPES - 1), "t0": absTime.seconds}  # a shader transition, not the smear
     st["sel"]["spice"] = _selection_for(st, "C", "spice")
     _apply_chain(fx.op("chainC"), st["sel"]["spice"])
     _release("C")
@@ -414,7 +434,56 @@ def spice_level(group):
     sp = st.get("spice")
     if not sp or group not in sp["groups"]:
         return 0.0
-    return spice_env(_fx().op("t_spice")["timer_fraction"], sp["pulses"])
+    beats = None
+    if beat_phase() is not None:
+        beats = (absTime.seconds - sp["t0"]) * st["beat"]["bpm"] / 60.0
+    return spice_env(_fx().op("t_spice")["timer_fraction"], sp["pulses"], beats)
+
+
+# ---------------------------------------------------------------- the beat
+def on_beat(bpm, kind):
+    """A beat from the tracker, through beat_in's callbacks."""
+    st = _state()
+    b = st.setdefault("beat", {"t": 0.0, "bpm": 0.0, "n": 0})
+    b["t"], b["bpm"], b["n"] = absTime.seconds, float(bpm), b["n"] + 1
+    _fx().par.Bpm = round(float(bpm), 1)
+
+
+def _beat(st):
+    """The beat state when sync is on and a beat is fresh, else None."""
+    fx = _fx()
+    b = st.get("beat")
+    if not fx.par.Beatsync or not b or not b["bpm"] or absTime.seconds - b["t"] > BEAT_HOLD:
+        if b and fx.par.Bpm != 0 and absTime.seconds - b["t"] > BEAT_HOLD:
+            fx.par.Bpm = 0
+        return None
+    return b
+
+
+def beat_phase():
+    """0 to 1 through the current beat, None when not synced. Read every frame."""
+    b = _beat(_state())
+    return None if b is None else beat_phase_of(absTime.seconds, b["t"], b["bpm"], float(_fx().par.Beatoffset))
+
+
+def lfo_rate(free, beats):
+    """An LFO's frequency: one cycle per `beats` beats when synced, else its free rate."""
+    b = _beat(_state())
+    return lfo_rate_of(free, beats, b["bpm"] if b else 0.0)
+
+
+def beat_pulse():
+    """1 on the beat, settling to 0 before the next; 0 when not synced. For the bounce."""
+    b = _beat(_state())
+    if b is None:
+        return 0.0
+    since = (absTime.seconds - b["t"] + float(_fx().par.Beatoffset)) % (60.0 / b["bpm"])
+    return math.exp(-since / BEAT_BOUNCE_DECAY)
+
+
+def reroll_seconds():
+    b = _beat(_state())
+    return REROLL_BEATS * 60.0 / b["bpm"] if b else float(_fx().par.Rerollevery)
 
 
 def spice_type():
@@ -545,7 +614,7 @@ def _begin_segment(st):
     _timer("t_inner", L - T - t)
     _timer("t_outer", L - t)
     r = fx.op("t_reroll")
-    r.par.length = float(fx.par.Rerollevery)
+    r.par.length = reroll_seconds()
     r.par.start.pulse()
 
 

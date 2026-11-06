@@ -58,6 +58,12 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   effect only one time in five. `limiter_g` after the transition: `lim_mono`,
   `lim_small` 40 x 40, `lim_avg`, `lim_val`, `lim_gain` (`min(1, Ceiling / mean)`),
   `lim_lag` (0.5 s up, 0.05 s down), `lim_level` brightness. Feedforward, one-sided.
+- **Beat.** `beat_in`, an OSC In DAT on 7400, hands `/beat bpm kind` from `beat/beat_osc.py`
+  to the sequencer's `on_beat`. While `Beatsync` is on and a beat is under 3 s old, every
+  slow LFO runs at a musical rate (`lfo_rate`, one cycle per 16 to 128 beats, each its own),
+  the reroll tick is 32 beats, the spice swells every two beats, and `bounce_g` after
+  `room_g` zooms both groups by `Beatbounce` on each beat, settling in 0.12 s. `Beatoffset`,
+  in seconds, is the tracker's lag. Without a beat all of it falls back to spec 001's rates.
 - **Spice.** A third player, `playerC`, through `fitC` and `chainC` (the same twelve
   effects, a look chosen like the groups') and `spice_drift` (a small wander), brought in
   over one pair or both by `spice_g`, the transition shader again with a type per spice,

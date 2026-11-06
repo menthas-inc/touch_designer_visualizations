@@ -17,7 +17,7 @@ SEQ = os.path.join(REPO, "td", "sequencer.py")
 GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
 ROOM_GLSL = os.path.join(REPO, "td", "glsl", "room.glsl")
 W, H = 340, 1080  # the strip cut
-PAN_LFO = {"outer": 0.011, "inner": 0.017}  # Hz, the two groups' windows drift at different rates
+PAN_LFO = {"outer": (0.011, 128), "inner": (0.017, 64)}  # Hz free, or beats per cycle when synced: the two groups drift at different rates
 PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
 WIDE_FRAME = 1100  # the wide scheme covers this width at 1080 tall: 1920 was three times closer on a portrait clip, this about 1.8
 STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
@@ -104,8 +104,9 @@ def fx_keepchannel(b, src):
     return mk(b, channelmixTOP, "mix", src, **pars)
 
 
-def lfo(b, name, freq):
-    return mk(b, lfoCHOP, name, frequency=freq)
+def lfo(b, name, freq, beats):
+    """A slow LFO at `freq` Hz, or one cycle per `beats` beats when the beat is being heard."""
+    return mk(b, lfoCHOP, name, frequency=f"=op('/project1/fx/sequencer').module.lfo_rate({freq}, {beats})")
 
 
 def fx_highlights(b, src):
@@ -147,8 +148,8 @@ def fx_selfmask(b, src):
 
 def fx_feedback(b, src):
     out = mk(b, nullTOP, "fb_out")
-    lfo(b, "lfo_zoom", 0.05)
-    lfo(b, "lfo_rot", 0.03)
+    lfo(b, "lfo_zoom", 0.05, 32)
+    lfo(b, "lfo_rot", 0.03, 64)
     fb = mk(b, feedbackTOP, "fb", src, top="fb_out")  # input is the first frame, top the loop
     t = mk(b, transformTOP, "xform", fb,
            sx="=1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]", sy="=1 + (parent().par.Zoom - 1) * op('lfo_zoom')[0]",
@@ -160,7 +161,7 @@ def fx_feedback(b, src):
 
 
 def fx_displace(b, src):
-    lfo(b, "lfo", 0.03)
+    lfo(b, "lfo", 0.03, 64)
     n = mk(b, noiseTOP, "noise", mono=True, period="=parent().par.Scale", tz="=absTime.seconds * parent().par.Speed",
            resolutionw=128, resolutionh=128)
     amt = "=parent().par.Amount * (0.7 + 0.3 * op('lfo')[0])"
@@ -168,7 +169,7 @@ def fx_displace(b, src):
 
 
 def fx_echo(b, src):
-    lfo(b, "lfo", 0.05)
+    lfo(b, "lfo", 0.05, 32)
     c = mk(b, cacheTOP, "cache", src, cachesize=61)
     s = mk(b, cacheselectTOP, "sel", cachetop="cache", index="=-int(parent().par.Frames * (0.67 + 0.33 * op('lfo')[0]))")
     return mk(b, crossTOP, "cross", src, s, cross="=parent().par.Mix * parent().par.Enable")
@@ -176,14 +177,14 @@ def fx_echo(b, src):
 
 def fx_mirror(b, src):
     # Mode 0 mirrors across x, 1 across y, 2 both; the seam drifts on two slow LFOs
-    lfo(b, "lfo_x", 0.04)
-    lfo(b, "lfo_y", 0.025)
+    lfo(b, "lfo_x", 0.04, 32)
+    lfo(b, "lfo_y", 0.025, 64)
     return mk(b, mirrorTOP, "mirror", src, flipx="=int(parent().par.Mode) in (0, 2)", flipy="=int(parent().par.Mode) in (1, 2)",
               pivotunit="fraction", pivotx="=0.5 + 0.2 * op('lfo_x')[0]", pivoty="=0.5 + 0.2 * op('lfo_y')[0]")
 
 
 def fx_chroma(b, src):
-    lfo(b, "lfo", 0.08)
+    lfo(b, "lfo", 0.08, 16)
     sh = "parent().par.Shift * (0.5 + 0.5 * op('lfo')[0])"
     left = mk(b, transformTOP, "left", src, tx=f"=-{sh}", extend="mirror")
     right = mk(b, transformTOP, "right", src, tx=f"={sh}", extend="mirror")
@@ -249,9 +250,13 @@ def build():
     fx = proj.create(baseCOMP, "fx")
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
-           Cap=120.0, Rerollevery=20.0, Seed=0, Roomdark=0.0, Roomcontrast=1.0)  # the last two: set on site, see room.glsl
+           Cap=120.0, Rerollevery=20.0, Seed=0, Roomdark=0.0, Roomcontrast=1.0,  # the room ones: set on site, see room.glsl
+           Beatsync=True, Beatoffset=0.0, Beatbounce=0.03, Bpm=0.0)  # spec 002; Bpm is a readout
     fx.par.Roomdark.normMax = 2.0  # the sliders' reach; a custom float runs 0 to 1 otherwise
     fx.par.Roomcontrast.normMin, fx.par.Roomcontrast.normMax = 1.0, 3.0
+    fx.par.Beatoffset.normMin, fx.par.Beatoffset.normMax = -0.5, 0.5
+    fx.par.Beatbounce.normMax = 0.1
+    fx.par.Bpm.normMax = 200.0
     dk = next(pg for pg in fx.customPages if pg.name == "Fx").appendMenu("Darkness", label="Darkness (sets Ceiling and the bright thresholds)")[0]
     dk.menuNames = list(ns["DARKNESS"])
     dk.menuLabels = dk.menuNames
@@ -305,7 +310,7 @@ def build():
         # different rates; past the clip's edge the shift mirrors, so there is never black
         pan = mk(fx, constantCHOP, "pan_" + g, value0=0.0)
         mk(fx, lagCHOP, "panlag_" + g, pan, lag1=4.0, lag2=4.0)
-        mk(fx, lfoCHOP, "lfo_pan_" + g, frequency=PAN_LFO[g])
+        lfo(fx, "lfo_pan_" + g, *PAN_LFO[g])
         zoom = mk(fx, constantCHOP, "zoom_" + g, value0=0.0)
         mk(fx, lagCHOP, "zoomlag_" + g, zoom, lag1=4.0, lag2=4.0)
         shift = f"=op('/project1/fx/panlag_{g}')[0] + {PAN_DRIFT} * op('/project1/fx/lfo_pan_{g}')[0]"
@@ -351,7 +356,10 @@ def build():
         wire(chain, spicesw)
         room = mk(fx, glslTOP, "room_" + g, chain, pixeldat="room_glsl",
                   uniname0="uDark", value0x="=op('/project1/fx').par.Roomdark", uniname1="uContrast", value1x="=op('/project1/fx').par.Roomcontrast")
-        out = mk(fx, nullTOP, "out_" + g, room)
+        bounce = mk(fx, transformTOP, "bounce_" + g, room, extend="mirror",
+                    sx="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
+                    sy="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()")
+        out = mk(fx, nullTOP, "out_" + g, bounce)
         # how the pair hangs. orient_g: the outer pair hangs upside down (once Kantan's 180 on
         # both its strips), now a vertical flip blended in over a lag so the sequencer can hang it
         # upright now and then without a cut. pair_g: the pair's first strip always mirrors the
@@ -378,6 +386,14 @@ def build():
     for g in STRIPS:
         # a relative path on a COMP's own parameter resolves from its parent, so absolute
         setp(fx.op("xfade_" + g), Progress=f"=op('/project1/fx/sequencer').module.progress(op('/project1/fx/tx_{g}')['timer_fraction'])")
+
+    # the beat tracker (beat/beat_osc.py) sends /beat bpm kind here
+    bi = mk(fx, oscinDAT, "beat_in", port=7400, callbacks="beat_in_callbacks")
+    bc = mk(fx, textDAT, "beat_in_callbacks")
+    bc.text = ("def onReceiveOSC(dat, rowIndex, message, bytes, timeStamp, address, args, peer):\n"
+               "    if address == '/beat' and len(args) >= 2:\n"
+               "        op('sequencer').module.on_beat(args[0], args[1])\n"
+               "    return\n")
 
     ex = mk(fx, executeDAT, "run", start=True)
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
