@@ -918,21 +918,6 @@
   "length": 15.0,
   "motion": 0.0469
  },
- "VJ_Visuals/Snapinsta.app_video_322476226_392580893062235_1141589371512753142_n.mp4": {
-  "buckets": [
-   {
-    "high": 0.451,
-    "mean": 0.1591
-   },
-   {
-    "high": 0.4745,
-    "mean": 0.1695
-   }
-  ],
-  "fps": 30.0,
-  "length": 18.0,
-  "motion": 0.0452
- },
  "VJ_Visuals/Snapinsta.app_video_325381714_1557010518106579_5175204886935737024_n.mp4": {
   "buckets": [
    {
