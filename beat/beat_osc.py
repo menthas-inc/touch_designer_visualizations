@@ -7,7 +7,8 @@
 BeatNet (Heydari 2021: a causal CRNN plus a particle filter) in 20 ms hops over the input at
 22050 Hz. On every beat it finds, one OSC message to 127.0.0.1:7400:
     /beat <bpm> <kind>     kind 1 = beat, 2 = downbeat
-bpm is the median of the last eight inter-beat intervals, 0 until there are two. Ctrl-C stops.
+bpm is the median of the last eight inter-beat intervals, folded by octaves into 81 to 160,
+0 until there are two. Ctrl-C stops.
 The tracker's own loop (BeatNet's stream mode) captures with pyaudio on the default device
 and keeps its beats to itself, so this is that loop written out with sounddevice and the
 particle filter's path read after each hop.
@@ -24,6 +25,17 @@ from BeatNet.BeatNet import BeatNet
 from pythonosc.udp_client import SimpleUDPClient
 
 HOST, PORT = "127.0.0.1", 7400
+BPM_RANGE = (81.0, 160.0)  # a tempo outside this is folded by octaves: 70 is taken as 140, 180 as 90
+
+
+def fold(bpm):
+    """bpm doubled or halved until it sits in BPM_RANGE. 0 stays 0."""
+    lo, hi = BPM_RANGE
+    while bpm and bpm < lo:
+        bpm *= 2
+    while bpm > hi:
+        bpm /= 2
+    return bpm
 KINDS = {1: 2, 2: 1}  # BeatNet's path marks a downbeat 1 and a beat 2; on the wire 1 is a beat, 2 a downbeat
 
 
@@ -65,7 +77,7 @@ def main():
                 beat_times.append(now)
                 beat_times[:] = beat_times[-9:]
                 gaps = [b - a for a, b in zip(beat_times, beat_times[1:])]
-                bpm = 60.0 / statistics.median(gaps) if gaps else 0.0
+                bpm = fold(60.0 / statistics.median(gaps)) if gaps else 0.0
                 for _, kind in path[seen:]:
                     client.send_message("/beat", [float(bpm), KINDS.get(int(kind), 1)])
                 seen = len(path)
