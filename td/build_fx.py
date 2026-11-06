@@ -20,6 +20,27 @@ W, H = 340, 1080  # the strip cut
 PAN_LFO = {"outer": (0.011, 128), "inner": (0.017, 64)}  # Hz free, or beats per cycle when synced: the two groups drift at different rates
 PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
 WIDE_FRAME = 1100  # the wide scheme covers this width at 1080 tall: 1920 was three times closer on a portrait clip, this about 1.8
+HELP = {
+    "Ceiling": "The limiter: each group's mean brightness is held at or below this. 1 turns it off.",
+    "Brightmean": "A clip window with a mean luma at or above this counts as bright and gets a darkening effect.",
+    "Brighthigh": "A clip window whose high-percentile luma reaches this counts as bright, whatever its mean.",
+    "Cap": "Seconds a clip plays on the wall at most; long clips get a random window of this length.",
+    "Rerollevery": "Seconds between reroll ticks; each tick one group, in turn, may swap to a new look mid clip.",
+    "Seed": "Random seed for the whole show. 0 means a fresh one at every start.",
+    "Darkness": "Macro: none turns darkening off, default, darker and darkest cut bright patches harder.",
+    "Roomdark": "Pulls whites down by this much, near-black stays; set for the room. 0 is off.",
+    "Roomcontrast": "Steepens the picture after Roomdark so the midtones follow the whites down. 1 is off.",
+    "Beatsync": "Follow the beat from beat/beat_osc.py: LFO rates, the reroll tick, the spice swells and the bounce.",
+    "Beatoffset": "Seconds the tracker hears the beat late; positive pulls the chain earlier. Tune against the bounce.",
+    "Beatbounce": "How much both groups zoom on each beat, settling before the next. 0 is off.",
+    "Bpm": "What the tracker hears, 0 when nothing for 3 s. A readout, not a setting.",
+    "Hold": "Stop the random choosing and show one effect, chosen below, on both groups.",
+    "Effect": "The effect shown while Hold is on.",
+    "Preveffect": "Step Hold to the previous effect.",
+    "Nexteffect": "Step Hold to the next effect.",
+    "Reroll": "New random values for the held effect.",
+    "Xfadetype": "Force one transition type for every clip change, or random.",
+}
 STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
 
 ns = {}
@@ -273,6 +294,8 @@ def build():
     xt = tp.appendMenu("Xfadetype", label="Transition")[0]
     xt.menuNames = ["random", "burn", "distort", "colour", "smear"]
     xt.menuLabels = xt.menuNames
+    for name, text in HELP.items():  # shown on hover over the parameter's name
+        getattr(fx.par, name).help = text
 
     seq = mk(fx, textDAT, "sequencer", file=SEQ, syncfile=True)
 
