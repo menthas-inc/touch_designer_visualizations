@@ -110,7 +110,7 @@ class SpiceTest(unittest.TestCase):
             ys = [sq.spice_env(i / 1000, pulses) for i in range(1001)]
             self.assertEqual(ys[0], 0.0)
             self.assertAlmostEqual(ys[-1], 0.0)
-            self.assertLessEqual(max(ys), 0.9)
+            self.assertLessEqual(max(ys), sq.SPICE_PEAK + 1e-9)
             peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 1000))
             self.assertEqual(peaks, pulses, (pulses, peaks))
 

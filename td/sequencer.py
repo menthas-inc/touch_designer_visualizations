@@ -77,10 +77,16 @@ SPICE_PULSES = (4, 7)
 SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
 
 
+SPICE_PEAK = 0.6  # the spice never shows more than this of itself
+SPICE_ACCEL = 1.0  # the swells come e^this times faster at the end than at the start; negative spreads them out
+
+
 def spice_env(fraction, pulses):
-    """0 to 0.9 and back over a spice, in `pulses` swells. Pure."""
+    """0 to SPICE_PEAK and back over a spice, in `pulses` swells whose spacing changes
+    exponentially over its life. Pure."""
     f = min(max(fraction, 0.0), 1.0)
-    return math.sin(math.pi * f) ** 0.7 * (0.5 + 0.4 * math.cos(2 * math.pi * (pulses - 1) * f))
+    phase = (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
+    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * (pulses - 1) * phase))
 SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
 
 

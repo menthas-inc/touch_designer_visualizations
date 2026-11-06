@@ -96,8 +96,8 @@ pair cuts the clip close, as the file always did, the other wide, about 1.8 time
 a portrait clip; which is which is drawn at every clip change.
 
 Every minute or so a third clip, any from the table, drops in over one pair or both for 10 to
-20 s: it comes in, pulses four to seven times, wanders a little and leaves, never fully taking
-over. It gets its own look, chosen like the groups' and unlike theirs. Timeline for one change:
+20 s: it comes in, pulses four to seven times, quicker as it goes, wanders a little and
+leaves, never showing more than 60% of itself. It gets its own look, chosen like the groups' and unlike theirs. Timeline for one change:
 
 ```
 now                      end - T - t       end - T          end - t        end
