@@ -251,7 +251,7 @@ def build():
     fx.nodeX, fx.nodeY = 0, -600
     custom(fx, "Fx", Ceiling=0.18, Brightmean=ns["DEFAULTS"]["bright_mean"], Brighthigh=ns["DEFAULTS"]["bright_high"],
            Cap=120.0, Rerollevery=20.0, Seed=0, Roomdark=0.0, Roomcontrast=1.0,  # the room ones: set on site, see room.glsl
-           Beatsync=True, Beatoffset=0.0, Beatbounce=0.03, Bpm=0.0)  # spec 002; Bpm is a readout
+           Beatsync=False, Beatoffset=0.0, Beatbounce=0.03, Bpm=0.0)  # spec 002; Bpm is a readout
     fx.par.Roomdark.normMax = 2.0  # the sliders' reach; a custom float runs 0 to 1 otherwise
     fx.par.Roomcontrast.normMin, fx.par.Roomcontrast.normMax = 1.0, 3.0
     fx.par.Beatoffset.normMin, fx.par.Beatoffset.normMax = -0.5, 0.5

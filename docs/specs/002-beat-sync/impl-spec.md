@@ -35,7 +35,7 @@ TouchDesigner's own Python stays untouched (DEV-1, and the free licence is fine 
   since the spice started, one swell per two beats; the sine envelope and the cap stay.
 - `bounce_g`: a Transform TOP after `room_g`, scale `1 + Beatbounce * beat_pulse()`, edges
   mirrored.
-- fx pars: `Beatsync` toggle (on), `Beatoffset` (seconds, -0.5 to 0.5, 0), `Beatbounce`
+- fx pars: `Beatsync` toggle (off), `Beatoffset` (seconds, -0.5 to 0.5, 0), `Beatbounce`
   (0 to 0.1, 0.03), `Bpm` (set by `on_beat`, a readout).
 - Rates slide: the LFO CHOP changes frequency without a phase jump, and `beat_phase` going
   `None` only changes rates, so sync dropping or returning never cuts (AC-2).
