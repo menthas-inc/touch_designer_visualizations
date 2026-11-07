@@ -138,11 +138,11 @@ with these parts that matter:
 
 | item | name | base w x h at centre | corners | texture | orient | flip | tree |
 |---|---|---|---|---|---|---|---|
-| 1 | Rectangle1 | 292 x 1080 at (753, 0) | none | fx/orient_outer | in orient_outer | no | locked |
-| 2 | Rectangle2 | 300 x 1080 at (302, 0) | none | fx/orient_inner | 0 | no | locked |
+| 1 | Rectangle1 | 292 x 1080 at (753, 0) | to the paper, 2026-11-06 | fx/orient_outer | in orient_outer | no | locked |
+| 2 | Rectangle2 | 300 x 1080 at (302, 0) | to the paper, 2026-11-06 | fx/orient_inner | 0 | no | locked |
 | 3 | Rectangle3 | 130 x 62 at (-443, -635) | none | none (test grid) | 0 | no | unlocked, off canvas |
-| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | none | fx/pair_inner | 0 | in pair_inner | locked |
-| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | none | fx/pair_outer | in orient_outer | in pair_outer | locked |
+| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | to the paper, 2026-11-06 | fx/pair_inner | 0 | in pair_inner | locked |
+| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | to the paper, 2026-11-06 | fx/pair_outer | in orient_outer | in pair_outer | locked |
 | 6 | Rectangle6 | 58 x 56 at (0, -465) | none | none, cleared | 0 | no | locked, hidden |
 
 How they got here, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540): the
@@ -156,7 +156,10 @@ intentional (owner, 2026-11-03): they match how each strip hangs. On 2026-11-04 
 moved into fx: the x flip on 4 and 5 is `pair_g`, always on, and the 180 on 1 and 5 is a
 vertical flip in `orient_outer`, crossed in over a 3 s lag and on four clip changes in five,
 so the outer pair sometimes hangs upright like the inner, with no cut. Rectangle3 and 6 are
-leftovers. The saves in `Backup/` are a different installation (2022 to 2023).
+leftovers. The saves in `Backup/` are a different installation (2022 to 2023). On 2026-11-06
+the owner dragged the four strips' corners onto the paper with the projector on, in Kantan's
+panel; the base columns are unchanged and the drags live in each `itemN/keyOffset`, in the
+file and the dump. They are the calibration (SV-2): never reset them from a script again.
 
 ### Driving Kantan from a script
 
