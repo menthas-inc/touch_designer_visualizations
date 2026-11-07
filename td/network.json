@@ -2,7 +2,7 @@
  "project": "Studio_Up_new.1.toe",
  "folder": "~/dev/studio_visuals/TD_Mapping",
  "td_version": "099",
- "op_count": 5995,
+ "op_count": 6000,
  "ops": {
   "/perform": {
    "type": "windowCOMP",
@@ -104,9 +104,117 @@
    ],
    "pars": {
     "Roomcontrast": {
-     "val": 2.200000047683716
+     "val": 2.0899999141693115
     }
    }
+  },
+  "/project1/fx/beat_in": {
+   "type": "oscinDAT",
+   "optype": "oscin",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "port": {
+     "val": 7400
+    },
+    "callbacks": {
+     "val": "beat_in_callbacks"
+    },
+    "fromop": {
+     "expr": "parent()",
+     "val": ""
+    }
+   },
+   "text": "message\r\n/beat 93.95665 1\r\n/beat 109.0689 1\r\n/beat 109.0689 1\r\n/beat 109.0689 2\r\n/beat 93.95665 1\r\n/beat 57.33263 1\r\n/beat 40.37802 2\r\n/beat 40.37802 1\r\n/beat 40.37802 1\r\n/beat 40.37802 2\r\n"
+  },
+  "/project1/fx/beat_in_callbacks": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    -120
+   ],
+   "flags": {
+    "viewer": true
+   },
+   "pars": {
+    "language": {
+     "val": "python"
+    }
+   },
+   "text": "\"\"\"\nOSC In DAT Callbacks\n\nme - this DAT\n\npeer - a Peer object describing the originating message\n  peer.close()\t#close the connection\n  peer.owner  #the operator to whom the peer belongs\n  peer.address\t#network address associated with the peer\n  peer.port\t   #network port associated with the peer\n\"\"\"\n\nfrom typing import List, Any\n\ndef onReceiveOSC(dat: oscinDAT, rowIndex: int, message: str, \n\t\t\t\t byteData: bytes, timeStamp: float, address: str, \n\t\t\t\t args: List[Any], peer: Peer):\n\t\"\"\"\n\tCalled when an OSC message is received.\n\t\n\tArgs:\n\t\tdat: The DAT that received a message\n\t\trowIndex: The row number the message was placed into\n\t\tmessage: ASCII representation of the data\n\t\tbyteData: Byte array of the message\n\t\ttimeStamp: Arrival time component of the OSC message\n\t\taddress: Address component of the OSC message\n\t\targs: List of values contained within the OSC message\n\t\tpeer: Peer object describing the originating message\n\t\"\"\"\n\treturn\n"
+  },
+  "/project1/fx/beat_in_callbacks1": {
+   "type": "textDAT",
+   "optype": "text",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "language": {
+     "val": "text"
+    }
+   },
+   "text": "def onReceiveOSC(dat, rowIndex, message, bytes, timeStamp, address, args, peer):\n    if address == '/beat' and len(args) >= 2:\n        op('sequencer').module.on_beat(args[0], args[1])\n    return\n"
+  },
+  "/project1/fx/bounce_inner": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "sx": {
+     "expr": "1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
+     "val": 1.0
+    },
+    "sy": {
+     "expr": "1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
+     "val": 1.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/room_inner",
+     0
+    ]
+   ]
+  },
+  "/project1/fx/bounce_outer": {
+   "type": "transformTOP",
+   "optype": "transform",
+   "pos": [
+    0,
+    0
+   ],
+   "pars": {
+    "sx": {
+     "expr": "1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
+     "val": 1.0
+    },
+    "sy": {
+     "expr": "1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
+     "val": 1.0
+    },
+    "extend": {
+     "val": "mirror"
+    }
+   },
+   "inputs": [
+    [
+     0,
+     "/project1/fx/room_outer",
+     0
+    ]
+   ]
   },
   "/project1/fx/chain1_inner": {
    "type": "baseCOMP",
@@ -132,7 +240,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0583
+     "val": 0.055
     }
    },
    "inputs": [
@@ -223,7 +331,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.08
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.08, 16)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -444,10 +553,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.5341
+     "val": 0.5836
     },
     "Black": {
-     "val": 0.1859
+     "val": 0.0424
     }
    },
    "inputs": [
@@ -553,13 +662,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0382
+     "val": 0.0836
     },
     "Speed": {
-     "val": 0.0164
+     "val": 0.0358
     },
     "Scale": {
-     "val": 12.4833
+     "val": 7.3378
     }
    },
    "inputs": [
@@ -630,7 +739,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -731,7 +841,7 @@
    ],
    "pars": {
     "Mix": {
-     "val": 0.4919
+     "val": 0.5814
     }
    },
    "inputs": [
@@ -811,7 +921,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -873,10 +984,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 1.9927
+     "val": 1.7167
     },
     "Mix": {
-     "val": 0.6297
+     "val": 0.8492
     }
    },
    "inputs": [
@@ -1004,16 +1115,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 0.9965
+     "val": 1.0154
     },
     "Rotate": {
-     "val": -2.8843
+     "val": -0.6127
     },
     "Decay": {
-     "val": 0.9503
+     "val": 0.9077
     },
     "Mix": {
-     "val": 0.5321
+     "val": 0.6851
     }
    },
    "inputs": [
@@ -1129,7 +1240,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -1153,7 +1265,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -1230,16 +1343,19 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.148
+     "val": 1.0295
     },
     "Tx": {
-     "val": -0.1002
+     "val": -0.0212
     },
     "Ty": {
-     "val": -0.0695
+     "val": -0.1102
     },
     "Flipy": {
      "val": 1
+    },
+    "Rotate": {
+     "val": -12
     }
    },
    "inputs": [
@@ -1384,14 +1500,17 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Cut": {
-     "val": 0.8379
+     "val": 0.8473
     },
     "Soft": {
-     "val": 4.3873
+     "val": 10.1838
     },
     "Amount": {
-     "val": 0.7389
+     "val": 0.8151
     }
    },
    "inputs": [
@@ -1608,9 +1727,6 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Mode": {
      "val": 2
     }
@@ -1646,7 +1762,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.04
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.04, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -1670,7 +1787,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.025
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.025, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -1795,13 +1913,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.9438
+     "val": 0.8321
     },
     "Contrast": {
-     "val": 1.7011
+     "val": 1.8122
     },
     "Sat": {
-     "val": 1.3038
+     "val": 1.6247
     }
    },
    "inputs": [
@@ -2005,10 +2123,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.056
+     "val": 0.1731
     },
     "Sat": {
-     "val": 0.9558
+     "val": 0.8415
     }
    },
    "inputs": [
@@ -2183,8 +2301,11 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Shift": {
-     "val": 0.0471
+     "val": 0.0519
     }
    },
    "inputs": [
@@ -2275,7 +2396,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.08
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.08, 16)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -2496,10 +2618,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.5009
+     "val": 0.4395
     },
     "Black": {
-     "val": 0.1646
+     "val": 0.0165
     }
    },
    "inputs": [
@@ -2605,13 +2727,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0401
+     "val": 0.0783
     },
     "Speed": {
-     "val": 0.0211
+     "val": 0.0353
     },
     "Scale": {
-     "val": 6.045
+     "val": 12.5289
     }
    },
    "inputs": [
@@ -2682,7 +2804,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -2782,8 +2905,11 @@
     0
    ],
    "pars": {
+    "Frames": {
+     "val": 60
+    },
     "Mix": {
-     "val": 0.4753
+     "val": 0.6497
     }
    },
    "inputs": [
@@ -2863,7 +2989,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -2925,10 +3052,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 0.83
+     "val": 1.3566
     },
     "Mix": {
-     "val": 0.6216
+     "val": 0.9579
     }
    },
    "inputs": [
@@ -3054,20 +3181,6 @@
     0,
     0
    ],
-   "pars": {
-    "Zoom": {
-     "val": 1.0124
-    },
-    "Rotate": {
-     "val": 1.1609
-    },
-    "Decay": {
-     "val": 0.972
-    },
-    "Mix": {
-     "val": 0.606
-    }
-   },
    "inputs": [
     [
      0,
@@ -3181,7 +3294,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -3205,7 +3319,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -3282,19 +3397,13 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.2998
+     "val": 1.1464
     },
     "Tx": {
-     "val": -0.1114
+     "val": 0.1317
     },
     "Ty": {
-     "val": -0.0565
-    },
-    "Flipx": {
-     "val": 1
-    },
-    "Rotate": {
-     "val": 187
+     "val": 0.0626
     }
    },
    "inputs": [
@@ -3440,13 +3549,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.8393
+     "val": 0.8085
     },
     "Soft": {
-     "val": 7.5546
+     "val": 7.7452
     },
     "Amount": {
-     "val": 0.64
+     "val": 0.5443
     }
    },
    "inputs": [
@@ -3662,6 +3771,11 @@
     0,
     0
    ],
+   "pars": {
+    "Mode": {
+     "val": 1
+    }
+   },
    "inputs": [
     [
      0,
@@ -3693,7 +3807,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.04
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.04, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -3717,7 +3832,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.025
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.025, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -3842,13 +3958,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.696
+     "val": 0.7949
     },
     "Contrast": {
-     "val": 1.7126
+     "val": 1.4017
     },
     "Sat": {
-     "val": 1.2645
+     "val": 1.5073
     }
    },
    "inputs": [
@@ -4051,11 +4167,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Hue": {
-     "val": 0.138
+     "val": 0.9458
     },
     "Sat": {
-     "val": 0.9665
+     "val": 0.8049
     }
    },
    "inputs": [
@@ -4231,7 +4350,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0519
+     "val": 0.0338
     }
    },
    "inputs": [
@@ -4322,7 +4441,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.08
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.08, 16)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -4546,10 +4666,10 @@
      "val": true
     },
     "Gamma": {
-     "val": 0.6711
+     "val": 0.5748
     },
     "Black": {
-     "val": 0.1402
+     "val": 0.1889
     }
    },
    "inputs": [
@@ -4655,13 +4775,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0346
+     "val": 0.0366
     },
     "Speed": {
-     "val": 0.0218
+     "val": 0.0383
     },
     "Scale": {
-     "val": 5.4142
+     "val": 8.4423
     }
    },
    "inputs": [
@@ -4732,7 +4852,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -4833,10 +4954,10 @@
    ],
    "pars": {
     "Frames": {
-     "val": 20
+     "val": 60
     },
     "Mix": {
-     "val": 0.4971
+     "val": 0.41
     }
    },
    "inputs": [
@@ -4916,7 +5037,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -4977,11 +5099,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Strength": {
-     "val": 1.2199
+     "val": 1.124
     },
     "Mix": {
-     "val": 0.9423
+     "val": 0.9139
     }
    },
    "inputs": [
@@ -5109,16 +5234,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 1.0281
+     "val": 0.9902
     },
     "Rotate": {
-     "val": 0.4347
+     "val": 1.8357
     },
     "Decay": {
-     "val": 0.9129
+     "val": 0.959
     },
     "Mix": {
-     "val": 0.6385
+     "val": 0.5562
     }
    },
    "inputs": [
@@ -5234,7 +5359,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -5258,7 +5384,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -5335,22 +5462,13 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.1111
+     "val": 1.2454
     },
     "Tx": {
-     "val": -0.12
+     "val": 0.0488
     },
     "Ty": {
-     "val": -0.0689
-    },
-    "Flipx": {
-     "val": 1
-    },
-    "Flipy": {
-     "val": 1
-    },
-    "Rotate": {
-     "val": -12
+     "val": 0.1484
     }
    },
    "inputs": [
@@ -5496,13 +5614,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.733
+     "val": 0.7332
     },
     "Soft": {
-     "val": 10.1047
+     "val": 11.6677
     },
     "Amount": {
-     "val": 0.928
+     "val": 0.9535
     }
    },
    "inputs": [
@@ -5718,6 +5836,11 @@
     0,
     0
    ],
+   "pars": {
+    "Mode": {
+     "val": 2
+    }
+   },
    "inputs": [
     [
      0,
@@ -5749,7 +5872,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.04
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.04, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -5773,7 +5897,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.025
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.025, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -5898,13 +6023,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.945
+     "val": 0.7428
     },
     "Contrast": {
-     "val": 1.5134
+     "val": 1.5279
     },
     "Sat": {
-     "val": 1.2836
+     "val": 1.2923
     }
    },
    "inputs": [
@@ -6108,10 +6233,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.7841
+     "val": 0.0839
     },
     "Sat": {
-     "val": 0.8751
+     "val": 0.9879
     }
    },
    "inputs": [
@@ -6287,7 +6412,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0271
+     "val": 0.0381
     }
    },
    "inputs": [
@@ -6378,7 +6503,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.08
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.08, 16)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -6599,10 +6725,10 @@
    ],
    "pars": {
     "Gamma": {
-     "val": 0.4289
+     "val": 0.4951
     },
     "Black": {
-     "val": 0.1431
+     "val": 0.1762
     }
    },
    "inputs": [
@@ -6708,13 +6834,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.0573
+     "val": 0.0944
     },
     "Speed": {
-     "val": 0.0491
+     "val": 0.0306
     },
     "Scale": {
-     "val": 12.8251
+     "val": 12.9025
     }
    },
    "inputs": [
@@ -6785,7 +6911,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -6886,10 +7013,10 @@
    ],
    "pars": {
     "Frames": {
-     "val": 60
+     "val": 20
     },
     "Mix": {
-     "val": 0.5693
+     "val": 0.5783
     }
    },
    "inputs": [
@@ -6969,7 +7096,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -7031,10 +7159,10 @@
    ],
    "pars": {
     "Strength": {
-     "val": 1.0139
+     "val": 1.2533
     },
     "Mix": {
-     "val": 0.8871
+     "val": 0.8731
     }
    },
    "inputs": [
@@ -7162,16 +7290,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 0.9545
+     "val": 1.0142
     },
     "Rotate": {
-     "val": -1.3126
+     "val": -1.6164
     },
     "Decay": {
-     "val": 0.9515
+     "val": 0.9047
     },
     "Mix": {
-     "val": 0.587
+     "val": 0.6437
     }
    },
    "inputs": [
@@ -7287,7 +7415,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -7311,7 +7440,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -7388,16 +7518,19 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.2306
+     "val": 1.2552
     },
     "Tx": {
-     "val": 0.0599
+     "val": -0.0563
     },
     "Ty": {
-     "val": -0.0821
+     "val": -0.0816
     },
-    "Rotate": {
-     "val": 7
+    "Flipx": {
+     "val": 1
+    },
+    "Flipy": {
+     "val": 1
     }
    },
    "inputs": [
@@ -7546,13 +7679,13 @@
      "val": true
     },
     "Cut": {
-     "val": 0.8022
+     "val": 0.7169
     },
     "Soft": {
-     "val": 5.6274
+     "val": 7.8236
     },
     "Amount": {
-     "val": 0.5143
+     "val": 0.8573
     }
    },
    "inputs": [
@@ -7769,9 +7902,6 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Mode": {
      "val": 1
     }
@@ -7807,7 +7937,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.04
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.04, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -7831,7 +7962,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.025
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.025, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -7956,13 +8088,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.8299
+     "val": 0.8173
     },
     "Contrast": {
-     "val": 1.6446
+     "val": 1.8521
     },
     "Sat": {
-     "val": 1.7345
+     "val": 1.2842
     }
    },
    "inputs": [
@@ -8165,11 +8297,14 @@
     0
    ],
    "pars": {
+    "Enable": {
+     "val": true
+    },
     "Hue": {
-     "val": 0.4446
+     "val": 0.6575
     },
     "Sat": {
-     "val": 0.8552
+     "val": 0.9915
     }
    },
    "inputs": [
@@ -8345,7 +8480,7 @@
    ],
    "pars": {
     "Shift": {
-     "val": 0.0183
+     "val": 0.0149
     }
    },
    "inputs": [
@@ -8436,7 +8571,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.08
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.08, 16)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -8656,14 +8792,11 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Gamma": {
-     "val": 0.6493
+     "val": 0.663
     },
     "Black": {
-     "val": 0.0211
+     "val": 0.0836
     }
    },
    "inputs": [
@@ -8769,13 +8902,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.074
+     "val": 0.0854
     },
     "Speed": {
-     "val": 0.0132
+     "val": 0.0476
     },
     "Scale": {
-     "val": 7.0577
+     "val": 10.5733
     }
    },
    "inputs": [
@@ -8846,7 +8979,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -8945,14 +9079,6 @@
     0,
     0
    ],
-   "pars": {
-    "Frames": {
-     "val": 45
-    },
-    "Mix": {
-     "val": 0.4688
-    }
-   },
    "inputs": [
     [
      0,
@@ -9030,7 +9156,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -9091,14 +9218,11 @@
     0
    ],
    "pars": {
-    "Enable": {
-     "val": true
-    },
     "Strength": {
-     "val": 1.8752
+     "val": 1.9493
     },
     "Mix": {
-     "val": 0.8464
+     "val": 0.7478
     }
    },
    "inputs": [
@@ -9226,16 +9350,16 @@
    ],
    "pars": {
     "Zoom": {
-     "val": 1.0236
+     "val": 1.0373
     },
     "Rotate": {
-     "val": 2.7957
+     "val": 1.0986
     },
     "Decay": {
-     "val": 0.9453
+     "val": 0.9058
     },
     "Mix": {
-     "val": 0.692
+     "val": 0.5789
     }
    },
    "inputs": [
@@ -9351,7 +9475,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.03
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.03, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -9375,7 +9500,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.05
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.05, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -9452,13 +9578,19 @@
      "val": true
     },
     "Zoom": {
-     "val": 1.3481
+     "val": 1.1321
     },
     "Tx": {
-     "val": 0.0893
+     "val": 0.1198
     },
     "Ty": {
-     "val": -0.0965
+     "val": -0.1458
+    },
+    "Flipx": {
+     "val": 1
+    },
+    "Rotate": {
+     "val": 180
     }
    },
    "inputs": [
@@ -9604,13 +9736,13 @@
    ],
    "pars": {
     "Cut": {
-     "val": 0.6413
+     "val": 0.8262
     },
     "Soft": {
-     "val": 4.4508
+     "val": 5.3637
     },
     "Amount": {
-     "val": 0.6236
+     "val": 0.838
     }
    },
    "inputs": [
@@ -9862,7 +9994,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.04
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.04, 32)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -9886,7 +10019,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.025
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.025, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -10011,13 +10145,13 @@
    ],
    "pars": {
     "Amount": {
-     "val": 0.6209
+     "val": 0.7677
     },
     "Contrast": {
-     "val": 1.7526
+     "val": 1.8392
     },
     "Sat": {
-     "val": 1.7934
+     "val": 1.7774
     }
    },
    "inputs": [
@@ -10221,10 +10355,10 @@
    ],
    "pars": {
     "Hue": {
-     "val": 0.4939
+     "val": 0.3562
     },
     "Sat": {
-     "val": 0.9565
+     "val": 0.9534
     }
    },
    "inputs": [
@@ -10408,11 +10542,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -10672,6 +10801,9 @@
     0
    ],
    "pars": {
+    "const0value": {
+     "val": 1.0
+    },
     "rate": {
      "expr": "me.time.rate",
      "val": 60.0
@@ -10859,7 +10991,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.017
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.017, 64)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -10883,7 +11016,8 @@
    ],
    "pars": {
     "frequency": {
-     "val": 0.011
+     "expr": "op('/project1/fx/sequencer').module.lfo_rate(0.011, 128)",
+     "val": 1.0
     },
     "rate": {
      "expr": "me.time.rate",
@@ -11341,6 +11475,11 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
@@ -11436,7 +11575,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/room_inner",
+     "/project1/fx/bounce_inner",
      0
     ]
    ]
@@ -11451,7 +11590,7 @@
    "inputs": [
     [
      0,
-     "/project1/fx/room_outer",
+     "/project1/fx/bounce_outer",
      0
     ]
    ]
@@ -11613,7 +11752,7 @@
    ],
    "pars": {
     "const0value": {
-     "val": 0.154
+     "val": 0.099
     },
     "rate": {
      "expr": "me.time.rate",
@@ -11634,7 +11773,7 @@
    ],
    "pars": {
     "const0value": {
-     "val": -0.141
+     "val": -0.118
     },
     "rate": {
      "expr": "me.time.rate",
@@ -11715,10 +11854,10 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/306502356_202778025437617_5893241441307311236_n.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_AQNtWE9wjLr5pZN5tp-8HeT53CEMICV113R_oKCImTwyocZUaC2-CIT3LRSY574L1qoazvkdQO6yKu9jbjVditWvscZzjnjjRzg4ftI.mp4"
     },
     "speed": {
-     "val": 0.6
+     "val": 0.5
     },
     "cuepointunit": {
      "val": "seconds"
@@ -11751,10 +11890,16 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_AQMTg0a1Vf0Vf87EFju1x8F6n0gsB1tYCibGCHP991_fDIYGoOtLnF4wVLv6FT68B1szRO8eVufH8Eb4YT2J8NiYri5r3CKx_4xqDsc.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_AQM1pMlvnlL_ySEoDU87WrWL_AoMhb7jMsW7odP1gsQUlpnp-O_ta_H8Z_IOcH6xfaxwng-Ye4fxKk4RgWJJazM8.mp4"
+    },
+    "play": {
+     "val": false
     },
     "speed": {
-     "val": 0.5
+     "val": 0.6
+    },
+    "cue": {
+     "val": true
     },
     "cuepointunit": {
      "val": "seconds"
@@ -11787,7 +11932,7 @@
    ],
    "pars": {
     "file": {
-     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_AQMWm-4cN3i9NFqKPubZj9CVdFGnM5MXEcR8QPoJf5GK2xG7JJAlXvfK9UAS11ilskDPKqhFE02je3FvFvFOaJTg.mp4"
+     "val": "~/dev/studio_visuals/TD_Mapping/VJ_Visuals/Snapinsta.app_video_319544730_218275690544208_7443069927733773376_n.mp4"
     },
     "play": {
      "val": false
@@ -12103,7 +12248,7 @@
      "val": "text"
     }
    },
-   "text": "\"\"\"What plays next, for how long, and which effects: the decisions, then thin TouchDesigner glue.\n\nThe pure layer has no TouchDesigner names at module level, so tests import it as a module. In\nTouchDesigner the file is synced into the Text DAT /project1/fx/sequencer and the timers'\ncallbacks reach it through op('sequencer').module. Mutable state lives in the fx container's\nstorage, not in this module, so a re-sync of the file mid-show loses nothing.\n\"\"\"\nimport colorsys\nimport json\nimport math\nimport os\nimport random\n\n# ---------------------------------------------------------------- the corpus\n# One place for every effect, read by build_fx.py (to create the custom pars) and by choose().\n# family: frame (always on), dark (darkeners), treat (treatments). stateful effects keep cooking\n# behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.\nCORPUS = {\n    \"framing\":    {\"family\": \"frame\", \"params\": {\"Zoom\": (1.0, 1.35), \"Tx\": (-0.15, 0.15), \"Ty\": (-0.15, 0.15), \"Flipx\": [0, 1], \"Flipy\": [0, 1],\n                                                 \"Rotate\": [0, 0, 0, 0, 180, 180, -12, -7, 7, 12, 173, 187]}},\n    \"highlights\": {\"family\": \"dark\", \"params\": {\"Cut\": (0.85, 0.6), \"Soft\": (12.0, 4.0), \"Amount\": (0.5, 1.0)}},\n    \"crush\":      {\"family\": \"dark\", \"params\": {\"Gamma\": (0.7, 0.4), \"Black\": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens\n    \"edges\":      {\"family\": \"dark\", \"params\": {\"Strength\": (0.8, 2.0), \"Mix\": (0.6, 1.0)}},\n    \"tint\":       {\"family\": \"dark\", \"params\": {\"Hue\": (0.0, 1.0), \"Sat\": (0.8, 1.0)}},\n    \"selfmask\":   {\"family\": \"dark\", \"params\": {\"Amount\": (0.6, 1.0), \"Contrast\": (1.3, 2.0), \"Sat\": (1.2, 1.8)}},\n    \"feedback\":   {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Zoom\": (0.95, 1.06), \"Rotate\": (-3.0, 3.0), \"Decay\": (0.9, 0.98), \"Mix\": (0.5, 0.8)}},\n    \"displace\":   {\"family\": \"treat\", \"params\": {\"Amount\": (0.03, 0.1), \"Speed\": (0.01, 0.06), \"Scale\": (5.0, 14.0)}},\n    \"echo\":       {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Frames\": [12, 20, 30, 45, 60], \"Mix\": (0.4, 0.7)}},\n    \"mirror\":     {\"family\": \"treat\", \"params\": {\"Mode\": [0, 1, 2]}},\n    \"chroma\":     {\"family\": \"treat\", \"params\": {\"Shift\": (0.01, 0.06)}},\n}\n# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),\n# keepchannel.\nORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible\nDARK = [n for n, e in CORPUS.items() if e[\"family\"] == \"dark\"]\nTREAT = [n for n, e in CORPUS.items() if e[\"family\"] == \"treat\"]\nXFADE_TYPES = 4  # burn, distort, colour, smear\nPLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be\n\nDEFAULTS = {\"cap\": 120.0, \"bright_mean\": 0.33, \"bright_high\": 0.65}  # thresholds: about the 60th percentile of the measured buckets\n# the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,\n# how far the darkeners' draws are pushed to the dark end of their ranges, and the Cut range\n# of a highlights cut forced on every clip (None: not forced). The upper levels remove bright\n# patches rather than dim the whole picture, so the ceiling stays\nDARKNESS = {\"none\": (1.0, 2.0, 2.0, 0.0, None), \"default\": (0.18, 0.33, 0.65, 0.0, None),\n            \"darker\": (0.18, 0.33, 0.65, 0.5, (0.75, 0.55)), \"darkest\": (0.18, 0.33, 0.65, 0.85, (0.5, 0.3))}\nBUCKET = 10.0\nLONG_DIR = \"VJ_Visuals/Long/\"\nFLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue\nPREROLL = 1.0\nXFADE = (7.5, 22.5)  # seconds a clip change transition takes\nSWAP = (6.0, 12.0)  # seconds a mid-clip look swap takes\nKNEE = 1.0 / 3.0  # the first half of a meld happens in this share of its time, the rest is slower\n\n\ndef progress(fraction):\n    \"\"\"Transition progress 0 to 1 from the timer's fraction: quick to half way, then half speed.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)\nSWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is\nUPSIDE_CHANCE = 0.8  # per clip change, that the outer pair hangs upside down as it was hung; else upright like the inner\nPAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit\nPAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows\n\n\ndef pick_pan(rng, other):\n    \"\"\"Where a group's window sits on the frame, away from the other group's. Pure.\"\"\"\n    for _ in range(50):\n        pan = round(rng.uniform(-PAN_REACH, PAN_REACH), 3)\n        if other is None or abs(pan - other) >= PAN_APART:\n            return pan\n    return -PAN_REACH if other > 0 else PAN_REACH\n# the spice: a third clip that drops in over one pair or both, pulses, and leaves\nSPICE_GAP = (28.0, 84.0)  # seconds between spices\nSPICE_LEN = (10.0, 20.0)  # seconds a spice lasts\nSPICE_PULSES = (4, 7)\nSPICE_WHERE = [\"outer\", \"inner\", \"outer\", \"inner\", \"both\"]\n\n\nSPICE_PEAK = 0.6  # the spice never shows more than this of itself\nSPICE_ACCEL = 1.0  # the swells come e^this times faster at the end than at the start; negative spreads them out\n\n\ndef spice_env(fraction, pulses):\n    \"\"\"0 to SPICE_PEAK and back over a spice, in `pulses` swells whose spacing changes\n    exponentially over its life. Pure.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    phase = (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)\n    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * (pulses - 1) * phase))\nSHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then\n\n\ndef _draw(rng, spec, bias=0.0):\n    \"\"\"A value from the range; dark ranges run light to dark, bias narrows the draw to the dark end.\"\"\"\n    if isinstance(spec, list):\n        return rng.choice(spec)\n    lo, hi = spec\n    return round(rng.uniform(lo + bias * (hi - lo), hi), 4)\n\n\ndef params_for(name, rng, bias=0.0):\n    return {k: _draw(rng, spec, 0.0 if k == \"Hue\" else bias) for k, spec in CORPUS[name][\"params\"].items()}\n\n\ndef hsv_rgb(h, s, v=0.9):\n    return colorsys.hsv_to_rgb(h % 1.0, s, v)\n\n\n# ---------------------------------------------------------------- the playlist\nclass Playlist:\n    \"\"\"Shuffled, short clips twice (anything outside Long/), never the same clip twice running.\n\n    State is the plain dict passed in ({\"queue\": [...], \"last\": ...}), mutated in place, so the\n    caller can keep it in TouchDesigner storage.\n    \"\"\"\n\n    def __init__(self, paths, rng, state=None):\n        self.rng = rng\n        self.paths = list(paths)\n        self.state = state if state is not None else {}\n        self.state.setdefault(\"queue\", [])\n        self.state.setdefault(\"last\", None)\n\n    def _refill(self):\n        # Draw from the remaining counts, never the clip just played, the fullest pile first so\n        # the doubled short clips cannot be left to collide at the end.\n        left = {p: (1 if p.startswith(LONG_DIR) else 2) for p in self.paths}\n        q, last = [], self.state[\"last\"]\n        while any(left.values()):\n            top = max(n for p, n in left.items() if p != last) if len(left) > 1 else max(left.values())\n            pick = self.rng.choice([p for p, n in left.items() if n == top and (p != last or len(left) == 1)])\n            q.append(pick)\n            left[pick] -= 1\n            if left[pick] == 0:\n                del left[pick]\n            last = pick\n        self.state[\"queue\"] = q\n\n    def next(self):\n        # a clip dropped from the table since the queue was drawn is skipped, its file may be gone\n        self.state[\"queue\"] = [p for p in self.state[\"queue\"] if p in self.paths]\n        if not self.state[\"queue\"]:\n            self._refill()\n        self.state[\"last\"] = self.state[\"queue\"].pop(0)\n        return self.state[\"last\"]\n\n\n# ---------------------------------------------------------------- one segment\ndef plan_segment(clip, rng, cap=DEFAULTS[\"cap\"], lead=0.0):\n    \"\"\"Where in the clip, how long, the tease, the transition, the speed.\n\n    clip is the clips.json entry or None. lead is how long this clip has already played when\n    it becomes both groups' picture (the previous change's tease plus transition), so the\n    window is measured from the cue point and the plain play before the next change is\n    length - tease - xfade. Clamped so that plain play >= FLOOR, by shrinking the tease, then\n    the transition.\n    \"\"\"\n    fps = clip[\"fps\"] if clip else 30.0\n    motion = clip[\"motion\"] if clip else 0.0\n    if fps < 25:\n        speed = 0.6  # slowing a low frame rate clip stutters\n    elif motion >= 0.12:\n        speed = 0.4\n    elif motion >= 0.08:\n        speed = 0.5\n    else:\n        speed = 0.6\n    # window, length, tease, xfade and turn are real seconds; start is a clip time\n    total = clip[\"length\"] if clip else cap\n    if total < SHORT:\n        start, turn = 0.0, round(total / speed, 2)  # the end of the first pass\n        window = min(2 * turn, cap)\n    else:\n        content = min(total, cap * speed)\n        start = round(rng.uniform(0.0, total - content), 2)\n        window, turn = content / speed, None\n    length = round(max(window - lead, 0.0), 2)\n    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0\n    xfade = round(rng.uniform(*XFADE), 2)\n    if length - tease - xfade < FLOOR:\n        tease = max(0.0, round(length - xfade - FLOOR, 2))\n        if tease < 1.0:\n            tease = 0.0  # a tease under a second is a glitch, not a tease\n    if length - xfade < FLOOR:\n        xfade = max(0.3, round(length - FLOOR, 2))\n    return {\"start\": start, \"window\": round(window, 2), \"length\": length, \"tease\": tease, \"xfade\": xfade,\n            \"speed\": speed, \"turn\": turn}\n\n\ndef window_stats(clip, start, length):\n    \"\"\"Mean and high luma over the buckets under the window. A missing clip is bright.\"\"\"\n    if not clip or not clip.get(\"buckets\"):\n        return {\"mean\": 1.0, \"high\": 1.0}\n    b = clip[\"buckets\"]\n    first = min(int(start // BUCKET), len(b) - 1)\n    last = min(int(max(start + length - 0.01, start) // BUCKET), len(b) - 1)\n    used = b[first:last + 1]\n    return {\"mean\": sum(x[\"mean\"] for x in used) / len(used), \"high\": max(x[\"high\"] for x in used)}\n\n\ndef is_bright(stats, bright_mean=DEFAULTS[\"bright_mean\"], bright_high=DEFAULTS[\"bright_high\"]):\n    return stats[\"high\"] >= bright_high or stats[\"mean\"] >= bright_mean\n\n\ndef enabled(selection):\n    return frozenset(n for n, v in selection.items() if v.get(\"Enable\"))\n\n\ndef choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):\n    \"\"\"A selection: {effect: {\"Enable\": 0|1, params...}} for every effect in the corpus.\n\n    avoid is a list of selections whose enabled set this one must differ from: the group's\n    previous one and the other group's current one.\n    \"\"\"\n    taken = {enabled(a) for a in avoid if a}\n    for _ in range(20):\n        sel = {n: {\"Enable\": 0} for n in CORPUS}\n        sel[\"framing\"] = {\"Enable\": 1, **params_for(\"framing\", rng)}\n        if is_bright(stats, **thresholds):\n            picks = rng.sample(DARK, rng.choice([1, 2]))\n            if rng.random() < 0.5:\n                picks += rng.sample(TREAT, 1)\n        elif rng.random() < PLAIN:\n            picks = []  # plain is always allowed, so avoid does not force an effect on\n        else:\n            picks = rng.sample(TREAT, rng.choice([1, 2]))\n        for n in picks:\n            sel[n] = {\"Enable\": 1, **params_for(n, rng, bias if n in DARK else 0.0)}\n        if cut:  # bright patches above Cut go black, on every clip\n            sel[\"highlights\"] = {\"Enable\": 1, **params_for(\"highlights\", rng, bias), \"Cut\": _draw(rng, cut, bias), \"Amount\": 1.0}\n        if not picks or enabled(sel) not in taken:\n            return sel\n    spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference\n    sel[spare] = {\"Enable\": 1, **params_for(spare, rng)}\n    return sel\n\n\ndef load_table(path):\n    try:\n        with open(path) as fh:\n            return json.load(fh)\n    except (OSError, ValueError):\n        return {}\n\n\n# ---------------------------------------------------------------- TouchDesigner glue\n# Everything below touches op() and pars. State is a plain dict in the fx container's storage.\nGROUPS = (\"outer\", \"inner\")\nOTHER = {\"A\": \"B\", \"B\": \"A\"}\n\n\ndef _fx():\n    return op(\"/project1/fx\")\n\n\ndef _state():\n    fx = _fx()\n    st = fx.fetch(\"state\", None)\n    if st is None:\n        seed = int(fx.par.Seed) or None\n        st = {\"seed\": seed, \"rng\": None, \"playlist\": {}, \"player\": \"A\", \"clip\": {}, \"plan\": {}, \"sel\": {}, \"lead\": 0.0}\n        fx.store(\"state\", st)\n    return st\n\n\ndef _rng(st):\n    if st.get(\"rng\") is None:\n        st[\"rng\"] = random.Random(st.get(\"seed\"))\n    return st[\"rng\"]\n\n\ndef _table():\n    return load_table(os.path.join(project.folder, \"..\", \"td\", \"clips.json\"))\n\n\ndef _apply(group, slot, sel):\n    \"\"\"Two chain slots per group, so a transition melds the old look into the new.\"\"\"\n    _apply_chain(_fx().op(f\"chain{slot}_{group}\"), sel)\n\n\ndef _apply_chain(chain, sel):\n    for name, vals in sel.items():\n        b = chain.op(name)\n        for k, v in vals.items():\n            getattr(b.par, k).val = v\n    chain.op(\"feedback/fb\").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame\n\n\n# ---------------------------------------------------------------- hold mode: step through by hand\nNEUTRAL_FRAMING = {\"Enable\": 1, \"Zoom\": 1.0, \"Tx\": 0.0, \"Ty\": 0.0, \"Flipx\": 0, \"Flipy\": 0, \"Rotate\": 0}\n\n\ndef held_selection(name, params):\n    \"\"\"Only `name` on, with `params`, over a neutral framing. Pure.\"\"\"\n    sel = {n: {\"Enable\": 0} for n in CORPUS}\n    sel[\"framing\"] = dict(NEUTRAL_FRAMING)\n    sel[name] = {\"Enable\": 1, **params}\n    if name == \"framing\":\n        sel[\"framing\"] = {\"Enable\": 1, **params}\n    return sel\n\n\ndef _hold_apply(st, name=None, fresh=False):\n    fx = _fx()\n    held = st.setdefault(\"held\", {})\n    name = name or held.get(\"name\") or ORDER[1]\n    if fresh or held.get(\"name\") != name:\n        held[\"name\"] = name\n        held[\"params\"] = params_for(name, _rng(st))\n    sel = held_selection(name, held[\"params\"])\n    for g in GROUPS:\n        st[\"sel\"][g] = sel\n        for slot in (1, 2):\n            _apply(g, slot, sel)\n    fx.par.Effect = name\n    print(\"try:\", name, \"  \".join(f\"{k} {v}\" for k, v in held[\"params\"].items()))\n\n\ndef on_try(par_name):\n    \"\"\"A control on the Try page changed.\"\"\"\n    st = _state()\n    fx = _fx()\n    if par_name == \"Darkness\":\n        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]\n        return\n    if par_name == \"Hold\":\n        if fx.par.Hold:\n            _hold_apply(st, str(fx.par.Effect))\n        return\n    if not fx.par.Hold:\n        return\n    if par_name == \"Effect\":\n        _hold_apply(st, str(fx.par.Effect))\n    elif par_name in (\"Nexteffect\", \"Preveffect\"):\n        i = ORDER.index(st.get(\"held\", {}).get(\"name\", ORDER[1]))\n        step = 1 if par_name == \"Nexteffect\" else -1\n        _hold_apply(st, ORDER[(i + step) % len(ORDER)])\n    elif par_name == \"Reroll\":\n        _hold_apply(st, fresh=True)\n\n\ndef _cue(player, key, plan):\n    p = _fx().op(\"player\" + player)\n    p.par.file = os.path.join(project.folder, key)\n    p.par.cuepoint = plan[\"start\"]\n    p.par.speed = plan[\"speed\"]\n    p.par.play = False\n    p.par.cue = True\n    p.par.cuepulse.pulse()\n\n\ndef _pick_next(st):\n    rng = _rng(st)\n    table = _table()\n    pl = Playlist(sorted(table) if table else [], rng, st[\"playlist\"])\n    key = pl.next() if pl.paths else None\n    nxt = OTHER[st[\"player\"]]\n    plan = plan_segment(table.get(key), rng, cap=float(_fx().par.Cap), lead=st[\"lead\"])\n    st[\"clip\"][nxt] = key\n    st[\"plan\"][nxt] = plan\n    if key:\n        _cue(nxt, key, plan)\n    return nxt\n\n\ndef _selection_for(st, player, group):\n    \"\"\"A look for `player`'s clip, unlike the group's own and the other group's.\"\"\"\n    rng = _rng(st)\n    clip = _table().get(st[\"clip\"].get(player))\n    plan = st[\"plan\"][player]\n    stats = window_stats(clip, plan[\"start\"], plan[\"window\"])\n    fx = _fx()\n    level = DARKNESS[str(fx.par.Darkness)]\n    avoid = [st[\"sel\"].get(g) for g in GROUPS if g != group] + [st[\"sel\"].get(group)]\n    return choose(stats, rng, avoid=avoid, bias=level[3], cut=level[4],\n                  bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))\n\n\n# ---------------------------------------------------------------- the spice\ndef _schedule_spice(st):\n    \"\"\"Cue a random clip into player C and start the wait for the next spice.\"\"\"\n    rng = _rng(st)\n    table = _table()\n    if not table:\n        return\n    key = rng.choice(sorted(table))\n    plan = plan_segment(table[key], rng, cap=SPICE_LEN[1])\n    st[\"clip\"][\"C\"], st[\"plan\"][\"C\"] = key, plan\n    _cue(\"C\", key, plan)\n    _timer(\"t_spicewait\", rng.uniform(*SPICE_GAP))\n\n\ndef _start_spice(st):\n    fx = _fx()\n    rng = _rng(st)\n    where = rng.choice(SPICE_WHERE)\n    st[\"spice\"] = {\"groups\": GROUPS if where == \"both\" else [where], \"pulses\": rng.randint(*SPICE_PULSES),\n                   \"type\": rng.randrange(XFADE_TYPES - 1)}  # a shader transition, not the smear\n    st[\"sel\"][\"spice\"] = _selection_for(st, \"C\", \"spice\")\n    _apply_chain(fx.op(\"chainC\"), st[\"sel\"][\"spice\"])\n    _release(\"C\")\n    print(f\"spice on {where} -> {st['clip']['C']}\")\n    _timer(\"t_spice\", rng.uniform(*SPICE_LEN))\n\n\ndef _end_spice(st):\n    _fx().op(\"playerC\").par.play = False\n    _schedule_spice(st)\n\n\ndef spice_level(group):\n    \"\"\"The spice's progress for a group, read every frame by spice_g's shader.\"\"\"\n    st = _state()\n    sp = st.get(\"spice\")\n    if not sp or group not in sp[\"groups\"]:\n        return 0.0\n    return spice_env(_fx().op(\"t_spice\")[\"timer_fraction\"], sp[\"pulses\"])\n\n\ndef spice_type():\n    sp = _state().get(\"spice\")\n    return sp[\"type\"] if sp else 0\n\n\ndef spice_on():\n    \"\"\"1 while a spice shows on any group, so spicesw_g pulls the shader and chainC only then.\"\"\"\n    return int(any(spice_level(g) > 0.0 for g in GROUPS))\n\n\ndef spice_drift(axis):\n    \"\"\"A small wander of the spice picture over its life, read every frame by spice_drift.\"\"\"\n    f = _fx().op(\"t_spice\")[\"timer_fraction\"]\n    return 0.06 * math.sin(2 * math.pi * f) if axis == \"x\" else 0.04 * math.sin(4 * math.pi * f + 1.0)\n\n\ndef _start_xfade(st, group, player, seconds):\n    \"\"\"The group melds from its shown chain slot into the other, carrying `player` with a new\n    look: the next clip at a clip change, the same clip for a mid-clip swap.\"\"\"\n    fx = _fx()\n    x = fx.op(\"xfade_\" + group)\n    if x.par.Active:\n        _finish_xfade(st, group)  # a swap still running when the clip change comes\n    if player != st[\"player\"] and not fx.par.Hold:\n        _roll_mirror(st, group)\n        _roll_pan(st, group)\n        print(f\"{group} -> {st['clip'][player]}  (over {seconds:.0f} s)\")\n    slot = 3 - st[\"chain\"][group]\n    fx.op(f\"src{slot}_{group}\").par.index = 0 if player == \"A\" else 1\n    if not fx.par.Hold:\n        sel = _selection_for(st, player, group)\n        st[\"sel\"][group] = sel\n        _apply(group, slot, sel)\n    st[\"target\"][group] = (slot, player)  # read back at the end, when roles may have swapped already\n    forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one\n    x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)\n    x.op(\"smear_fb\").par.resetpulse.pulse()\n    fx.op(\"nxt_\" + group).par.index = slot - 1\n    _release(player)  # normally already rolling from the pre-roll; harmless twice\n    x.par.Active = 1\n    t = fx.op(\"tx_\" + group)\n    t.par.length = seconds\n    t.par.start.pulse()\n\n\ndef _roll_pan(st, group):\n    \"\"\"A new part of the frame for the group at a clip change, and the window scheme: the inner\n    group draws close or wide, the outer takes the other. The lags ease both moves.\"\"\"\n    fx = _fx()\n    other = GROUPS[1 - GROUPS.index(group)]\n    fx.op(\"pan_\" + group).par.value0 = pick_pan(_rng(st), float(fx.op(\"pan_\" + other).par.value0))\n    fx.op(\"zoom_\" + group).par.value0 = float(_rng(st).randrange(2)) if group == \"inner\" else 1.0 - float(fx.op(\"zoom_inner\").par.value0)\n\n\ndef _roll_mirror(st, group):\n    \"\"\"The outer pair hangs upside down most of the time; the lag blends the change.\"\"\"\n    if group == \"outer\":\n        _fx().op(\"flip_tgt_outer\").par.value0 = 1.0 if _rng(st).random() < UPSIDE_CHANCE else 0.0\n\n\ndef _finish_xfade(st, group):\n    \"\"\"The transition is over: the group shows the slot it melded into.\"\"\"\n    fx = _fx()\n    if group in st[\"target\"]:\n        slot, _ = st[\"target\"][group]\n        st[\"chain\"][group] = slot\n        fx.op(\"cur_\" + group).par.index = slot - 1\n    fx.op(\"xfade_\" + group).par.Active = 0\n    fx.op(\"tx_\" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur\n\n\ndef _release(player):\n    p = _fx().op(\"player\" + player)\n    p.par.cue = False\n    p.par.play = True\n\n\ndef _timer(name, seconds):\n    t = _fx().op(name)\n    t.par.length = max(seconds, 0.05)\n    t.par.start.pulse()\n\n\ndef start():\n    \"\"\"Called once from the Execute DAT's onStart and at the end of the build.\"\"\"\n    fx = _fx()\n    fx.unstore(\"state\")\n    for name in (\"t_preroll\", \"t_turn\", \"t_inner\", \"t_outer\", \"tx_inner\", \"tx_outer\", \"t_reroll\", \"t_spice\", \"t_spicewait\"):\n        fx.op(name).par.initialize.pulse()  # a timer saved mid run would fire into fresh state\n    for g in GROUPS:\n        fx.op(\"xfade_\" + g).par.Active = 0\n    st = _state()\n    st[\"player\"] = \"B\"  # so that _pick_next cues the first clip into A\n    first = _pick_next(st)\n    st[\"player\"] = first\n    st[\"lead\"] = 0.0\n    _release(first)\n    st[\"chain\"], st[\"target\"] = {}, {}\n    for g in GROUPS:\n        st[\"chain\"][g] = 1\n        fx.op(\"cur_\" + g).par.index = 0\n        fx.op(\"src1_\" + g).par.index = 0 if first == \"A\" else 1\n        st[\"sel\"][g] = None\n    for g in GROUPS:\n        st[\"sel\"][g] = _selection_for(st, first, g)\n        _apply(g, 1, st[\"sel\"][g])\n        _roll_mirror(st, g)\n        _roll_pan(st, g)\n    if fx.par.Hold:\n        _hold_apply(st, str(fx.par.Effect))\n    _begin_segment(st)\n    _schedule_spice(st)\n\n\ndef _begin_segment(st):\n    \"\"\"Both groups show st['player']; cue the next clip and arm the timers.\"\"\"\n    fx = _fx()\n    plan = st[\"plan\"][st[\"player\"]]\n    _pick_next(st)\n    L, T, t = plan[\"length\"], plan[\"tease\"], plan[\"xfade\"]\n    if plan[\"turn\"] is None:\n        fx.op(\"t_turn\").par.initialize.pulse()  # cancel a turn armed by the segment before\n    else:\n        _timer(\"t_turn\", plan[\"turn\"] - st[\"lead\"])\n    _timer(\"t_preroll\", L - T - t - PREROLL)\n    _timer(\"t_inner\", L - T - t)\n    _timer(\"t_outer\", L - t)\n    r = fx.op(\"t_reroll\")\n    r.par.length = float(fx.par.Rerollevery)\n    r.par.start.pulse()\n\n\ndef on_done(timer_name):\n    st = _state()\n    fx = _fx()\n    if timer_name == \"t_preroll\":\n        _release(OTHER[st[\"player\"]])\n    elif timer_name == \"t_spicewait\":\n        if not fx.par.Hold:\n            _start_spice(st)\n        else:\n            _schedule_spice(st)\n    elif timer_name == \"t_spice\":\n        _end_spice(st)\n    elif timer_name == \"t_turn\":\n        fx.op(\"player\" + st[\"player\"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top\n    elif timer_name in (\"t_inner\", \"t_outer\"):\n        _start_xfade(st, timer_name[2:], OTHER[st[\"player\"]], st[\"plan\"][st[\"player\"]][\"xfade\"])\n    elif timer_name in (\"tx_inner\", \"tx_outer\"):\n        g = timer_name[3:]\n        # with no tease both transitions end in the same frame, and the outer one may have\n        # swapped st[\"player\"] already, so the target comes from the start of the transition\n        _, nxt = st[\"target\"].get(g, (None, st[\"player\"]))\n        _finish_xfade(st, g)\n        if g == \"outer\" and st[\"player\"] != nxt:\n            plan = st[\"plan\"][st[\"player\"]]\n            st[\"lead\"] = plan[\"tease\"] + plan[\"xfade\"] + PREROLL\n            st[\"player\"] = nxt\n            _begin_segment(st)\n\n\ndef on_reroll():\n    \"\"\"Every Rerollevery seconds one group, in turn, may swap to a new look mid clip, melded\n    over SWAP seconds, unless its clip change is about to do that anyway.\"\"\"\n    st = _state()\n    fx = _fx()\n    if fx.par.Hold:\n        return\n    st[\"reroll_n\"] = st.get(\"reroll_n\", 0) + 1\n    g = GROUPS[st[\"reroll_n\"] % 2]\n    rng = _rng(st)\n    secs = round(rng.uniform(*SWAP), 2)\n    if rng.random() >= SWAP_CHANCE or fx.op(\"xfade_\" + g).par.Active:\n        return\n    t = fx.op(\"t_\" + g)\n    if float(t.par.length) * (1 - t[\"timer_fraction\"]) < secs + 2:\n        return\n    _start_xfade(st, g, st[\"player\"], secs)\n"
+   "text": "\"\"\"What plays next, for how long, and which effects: the decisions, then thin TouchDesigner glue.\n\nThe pure layer has no TouchDesigner names at module level, so tests import it as a module. In\nTouchDesigner the file is synced into the Text DAT /project1/fx/sequencer and the timers'\ncallbacks reach it through op('sequencer').module. Mutable state lives in the fx container's\nstorage, not in this module, so a re-sync of the file mid-show loses nothing.\n\"\"\"\nimport colorsys\nimport json\nimport math\nimport os\nimport random\n\n# ---------------------------------------------------------------- the corpus\n# One place for every effect, read by build_fx.py (to create the custom pars) and by choose().\n# family: frame (always on), dark (darkeners), treat (treatments). stateful effects keep cooking\n# behind a Cross at 0 instead of a Switch, and are only re-rolled at a transition.\nCORPUS = {\n    \"framing\":    {\"family\": \"frame\", \"params\": {\"Zoom\": (1.0, 1.35), \"Tx\": (-0.15, 0.15), \"Ty\": (-0.15, 0.15), \"Flipx\": [0, 1], \"Flipy\": [0, 1],\n                                                 \"Rotate\": [0, 0, 0, 0, 180, 180, -12, -7, 7, 12, 173, 187]}},\n    \"highlights\": {\"family\": \"dark\", \"params\": {\"Cut\": (0.85, 0.6), \"Soft\": (12.0, 4.0), \"Amount\": (0.5, 1.0)}},\n    \"crush\":      {\"family\": \"dark\", \"params\": {\"Gamma\": (0.7, 0.4), \"Black\": (0.0, 0.2)}},  # Level TOP gamma over 1 brightens\n    \"edges\":      {\"family\": \"dark\", \"params\": {\"Strength\": (0.8, 2.0), \"Mix\": (0.6, 1.0)}},\n    \"tint\":       {\"family\": \"dark\", \"params\": {\"Hue\": (0.0, 1.0), \"Sat\": (0.8, 1.0)}},\n    \"selfmask\":   {\"family\": \"dark\", \"params\": {\"Amount\": (0.6, 1.0), \"Contrast\": (1.3, 2.0), \"Sat\": (1.2, 1.8)}},\n    \"feedback\":   {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Zoom\": (0.95, 1.06), \"Rotate\": (-3.0, 3.0), \"Decay\": (0.9, 0.98), \"Mix\": (0.5, 0.8)}},\n    \"displace\":   {\"family\": \"treat\", \"params\": {\"Amount\": (0.03, 0.1), \"Speed\": (0.01, 0.06), \"Scale\": (5.0, 14.0)}},\n    \"echo\":       {\"family\": \"treat\", \"stateful\": True, \"params\": {\"Frames\": [12, 20, 30, 45, 60], \"Mix\": (0.4, 0.7)}},\n    \"mirror\":     {\"family\": \"treat\", \"params\": {\"Mode\": [0, 1, 2]}},\n    \"chroma\":     {\"family\": \"treat\", \"params\": {\"Shift\": (0.01, 0.06)}},\n}\n# Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),\n# keepchannel.\nORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible\nDARK = [n for n, e in CORPUS.items() if e[\"family\"] == \"dark\"]\nTREAT = [n for n, e in CORPUS.items() if e[\"family\"] == \"treat\"]\nXFADE_TYPES = 4  # burn, distort, colour, smear\nPLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be\n\nDEFAULTS = {\"cap\": 120.0, \"bright_mean\": 0.33, \"bright_high\": 0.65}  # thresholds: about the 60th percentile of the measured buckets\n# the Darkness macro: Ceiling for the limiter, the bright thresholds that bring darkeners in,\n# how far the darkeners' draws are pushed to the dark end of their ranges, and the Cut range\n# of a highlights cut forced on every clip (None: not forced). The upper levels remove bright\n# patches rather than dim the whole picture, so the ceiling stays\nDARKNESS = {\"none\": (1.0, 2.0, 2.0, 0.0, None), \"default\": (0.18, 0.33, 0.65, 0.0, None),\n            \"darker\": (0.18, 0.33, 0.65, 0.5, (0.75, 0.55)), \"darkest\": (0.18, 0.33, 0.65, 0.85, (0.5, 0.3))}\nBUCKET = 10.0\nLONG_DIR = \"VJ_Visuals/Long/\"\nFLOOR = 6.0  # seconds of plain play before the inner transition: the time the next clip has to cue\nPREROLL = 1.0\nXFADE = (7.5, 22.5)  # seconds a clip change transition takes\nSWAP = (6.0, 12.0)  # seconds a mid-clip look swap takes\nKNEE = 1.0 / 3.0  # the first half of a meld happens in this share of its time, the rest is slower\n\n\ndef progress(fraction):\n    \"\"\"Transition progress 0 to 1 from the timer's fraction: quick to half way, then half speed.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)\nSWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is\nUPSIDE_CHANCE = 0.8  # per clip change, that the outer pair hangs upside down as it was hung; else upright like the inner\nPAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit\nPAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows\n\n\ndef pick_pan(rng, other):\n    \"\"\"Where a group's window sits on the frame, away from the other group's. Pure.\"\"\"\n    for _ in range(50):\n        pan = round(rng.uniform(-PAN_REACH, PAN_REACH), 3)\n        if other is None or abs(pan - other) >= PAN_APART:\n            return pan\n    return -PAN_REACH if other > 0 else PAN_REACH\n# the spice: a third clip that drops in over one pair or both, pulses, and leaves\nSPICE_GAP = (28.0, 84.0)  # seconds between spices\nSPICE_LEN = (10.0, 20.0)  # seconds a spice lasts\nSPICE_PULSES = (4, 7)\nSPICE_WHERE = [\"outer\", \"inner\", \"outer\", \"inner\", \"both\"]\n\n\nBEAT_HOLD = 3.0  # seconds without a beat before the chain goes back to its free rates\nBEAT_BOUNCE_DECAY = 0.12  # seconds, the bounce's settle\nREROLL_BEATS = 32  # the reroll tick when synced, in beats\n\n\ndef beat_phase_of(now, t, bpm, offset):\n    \"\"\"0 to 1 through the current beat, given the last beat's time and the tracker's lag. Pure.\n    A positive offset says the tracker was late by that much, so the beat was earlier.\"\"\"\n    return ((now - t + offset) * bpm / 60.0) % 1.0\n\n\ndef lfo_rate_of(free, beats, bpm):\n    \"\"\"One cycle per `beats` beats when bpm is known, else the free rate. Pure.\"\"\"\n    return bpm / 60.0 / beats if bpm else free\n\n\nSPICE_PEAK = 0.6  # the spice never shows more than this of itself\nSPICE_ACCEL = 1.0  # the swells come e^this times faster at the end than at the start; negative spreads them out\n\n\ndef spice_env(fraction, pulses, beats=None):\n    \"\"\"0 to SPICE_PEAK and back over a spice, in `pulses` swells whose spacing changes\n    exponentially over its life; or, given `beats` elapsed since it began, one swell every\n    two beats. Pure.\"\"\"\n    f = min(max(fraction, 0.0), 1.0)\n    if beats is None:\n        phase = (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)\n    else:\n        phase = beats / 2.0\n    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * phase))\nSHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then\n\n\ndef _draw(rng, spec, bias=0.0):\n    \"\"\"A value from the range; dark ranges run light to dark, bias narrows the draw to the dark end.\"\"\"\n    if isinstance(spec, list):\n        return rng.choice(spec)\n    lo, hi = spec\n    return round(rng.uniform(lo + bias * (hi - lo), hi), 4)\n\n\ndef params_for(name, rng, bias=0.0):\n    return {k: _draw(rng, spec, 0.0 if k == \"Hue\" else bias) for k, spec in CORPUS[name][\"params\"].items()}\n\n\ndef hsv_rgb(h, s, v=0.9):\n    return colorsys.hsv_to_rgb(h % 1.0, s, v)\n\n\n# ---------------------------------------------------------------- the playlist\nclass Playlist:\n    \"\"\"Shuffled, short clips twice (anything outside Long/), never the same clip twice running.\n\n    State is the plain dict passed in ({\"queue\": [...], \"last\": ...}), mutated in place, so the\n    caller can keep it in TouchDesigner storage.\n    \"\"\"\n\n    def __init__(self, paths, rng, state=None):\n        self.rng = rng\n        self.paths = list(paths)\n        self.state = state if state is not None else {}\n        self.state.setdefault(\"queue\", [])\n        self.state.setdefault(\"last\", None)\n\n    def _refill(self):\n        # Draw from the remaining counts, never the clip just played, the fullest pile first so\n        # the doubled short clips cannot be left to collide at the end.\n        left = {p: (1 if p.startswith(LONG_DIR) else 2) for p in self.paths}\n        q, last = [], self.state[\"last\"]\n        while any(left.values()):\n            top = max(n for p, n in left.items() if p != last) if len(left) > 1 else max(left.values())\n            pick = self.rng.choice([p for p, n in left.items() if n == top and (p != last or len(left) == 1)])\n            q.append(pick)\n            left[pick] -= 1\n            if left[pick] == 0:\n                del left[pick]\n            last = pick\n        self.state[\"queue\"] = q\n\n    def next(self):\n        # a clip dropped from the table since the queue was drawn is skipped, its file may be gone\n        self.state[\"queue\"] = [p for p in self.state[\"queue\"] if p in self.paths]\n        if not self.state[\"queue\"]:\n            self._refill()\n        self.state[\"last\"] = self.state[\"queue\"].pop(0)\n        return self.state[\"last\"]\n\n\n# ---------------------------------------------------------------- one segment\ndef plan_segment(clip, rng, cap=DEFAULTS[\"cap\"], lead=0.0):\n    \"\"\"Where in the clip, how long, the tease, the transition, the speed.\n\n    clip is the clips.json entry or None. lead is how long this clip has already played when\n    it becomes both groups' picture (the previous change's tease plus transition), so the\n    window is measured from the cue point and the plain play before the next change is\n    length - tease - xfade. Clamped so that plain play >= FLOOR, by shrinking the tease, then\n    the transition.\n    \"\"\"\n    fps = clip[\"fps\"] if clip else 30.0\n    motion = clip[\"motion\"] if clip else 0.0\n    if fps < 25:\n        speed = 0.6  # slowing a low frame rate clip stutters\n    elif motion >= 0.12:\n        speed = 0.4\n    elif motion >= 0.08:\n        speed = 0.5\n    else:\n        speed = 0.6\n    # window, length, tease, xfade and turn are real seconds; start is a clip time\n    total = clip[\"length\"] if clip else cap\n    if total < SHORT:\n        start, turn = 0.0, round(total / speed, 2)  # the end of the first pass\n        window = min(2 * turn, cap)\n    else:\n        content = min(total, cap * speed)\n        start = round(rng.uniform(0.0, total - content), 2)\n        window, turn = content / speed, None\n    length = round(max(window - lead, 0.0), 2)\n    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0\n    xfade = round(rng.uniform(*XFADE), 2)\n    if length - tease - xfade < FLOOR:\n        tease = max(0.0, round(length - xfade - FLOOR, 2))\n        if tease < 1.0:\n            tease = 0.0  # a tease under a second is a glitch, not a tease\n    if length - xfade < FLOOR:\n        xfade = max(0.3, round(length - FLOOR, 2))\n    return {\"start\": start, \"window\": round(window, 2), \"length\": length, \"tease\": tease, \"xfade\": xfade,\n            \"speed\": speed, \"turn\": turn}\n\n\ndef window_stats(clip, start, length):\n    \"\"\"Mean and high luma over the buckets under the window. A missing clip is bright.\"\"\"\n    if not clip or not clip.get(\"buckets\"):\n        return {\"mean\": 1.0, \"high\": 1.0}\n    b = clip[\"buckets\"]\n    first = min(int(start // BUCKET), len(b) - 1)\n    last = min(int(max(start + length - 0.01, start) // BUCKET), len(b) - 1)\n    used = b[first:last + 1]\n    return {\"mean\": sum(x[\"mean\"] for x in used) / len(used), \"high\": max(x[\"high\"] for x in used)}\n\n\ndef is_bright(stats, bright_mean=DEFAULTS[\"bright_mean\"], bright_high=DEFAULTS[\"bright_high\"]):\n    return stats[\"high\"] >= bright_high or stats[\"mean\"] >= bright_mean\n\n\ndef enabled(selection):\n    return frozenset(n for n, v in selection.items() if v.get(\"Enable\"))\n\n\ndef choose(stats, rng, avoid=(), bias=0.0, cut=None, **thresholds):\n    \"\"\"A selection: {effect: {\"Enable\": 0|1, params...}} for every effect in the corpus.\n\n    avoid is a list of selections whose enabled set this one must differ from: the group's\n    previous one and the other group's current one.\n    \"\"\"\n    taken = {enabled(a) for a in avoid if a}\n    for _ in range(20):\n        sel = {n: {\"Enable\": 0} for n in CORPUS}\n        sel[\"framing\"] = {\"Enable\": 1, **params_for(\"framing\", rng)}\n        if is_bright(stats, **thresholds):\n            picks = rng.sample(DARK, rng.choice([1, 2]))\n            if rng.random() < 0.5:\n                picks += rng.sample(TREAT, 1)\n        elif rng.random() < PLAIN:\n            picks = []  # plain is always allowed, so avoid does not force an effect on\n        else:\n            picks = rng.sample(TREAT, rng.choice([1, 2]))\n        for n in picks:\n            sel[n] = {\"Enable\": 1, **params_for(n, rng, bias if n in DARK else 0.0)}\n        if cut:  # bright patches above Cut go black, on every clip\n            sel[\"highlights\"] = {\"Enable\": 1, **params_for(\"highlights\", rng, bias), \"Cut\": _draw(rng, cut, bias), \"Amount\": 1.0}\n        if not picks or enabled(sel) not in taken:\n            return sel\n    spare = next(n for n in TREAT if n not in enabled(sel))  # twenty collisions: force a difference\n    sel[spare] = {\"Enable\": 1, **params_for(spare, rng)}\n    return sel\n\n\ndef load_table(path):\n    try:\n        with open(path) as fh:\n            return json.load(fh)\n    except (OSError, ValueError):\n        return {}\n\n\n# ---------------------------------------------------------------- TouchDesigner glue\n# Everything below touches op() and pars. State is a plain dict in the fx container's storage.\nGROUPS = (\"outer\", \"inner\")\nOTHER = {\"A\": \"B\", \"B\": \"A\"}\n\n\ndef _fx():\n    return op(\"/project1/fx\")\n\n\ndef _state():\n    fx = _fx()\n    st = fx.fetch(\"state\", None)\n    if st is None:\n        seed = int(fx.par.Seed) or None\n        st = {\"seed\": seed, \"rng\": None, \"playlist\": {}, \"player\": \"A\", \"clip\": {}, \"plan\": {}, \"sel\": {}, \"lead\": 0.0}\n        fx.store(\"state\", st)\n    return st\n\n\ndef _rng(st):\n    if st.get(\"rng\") is None:\n        st[\"rng\"] = random.Random(st.get(\"seed\"))\n    return st[\"rng\"]\n\n\ndef _table():\n    return load_table(os.path.join(project.folder, \"..\", \"td\", \"clips.json\"))\n\n\ndef _apply(group, slot, sel):\n    \"\"\"Two chain slots per group, so a transition melds the old look into the new.\"\"\"\n    _apply_chain(_fx().op(f\"chain{slot}_{group}\"), sel)\n\n\ndef _apply_chain(chain, sel):\n    for name, vals in sel.items():\n        b = chain.op(name)\n        for k, v in vals.items():\n            getattr(b.par, k).val = v\n    chain.op(\"feedback/fb\").par.resetpulse.pulse()  # the idle chain's loop holds a stale frame\n\n\n# ---------------------------------------------------------------- hold mode: step through by hand\nNEUTRAL_FRAMING = {\"Enable\": 1, \"Zoom\": 1.0, \"Tx\": 0.0, \"Ty\": 0.0, \"Flipx\": 0, \"Flipy\": 0, \"Rotate\": 0}\n\n\ndef held_selection(name, params):\n    \"\"\"Only `name` on, with `params`, over a neutral framing. Pure.\"\"\"\n    sel = {n: {\"Enable\": 0} for n in CORPUS}\n    sel[\"framing\"] = dict(NEUTRAL_FRAMING)\n    sel[name] = {\"Enable\": 1, **params}\n    if name == \"framing\":\n        sel[\"framing\"] = {\"Enable\": 1, **params}\n    return sel\n\n\ndef _hold_apply(st, name=None, fresh=False):\n    fx = _fx()\n    held = st.setdefault(\"held\", {})\n    name = name or held.get(\"name\") or ORDER[1]\n    if fresh or held.get(\"name\") != name:\n        held[\"name\"] = name\n        held[\"params\"] = params_for(name, _rng(st))\n    sel = held_selection(name, held[\"params\"])\n    for g in GROUPS:\n        st[\"sel\"][g] = sel\n        for slot in (1, 2):\n            _apply(g, slot, sel)\n    fx.par.Effect = name\n    print(\"try:\", name, \"  \".join(f\"{k} {v}\" for k, v in held[\"params\"].items()))\n\n\ndef on_try(par_name):\n    \"\"\"A control on the Try page changed.\"\"\"\n    st = _state()\n    fx = _fx()\n    if par_name == \"Darkness\":\n        fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]\n        return\n    if par_name == \"Hold\":\n        if fx.par.Hold:\n            _hold_apply(st, str(fx.par.Effect))\n        return\n    if not fx.par.Hold:\n        return\n    if par_name == \"Effect\":\n        _hold_apply(st, str(fx.par.Effect))\n    elif par_name in (\"Nexteffect\", \"Preveffect\"):\n        i = ORDER.index(st.get(\"held\", {}).get(\"name\", ORDER[1]))\n        step = 1 if par_name == \"Nexteffect\" else -1\n        _hold_apply(st, ORDER[(i + step) % len(ORDER)])\n    elif par_name == \"Reroll\":\n        _hold_apply(st, fresh=True)\n\n\ndef _cue(player, key, plan):\n    p = _fx().op(\"player\" + player)\n    p.par.file = os.path.join(project.folder, key)\n    p.par.cuepoint = plan[\"start\"]\n    p.par.speed = plan[\"speed\"]\n    p.par.play = False\n    p.par.cue = True\n    p.par.cuepulse.pulse()\n\n\ndef _pick_next(st):\n    rng = _rng(st)\n    table = _table()\n    pl = Playlist(sorted(table) if table else [], rng, st[\"playlist\"])\n    key = pl.next() if pl.paths else None\n    nxt = OTHER[st[\"player\"]]\n    plan = plan_segment(table.get(key), rng, cap=float(_fx().par.Cap), lead=st[\"lead\"])\n    st[\"clip\"][nxt] = key\n    st[\"plan\"][nxt] = plan\n    if key:\n        _cue(nxt, key, plan)\n    return nxt\n\n\ndef _selection_for(st, player, group):\n    \"\"\"A look for `player`'s clip, unlike the group's own and the other group's.\"\"\"\n    rng = _rng(st)\n    clip = _table().get(st[\"clip\"].get(player))\n    plan = st[\"plan\"][player]\n    stats = window_stats(clip, plan[\"start\"], plan[\"window\"])\n    fx = _fx()\n    level = DARKNESS[str(fx.par.Darkness)]\n    avoid = [st[\"sel\"].get(g) for g in GROUPS if g != group] + [st[\"sel\"].get(group)]\n    return choose(stats, rng, avoid=avoid, bias=level[3], cut=level[4],\n                  bright_mean=float(fx.par.Brightmean), bright_high=float(fx.par.Brighthigh))\n\n\n# ---------------------------------------------------------------- the spice\ndef _schedule_spice(st):\n    \"\"\"Cue a random clip into player C and start the wait for the next spice.\"\"\"\n    rng = _rng(st)\n    table = _table()\n    if not table:\n        return\n    key = rng.choice(sorted(table))\n    plan = plan_segment(table[key], rng, cap=SPICE_LEN[1])\n    st[\"clip\"][\"C\"], st[\"plan\"][\"C\"] = key, plan\n    _cue(\"C\", key, plan)\n    _timer(\"t_spicewait\", rng.uniform(*SPICE_GAP))\n\n\ndef _start_spice(st):\n    fx = _fx()\n    rng = _rng(st)\n    where = rng.choice(SPICE_WHERE)\n    st[\"spice\"] = {\"groups\": GROUPS if where == \"both\" else [where], \"pulses\": rng.randint(*SPICE_PULSES),\n                   \"type\": rng.randrange(XFADE_TYPES - 1), \"t0\": absTime.seconds}  # a shader transition, not the smear\n    st[\"sel\"][\"spice\"] = _selection_for(st, \"C\", \"spice\")\n    _apply_chain(fx.op(\"chainC\"), st[\"sel\"][\"spice\"])\n    _release(\"C\")\n    print(f\"spice on {where} -> {st['clip']['C']}\")\n    _timer(\"t_spice\", rng.uniform(*SPICE_LEN))\n\n\ndef _end_spice(st):\n    _fx().op(\"playerC\").par.play = False\n    _schedule_spice(st)\n\n\ndef spice_level(group):\n    \"\"\"The spice's progress for a group, read every frame by spice_g's shader.\"\"\"\n    st = _state()\n    sp = st.get(\"spice\")\n    if not sp or group not in sp[\"groups\"]:\n        return 0.0\n    beats = None\n    if beat_phase() is not None:\n        beats = (absTime.seconds - sp[\"t0\"]) * st[\"beat\"][\"bpm\"] / 60.0\n    return spice_env(_fx().op(\"t_spice\")[\"timer_fraction\"], sp[\"pulses\"], beats)\n\n\n# ---------------------------------------------------------------- the beat\ndef on_beat(bpm, kind):\n    \"\"\"A beat from the tracker, through beat_in's callbacks.\"\"\"\n    st = _state()\n    b = st.setdefault(\"beat\", {\"t\": 0.0, \"bpm\": 0.0, \"n\": 0})\n    b[\"t\"], b[\"bpm\"], b[\"n\"] = absTime.seconds, float(bpm), b[\"n\"] + 1\n    _fx().par.Bpm = round(float(bpm), 1)\n\n\ndef _beat(st):\n    \"\"\"The beat state when sync is on and a beat is fresh, else None.\"\"\"\n    fx = _fx()\n    b = st.get(\"beat\")\n    if not fx.par.Beatsync or not b or not b[\"bpm\"] or absTime.seconds - b[\"t\"] > BEAT_HOLD:\n        if b and fx.par.Bpm != 0 and absTime.seconds - b[\"t\"] > BEAT_HOLD:\n            fx.par.Bpm = 0\n        return None\n    return b\n\n\ndef beat_phase():\n    \"\"\"0 to 1 through the current beat, None when not synced. Read every frame.\"\"\"\n    b = _beat(_state())\n    return None if b is None else beat_phase_of(absTime.seconds, b[\"t\"], b[\"bpm\"], float(_fx().par.Beatoffset))\n\n\ndef lfo_rate(free, beats):\n    \"\"\"An LFO's frequency: one cycle per `beats` beats when synced, else its free rate.\"\"\"\n    b = _beat(_state())\n    return lfo_rate_of(free, beats, b[\"bpm\"] if b else 0.0)\n\n\ndef beat_pulse():\n    \"\"\"1 on the beat, settling to 0 before the next; 0 when not synced. For the bounce.\"\"\"\n    b = _beat(_state())\n    if b is None:\n        return 0.0\n    since = (absTime.seconds - b[\"t\"] + float(_fx().par.Beatoffset)) % (60.0 / b[\"bpm\"])\n    return math.exp(-since / BEAT_BOUNCE_DECAY)\n\n\ndef reroll_seconds():\n    b = _beat(_state())\n    return REROLL_BEATS * 60.0 / b[\"bpm\"] if b else float(_fx().par.Rerollevery)\n\n\ndef spice_type():\n    sp = _state().get(\"spice\")\n    return sp[\"type\"] if sp else 0\n\n\ndef spice_on():\n    \"\"\"1 while a spice shows on any group, so spicesw_g pulls the shader and chainC only then.\"\"\"\n    return int(any(spice_level(g) > 0.0 for g in GROUPS))\n\n\ndef spice_drift(axis):\n    \"\"\"A small wander of the spice picture over its life, read every frame by spice_drift.\"\"\"\n    f = _fx().op(\"t_spice\")[\"timer_fraction\"]\n    return 0.06 * math.sin(2 * math.pi * f) if axis == \"x\" else 0.04 * math.sin(4 * math.pi * f + 1.0)\n\n\ndef _start_xfade(st, group, player, seconds):\n    \"\"\"The group melds from its shown chain slot into the other, carrying `player` with a new\n    look: the next clip at a clip change, the same clip for a mid-clip swap.\"\"\"\n    fx = _fx()\n    x = fx.op(\"xfade_\" + group)\n    if x.par.Active:\n        _finish_xfade(st, group)  # a swap still running when the clip change comes\n    if player != st[\"player\"] and not fx.par.Hold:\n        _roll_mirror(st, group)\n        _roll_pan(st, group)\n        print(f\"{group} -> {st['clip'][player]}  (over {seconds:.0f} s)\")\n    slot = 3 - st[\"chain\"][group]\n    fx.op(f\"src{slot}_{group}\").par.index = 0 if player == \"A\" else 1\n    if not fx.par.Hold:\n        sel = _selection_for(st, player, group)\n        st[\"sel\"][group] = sel\n        _apply(group, slot, sel)\n    st[\"target\"][group] = (slot, player)  # read back at the end, when roles may have swapped already\n    forced = fx.par.Xfadetype.menuIndex  # 0 random, else the type plus one\n    x.par.Type = (forced - 1) if forced else _rng(st).randrange(XFADE_TYPES)\n    x.op(\"smear_fb\").par.resetpulse.pulse()\n    fx.op(\"nxt_\" + group).par.index = slot - 1\n    _release(player)  # normally already rolling from the pre-roll; harmless twice\n    x.par.Active = 1\n    t = fx.op(\"tx_\" + group)\n    t.par.length = seconds\n    t.par.start.pulse()\n\n\ndef _roll_pan(st, group):\n    \"\"\"A new part of the frame for the group at a clip change, and the window scheme: the inner\n    group draws close or wide, the outer takes the other. The lags ease both moves.\"\"\"\n    fx = _fx()\n    other = GROUPS[1 - GROUPS.index(group)]\n    fx.op(\"pan_\" + group).par.value0 = pick_pan(_rng(st), float(fx.op(\"pan_\" + other).par.value0))\n    fx.op(\"zoom_\" + group).par.value0 = float(_rng(st).randrange(2)) if group == \"inner\" else 1.0 - float(fx.op(\"zoom_inner\").par.value0)\n\n\ndef _roll_mirror(st, group):\n    \"\"\"The outer pair hangs upside down most of the time; the lag blends the change.\"\"\"\n    if group == \"outer\":\n        _fx().op(\"flip_tgt_outer\").par.value0 = 1.0 if _rng(st).random() < UPSIDE_CHANCE else 0.0\n\n\ndef _finish_xfade(st, group):\n    \"\"\"The transition is over: the group shows the slot it melded into.\"\"\"\n    fx = _fx()\n    if group in st[\"target\"]:\n        slot, _ = st[\"target\"][group]\n        st[\"chain\"][group] = slot\n        fx.op(\"cur_\" + group).par.index = slot - 1\n    fx.op(\"xfade_\" + group).par.Active = 0\n    fx.op(\"tx_\" + group).par.initialize.pulse()  # fraction back to 0, so the xfade shows cur\n\n\ndef _release(player):\n    p = _fx().op(\"player\" + player)\n    p.par.cue = False\n    p.par.play = True\n\n\ndef _timer(name, seconds):\n    t = _fx().op(name)\n    t.par.length = max(seconds, 0.05)\n    t.par.start.pulse()\n\n\ndef start():\n    \"\"\"Called once from the Execute DAT's onStart and at the end of the build.\"\"\"\n    fx = _fx()\n    fx.unstore(\"state\")\n    for name in (\"t_preroll\", \"t_turn\", \"t_inner\", \"t_outer\", \"tx_inner\", \"tx_outer\", \"t_reroll\", \"t_spice\", \"t_spicewait\"):\n        fx.op(name).par.initialize.pulse()  # a timer saved mid run would fire into fresh state\n    for g in GROUPS:\n        fx.op(\"xfade_\" + g).par.Active = 0\n    st = _state()\n    st[\"player\"] = \"B\"  # so that _pick_next cues the first clip into A\n    first = _pick_next(st)\n    st[\"player\"] = first\n    st[\"lead\"] = 0.0\n    _release(first)\n    st[\"chain\"], st[\"target\"] = {}, {}\n    for g in GROUPS:\n        st[\"chain\"][g] = 1\n        fx.op(\"cur_\" + g).par.index = 0\n        fx.op(\"src1_\" + g).par.index = 0 if first == \"A\" else 1\n        st[\"sel\"][g] = None\n    for g in GROUPS:\n        st[\"sel\"][g] = _selection_for(st, first, g)\n        _apply(g, 1, st[\"sel\"][g])\n        _roll_mirror(st, g)\n        _roll_pan(st, g)\n    if fx.par.Hold:\n        _hold_apply(st, str(fx.par.Effect))\n    _begin_segment(st)\n    _schedule_spice(st)\n\n\ndef _begin_segment(st):\n    \"\"\"Both groups show st['player']; cue the next clip and arm the timers.\"\"\"\n    fx = _fx()\n    plan = st[\"plan\"][st[\"player\"]]\n    _pick_next(st)\n    L, T, t = plan[\"length\"], plan[\"tease\"], plan[\"xfade\"]\n    if plan[\"turn\"] is None:\n        fx.op(\"t_turn\").par.initialize.pulse()  # cancel a turn armed by the segment before\n    else:\n        _timer(\"t_turn\", plan[\"turn\"] - st[\"lead\"])\n    _timer(\"t_preroll\", L - T - t - PREROLL)\n    _timer(\"t_inner\", L - T - t)\n    _timer(\"t_outer\", L - t)\n    r = fx.op(\"t_reroll\")\n    r.par.length = reroll_seconds()\n    r.par.start.pulse()\n\n\ndef on_done(timer_name):\n    st = _state()\n    fx = _fx()\n    if timer_name == \"t_preroll\":\n        _release(OTHER[st[\"player\"]])\n    elif timer_name == \"t_spicewait\":\n        if not fx.par.Hold:\n            _start_spice(st)\n        else:\n            _schedule_spice(st)\n    elif timer_name == \"t_spice\":\n        _end_spice(st)\n    elif timer_name == \"t_turn\":\n        fx.op(\"player\" + st[\"player\"]).par.cuepulse.pulse()  # a short clip reaches its end: again from the top\n    elif timer_name in (\"t_inner\", \"t_outer\"):\n        _start_xfade(st, timer_name[2:], OTHER[st[\"player\"]], st[\"plan\"][st[\"player\"]][\"xfade\"])\n    elif timer_name in (\"tx_inner\", \"tx_outer\"):\n        g = timer_name[3:]\n        # with no tease both transitions end in the same frame, and the outer one may have\n        # swapped st[\"player\"] already, so the target comes from the start of the transition\n        _, nxt = st[\"target\"].get(g, (None, st[\"player\"]))\n        _finish_xfade(st, g)\n        if g == \"outer\" and st[\"player\"] != nxt:\n            plan = st[\"plan\"][st[\"player\"]]\n            st[\"lead\"] = plan[\"tease\"] + plan[\"xfade\"] + PREROLL\n            st[\"player\"] = nxt\n            _begin_segment(st)\n\n\ndef on_reroll():\n    \"\"\"Every Rerollevery seconds one group, in turn, may swap to a new look mid clip, melded\n    over SWAP seconds, unless its clip change is about to do that anyway.\"\"\"\n    st = _state()\n    fx = _fx()\n    if fx.par.Hold:\n        return\n    st[\"reroll_n\"] = st.get(\"reroll_n\", 0) + 1\n    g = GROUPS[st[\"reroll_n\"] % 2]\n    rng = _rng(st)\n    secs = round(rng.uniform(*SWAP), 2)\n    if rng.random() >= SWAP_CHANCE or fx.op(\"xfade_\" + g).par.Active:\n        return\n    t = fx.op(\"t_\" + g)\n    if float(t.par.length) * (1 - t[\"timer_fraction\"]) < secs + 2:\n        return\n    _start_xfade(st, g, st[\"player\"], secs)\n"
   },
   "/project1/fx/spice_drift": {
    "type": "transformTOP",
@@ -12446,6 +12591,11 @@
     0,
     0
    ],
+   "pars": {
+    "index": {
+     "val": 1.0
+    }
+   },
    "inputs": [
     [
      0,
@@ -12486,11 +12636,6 @@
     0,
     0
    ],
-   "pars": {
-    "index": {
-     "val": 1.0
-    }
-   },
    "inputs": [
     [
      0,
@@ -12538,7 +12683,7 @@
    ],
    "pars": {
     "length": {
-     "val": 21.819999999999997
+     "val": 19.249999999999996
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12589,7 +12734,7 @@
    ],
    "pars": {
     "length": {
-     "val": 27.24
+     "val": 19.249999999999996
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12640,7 +12785,7 @@
    ],
    "pars": {
     "length": {
-     "val": 20.819999999999997
+     "val": 18.249999999999996
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12748,7 +12893,7 @@
    ],
    "pars": {
     "length": {
-     "val": 12.461560207114855
+     "val": 15.840820496019596
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12799,7 +12944,7 @@
    ],
    "pars": {
     "length": {
-     "val": 66.0523782894541
+     "val": 81.87488628330894
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12850,7 +12995,7 @@
    ],
    "pars": {
     "length": {
-     "val": 24.67
+     "val": 16.28
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12939,7 +13084,7 @@
    ],
    "pars": {
     "length": {
-     "val": 21.13
+     "val": 12.72
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -12990,7 +13135,7 @@
    ],
    "pars": {
     "length": {
-     "val": 21.13
+     "val": 12.72
     },
     "callbacks": {
      "val": "timers_callbacks"
@@ -13385,10 +13530,7 @@
      "val": 0.0
     },
     "Type": {
-     "val": 2
-    },
-    "Active": {
-     "val": true
+     "val": 1
     }
    },
    "inputs": [
@@ -13795,10 +13937,7 @@
      "val": 0.0
     },
     "Type": {
-     "val": 1
-    },
-    "Active": {
-     "val": true
+     "val": 3
     }
    },
    "inputs": [
@@ -14200,6 +14339,9 @@
     0
    ],
    "pars": {
+    "const0value": {
+     "val": 1.0
+    },
     "rate": {
      "expr": "me.time.rate",
      "val": 60.0
@@ -30176,7 +30318,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
+   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item1/scaledUvPivot": {
    "type": "nullSOP",
@@ -52514,7 +52656,7 @@
      "val": 2
     }
    },
-   "text": "aspectx\t340.0\r\naspecty\t1080.0\r\n"
+   "text": "aspectx\t1.0\r\naspecty\t1.0\r\n"
   },
   "/project1/kantanMapper1/project/allShapes/item5/scaledUvPivot": {
    "type": "nullSOP",

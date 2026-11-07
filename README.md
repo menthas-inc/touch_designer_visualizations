@@ -13,7 +13,10 @@ Open the file in TouchDesigner. The sequencer starts on its own. Then, in the Te
 | preview window on this screen | `exec(open('~/dev/studio_visuals/td/open_output.py').read())` |
 | preview full screen, mouse on the screen you want | `w = op('/project1/window'); w.par.borders = False; w.par.size = next(n for n in w.par.size.menuNames if 'fill' in n.lower()); w.par.winclose.pulse(); w.par.winopen.pulse()` |
 | close the preview | `op('/project1/window').par.winclose.pulse()` |
-| projector output | the `Toggle Output` button in the Kantan Mapper panel |
+| projector output, on the extended display | `op('/project1/kantanMapper1/project/window1').par.winopen.pulse()` |
+| close it | `op('/project1/kantanMapper1/project/window1').par.winclose.pulse()` |
+| strips solid, for lining up the paper | `for it in ('item5', 'item4', 'item2', 'item1'): op('/project1/kantanMapper1/project/allShapes/' + it + '/parameters').par.Showtexture = False` |
+| video back on the strips | the same line with `True` |
 | rebuild the chain after a script change | `exec(open('~/dev/studio_visuals/td/build_fx.py').read())` |
 | restart the sequencer | `op('/project1/fx/sequencer').module.start()` |
 | save | `project.save('~/dev/studio_visuals/TD_Mapping/Studio_Up_new.toe')` |
