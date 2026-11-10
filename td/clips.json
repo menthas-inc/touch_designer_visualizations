@@ -358,6 +358,41 @@
   "length": 67.44,
   "motion": 0.0096
  },
+ "VJ_Visuals/Long/Pills Dissolve.mp4": {
+  "buckets": [
+   {
+    "high": 0.8118,
+    "mean": 0.4415
+   },
+   {
+    "high": 0.8196,
+    "mean": 0.3885
+   },
+   {
+    "high": 0.5608,
+    "mean": 0.3676
+   },
+   {
+    "high": 0.7333,
+    "mean": 0.3873
+   },
+   {
+    "high": 0.7843,
+    "mean": 0.4582
+   },
+   {
+    "high": 0.6549,
+    "mean": 0.4148
+   },
+   {
+    "high": 0.6627,
+    "mean": 0.4138
+   }
+  ],
+  "fps": 24.0,
+  "length": 66.0,
+  "motion": 0.0241
+ },
  "VJ_Visuals/Long/SaveInsta.App - 2996992319816061900_315217118.mp4": {
   "buckets": [
    {
