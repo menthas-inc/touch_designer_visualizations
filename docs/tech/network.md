@@ -73,8 +73,8 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   effects, a look chosen like the groups') and `spice_drift` (a small wander), brought in
   over one pair or both by `spice_g`, the transition shader again with a type per spice,
   between the transition and the limiter; `spicesw_g` bypasses it, so chainC idles between
-  spices. `t_spicewait` (28 to 84 s) then `t_spice`, three parts: 8 to 16 s of 4 to 7
-  swells rising to full and bunching up, 10 to 20 s fully on, 6 to 12 s of half as many
+  spices. `t_spicewait` (28 to 84 s) then `t_spice`, three parts: 8 to 16 s of 1 to 3
+  swells (one every two bars on the beat) rising to full and bunching up, 10 to 20 s fully on, 6 to 12 s of half as many
   swells falling away (`spice_env`). Its clip is 30 s or longer, so it outlasts the spice.
   Player C only plays during a spice.
 - **Timers.** `t_turn` cues a short clip back to its start when it reaches its end, `t_preroll`

@@ -121,16 +121,16 @@ class BeatTest(unittest.TestCase):
         self.assertAlmostEqual(sq.lfo_rate_of(0.05, 32, 120.0), 2.0 / 32)
         self.assertEqual(sq.lfo_rate_of(0.05, 32, 0.0), 0.05)
 
-    def test_spice_on_the_beat_swells_every_two_beats(self):
-        ys = [sq.spice_env(5.0, (10.0, 10.0, 10.0), 5, beats=b / 100) for b in range(0, 801)]
-        peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 800))
-        self.assertEqual(peaks, 3)  # at beats 2, 4 and 6; 0 and 8 are the ends
+    def test_spice_on_the_beat_swells_every_two_bars(self):
+        ys = [sq.spice_env(5.0, (10.0, 10.0, 10.0), 3, beats=b / 100) for b in range(0, 3201)]
+        peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 3200))
+        self.assertEqual(peaks, 3)  # at beats 8, 16 and 24; 0 and 32 are the ends
 
 
 class SpiceTest(unittest.TestCase):
     def test_env_swells_in_holds_full_and_swells_out(self):
         parts = (10.0, 10.0, 10.0)
-        for pulses in (4, 5, 7):
+        for pulses in (2, 3, 4):
             ys = [sq.spice_env(i / 100, parts, pulses) for i in range(3001)]
             self.assertEqual(ys[0], 0.0)
             self.assertAlmostEqual(ys[-1], 0.0)

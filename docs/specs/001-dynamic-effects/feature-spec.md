@@ -110,7 +110,7 @@ is shorter by that lead, and the plain play before any change is never under 6 s
 time the idle player has to cue the clip after it.
 
 Every minute or so a third clip, 30 s or longer, drops in over one pair or both: it swells in
-four to seven times over 8 to 16 s, quicker as it goes, takes over fully for 10 to 20 s, then
+one to three times over 8 to 16 s (every two bars when it follows the beat), quicker as it goes, takes over fully for 10 to 20 s, then
 swells out over 6 to 12 s, wandering a little throughout. It gets its own look, chosen like
 the groups' and unlike theirs.
 

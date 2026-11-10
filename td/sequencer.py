@@ -77,7 +77,7 @@ SPICE_GAP = (28.0, 84.0)  # seconds between spices
 SPICE_IN = (8.0, 16.0)  # seconds of swells coming in
 SPICE_HOLD = (10.0, 20.0)  # seconds fully on
 SPICE_OUT = (6.0, 12.0)  # seconds of swells going out
-SPICE_PULSES = (4, 7)  # swells coming in; going out, half as many
+SPICE_PULSES = (2, 4)  # swells coming in, the last being the takeover itself: 1 to 3 before it (owner, 2026-11-10); going out, half
 SPICE_MIN_CLIP = 30.0  # seconds; a spice clip must outlast the spice at its speed
 SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
 
@@ -103,8 +103,8 @@ SPICE_ACCEL = 1.0  # the swells come e^this times faster at the end of a phase t
 
 def _swell(f, pulses, beats):
     """0.1 to 1, `pulses` swells over f 0 to 1, spacing changing exponentially, 1 at both ends;
-    or, given beats elapsed, one swell every two beats."""
-    phase = beats / 2.0 if beats is not None else (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
+    or, given beats elapsed, one swell every two bars."""
+    phase = beats / 8.0 if beats is not None else (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
     return 0.55 + 0.45 * math.cos(2 * math.pi * phase)
 
 
