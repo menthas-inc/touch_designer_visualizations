@@ -90,10 +90,18 @@ def capture(source, device, blocks):
 
         def pump():
             n = ch * 4 * (rate // 10)
+            t0, got = None, 0
             while True:
                 raw = proc.stdout.read(n)
                 if len(raw) < n:
                     return
+                got += 1
+                if got == 20:  # two seconds in: start timing the delivery, to catch a tap that lies about its rate
+                    t0 = time.time()
+                elif got == 120:
+                    real = 10 * (rate // 10) / (time.time() - t0)
+                    if abs(real - rate) > 0.03 * rate:
+                        print(f"tap says {rate} Hz but delivers {real:.0f}: the tempo will be off by that ratio", flush=True)
                 x = np.frombuffer(raw, dtype=np.float32).reshape(-1, ch).mean(axis=1)
                 blocks.put(resample_poly(x, ratio.numerator, ratio.denominator).astype(np.float32) if ratio != 1 else x)
 

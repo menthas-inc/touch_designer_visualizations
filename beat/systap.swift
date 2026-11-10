@@ -48,7 +48,13 @@ check(AudioObjectGetPropertyData(tap, &addr, 0, nil, &size, &fmt), "tap format")
 if fmt.mFormatFlags & kAudioFormatFlagIsNonInterleaved != 0 || fmt.mBitsPerChannel != 32 {
     FileHandle.standardError.write("unexpected tap format\n".data(using: .utf8)!); exit(1)
 }
-FileHandle.standardError.write("rate \(Int(fmt.mSampleRate)) channels \(fmt.mChannelsPerFrame)\n".data(using: .utf8)!)
+// the rate the frames actually arrive at is the aggregate's, not the tap format's: with
+// Bluetooth headphones the format said 48000 and 44100 arrived (2026-11-10)
+var rate = Float64(0)
+size = UInt32(MemoryLayout<Float64>.size)
+addr = AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyNominalSampleRate, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMain)
+check(AudioObjectGetPropertyData(aggID, &addr, 0, nil, &size, &rate), "aggregate rate")
+FileHandle.standardError.write("rate \(Int(rate)) channels \(fmt.mChannelsPerFrame)\n".data(using: .utf8)!)
 
 var proc: AudioDeviceIOProcID?
 check(AudioDeviceCreateIOProcIDWithBlock(&proc, aggID, nil) { _, inData, _, _, _ in
