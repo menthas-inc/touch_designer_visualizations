@@ -5,8 +5,9 @@
       OSC In DAT showing beats. AC-3, AC-4.
 - [x] T2 sequencer: beat state, `on_beat`, `beat_phase`, `lfo_rate`, `beat_pulse`,
       `reroll_seconds`, `spice_env` with `beat`; pure functions tested. AC-2.
-- [~] T3 build: `beat_in` and its callbacks, the four pars, LFO frequency expressions, the
-      reroll length, `bounce_g`. Rebuilt with zero misses. AC-1, AC-2.
+- [x] T3 build: `beat_in` and its callbacks, the pars (`Beatsource` added 2026-11-10 with
+      `osc_out`), LFO frequency expressions, the reroll length, `bounce_g`. Rebuilt; the tracker
+      on system audio read 128 on a 128 bpm track in the room (owner, 2026-11-10). AC-1, AC-2.
 - [ ] T4 on site: offset tuned against the bounce, frame rate checked with the tracker
       running. AC-1, AC-3.
 - [x] T5 docs: `docs/tech/network.md`, `docs/tech/setup.md` (how to start the tracker). SV-1.
