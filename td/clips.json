@@ -832,36 +832,6 @@
   "length": 22.1,
   "motion": 0.0227
  },
- "VJ_Visuals/Long_Acid_8.mp4": {
-  "buckets": [
-   {
-    "high": 0.5137,
-    "mean": 0.3356
-   },
-   {
-    "high": 0.5216,
-    "mean": 0.3287
-   }
-  ],
-  "fps": 25.0,
-  "length": 19.84,
-  "motion": 0.0143
- },
- "VJ_Visuals/SaveInsta.App - 2640090069449223774.mp4": {
-  "buckets": [
-   {
-    "high": 0.4275,
-    "mean": 0.2799
-   },
-   {
-    "high": 0.3216,
-    "mean": 0.2386
-   }
-  ],
-  "fps": 30.0,
-  "length": 16.23,
-  "motion": 0.0198
- },
  "VJ_Visuals/SaveInsta.App - 2835266939262557492.mp4": {
   "buckets": [
    {
