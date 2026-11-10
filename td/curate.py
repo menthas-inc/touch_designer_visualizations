@@ -3,8 +3,8 @@
     python3 td/curate.py                    # builds TD_Mapping/curate/index.html and opens it
     python3 td/curate.py apply <selection.json>
 
-The page shows every clip from both folders with three frames and its length, all ticked.
-Untick what goes, press Save: the browser downloads selection.json. Applying it moves unticked
+The page shows every clip from both folders with three frames and its length, the show's
+ticked and Not_Used's not. Untick what goes, tick what comes back, press Save: the browser downloads selection.json. Applying it moves unticked
 clips to Not_Used, ticked ones back to VJ_Visuals, and updates td/clips.json (stats measured
 for anything coming back). Keys are paths relative to TD_Mapping, as in the table.
 """
@@ -51,7 +51,7 @@ def build():
         rows.append((key, length, imgs))
         print(key, round(length, 1), "s")
     cards = "\n".join(
-        f'<label class="card {"gone" if k.startswith(GONE) else ""}"><input type="checkbox" value="{html.escape(k)}" checked>'
+        f'<label class="card {"gone" if k.startswith(GONE) else ""}"><input type="checkbox" value="{html.escape(k)}"{"" if k.startswith(GONE) else " checked"}>'
         f'<div class="imgs">{"".join(f"<img src=\"{html.escape(p)}\">" for p in imgs)}</div>'
         f'<div class="meta"><b>{k.split("/")[0]}{"/Long" if "/Long/" in k else ""}</b> {length:.0f} s<br>'
         f'<span>{html.escape(os.path.basename(k))}</span></div></label>'
