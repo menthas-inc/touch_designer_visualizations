@@ -25,6 +25,7 @@ Open the file in TouchDesigner. The sequencer starts on its own. Then, in the Te
 | stop a recording early | `op('/project1/rec').par.record = 0; op('/project1/rec_cook').par.active = 0` |
 | where the frame time goes | `exec(open('~/dev/studio_visuals/td/diag_cook.py').read())` |
 | what the players are doing | `exec(open('~/dev/studio_visuals/td/diag_players.py').read())` |
+| resolution at each step, file to screen | `exec(open('~/dev/studio_visuals/td/diag_res.py').read())` |
 
 The knobs are on the `fx` node, `/project1/fx`: hover a parameter's name for what it does.
 `Darkness`, `Roomdark` and `Roomcontrast` set the brightness for the room; the `Try` page
