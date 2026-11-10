@@ -59,8 +59,8 @@ def progress(fraction):
     f = min(max(fraction, 0.0), 1.0)
     return 0.5 * f / KNEE if f < KNEE else 0.5 + 0.5 * (f - KNEE) / (1.0 - KNEE)
 SWAP_CHANCE = 0.3  # per reroll tick, for the one group whose turn it is
-UPSIDE_CHANCE = 0.5  # per clip change and strip, that the picture hangs upside down
-MIRROR_CHANCE = 0.5  # per clip change and strip, that left is right
+UPSIDE_CHANCE = 0.5  # per clip change and group, that one strip of the pair, drawn at random, hangs upside down
+MIRROR_CHANCE = 0.5  # per clip change and group, that one strip of the pair, drawn at random, has left for right
 PAN_REACH = 0.3  # of the frame width, how far from the centre a group's window may sit
 PAN_APART = 0.2  # of the frame width, the least distance between the two groups' windows
 
@@ -567,14 +567,17 @@ def _roll_pan(st, group, seconds=4.0):
 
 
 def _roll_mirror(st, group, seconds=3.0):
-    """Upside down or not, left for right or not, a coin each per strip of the group; the lags
-    blend both over the transition (owner, 2026-11-10)."""
+    """Per axis a coin: on heads one strip of the pair, drawn at random, turns (upside down, or
+    left for right) and the other stays, so the pair mirrors across the wall; the lags blend
+    both over the transition (owner, 2026-11-10)."""
     fx = _fx()
-    for n in (1, 2):
-        for name, chance in (("flip", UPSIDE_CHANCE), ("mirror", MIRROR_CHANCE)):
+    rng = _rng(st)
+    for name, chance in (("flip", UPSIDE_CHANCE), ("mirror", MIRROR_CHANCE)):
+        turned = rng.choice((1, 2)) if rng.random() < chance else 0
+        for n in (1, 2):
             lag = fx.op(f"{name}_lag_{group}{n}")
             lag.par.lag1 = lag.par.lag2 = seconds
-            fx.op(f"{name}_tgt_{group}{n}").par.value0 = 1.0 if _rng(st).random() < chance else 0.0
+            fx.op(f"{name}_tgt_{group}{n}").par.value0 = 1.0 if n == turned else 0.0
 
 
 def _finish_xfade(st, group):

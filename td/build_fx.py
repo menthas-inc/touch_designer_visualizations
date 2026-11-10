@@ -384,11 +384,11 @@ def build():
                     sx="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
                     sy="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()")
         out = mk(fx, nullTOP, "out_" + g, bounce)
-        # how each strip hangs: at each clip change the sequencer draws, per strip and 50/50 each,
-        # whether the picture is upside down (flip_tgt_gN) and whether left is right
-        # (mirror_tgt_gN), both blended in over the transition so there is never a cut. Per strip,
-        # not per pair, or the two strips of a pair stay identical and a turn has nothing to read
-        # against (owner, 2026-11-10). Kantan's own flip and orientation flags stay off.
+        # how each strip hangs: at each clip change the sequencer draws, per pair and per axis, a
+        # coin, and on heads one strip of the pair (drawn at random) turns, upside down
+        # (flip_tgt_gN) or left for right (mirror_tgt_gN), while the other stays, so the pair
+        # mirrors across the wall; both blended in over the transition so there is never a cut
+        # (owner, 2026-11-10). Kantan's own flip and orientation flags stay off.
         for n in (1, 2):
             tgt = mk(fx, constantCHOP, f"flip_tgt_{g}{n}", value0=0.0)
             mk(fx, lagCHOP, f"flip_lag_{g}{n}", tgt, lag1=3.0, lag2=3.0)

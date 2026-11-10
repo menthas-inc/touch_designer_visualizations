@@ -45,11 +45,12 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   gamma so the midtones follow; 0 and 1 pass through), `out_g`, then the hang, per strip (N 1 and 2, the pair's left and
   right strip): `upside_gN` (`out_g` crossed with its vertical flip on `flip_lag_gN` toward
   `flip_tgt_gN`) and `orient_gN` (that crossed with its horizontal flip on `mirror_lag_gN`
-  toward `mirror_tgt_gN`). At each clip change the sequencer draws both targets per strip, a
-  coin each, and sets the lags to the transition length, so a strip turns upside down or left
-  for right without a cut. Per strip, not per pair: with both strips of a pair identical a turn
-  had nothing to read against (owner, 2026-11-10; the earlier always-on x mirror of one strip
-  per pair was a Kantan flag nobody asked for). A transition melds the shown slot into the other, which carries
+  toward `mirror_tgt_gN`). At each clip change the sequencer draws, per group and per axis,
+  a coin: on heads one strip of the pair, picked at random, turns (upside down, or left for
+  right) and the other stays, so the pair mirrors across the wall; the lags take the
+  transition length, so it is never a cut (owner, 2026-11-10; before that one strip per pair
+  was always x-mirrored, a Kantan flag, and for a day the whole pair turned together, which
+  with identical strips had nothing to read against). A transition melds the shown slot into the other, which carries
   the next clip at a clip change or the same clip with a new look for a mid-clip swap.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 burn, 1
   distort, 2 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the file; 3 smear,
@@ -160,8 +161,9 @@ of the frame, which is the room. `td/reset_corners.py` removed the drags (the va
 git), `td/set_columns.py` made all four 1080 tall, and `map_video.py` first put video on them
 before spec 001 took over the textures. The orientation and flip flags per strip are
 intentional (owner, 2026-11-03) and were taken for how each strip hangs. On 2026-11-04 they moved into
-fx, and on 2026-11-10 (owner) the hang became a draw: per strip and per clip change, upside
-down or not and left for right or not, each 50/50, blended in over the transition in `orient_gN`. Rectangle3 and 6 are
+fx, and on 2026-11-10 (owner) the hang became a draw: per group and per clip change, a coin per
+axis, and on heads one strip of the pair, at random, turns, blended in over the transition in
+`orient_gN`. Rectangle3 and 6 are
 leftovers. The saves in `Backup/` are a different installation (2022 to 2023). On 2026-11-06
 the owner dragged the four strips' corners onto the paper with the projector on, in Kantan's
 panel; the base columns are unchanged and the drags live in each `itemN/keyOffset`, in the
