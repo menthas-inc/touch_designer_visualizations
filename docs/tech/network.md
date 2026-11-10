@@ -58,8 +58,9 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   through, nothing else cooks).
 - **chainN_g.** Twelve Bases in a fixed order, each `in1`, a wet path, a Switch on `Enable`,
   `out1`: `framing, highlights, crush, edges, tint, selfmask, feedback, displace, echo,
-  mirror, chroma`. Slow LFOs drift `feedback`, `displace`, `echo`, `mirror` and `chroma` so
-  a held effect still moves. `feedback` and `echo` have no Switch,
+  mirror, chroma`. `tint` and `mirror` are built and on the Try page but never drawn (`OFF`
+  in the sequencer; owner, 2026-11-10). Slow LFOs drift `feedback`, `displace`, `echo`,
+  `mirror` and `chroma` so a held effect still moves. `feedback` and `echo` have no Switch,
   their Cross sits at `Mix * Enable` so the loop keeps cooking. Custom pars per effect are
   the `CORPUS` in `td/sequencer.py`; the sequencer sets them. On a dark clip a group gets an
   effect only one time in five. `limiter_g` after the transition: `lim_mono`,

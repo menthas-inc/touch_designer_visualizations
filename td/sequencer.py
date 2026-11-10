@@ -32,7 +32,7 @@ CORPUS = {
 # Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),
 # keepchannel.
 ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible
-OFF = {"tint"}  # built and on the Try page, never drawn (owner, 2026-11-10)
+OFF = {"tint", "mirror"}  # built and on the Try page, never drawn (owner, 2026-11-10; mirror folds the strip about its centre)
 DARK = [n for n, e in CORPUS.items() if e["family"] == "dark" and n not in OFF]
 TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat" and n not in OFF]
 XFADE_TYPES = 4  # burn, distort, colour, smear
