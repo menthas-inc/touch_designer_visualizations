@@ -1,6 +1,6 @@
 # 002 Beat sync, tasks
 
-- [x] T1 `beat/install.sh` and `beat/beat_osc.py`: environment, capture, BeatNet real-time,
+- [x] T1 `beat/install.sh` and `beat/beat_osc.py`: environment, capture, tempo (BeatNet real-time, replaced 2026-11-10 by a windowed madmom analysis),
       OSC out; `--list` and `--device`. Verified against a played track with the Textport's
       OSC In DAT showing beats. AC-3, AC-4.
 - [x] T2 sequencer: beat state, `on_beat`, `beat_phase`, `lfo_rate`, `beat_pulse`,

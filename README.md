@@ -44,8 +44,9 @@ Then, in a terminal, for as long as the show runs:
 
     cd ~/dev/studio_visuals && beat/.venv/bin/python beat/beat_osc.py
 
-It prints a bpm per beat. `--list` shows the inputs, `--device N` picks one, the Mac's
-default input is used otherwise. On `fx`, turn `Beatsync` on, watch `Bpm`, and tune
+It prints a bpm every five seconds. `--list` shows the inputs, `--device N` picks one, the
+Mac's default input is used otherwise; `--file song.wav` runs the same analysis over a
+recording, to test it. On `fx`, turn `Beatsync` on, watch `Bpm`, and tune
 `Beatoffset` until the bounce lands on the beat. Ctrl-C stops it.
 
 ## The clips

@@ -2,20 +2,31 @@
 
 ## The tracker
 
-Real-time beat tracking is a solved-enough problem: BeatNet (CRNN plus a particle filter,
-Heydari 2021), BeatNet+ (2024), BEAST (streaming transformer, 2024) and madmom's online RNN
-all sit around 75 to 80% beat F1 with under 50 ms latency. BeatNet is the one with a
-maintained package and a real-time mode that takes audio chunks, so it is the pick. It needs
-PyTorch, librosa and madmom, and madmom needs Python 3.10 or older, so the tracker runs as
-its own process, a sidecar, in its own environment, and talks to TouchDesigner over OSC.
-TouchDesigner's own Python stays untouched (DEV-1, and the free licence is fine with OSC).
+Latency does not matter for this rig and a steady tempo does, so the tracker is not causal.
+The first version (2026-11-06) was BeatNet's real-time particle filter, bpm from inter-beat
+intervals; on a 128 bpm track it read 125 to 160 and dropped beats (2026-11-10, owner's test
+on `ifax! - エミュー`). madmom's comb-filter tempo over a 30 s window read 128 on every window
+of the same track, so that is the design now. madmom needs Python 3.10 or older, so the
+tracker runs as its own process, a sidecar, in its own environment, and talks to
+TouchDesigner over OSC. TouchDesigner's own Python stays untouched (DEV-1, and the free
+licence is fine with OSC).
 
 - `beat/beat_osc.py`: sounddevice captures the chosen input (default: the Mac's default
-  input) at 22050 Hz mono, feeds BeatNet in its real-time mode in 20 ms hops, and on every
-  beat it reports sends `/beat bpm kind` to `127.0.0.1:7400`, `kind` 1 for a beat, 2 for a
-  downbeat. Bpm is the median of the last eight inter-beat intervals. `--device` picks the
-  input, `--list` lists them. `beat/.venv` is made by `beat/install.sh` (uv, Python 3.10,
-  the pinned numpy madmom needs); both ignored by git except the scripts.
+  input) at 44100 Hz mono. Every 5 s, madmom's online beat network turns the new audio into
+  a beat activation (10 ms frames), kept for the last 30 s; a comb filter over that gives the
+  tempo, 81 to 160, held at the previous value while a candidate within 4 percent of it keeps
+  60 percent of the top strength (an off-beat figure can top the filter for a few bars); the
+  DBN beat tracker, within 4 percent of that tempo, places the beats, and a line through them
+  gives the period to about 0.1 bpm and the phase. A window whose line disagrees with the comb
+  tempo by over 2 percent is held (the last fit stays; after six held in a row the beats stop),
+  and the period sent is the median of the last twelve good windows, since the tempo in the
+  room hardly moves over a minute (owner, 2026-11-10). On the test track this reads 127.8 to
+  128.1 throughout, where single windows wander to 129.6. A thread then sends the predicted
+  beats as they fall, `/beat bpm kind` to `127.0.0.1:7400`, `kind` always 1 (downbeats are not
+  detected). `--device` picks the input, `--list` lists them, `--file` runs the same analysis
+  over a recording and prints a tempo per step, which is the test. `beat/.venv` is made by
+  `beat/install.sh` (uv, Python 3.10, the pinned numpy madmom needs); both ignored by git
+  except the scripts.
 
 ## TouchDesigner
 
