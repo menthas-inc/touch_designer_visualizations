@@ -72,8 +72,11 @@ def pick_pan(rng, other):
     return -PAN_REACH if other > 0 else PAN_REACH
 # the spice: a third clip that drops in over one pair or both, pulses, and leaves
 SPICE_GAP = (28.0, 84.0)  # seconds between spices
-SPICE_LEN = (10.0, 20.0)  # seconds a spice lasts
-SPICE_PULSES = (4, 7)
+SPICE_IN = (8.0, 16.0)  # seconds of swells coming in
+SPICE_HOLD = (10.0, 20.0)  # seconds fully on
+SPICE_OUT = (6.0, 12.0)  # seconds of swells going out
+SPICE_PULSES = (4, 7)  # swells coming in; going out, half as many
+SPICE_MIN_CLIP = 30.0  # seconds; a spice clip must outlast the spice at its speed
 SPICE_WHERE = ["outer", "inner", "outer", "inner", "both"]
 
 
@@ -93,21 +96,35 @@ def lfo_rate_of(free, beats, bpm):
     return bpm / 60.0 / beats if bpm else free
 
 
-SPICE_PEAK = 0.6  # the spice never shows more than this of itself
-SPICE_ACCEL = 1.0  # the swells come e^this times faster at the end than at the start; negative spreads them out
+SPICE_ACCEL = 1.0  # the swells come e^this times faster at the end of a phase than at its start; negative spreads them out
 
 
-def spice_env(fraction, pulses, beats=None):
-    """0 to SPICE_PEAK and back over a spice, in `pulses` swells whose spacing changes
-    exponentially over its life; or, given `beats` elapsed since it began, one swell every
-    two beats. Pure."""
-    f = min(max(fraction, 0.0), 1.0)
-    if beats is None:
-        phase = (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
-    else:
-        phase = beats / 2.0
-    return SPICE_PEAK * math.sin(math.pi * f) ** 0.7 * (0.55 + 0.45 * math.cos(2 * math.pi * phase))
-SHORT = 45.0  # clips under this play twice, to last longer  # the cued player is released this long before it is shown, so it is rolling by then
+def _swell(f, pulses, beats):
+    """0.1 to 1, `pulses` swells over f 0 to 1, spacing changing exponentially, 1 at both ends;
+    or, given beats elapsed, one swell every two beats."""
+    phase = beats / 2.0 if beats is not None else (pulses - 1) * (math.exp(SPICE_ACCEL * f) - 1.0) / (math.exp(SPICE_ACCEL) - 1.0)
+    return 0.55 + 0.45 * math.cos(2 * math.pi * phase)
+
+
+def spice_env(t, parts, pulses, beats=None):
+    """The spice's level t seconds in. parts is (in, hold, out) in seconds: swells rising to
+    full over the first, fully on through the second, swells falling away over the third.
+    beats, when known, is beats elapsed in the current part. Pure."""
+    a, h, o = parts
+    if t < a:
+        f = t / a
+        return f ** 0.7 * _swell(f, pulses, beats)
+    if t < a + h:
+        return 1.0
+    f = min(max((t - a - h) / o, 0.0), 1.0)
+    return (1.0 - f) ** 0.7 * _swell(f, max(2, pulses // 2), beats)
+
+
+def spice_part(t, parts):
+    """Which part t falls in, 0 1 2, and when that part began. Pure."""
+    a, h, _ = parts
+    return (0, 0.0) if t < a else (1, a) if t < a + h else (2, a + h)
+SHORT = 45.0  # clips under this play twice, to last longer
 
 
 def _draw(rng, spec, bias=0.0):
@@ -403,8 +420,9 @@ def _schedule_spice(st):
     table = _table()
     if not table:
         return
-    key = rng.choice(sorted(table))
-    plan = plan_segment(table[key], rng, cap=SPICE_LEN[1])
+    keys = sorted(k for k in table if table[k]["length"] >= SPICE_MIN_CLIP) or sorted(table)
+    key = rng.choice(keys)
+    plan = plan_segment(table[key], rng, cap=SPICE_IN[1] + SPICE_HOLD[1] + SPICE_OUT[1])
     st["clip"]["C"], st["plan"]["C"] = key, plan
     _cue("C", key, plan)
     _timer("t_spicewait", rng.uniform(*SPICE_GAP))
@@ -414,13 +432,14 @@ def _start_spice(st):
     fx = _fx()
     rng = _rng(st)
     where = rng.choice(SPICE_WHERE)
+    parts = tuple(round(rng.uniform(*r), 2) for r in (SPICE_IN, SPICE_HOLD, SPICE_OUT))
     st["spice"] = {"groups": GROUPS if where == "both" else [where], "pulses": rng.randint(*SPICE_PULSES),
-                   "type": rng.randrange(XFADE_TYPES - 1), "t0": absTime.seconds}  # a shader transition, not the smear
+                   "type": rng.randrange(XFADE_TYPES - 1), "t0": absTime.seconds, "parts": parts}  # a shader transition, not the smear
     st["sel"]["spice"] = _selection_for(st, "C", "spice")
     _apply_chain(fx.op("chainC"), st["sel"]["spice"])
     _release("C")
-    print(f"spice on {where} -> {st['clip']['C']}")
-    _timer("t_spice", rng.uniform(*SPICE_LEN))
+    print(f"spice on {where} -> {st['clip']['C']}  ({' + '.join(f'{x:.0f}' for x in parts)} s)")
+    _timer("t_spice", sum(parts))
 
 
 def _end_spice(st):
@@ -434,10 +453,12 @@ def spice_level(group):
     sp = st.get("spice")
     if not sp or group not in sp["groups"]:
         return 0.0
+    t = _fx().op("t_spice")["timer_fraction"] * sum(sp["parts"])
     beats = None
     if beat_phase() is not None:
-        beats = (absTime.seconds - sp["t0"]) * st["beat"]["bpm"] / 60.0
-    return spice_env(_fx().op("t_spice")["timer_fraction"], sp["pulses"], beats)
+        _, began = spice_part(t, sp["parts"])
+        beats = (t - began) * st["beat"]["bpm"] / 60.0
+    return spice_env(t, sp["parts"], sp["pulses"], beats)
 
 
 # ---------------------------------------------------------------- the beat

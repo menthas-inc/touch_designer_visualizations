@@ -127,7 +127,8 @@ transition shader over each group's transition output before the limiter, progre
 `spice_drift`, a Transform at `spice_drift(axis)`. `_schedule_spice` cues a random clip and
 arms `t_spicewait`; `_start_spice` picks the groups and the pulse count, applies a selection
 chosen against both groups' looks, releases C and arms `t_spice`; `_end_spice` stops C and
-schedules again. `spice_env(f, pulses)` is pure and tested.
+schedules again. `spice_env(t, (in, hold, out), pulses)` and `spice_part` are pure and
+tested; `t_spice` runs the sum of the three parts.
 
 ### 5. Transitions
 

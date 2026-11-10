@@ -31,8 +31,8 @@ TouchDesigner's own Python stays untouched (DEV-1, and the free licence is fine 
     frequency parameter becomes this expression with its own beat count.
   - `beat_pulse()`: `exp(-(time since beat) / 0.12)` when synced, else 0, for the bounce.
   - `reroll_seconds()`: 32 beats when synced, else `Rerollevery`.
-- `spice_env` gains a `beat` argument: when a beat phase is known the swell term uses beats
-  since the spice started, one swell per two beats; the sine envelope and the cap stay.
+- `spice_env` takes `beats`: when a beat phase is known the swell term uses beats since the
+  current part began, one swell per two beats; the rise, the hold and the fall stay.
 - `bounce_g`: a Transform TOP after `room_g`, scale `1 + Beatbounce * beat_pulse()`, edges
   mirrored.
 - fx pars: `Beatsync` toggle (off), `Beatoffset` (seconds, -0.5 to 0.5, 0), `Beatbounce`

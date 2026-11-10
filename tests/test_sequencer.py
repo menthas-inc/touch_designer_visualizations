@@ -116,20 +116,29 @@ class BeatTest(unittest.TestCase):
         self.assertEqual(sq.lfo_rate_of(0.05, 32, 0.0), 0.05)
 
     def test_spice_on_the_beat_swells_every_two_beats(self):
-        ys = [sq.spice_env(0.5, 5, beats=b / 100) for b in range(0, 801)]
+        ys = [sq.spice_env(5.0, (10.0, 10.0, 10.0), 5, beats=b / 100) for b in range(0, 801)]
         peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 800))
         self.assertEqual(peaks, 3)  # at beats 2, 4 and 6; 0 and 8 are the ends
 
 
 class SpiceTest(unittest.TestCase):
-    def test_env_starts_and_ends_at_zero_pulses_and_never_takes_over(self):
-        for pulses in (2, 3, 4):
-            ys = [sq.spice_env(i / 1000, pulses) for i in range(1001)]
+    def test_env_swells_in_holds_full_and_swells_out(self):
+        parts = (10.0, 10.0, 10.0)
+        for pulses in (4, 5, 7):
+            ys = [sq.spice_env(i / 100, parts, pulses) for i in range(3001)]
             self.assertEqual(ys[0], 0.0)
             self.assertAlmostEqual(ys[-1], 0.0)
-            self.assertLessEqual(max(ys), sq.SPICE_PEAK + 1e-9)
-            peaks = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 1000))
-            self.assertEqual(peaks, pulses, (pulses, peaks))
+            self.assertTrue(all(y == 1.0 for y in ys[1000:2000]))
+            self.assertAlmostEqual(ys[999], 1.0, places=2)  # no step into the hold
+            self.assertAlmostEqual(ys[2001], 1.0, places=2)  # nor out of it
+            self.assertLessEqual(max(ys), 1.0)
+            swells_in = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(1, 1000))
+            swells_out = sum(ys[i - 1] < ys[i] >= ys[i + 1] for i in range(2001, 3000))
+            self.assertEqual(swells_in, pulses - 1, pulses)  # the last swell is the hold itself
+            self.assertEqual(swells_out, max(2, pulses // 2) - 1, pulses)  # the first is the hold
+        self.assertEqual(sq.spice_part(5, parts), (0, 0.0))
+        self.assertEqual(sq.spice_part(15, parts), (1, 10.0))
+        self.assertEqual(sq.spice_part(25, parts), (2, 20.0))
 
 
 class HoldTest(unittest.TestCase):

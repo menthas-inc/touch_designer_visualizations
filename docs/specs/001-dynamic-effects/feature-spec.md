@@ -96,9 +96,7 @@ change, well apart from the other's, and drifts across the frame on its own slow
 pair cuts the clip close, as the file always did, the other wide, about 1.8 times closer on
 a portrait clip; which is which is drawn at every clip change.
 
-Every minute or so a third clip, any from the table, drops in over one pair or both for 10 to
-20 s: it comes in, pulses four to seven times, quicker as it goes, wanders a little and
-leaves, never showing more than 60% of itself. It gets its own look, chosen like the groups' and unlike theirs. Timeline for one change:
+Timeline for one change:
 
 ```
 now                      end - T - t       end - T          end - t        end
@@ -108,6 +106,11 @@ now                      end - T - t       end - T          end - t        end
 By the end, B has played T + t. The next segment counts from B's cue point, so its plain play
 is shorter by that lead, and the plain play before any change is never under 6 s, which is the
 time the idle player has to cue the clip after it.
+
+Every minute or so a third clip, 30 s or longer, drops in over one pair or both: it swells in
+four to seven times over 8 to 16 s, quicker as it goes, takes over fully for 10 to 20 s, then
+swells out over 6 to 12 s, wandering a little throughout. It gets its own look, chosen like
+the groups' and unlike theirs.
 
 Transitions are not crossfades. Four, chosen at random per switch: a burn (the next clip
 appears in the bright parts of the current one and eats outward through a crisp edge), a
