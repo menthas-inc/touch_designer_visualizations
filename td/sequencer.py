@@ -532,8 +532,8 @@ def _start_xfade(st, group, player, seconds):
     if x.par.Active:
         _finish_xfade(st, group)  # a swap still running when the clip change comes
     if player != st["player"] and not fx.par.Hold:
-        _roll_mirror(st, group)
-        _roll_pan(st, group)
+        _roll_mirror(st, group, seconds)
+        _roll_pan(st, group, seconds)
         print(f"{group} -> {st['clip'][player]}  (over {seconds:.0f} s)")
     slot = 3 - st["chain"][group]
     fx.op(f"src{slot}_{group}").par.index = 0 if player == "A" else 1
@@ -553,18 +553,23 @@ def _start_xfade(st, group, player, seconds):
     t.par.start.pulse()
 
 
-def _roll_pan(st, group):
+def _roll_pan(st, group, seconds=4.0):
     """A new part of the frame for the group at a clip change, and the window scheme: the inner
-    group draws close or wide, the outer takes the other. The lags ease both moves."""
+    group draws close or wide, the outer takes the other. The lags ease both moves over the
+    transition, so the move is part of the meld and not a shift before it."""
     fx = _fx()
+    for lag in ("panlag_", "zoomlag_"):
+        fx.op(lag + group).par.lag1 = fx.op(lag + group).par.lag2 = seconds
     other = GROUPS[1 - GROUPS.index(group)]
     fx.op("pan_" + group).par.value0 = pick_pan(_rng(st), float(fx.op("pan_" + other).par.value0))
     fx.op("zoom_" + group).par.value0 = float(_rng(st).randrange(2)) if group == "inner" else 1.0 - float(fx.op("zoom_inner").par.value0)
 
 
-def _roll_mirror(st, group):
-    """The outer pair hangs upside down most of the time; the lag blends the change."""
+def _roll_mirror(st, group, seconds=3.0):
+    """The outer pair hangs upside down most of the time; the lag blends the change over the
+    transition."""
     if group == "outer":
+        _fx().op("flip_lag_outer").par.lag1 = _fx().op("flip_lag_outer").par.lag2 = seconds
         _fx().op("flip_tgt_outer").par.value0 = 1.0 if _rng(st).random() < UPSIDE_CHANCE else 0.0
 
 

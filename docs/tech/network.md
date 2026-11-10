@@ -29,19 +29,21 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   cued at its window start. `interp` on, 30 frames preread. Speed per clip from the table.
 - **Groups.** `outer` is Rectangle5 and Rectangle1 (panels 1 and 4), `inner` is Rectangle4
   and Rectangle2 (panels 2 and 3). Per group and player, two window schemes crossed by `winP_g` on
-  `zoomlag_g` (4 s): close, `panP_g` then `fitP_g` (the clip shifted sideways, then 340 x
+  `zoomlag_g`: close, `panP_g` then `fitP_g` (the clip shifted sideways, then 340 x
   1080 fit outside, as the file always cut it), and wide, `frameP_g`, `wpanP_g`, `wfitP_g`
   (the clip first fit outside to 1100 x 1080, so a portrait clip is about 1.8 times
   closer; a landscape clip looks the same both ways). At each clip change the inner group
   draws a scheme and the outer takes the other. The shift is `panlag_g`, the group's pan as
   a fraction of the width, picked per clip change at least a fifth from the other group's
-  and eased over 4 s, plus a tenth of drift on `lfo_pan_g`, 0.011 Hz outer and 0.017 inner,
+  and eased, like the scheme and the flip, over the length of the transition that
+  brings the clip in (the lags are set per roll, so the move is part of the meld, not a shift
+  before it; owner, 2026-11-10), plus a tenth of drift on `lfo_pan_g`, 0.011 Hz outer and 0.017 inner,
   mirrored past the edge. Then two chain slots `chain1_g` and `chain2_g` each fed by either player through
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
   `limiter_g`, `room_g` (`td/glsl/room.glsl` on the fx pars `Roomdark` and `Roomcontrast`,
   set on site: whites pulled down by 1 + Roomdark, near-black left alone, then a contrast
   gamma so the midtones follow; 0 and 1 pass through), `out_g`, then `orient_g` (`out_g` crossed with its vertical flip on
-  `flip_lag_g`, 3 s, toward `flip_tgt_g`: 0 for inner, and for outer 1 four times in five at a
+  `flip_lag_g`, the transition length, toward `flip_tgt_g`: 0 for inner, and for outer 1 four times in five at a
   clip change, so that pair hangs upside down as it was hung, else upright) for the pair's
   second strip and `pair_g` (its x mirror) for the first. A transition melds the shown slot into the other, which carries
   the next clip at a clip change or the same clip with a new look for a mid-clip swap.
@@ -155,7 +157,7 @@ git), `td/set_columns.py` made all four 1080 tall, and `map_video.py` first put 
 before spec 001 took over the textures. The orientation and flip flags per strip are
 intentional (owner, 2026-11-03): they match how each strip hangs. On 2026-11-04 (owner) both
 moved into fx: the x flip on 4 and 5 is `pair_g`, always on, and the 180 on 1 and 5 is a
-vertical flip in `orient_outer`, crossed in over a 3 s lag and on four clip changes in five,
+vertical flip in `orient_outer`, crossed in over the transition and on four clip changes in five,
 so the outer pair sometimes hangs upright like the inner, with no cut. Rectangle3 and 6 are
 leftovers. The saves in `Backup/` are a different installation (2022 to 2023). On 2026-11-06
 the owner dragged the four strips' corners onto the paper with the projector on, in Kantan's
