@@ -29,7 +29,10 @@ for as long as the show runs:
     beat/.venv/bin/python beat/beat_osc.py
 
 `--list` shows the inputs, `--device N` picks one; the default is the Mac's default input. It
-prints a bpm every five seconds; `--file` runs it over a recording. On the fx node, `Beatsync` turns the following on and off, `Beatoffset`
+prints a bpm every five seconds; `--file` runs it over a recording. `Beatsource` on fx picks
+the mic or the system audio (a Core Audio tap, `beat/systap.swift`, built into the venv by
+the install; the terminal app it runs from needs the system audio recording permission, asked
+once). On the fx node, `Beatsync` turns the following on and off, `Beatoffset`
 pulls the chain back by the tracker's lag, tuned by eye against the bounce, and `Bpm` shows
 what is heard.
 

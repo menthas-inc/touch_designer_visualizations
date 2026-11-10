@@ -362,6 +362,9 @@ def on_try(par_name):
     if par_name == "Darkness":
         fx.par.Ceiling, fx.par.Brightmean, fx.par.Brighthigh = DARKNESS[str(fx.par.Darkness)][:3]
         return
+    if par_name == "Beatsource":
+        send_source()
+        return
     if par_name == "Hold":
         if fx.par.Hold:
             _hold_apply(st, str(fx.par.Effect))
@@ -470,6 +473,12 @@ def on_beat(bpm, kind):
     b = st.setdefault("beat", {"t": 0.0, "bpm": 0.0, "n": 0})
     b["t"], b["bpm"], b["n"] = absTime.seconds, float(bpm), b["n"] + 1
     _fx().par.Bpm = round(float(bpm), 1)
+
+
+def send_source():
+    """Tell the tracker what to hear, the Beatsource menu: on change, and when it says hello."""
+    fx = _fx()
+    fx.op("osc_out").sendOSC("/source", [str(fx.par.Beatsource)])
 
 
 def _beat(st):

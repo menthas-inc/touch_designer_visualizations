@@ -34,6 +34,7 @@ HELP = {
     "Beatoffset": "Seconds the tracker hears the beat late; positive pulls the chain earlier. Tune against the bounce.",
     "Beatbounce": "How much both groups zoom on each beat, settling before the next. 0 is off.",
     "Bpm": "What the tracker hears, 0 when nothing for 3 s. A readout, not a setting.",
+    "Beatsource": "What the tracker listens to: the mic, or system, everything the Mac plays (a Chrome tab). Sent to it over OSC.",
     "Hold": "Stop the random choosing and show one effect, chosen below, on both groups.",
     "Effect": "The effect shown while Hold is on.",
     "Preveffect": "Step Hold to the previous effect.",
@@ -283,6 +284,10 @@ def build():
     dk.menuNames = list(ns["DARKNESS"])
     dk.menuLabels = dk.menuNames
     dk.default = dk.val = "default"
+    bs = next(pg for pg in fx.customPages if pg.name == "Fx").appendMenu("Beatsource", label="Beatsource (what the tracker hears)")[0]
+    bs.menuNames = ["mic", "system"]
+    bs.menuLabels = ["mic", "system audio"]
+    bs.default = bs.val = "mic"
     # the Try page: hold the random choosing and step through effects by hand
     tp = fx.appendCustomPage("Try")
     tp.appendToggle("Hold", label="Hold (no random choosing)")
@@ -416,19 +421,23 @@ def build():
         # a relative path on a COMP's own parameter resolves from its parent, so absolute
         setp(fx.op("xfade_" + g), Progress=f"=op('/project1/fx/sequencer').module.progress(op('/project1/fx/tx_{g}')['timer_fraction'])")
 
-    # the beat tracker (beat/beat_osc.py) sends /beat bpm kind here
+    # the beat tracker (beat/beat_osc.py) sends /beat bpm kind here, and /hello when it starts;
+    # osc_out answers with /source, the Beatsource menu, also sent whenever that changes
     bi = mk(fx, oscinDAT, "beat_in", port=7400, callbacks="beat_in_callbacks")
     bc = mk(fx, textDAT, "beat_in_callbacks")
     bc.text = ("def onReceiveOSC(dat, rowIndex, message, bytes, timeStamp, address, args, peer):\n"
                "    if address == '/beat' and len(args) >= 2:\n"
                "        op('sequencer').module.on_beat(args[0], args[1])\n"
+               "    elif address == '/hello':\n"
+               "        op('sequencer').module.send_source()\n"
                "    return\n")
+    mk(fx, oscoutDAT, "osc_out", address="127.0.0.1", port=7401)
 
     ex = mk(fx, executeDAT, "run", start=True)
     ex.text = "def onStart():\n    op('sequencer').module.start()\n    return\n"
 
     # the Try page's controls reach the sequencer through a Parameter Execute DAT
-    px = mk(fx, parameterexecuteDAT, "try_pars", op="..", pars="Darkness Hold Effect Preveffect Nexteffect Reroll Xfadetype",
+    px = mk(fx, parameterexecuteDAT, "try_pars", op="..", pars="Darkness Beatsource Hold Effect Preveffect Nexteffect Reroll Xfadetype",
             valuechange=True, onpulse=True)
     px.text = (
         "def onValueChange(par, prev):\n"

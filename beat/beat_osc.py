@@ -1,9 +1,15 @@
 """Hear the room, find the beat, tell TouchDesigner. Spec 002.
 
-    beat/.venv/bin/python beat/beat_osc.py            # the Mac's default input
-    beat/.venv/bin/python beat/beat_osc.py --list     # the inputs, by index
+    beat/.venv/bin/python beat/beat_osc.py                  # the Mac's default input
+    beat/.venv/bin/python beat/beat_osc.py --source system  # what the Mac is playing (a Chrome tab, say)
+    beat/.venv/bin/python beat/beat_osc.py --list           # the inputs, by index
     beat/.venv/bin/python beat/beat_osc.py --device 0
-    beat/.venv/bin/python beat/beat_osc.py --file song.wav   # the same analysis over a file, for testing
+    beat/.venv/bin/python beat/beat_osc.py --file song.wav  # the same analysis over a file, for testing
+
+The source is also set from TouchDesigner: the fx par Beatsource sends /source mic|system to
+port 7401, on change and in answer to the /hello this sends at start. "system" runs
+beat/.venv/bin/systap, a Core Audio tap on everything the Mac plays, whatever the output
+device (its first run asks for system audio recording permission for the terminal app).
 
 Every STEP seconds the last WINDOW seconds are analysed: madmom's beat network (the online,
 forward-only one, fed as the audio arrives) gives a beat activation per 10 ms; a comb filter
@@ -21,7 +27,11 @@ earlier version ran BeatNet's particle filter per hop and read 125 to 160 on a 1
 """
 import argparse
 import collections
+import fractions
+import os
 import queue
+import subprocess
+import sys
 import threading
 import time
 
@@ -30,9 +40,12 @@ import sounddevice as sd
 from madmom.audio.signal import Signal
 from madmom.features.beats import DBNBeatTrackingProcessor, RNNBeatProcessor
 from madmom.features.tempo import TempoEstimationProcessor
+from pythonosc.dispatcher import Dispatcher
+from pythonosc.osc_server import ThreadingOSCUDPServer
 from pythonosc.udp_client import SimpleUDPClient
+from scipy.signal import resample_poly
 
-HOST, PORT = "127.0.0.1", 7400
+HOST, PORT, CONTROL_PORT = "127.0.0.1", 7400, 7401  # beats out to TouchDesigner; /source in from it
 BPM_RANGE = (81, 160)  # the comb filter looks only here, so 64 reads as 128 and 180 as 90
 SR, FPS = 44100, 100  # what madmom's network was trained on
 STEP, WINDOW = 5.0, 30.0  # seconds between analyses, seconds analysed
@@ -62,9 +75,40 @@ def analyse(act, tempo, t_end, prev=None):
     return period, t_end - len(act) / FPS + beats[-1], bpm
 
 
+def capture(source, device, blocks):
+    """Start hearing `source` into `blocks` (float32 mono at SR, about a tenth of a second
+    each). Returns (stop, description)."""
+    if source == "system":
+        tap = os.path.join(os.path.dirname(sys.executable), "systap")
+        proc = subprocess.Popen([tap], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        head = proc.stderr.readline().decode().split()  # "rate 48000 channels 2", or the error
+        if len(head) != 4:
+            proc.terminate()
+            raise RuntimeError("systap: " + " ".join(head))
+        rate, ch = int(head[1]), int(head[3])
+        ratio = fractions.Fraction(SR, rate)
+
+        def pump():
+            n = ch * 4 * (rate // 10)
+            while True:
+                raw = proc.stdout.read(n)
+                if len(raw) < n:
+                    return
+                x = np.frombuffer(raw, dtype=np.float32).reshape(-1, ch).mean(axis=1)
+                blocks.put(resample_poly(x, ratio.numerator, ratio.denominator).astype(np.float32) if ratio != 1 else x)
+
+        threading.Thread(target=pump, daemon=True).start()
+        return proc.terminate, f"system audio, {rate} Hz tap"
+    stream = sd.InputStream(device=device, channels=1, samplerate=SR, blocksize=SR // 10, dtype="float32",
+                            callback=lambda indata, nframes, t, status: blocks.put(indata[:, 0].copy()))
+    stream.start()
+    return stream.close, sd.query_devices(device if device is not None else sd.default.device[0])["name"]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--device", type=int, default=None, help="input index from --list; default: the system's")
+    ap.add_argument("--source", choices=("mic", "system"), default="mic", help="the mic (--device) or what the Mac plays")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--file", help="analyse this audio file instead of listening; prints a tempo per step")
     args = ap.parse_args()
@@ -97,6 +141,7 @@ def main():
     lock = threading.Lock()
     fit = [None]  # (period, time of a beat, comb tempo), replaced at every reliable step
     HOLD = 6  # unreliable steps in a row before the beats stop: 30 s of silence or confusion
+    wanted = [args.source]  # the source TouchDesigner asks for, picked up by the loop
 
     def emit():  # predicted beats, sent as they fall, from the latest fit
         while True:
@@ -114,30 +159,52 @@ def main():
             client.send_message("/beat", [60.0 / period, 1])
 
     threading.Thread(target=emit, daemon=True).start()
-    with sd.InputStream(device=args.device, channels=1, samplerate=SR, blocksize=step // 10, dtype="float32",
-                        callback=lambda indata, nframes, t, status: blocks.put(indata[:, 0].copy())):
-        print("listening on", sd.query_devices(args.device if args.device is not None else sd.default.device[0])["name"],
-              "-> osc", HOST, PORT, flush=True)
-        buf = np.zeros(0, dtype=np.float32)
-        held = 0
-        while True:
-            buf = np.append(buf, blocks.get())
-            if len(buf) < step:
-                continue
-            t_end = time.time()
-            act = np.append(act, rnn(buf[:step], reset=False))[-frames:]
-            buf = buf[step:]
-            new = analyse(act, tempo, t_end, prev) if len(act) >= frames / 2 else None
-            held = 0 if new else held + 1
-            if new:
-                periods.append(new[0])
-                new = (float(np.median(periods)), new[1], new[2])
-            if new or held >= HOLD:
-                prev = new[2] if new else None
-                periods.clear() if not new else None
-                with lock:
-                    fit[0] = new
-            print(f"{60 / new[0]:6.2f} bpm" if new else ("held" if fit[0] else "listening..."), flush=True)
+    dispatcher = Dispatcher()
+    dispatcher.map("/source", lambda address, *a: wanted.__setitem__(0, str(a[0])) if a and a[0] in ("mic", "system") else None)
+    server = ThreadingOSCUDPServer((HOST, CONTROL_PORT), dispatcher)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    client.send_message("/hello", [args.source])  # TouchDesigner answers with its Beatsource
+
+    source, stop = None, None
+    buf = np.zeros(0, dtype=np.float32)
+    held = 0
+    while True:
+        if wanted[0] != source:  # first time, or TouchDesigner switched it
+            if stop:
+                stop()
+            source = wanted[0]
+            try:
+                stop, what = capture(source, args.device, blocks)
+            except Exception as e:  # no tap built, no such device
+                print(f"cannot hear {source}: {e}; staying on mic", flush=True)
+                wanted[0] = source = "mic"
+                stop, what = capture(source, args.device, blocks)
+            act, buf, prev, held = act[:0], buf[:0], None, 0
+            periods.clear()
+            with lock:
+                fit[0] = None
+            print(f"listening to {what} -> osc {HOST} {PORT}", flush=True)
+        try:
+            buf = np.append(buf, blocks.get(timeout=1.0))
+        except queue.Empty:
+            continue
+        if len(buf) < step:
+            continue
+        t_end = time.time()
+        quiet = float(np.abs(buf[:step]).max()) < 1e-4
+        act = np.append(act, rnn(buf[:step], reset=False))[-frames:]
+        buf = buf[step:]
+        new = analyse(act, tempo, t_end, prev) if len(act) >= frames / 2 and not quiet else None
+        held = 0 if new else held + 1
+        if new:
+            periods.append(new[0])
+            new = (float(np.median(periods)), new[1], new[2])
+        if new or held >= HOLD:
+            prev = new[2] if new else None
+            periods.clear() if not new else None
+            with lock:
+                fit[0] = new
+        print(f"{60 / new[0]:6.2f} bpm" if new else ("silence" + (" (if music is playing, allow system audio recording for this terminal app in Privacy & Security)" if quiet and source == "system" else "") if quiet else "held" if fit[0] else "listening..."), flush=True)
 
 
 if __name__ == "__main__":

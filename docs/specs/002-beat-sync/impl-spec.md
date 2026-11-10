@@ -11,8 +11,13 @@ tracker runs as its own process, a sidecar, in its own environment, and talks to
 TouchDesigner over OSC. TouchDesigner's own Python stays untouched (DEV-1, and the free
 licence is fine with OSC).
 
-- `beat/beat_osc.py`: sounddevice captures the chosen input (default: the Mac's default
-  input) at 44100 Hz mono. Every 5 s, madmom's online beat network turns the new audio into
+- `beat/beat_osc.py`: hears the mic (sounddevice, the Mac's default input or `--device`) or
+  the system audio: `beat/systap.swift`, a Core Audio process tap on everything the Mac
+  plays, built by the install into `beat/.venv/bin/systap`, piped as raw float32 and
+  resampled to 44100 Hz. The fx par `Beatsource` (mic, system) picks: `osc_out` sends
+  `/source` to port 7401 on change and in answer to the `/hello` the tracker sends at start,
+  and the tracker switches its capture and starts its analysis over (owner, 2026-11-10).
+  Either way it is 44100 Hz mono from there. Every 5 s, madmom's online beat network turns the new audio into
   a beat activation (10 ms frames), kept for the last 30 s; a comb filter over that gives the
   tempo, 81 to 160, held at the previous value while a candidate within 4 percent of it keeps
   60 percent of the top strength (an off-beat figure can top the filter for a few bars); the
@@ -31,7 +36,8 @@ licence is fine with OSC).
 ## TouchDesigner
 
 - `beat_in`, an OSC In DAT on port 7400 with `beat_in_callbacks`, which calls
-  `sequencer.on_beat(bpm, kind)`.
+  `sequencer.on_beat(bpm, kind)`, and on `/hello` `sequencer.send_source()`, which sends
+  `Beatsource` through `osc_out` (OSC Out DAT, 127.0.0.1:7401); `try_pars` sends it on change.
 - The sequencer keeps `st["beat"] = {"t": absTime.seconds, "bpm": ..., "n": count}` and
   exposes, read by expressions every frame:
   - `beat_phase()`: `None` when sync is off or the last beat is older than 3 s, else

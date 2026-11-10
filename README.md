@@ -45,8 +45,10 @@ Then, in a terminal, for as long as the show runs:
 
     cd ~/dev/studio_visuals && beat/.venv/bin/python beat/beat_osc.py
 
-It prints a bpm every five seconds. `--list` shows the inputs, `--device N` picks one, the
-Mac's default input is used otherwise; `--file song.wav` runs the same analysis over a
+It prints a bpm every five seconds. On `fx`, `Beatsource` says what it hears: `mic` (the
+Mac's default input, or `--device N` from `--list`) or `system`, everything the Mac plays, a
+Chrome tab included; the first time `system` is picked, macOS asks to allow system audio
+recording for the terminal app, once. `--file song.wav` runs the same analysis over a
 recording, to test it. On `fx`, turn `Beatsync` on, watch `Bpm`, and tune
 `Beatoffset` until the bounce lands on the beat. Ctrl-C stops it.
 
