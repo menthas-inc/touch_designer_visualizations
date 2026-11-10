@@ -8,6 +8,7 @@ ticked and Not_Used's not. Untick what goes, tick what comes back, press Save: t
 clips to Not_Used, ticked ones back to VJ_Visuals, and updates td/clips.json (stats measured
 for anything coming back). Keys are paths relative to TD_Mapping, as in the table.
 """
+import hashlib
 import html
 import json
 import os
@@ -43,7 +44,9 @@ def build():
         length = probe(path)[0]
         imgs = []
         for j, at in enumerate(FRAMES):
-            png = os.path.join(thumbs, f"{i:03d}_{j}.jpg")
+            # cached by the file's name, which survives a move between the folders; by list index
+            # it did not, and after a move every card showed another clip's frames (2026-11-10)
+            png = os.path.join(thumbs, f"{hashlib.md5(os.path.basename(key).encode()).hexdigest()[:12]}_{j}.jpg")
             if not os.path.exists(png):
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{length * at:.2f}", "-i", path, "-frames:v", "1",
                                 "-vf", "scale=240:240:force_original_aspect_ratio=decrease", "-q:v", "4", png], check=False)
