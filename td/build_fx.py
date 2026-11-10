@@ -41,7 +41,7 @@ HELP = {
     "Reroll": "New random values for the held effect.",
     "Xfadetype": "Force one transition type for every clip change, or random.",
 }
-STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of each pair is the mirrored one
+STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of the outer pair is the mirrored one
 
 ns = {}
 exec(open(SEQ).read(), ns)  # the corpus, without touching TouchDesigner names
@@ -386,13 +386,14 @@ def build():
         out = mk(fx, nullTOP, "out_" + g, bounce)
         # how the pair hangs. orient_g: the outer pair hangs upside down (once Kantan's 180 on
         # both its strips), now a vertical flip blended in over a lag so the sequencer can hang it
-        # upright now and then without a cut. pair_g: the pair's first strip always mirrors the
-        # second (once a Kantan flip on that strip)
+        # upright now and then without a cut. pair_g: the outer pair's first strip mirrors the
+        # second (once a Kantan flip on that strip; the inner pair's was a seam down the middle,
+        # off since 2026-11-10)
         tgt = mk(fx, constantCHOP, "flip_tgt_" + g, value0=1.0 if g == "outer" else 0.0)
         mk(fx, lagCHOP, "flip_lag_" + g, tgt, lag1=3.0, lag2=3.0)
         upside = mk(fx, flipTOP, "flip_y_" + g, out, flipy=True)
         orient = mk(fx, crossTOP, "orient_" + g, out, upside, cross=f"=op('/project1/fx/flip_lag_{g}')[0]")
-        mk(fx, flipTOP, "pair_" + g, orient, flipx=True)
+        mk(fx, flipTOP, "pair_" + g, orient, flipx=(g == "outer"))
 
     # timers: one per event, in seconds, all sharing one callbacks DAT
     cb = mk(fx, textDAT, "timers_callbacks")
