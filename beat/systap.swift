@@ -1,5 +1,6 @@
 // What the Mac is playing, whatever the output device, as a Core Audio process tap (macOS
-// 14.2+): raw float32 frames to stdout, one line "rate R channels C" to stderr first. Built by
+// 14.2+): raw float32 frames to stdout, one line "rate R channels C" to stderr first (C is
+// trusted, R is not, see below). Built by
 // beat/install.sh into beat/.venv/bin/systap; beat_osc.py runs it for Beatsource "system".
 // The first run asks for system audio recording permission, attributed to the terminal app
 // it runs from; a refusal is not an error, the tap then delivers silence.
@@ -48,8 +49,9 @@ check(AudioObjectGetPropertyData(tap, &addr, 0, nil, &size, &fmt), "tap format")
 if fmt.mFormatFlags & kAudioFormatFlagIsNonInterleaved != 0 || fmt.mBitsPerChannel != 32 {
     FileHandle.standardError.write("unexpected tap format\n".data(using: .utf8)!); exit(1)
 }
-// the rate the frames actually arrive at is the aggregate's, not the tap format's: with
-// Bluetooth headphones the format said 48000 and 44100 arrived (2026-11-10)
+// the rate printed is the aggregate's nominal one, for information only: neither it nor the
+// tap format says what truly arrives (48000 and 16000 were claimed for a 44100 stream through
+// Bluetooth headphones, 2026-11-10), so beat_osc.py times the frames instead
 var rate = Float64(0)
 size = UInt32(MemoryLayout<Float64>.size)
 addr = AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyNominalSampleRate, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMain)

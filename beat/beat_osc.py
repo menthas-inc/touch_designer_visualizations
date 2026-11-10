@@ -48,6 +48,7 @@ from scipy.signal import resample_poly
 HOST, PORT, CONTROL_PORT = "127.0.0.1", 7400, 7401  # beats out to TouchDesigner; /source in from it
 BPM_RANGE = (81, 160)  # the comb filter looks only here, so 64 reads as 128 and 180 as 90
 SR, FPS = 44100, 100  # what madmom's network was trained on
+RATES = (16000, 22050, 24000, 32000, 44100, 48000, 88200, 96000)  # what a tap's measured rate is snapped to
 STEP, WINDOW = 5.0, 30.0  # seconds between analyses, seconds analysed
 MEMORY = 12  # reliable fits the period is the median of: a minute at STEP
 STICK = 0.6  # keep the last tempo while a candidate within 4 percent of it has this much of the top strength
@@ -85,28 +86,49 @@ def capture(source, device, blocks):
         if len(head) != 4:
             proc.terminate()
             raise RuntimeError("systap: " + " ".join(head))
-        rate, ch = int(head[1]), int(head[3])
-        ratio = fractions.Fraction(SR, rate)
+        ch = int(head[3])
+        what = ["system audio"]
 
         def pump():
-            n = ch * 4 * (rate // 10)
-            t0, got = None, 0
+            # the tap's own rate: neither its format nor its device says it truly (48000 and
+            # 16000 were claimed while 44100 arrived, 2026-11-10), so time the frames: two
+            # seconds of warm-up, three seconds measured, snapped to a standard rate, and
+            # re-measured every ten seconds in case the output device changes
+            n = ch * 4 * 1024
+            ratio, held, t0, got = None, [], None, 0
             while True:
                 raw = proc.stdout.read(n)
                 if len(raw) < n:
                     return
-                got += 1
-                if got == 20:  # two seconds in: start timing the delivery, to catch a tap that lies about its rate
-                    t0 = time.time()
-                elif got == 120:
-                    real = 10 * (rate // 10) / (time.time() - t0)
-                    if abs(real - rate) > 0.03 * rate:
-                        print(f"tap says {rate} Hz but delivers {real:.0f}: the tempo will be off by that ratio", flush=True)
                 x = np.frombuffer(raw, dtype=np.float32).reshape(-1, ch).mean(axis=1)
-                blocks.put(resample_poly(x, ratio.numerator, ratio.denominator).astype(np.float32) if ratio != 1 else x)
+                now = time.time()
+                if t0 is None:
+                    t0, warm = now, True
+                    continue
+                if warm:
+                    if now - t0 > 2.0:
+                        warm, t0, got = False, now, 0
+                    continue
+                got += len(x)
+                if ratio is None:
+                    held.append(x)
+                if now - t0 >= (3.0 if ratio is None else 10.0):
+                    rate = min(RATES, key=lambda r: abs(r - got / (now - t0)))
+                    new = fractions.Fraction(SR, rate)
+                    if new != ratio:
+                        if ratio is not None:
+                            print(f"tap rate now {rate} Hz", flush=True)
+                        ratio, what[0] = new, f"system audio, {rate} Hz tap"
+                    t0, got = now, 0
+                    for h in held:
+                        blocks.put(resample_poly(h, ratio.numerator, ratio.denominator).astype(np.float32) if ratio != 1 else h)
+                    held = []
+                elif ratio is not None:
+                    blocks.put(resample_poly(x, ratio.numerator, ratio.denominator).astype(np.float32) if ratio != 1 else x)
 
         threading.Thread(target=pump, daemon=True).start()
-        return proc.terminate, f"system audio, {rate} Hz tap"
+        time.sleep(5.5)  # until the rate is known, so the name below is right
+        return proc.terminate, what[0]
     stream = sd.InputStream(device=device, channels=1, samplerate=SR, blocksize=SR // 10, dtype="float32",
                             callback=lambda indata, nframes, t, status: blocks.put(indata[:, 0].copy()))
     stream.start()
