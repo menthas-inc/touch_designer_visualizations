@@ -32,8 +32,9 @@ CORPUS = {
 # Dropped after the owner stepped through them on 2026-11-03: pixelate, slope (both read as grey),
 # keepchannel.
 ORDER = list(CORPUS)  # the chain order, fixed: part of the look and makes a selection reproducible
-DARK = [n for n, e in CORPUS.items() if e["family"] == "dark"]
-TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat"]
+OFF = {"tint"}  # built and on the Try page, never drawn (owner, 2026-11-10)
+DARK = [n for n, e in CORPUS.items() if e["family"] == "dark" and n not in OFF]
+TREAT = [n for n, e in CORPUS.items() if e["family"] == "treat" and n not in OFF]
 XFADE_TYPES = 4  # burn, distort, colour, smear
 PLAIN = 0.8  # per group on a dark clip: the clip as it is, both groups may be
 

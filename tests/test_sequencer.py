@@ -57,6 +57,12 @@ class ChooseTest(unittest.TestCase):
         self.assertGreater(len(hues), 1)
         self.assertFalse(sq.is_bright(BRIGHT, *list(sq.DARKNESS["none"])[1:3]))
 
+    def test_switched_off_effects_are_never_drawn(self):
+        rng = random.Random(4)
+        for stats in (BRIGHT, DARK):
+            for _ in range(200):
+                self.assertFalse(sq.enabled(sq.choose(stats, rng)) & sq.OFF)
+
     def test_missing_clip_is_bright(self):
         self.assertTrue(sq.is_bright(sq.window_stats(None, 0, 30)))
 
