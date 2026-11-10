@@ -158,7 +158,7 @@ class PlanTest(unittest.TestCase):
             self.assertLessEqual(p["start"] + p["length"] * p["speed"], 180.0 + 0.01)
             self.assertIsNone(p["turn"])
             self.assertGreaterEqual(p["length"] - p["tease"] - p["xfade"], sq.FLOOR - 0.01)
-            self.assertTrue(p["tease"] == 0 or 1 <= p["tease"] <= 6)
+            self.assertTrue(p["tease"] == 0 or 8 <= p["tease"] <= 20)
             self.assertTrue(7.5 <= p["xfade"] <= 22.5)
 
     def test_lead_shortens_the_play_not_the_window(self):

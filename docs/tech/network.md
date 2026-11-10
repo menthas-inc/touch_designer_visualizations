@@ -102,8 +102,8 @@ At the start of a segment the idle player is cued with the next clip. `t_inner` 
 `L - T - t`: the inner group gets a new selection, a random transition type, and runs
 `tx_inner` for `t` seconds, during which the cued player plays. `t_outer` fires at `L - t`
 and does the same for the outer group; when `tx_outer` is done the next segment begins with
-the roles swapped and `lead = T + t` taken off the new clip's play. T is 0 half the time,
-else 1 to 6 s; t is 7.5 to 22.5 s, half the meld in its first third; the plain play before a
+the roles swapped and `lead = T + t` taken off the new clip's play. T is 0 three times in ten,
+else 8 to 20 s; t is 7.5 to 22.5 s, half the meld in its first third; the plain play before a
 change is never under 6 s.
 
 ## The table

@@ -195,7 +195,7 @@ def plan_segment(clip, rng, cap=DEFAULTS["cap"], lead=0.0):
         start = round(rng.uniform(0.0, total - content), 2)
         window, turn = content / speed, None
     length = round(max(window - lead, 0.0), 2)
-    tease = round(rng.uniform(1.0, 6.0), 2) if rng.random() < 0.5 else 0.0
+    tease = 0.0 if rng.random() < 0.3 else round(rng.uniform(8.0, 20.0), 2)  # instant three times in ten
     xfade = round(rng.uniform(*XFADE), 2)
     if length - tease - xfade < FLOOR:
         tease = max(0.0, round(length - xfade - FLOOR, 2))

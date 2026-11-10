@@ -46,7 +46,7 @@ repo and importable in tests. Two layers:
 **Pure, tested.** No TouchDesigner names at module level.
 - `plan_segment(clip, rng, cap=120, lead=0)`: window start and length in wall seconds (a clip
   under `SHORT` 45 s gets `turn`, when it reaches its end and starts over); tease (coin flip, then
-  1 to 6 s); transition length 7.5 to 22.5 s, `progress(fraction)` putting the first half of
+  8 to 20 s, none three times in ten); transition length 7.5 to 22.5 s, `progress(fraction)` putting the first half of
   the meld in the first third of it; speed from fps and motion. `lead` is how long the clip
   has already played when it becomes both groups' picture (the previous change's tease plus
   transition), so the play before the next change is `length - tease - xfade`, clamped to at

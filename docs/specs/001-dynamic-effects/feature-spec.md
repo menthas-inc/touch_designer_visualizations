@@ -82,8 +82,9 @@ N seconds inside a long segment, so a 90 second clip does not sit still.
 
 ### D. Teases and transitions
 
-The inner group switches to the next clip early. Per change, a coin flip decides whether
-there is a tease at all; if yes its length T is drawn from 1 to 6 s, so it is not predictable.
+The inner group switches to the next clip early. Per change, a draw decides whether
+there is a tease at all, three in ten say no; if yes its length T is drawn from 8 to 20 s, so
+it is not predictable.
 Transition length t is 7.5 to 22.5 s, the first half of the meld in the first third of that
 time and the second half over the rest, and the old look melds into the new one with the picture,
 not before it. Now and then, not often, a group also melds to a new look mid clip, over 6 to
