@@ -42,11 +42,13 @@ the Switch button and the reel are gone. `constant1`, the orange alignment colou
   `src1_g` and `src2_g`, `cur_g` and `nxt_g` Switch TOPs over the two slots, `xfade_g`,
   `limiter_g`, `room_g` (`td/glsl/room.glsl` on the fx pars `Roomdark` and `Roomcontrast`,
   set on site: whites pulled down by 1 + Roomdark, near-black left alone, then a contrast
-  gamma so the midtones follow; 0 and 1 pass through), `out_g`, then `orient_g` (`out_g` crossed with its vertical flip on
-  `flip_lag_g`, the transition length, toward `flip_tgt_g`: 0 for inner, and for outer 1 four times in five at a
-  clip change, so that pair hangs upside down as it was hung, else upright) for the pair's
-  second strip and `pair_g` for the first: the x mirror on the outer, nothing on the inner (as a
-  seam between the two middle strips it was never asked for; off, owner, 2026-11-10). A transition melds the shown slot into the other, which carries
+  gamma so the midtones follow; 0 and 1 pass through), `out_g`, then the hang: `upside_g` (`out_g` crossed with its
+  vertical flip on `flip_lag_g` toward `flip_tgt_g`) and `orient_g` (that crossed with its
+  horizontal flip on `mirror_lag_g` toward `mirror_tgt_g`). At each clip change the sequencer
+  draws both targets per group, a coin each, and sets both lags to the transition length, so a
+  pair turns upside down or left for right without a cut; both strips of a pair read `orient_g`
+  (owner, 2026-11-10: the earlier always-on x mirror of one strip per pair was a Kantan flag
+  nobody asked for, and showed as a seam between the middle strips). A transition melds the shown slot into the other, which carries
   the next clip at a clip change or the same clip with a new look for a mid-clip swap.
 - **xfade_g.** Pars `Progress` (from `tx_g`'s `timer_fraction`), `Type` (0 burn, 1
   distort, 2 colour, all in `glsl` from `td/glsl/xfade.glsl`, synced from the file; 3 smear,
@@ -145,8 +147,8 @@ with these parts that matter:
 | 1 | Rectangle1 | 292 x 1080 at (753, 0) | to the paper, 2026-11-06 | fx/orient_outer | in orient_outer | no | locked |
 | 2 | Rectangle2 | 300 x 1080 at (302, 0) | to the paper, 2026-11-06 | fx/orient_inner | 0 | no | locked |
 | 3 | Rectangle3 | 130 x 62 at (-443, -635) | none | none (test grid) | 0 | no | unlocked, off canvas |
-| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | to the paper, 2026-11-06 | fx/pair_inner | 0 | off since 2026-11-10 | locked |
-| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | to the paper, 2026-11-06 | fx/pair_outer | in orient_outer | in pair_outer | locked |
+| 4 | Rectangle4 | 310 x 1080 at (-187, 0) | to the paper, 2026-11-06 | fx/orient_inner | in orient_inner | in orient_inner | locked |
+| 5 | Rectangle5 | 328 x 1080 at (-694, 0) | to the paper, 2026-11-06 | fx/orient_outer | in orient_outer | in orient_outer | locked |
 | 6 | Rectangle6 | 58 x 56 at (0, -465) | none | none, cleared | 0 | no | locked, hidden |
 
 How they got here, in canvas pixels (centre 0,0, y up, frame x -960..960, y -540..540): the
@@ -156,10 +158,10 @@ times. The base columns underneath already described four strips side by side ac
 of the frame, which is the room. `td/reset_corners.py` removed the drags (the values stay in
 git), `td/set_columns.py` made all four 1080 tall, and `map_video.py` first put video on them
 before spec 001 took over the textures. The orientation and flip flags per strip are
-intentional (owner, 2026-11-03): they match how each strip hangs. On 2026-11-04 (owner) both
-moved into fx: the x flip on 5 is `pair_outer`, always on, the one on 4 went on 2026-11-10, and the 180 on 1 and 5 is a
-vertical flip in `orient_outer`, crossed in over the transition and on four clip changes in five,
-so the outer pair sometimes hangs upright like the inner, with no cut. Rectangle3 and 6 are
+intentional (owner, 2026-11-03) and were taken for how each strip hangs. On 2026-11-04 they moved into
+fx, and on 2026-11-10 (owner) the hang became a draw: per group and per clip change, upside
+down or not and left for right or not, each 50/50, blended in over the transition in `orient_g`,
+the same for both strips of the pair. Rectangle3 and 6 are
 leftovers. The saves in `Backup/` are a different installation (2022 to 2023). On 2026-11-06
 the owner dragged the four strips' corners onto the paper with the projector on, in Kantan's
 panel; the base columns are unchanged and the drags live in each `itemN/keyOffset`, in the

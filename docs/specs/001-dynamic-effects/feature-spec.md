@@ -88,8 +88,10 @@ it is not predictable.
 Transition length t is 7.5 to 22.5 s, the first half of the meld in the first third of that
 time and the second half over the rest, and the old look melds into the new one with the picture,
 not before it. Now and then, not often, a group also melds to a new look mid clip, over 6 to
-12 s, flips and tilts included. The outer pair hangs upside down, as it was hung, four clips in five;
-otherwise it hangs upright like the inner one, the change blended in, never cut.
+12 s, flips and tilts included. At every clip change each pair draws how it hangs: upside down
+or not, left for right or not, a coin each, the change blended in with the transition, never cut
+(owner, 2026-11-10; before that the outer pair hung upside down four clips in five and one strip
+of each pair was always mirrored, which read as a seam between the middle strips).
 
 The two pairs show different parts of the same clip: each picks its slice at every clip
 change, well apart from the other's, and drifts across the frame on its own slow rhythm. One

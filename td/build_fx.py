@@ -41,7 +41,7 @@ HELP = {
     "Reroll": "New random values for the held effect.",
     "Xfadetype": "Force one transition type for every clip change, or random.",
 }
-STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1; the first of the outer pair is the mirrored one
+STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1
 
 ns = {}
 exec(open(SEQ).read(), ns)  # the corpus, without touching TouchDesigner names
@@ -384,16 +384,18 @@ def build():
                     sx="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()",
                     sy="=1 + op('/project1/fx').par.Beatbounce * op('/project1/fx/sequencer').module.beat_pulse()")
         out = mk(fx, nullTOP, "out_" + g, bounce)
-        # how the pair hangs. orient_g: the outer pair hangs upside down (once Kantan's 180 on
-        # both its strips), now a vertical flip blended in over a lag so the sequencer can hang it
-        # upright now and then without a cut. pair_g: the outer pair's first strip mirrors the
-        # second (once a Kantan flip on that strip; the inner pair's was a seam down the middle,
-        # off since 2026-11-10)
-        tgt = mk(fx, constantCHOP, "flip_tgt_" + g, value0=1.0 if g == "outer" else 0.0)
+        # how the pair hangs: at each clip change the sequencer draws, per group and 50/50 each,
+        # whether the picture is upside down (flip_tgt_g) and whether left is right (mirror_tgt_g),
+        # both blended in over the transition so there is never a cut. Both strips of a pair read
+        # the same picture; Kantan's own flip and orientation flags stay off (owner, 2026-11-10)
+        tgt = mk(fx, constantCHOP, "flip_tgt_" + g, value0=0.0)
         mk(fx, lagCHOP, "flip_lag_" + g, tgt, lag1=3.0, lag2=3.0)
         upside = mk(fx, flipTOP, "flip_y_" + g, out, flipy=True)
-        orient = mk(fx, crossTOP, "orient_" + g, out, upside, cross=f"=op('/project1/fx/flip_lag_{g}')[0]")
-        mk(fx, flipTOP, "pair_" + g, orient, flipx=(g == "outer"))
+        hung = mk(fx, crossTOP, "upside_" + g, out, upside, cross=f"=op('/project1/fx/flip_lag_{g}')[0]")
+        mtgt = mk(fx, constantCHOP, "mirror_tgt_" + g, value0=0.0)
+        mk(fx, lagCHOP, "mirror_lag_" + g, mtgt, lag1=3.0, lag2=3.0)
+        mirrored = mk(fx, flipTOP, "flip_x_" + g, hung, flipx=True)
+        mk(fx, crossTOP, "orient_" + g, hung, mirrored, cross=f"=op('/project1/fx/mirror_lag_{g}')[0]")
 
     # timers: one per event, in seconds, all sharing one callbacks DAT
     cb = mk(fx, textDAT, "timers_callbacks")
@@ -437,12 +439,11 @@ def build():
 
     # the mapper: four textures, one dangling reference cleared
     shapes = "/project1/kantanMapper1/project/allShapes/"
-    for g, (mirrored, plain) in STRIPS.items():
-        for it in (mirrored, plain):
+    for g, items in STRIPS.items():
+        for it in items:
             p = op(shapes + it + "/parameters").par
-            p.Fliptexture, p.Textureorientation = False, 0  # both live in fx now: pair_g and orient_g
-        op(shapes + mirrored + "/parameters").par.Texture = "/project1/fx/pair_" + g
-        op(shapes + plain + "/parameters").par.Texture = "/project1/fx/orient_" + g
+            p.Fliptexture, p.Textureorientation = False, 0  # the flips live in fx now: orient_g
+            p.Texture = "/project1/fx/orient_" + g
     op(shapes + "item6/parameters").par.Texture = ""
 
     # the old chain, gone in one step now that the new one is wired
