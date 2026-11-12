@@ -1,5 +1,5 @@
 """Where the frame time goes. Run in the Textport during a slow moment:
-exec(open('~/dev/studio_visuals/td/diag_cook.py').read())
+exec(open(project.folder + '/../td/diag_cook.py').read())
 Lists the operators under /project1 with the longest last cook, CPU and GPU, in ms.
 """
 _rows = []

@@ -1,5 +1,5 @@
 """Print what both players are doing right now. Run it while a frozen clip is on screen:
-    exec(open('~/dev/studio_visuals/td/diag_players.py').read())
+    exec(open(project.folder + '/../td/diag_players.py').read())
 """
 import os
 

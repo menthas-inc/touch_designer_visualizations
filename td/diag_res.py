@@ -1,5 +1,5 @@
 """Resolution along the path, file to screen. Run in the Textport:
-    exec(open('~/dev/studio_visuals/td/diag_res.py').read())
+    exec(open(project.folder + '/../td/diag_res.py').read())
 """
 fx = op('/project1/fx')
 print(app.product, app.build, "| TOP cap", "1280 (non-commercial)" if "Non-Commercial" in app.product else "none")

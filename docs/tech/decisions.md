@@ -4,6 +4,19 @@
 
 ## Decided
 
+### 2026-11-12: the repo is public; the clips and the tracker's environment stay out
+Code, docs, the two `.toe` files and the network dump are tracked. The clips (2.4 GB) and
+`beat/.venv` are ignored; `td/clips.json` names the clips, so a table entry with no file is
+skipped, not an error. Before publishing, the history was rewritten once: one author identity
+and no home paths in the tracked text. Scripts and file parameters are relative to
+`project.folder` from here on, so a save carries no machine path.
+Rules out: git LFS for the videos, and a clip that is not on the machine playing.
+
+### 2026-11-05: scripts reach TouchDesigner by `exec` in the Textport; what runs every frame is synced
+One-shot scripts (the build, the dump, the diagnostics) are `exec`'d by hand. `td/sequencer.py`
+and the shaders are Text DATs synced to the files, so an edit lands live.
+Rules out: nothing. A launcher would be one more thing to keep working.
+
 ### 2026-11-03: the show runs on this Mac; the free licence's cap is accepted for now
 The owner's Mac (M1 Max) is the show machine. The licence is non-commercial, which caps every
 TOP at 1280 x 1280, so the mapper's 1920 x 1080 render reaches the projector downscaled. The
@@ -25,8 +38,4 @@ Rules out: hand edits in the editor as a way of changing the network (SV-1).
 
 ## Open, needing a call
 
-- Where the source videos live and whether they are tracked (git LFS, a shared drive, or
-  ignored). Nothing is ignored yet.
-- How a script gets into TouchDesigner. Today: `exec` in the Textport. Spec 001 adds a Text DAT
-  synced to `td/sequencer.py` for the code that runs every frame; the one-shot build scripts
-  stay on `exec`.
+- None right now.

@@ -1,7 +1,7 @@
 """Build /project1/fx: two players, two group chains, the transitions, the limiter, the timers.
 
 Run inside TouchDesigner, from the Textport:
-    exec(open('~/dev/studio_visuals/td/build_fx.py').read())
+    exec(open(project.folder + '/../td/build_fx.py').read())
 
 Running it again deletes and rebuilds fx. It ends by pointing the four strips at the two group
 outputs, clearing Rectangle6's dangling texture, deleting the old playlist chain, and starting
@@ -12,10 +12,10 @@ Textport lists every miss at the end, so one typo costs one rerun, not a blind d
 """
 import os
 
-REPO = "~/dev/studio_visuals"
-SEQ = os.path.join(REPO, "td", "sequencer.py")
-GLSL = os.path.join(REPO, "td", "glsl", "xfade.glsl")
-ROOM_GLSL = os.path.join(REPO, "td", "glsl", "room.glsl")
+# file pars are relative to the .toe's folder (TD_Mapping/), so the save carries no machine path
+SEQ = "../td/sequencer.py"
+GLSL = "../td/glsl/xfade.glsl"
+ROOM_GLSL = "../td/glsl/room.glsl"
 W, H = 340, 1080  # the strip cut
 PAN_LFO = {"outer": (0.011, 128), "inner": (0.017, 64)}  # Hz free, or beats per cycle when synced: the two groups drift at different rates
 PAN_DRIFT = 0.1  # of the frame width, the drift's reach either way
@@ -45,7 +45,7 @@ HELP = {
 STRIPS = {"outer": ("item5", "item1"), "inner": ("item4", "item2")}  # left to right: 5 4 2 1
 
 ns = {}
-exec(open(SEQ).read(), ns)  # the corpus, without touching TouchDesigner names
+exec(open(os.path.join(project.folder, SEQ)).read(), ns)  # the corpus, without touching TouchDesigner names
 CORPUS, ORDER = ns["CORPUS"], ns["ORDER"]
 
 misses = []

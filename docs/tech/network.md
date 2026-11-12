@@ -2,21 +2,24 @@
 
 > What the file does, operator by operator, so the next change does not start from a dump.
 > Re-read the dump before trusting a value here. Last rewrite: 2026-11-03, after spec 001
-> replaced the playlist chain with `/project1/fx`.
+> replaced the playlist chain with `/project1/fx`; the picture redrawn 2026-11-12.
 
 ## The picture
 
 ```
-td/clips.json (offline, ffmpeg)            td/sequencer.py (synced into fx/sequencer)
-        │                                          │ picks clip, window, tease, effects
-        └──────────────► playerA / playerB ◄───────┘ cues the idle one, flips the switches
-                              │       │
-             outer: fitA/fitB (340 x 1080) ──► chainA/chainB ──► cur, nxt ──► xfade_outer ──► limiter ──► out_outer
-             inner: fitA/fitB (340 x 1080) ──► chainA/chainB ──► cur, nxt ──► xfade_inner ──► limiter ──► out_inner
-                                                                                                           │
-                                   kantanMapper1: Rectangle5 + Rectangle1 .Texture = out_outer             │
-                                                  Rectangle4 + Rectangle2 .Texture = out_inner ◄───────────┘
-                                                  ──► out1 ──► project/window1 (display 1, the projector)
+td/clips.json (offline, ffmpeg)       td/sequencer.py (synced into fx/sequencer)        beat/beat_osc.py
+        │                                     │ picks clip, window, look, transition           │ /beat over OSC
+        └───────► playerA / playerB ◄─────────┘ cues the idle one, sets the switches   beat_in ◄┘
+
+per group g (outer, inner), per player P (A, B):
+  close: panP_g ─► fitP_g (340 x 1080) ───┐
+  wide:  frameP_g ─► wpanP_g ─► wfitP_g ──┴► winP_g ─► chain1_g / chain2_g ─► xfade_g ─► spice_g ─► limiter_g ─► room_g ─► bounce_g ─► out_g
+                                                                                 ▲
+                              playerC ─► fitC ─► chainC ─► spice_drift ──────────┘  (the spice, now and then)
+
+per strip N (1, 2): out_g ─► upside_gN ─► orient_gN ─► kantanMapper1 item .Texture
+  outer: item5 = orient_outer1, item1 = orient_outer2    inner: item4 = orient_inner1, item2 = orient_inner2
+  kantanMapper1 ─► out1 ─► project/window1 (the projector)
 ```
 
 Everything that changes lives in `/project1/fx`, built by `td/build_fx.py` from the spec in

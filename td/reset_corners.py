@@ -1,7 +1,7 @@
 """Clear the corner drags on the four strips, leaving each one's base rectangle.
 
 Run inside TouchDesigner, from the Textport:
-    exec(open('~/dev/studio_visuals/td/reset_corners.py').read())
+    exec(open(project.folder + '/../td/reset_corners.py').read())
 
 Every strip's base rectangle is a tall column, and on top of that its bottom corners were
 dragged up to the top 15 percent of the frame. This removes the drags. The dragged values stay

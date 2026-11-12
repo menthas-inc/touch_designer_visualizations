@@ -1,7 +1,7 @@
 """Put the playlist video on the four strips.
 
 Run inside TouchDesigner, from the Textport:
-    exec(open('~/dev/studio_visuals/td/map_video.py').read())
+    exec(open(project.folder + '/../td/map_video.py').read())
 
 Each strip is a Kantan rectangle whose Texture parameter names a TOP. The save had all four on
 the orange alignment constant. /project1/switch1 is the strip-shaped (340 by 1080) cut of the

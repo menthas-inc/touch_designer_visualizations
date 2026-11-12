@@ -13,7 +13,7 @@
       LFOs added, keepchannel, pixelate and slope cut. The limiter checked (gain 0.62 on a
       bright clip). AC-3.
 - [~] T5 the three transitions checked on the preview, a few clip changes watched. AC-4.
-- [ ] T6 save, dump, `docs/tech/network.md` rewritten for the new network. DEV-2, SV-1.
+- [x] T6 save, dump, `docs/tech/network.md` rewritten for the new network. DEV-2, SV-1.
 - [ ] T7 AC-1 and AC-4 log: a Script CHOP writes the per-group mean per frame and flags black
       and repeated frames in transition windows to `td/run.log`; run 10 minutes on the
       preview, read the log. AC-1, AC-4, AC-6.

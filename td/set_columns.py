@@ -1,7 +1,7 @@
 """Make the four strips full-height columns, keeping each one's x position.
 
 Run inside TouchDesigner, from the Textport:
-    exec(open('~/dev/studio_visuals/td/set_columns.py').read())
+    exec(open(project.folder + '/../td/set_columns.py').read())
 
 Widths are the saved ones, except Rectangle2, which was an 86 by 70 box and gets 300 like its
 neighbours until it is sized in the room. Corner drags are untouched (run reset_corners.py

@@ -1,6 +1,6 @@
 """Record the mapper output, what the projector sees, to a Motion JPEG .mov for MINUTES minutes.
 
-    exec(open('~/dev/studio_visuals/td/record.py').read())
+    exec(open(project.folder + '/../td/record.py').read())
 
 Writes TD_Mapping/Recordings/studio_<date>.mov and stops on its own. H.264 needs a commercial
 licence, so the file is big; shrink it after with
@@ -22,7 +22,7 @@ _rec.par.record = 0
 _rec.inputConnectors[0].connect(_proj.op("kantanMapper1/out1").outputConnectors[0])
 _out = os.path.join(project.folder, "Recordings")
 os.makedirs(_out, exist_ok=True)
-_rec.par.file = os.path.join(_out, "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mov")
+_rec.par.file = os.path.join("Recordings", "studio_" + datetime.datetime.now().strftime("%Y%m%d_%H%M") + ".mov")
 _rec.par.videocodec = "mjpa"  # Motion JPEG A, the free edition writes it
 _rec.par.qualityscale = 0.85
 _ck = _proj.op("rec_cook") or _proj.create(executeDAT, "rec_cook")

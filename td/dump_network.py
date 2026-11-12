@@ -1,7 +1,7 @@
 """Write the open TouchDesigner network to td/network.json so it can be read outside TD.
 
 Run inside TouchDesigner, from the Textport:
-    exec(open('~/dev/studio_visuals/td/dump_network.py').read())
+    exec(open(project.folder + '/../td/dump_network.py').read())
 
 Records every operator under / except the UI and system trees: type, position, flags,
 non-default parameters (with expression, bind or export source where one is set), input
@@ -12,7 +12,7 @@ import os
 
 SKIP_TOP = {"ui", "sys", "local"}
 MAX_DAT_CHARS = 200000  # the Kantan extensions are 600 lines; 20000 cut them short
-OUT = "~/dev/studio_visuals/td/network.json"
+OUT = os.path.join(project.folder, "..", "td", "network.json")
 
 # Scripts exec'd in the Textport share its globals, so a stray `project = ...` in one of them
 # hides TouchDesigner's own `project` for every later one. Undo that before using it.

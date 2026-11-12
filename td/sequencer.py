@@ -383,7 +383,7 @@ def on_try(par_name):
 
 def _cue(player, key, plan):
     p = _fx().op("player" + player)
-    p.par.file = os.path.join(project.folder, key)
+    p.par.file = key  # relative to the .toe's folder, so the save carries no machine path
     p.par.cuepoint = plan["start"]
     p.par.speed = plan["speed"]
     p.par.play = False

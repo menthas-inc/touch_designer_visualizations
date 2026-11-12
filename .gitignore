@@ -7,8 +7,8 @@ Backup/
 CrashAutoSave.*
 *.dmp
 
-# The project folder as unzipped. Only the .toe files are tracked; 1.8 GB of source videos
-# stay on disk and out of git (open call in docs/tech/decisions.md).
+# The project folder. Only the .toe files are tracked; the clips stay on disk and out of git
+# (docs/tech/decisions.md, 2026-11-12).
 TD_Mapping/*
 !TD_Mapping/*.toe
 # TouchDesigner's incremented saves (Studio_Up_new.1.toe). Save by name from the Textport.
